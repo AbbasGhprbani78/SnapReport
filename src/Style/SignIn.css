@@ -1,0 +1,95 @@
+@import url(Main.css);
+
+body {
+
+    height: 100%;
+}
+
+.signIn-container {
+    height: 100%;
+}
+
+.signIn-left,
+.signIn-right {
+    height: 100%;
+}
+
+/* signIn-left */
+
+
+.signIn-left {
+    background-color: var(--color--12);
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.header-signin {
+    padding: 5% 0 0 7%;
+}
+
+.signIn-form {}
+
+/* signIn-right */
+
+.signIn-right {
+
+    background: var(--linear-g1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.logo-text-wrapper {
+    text-align: center;
+    width: 45%;
+}
+
+.logo-right {
+    width: 100%;
+    height: 35%;
+}
+
+.text-singIn {
+    text-align: left;
+    color: var(--color-9);
+    margin-top: 20px;
+}
+
+.backGround {
+    background: var(--linear-g1);
+    min-height: 100vh;
+    padding-bottom: 20px;
+    width: 100%;
+}
+
+.input-signin::placeholder {
+    font-size: .9rem;
+}
+
+@media (max-width:768px) {
+    .backGround {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .header-signin {
+        padding: 0;
+    }
+}
+
+
+@media (max-width:576px) {
+    .input-signin::placeholder {
+        font-size: 10px;
+    }
+
+    /* .header-SignIn-img {
+        width: 100px;
+    } */
+
+}

@@ -1,0 +1,59 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+:root {
+    /* color login for linear*/
+    --color-1: #89CCE5;
+    --color-2: #BBE8E3;
+
+    /* hover drop down and signIn text title*/
+    --color-3: #4EDECC;
+
+    --color-4: #6EC1E4;
+    --color-5: #273171;
+    --color-6: #9747FF;
+    --color-7: #4D89E3;
+    --color-8: #CC3366;
+    /* color buuton   and title pages*/
+    --color-9: #45ABE5;
+
+    --color-10: #45ABE5;
+    /* hover option navbar */
+    --color-11: #DDF0FA;
+    --color--12: #EEEEEE;
+
+    --main-white: #f0f8ff;
+    --main-white-signin: #ffffff;
+
+    --boxShadow-1: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+    /* login form */
+    --border-radius-1: 16px;
+    /* searchbar in navbar  and eny part*/
+    --border-radius-1: 8px;
+    --fontsize-title: 1.7rem;
+    --fontsize-text1: 1rem;
+    /* for size less 576px */
+    --fontsize-text2: .5rem;
+    /* linear */
+    --linear-g1: linear-gradient(to bottom, #89cce5, #93d4e4, #9fdbe3, #ace2e2, #bbe8e3);
+}
+
+@media (min-width:1200px) {}
+
+@media (min-width:992px) {}
+
+@media (min-width:768px) {}
+
+/* Styles for tablet mode */
+@media (min-width: 576px) and (max-width: 767px) {}
+
+/* Styles for tablet mobile mode */
+@media (max-width:576px) {}

@@ -1,0 +1,14 @@
+@import url(../../Style/Main.css);
+
+.form-signup {
+    position: relative;
+    width: 80%;
+    text-align: center;
+    margin: 20% auto 0 auto;
+    margin-top: 5%;
+}
+
+.input-signup-wrapper {
+    border-bottom: 2px solid #80c8e7;
+    margin-top: 10%;
+}

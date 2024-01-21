@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import Element from "./ComponentForm/Element"
 import { FormContext } from './ComponentForm/FormContext'
-
 export default function Form() {
 
     const [fields, setFields] = useState([

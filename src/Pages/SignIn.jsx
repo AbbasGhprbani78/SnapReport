@@ -12,12 +12,14 @@ export default function SignIn() {
     const [loginTab, setLoginTab] = useState(1)
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
+    // for display signin form or signUp form as tab
     const changeTab = (tabnumber) => {
         setLoginTab(tabnumber)
     }
 
-    useEffect(() => {
 
+    // to change the page structure for tablet and mobile screen size
+    useEffect(() => {
         const handleWindowResize = () => {
             setWindowWidth(window.innerWidth);
         };
@@ -77,7 +79,9 @@ export default function SignIn() {
                             <Col className='signIn-right' xs={12} md={6} lg={7}>
                                 <div className="logo-text-wrapper">
                                     <img className='logo-right' src={logo} alt="logo" />
-                                    <p className='text-singIn'>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ullam in numquam, odit quis amet laborum aliquid. Temporibus quae labore tempora ipsum, delectus</p>
+                                    <p className='text-singIn'>
+                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ullam in numquam, odit quis amet laborum aliquid. Temporibus quae labore tempora ipsum, delectus
+                                    </p>
                                 </div>
                             </Col>
 
@@ -85,10 +89,8 @@ export default function SignIn() {
                     </div>
                 )
             }
-
-
+            {/* show toast */}
             <ToastContainer />
-
 
         </>
     )

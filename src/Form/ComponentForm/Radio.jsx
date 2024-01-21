@@ -9,7 +9,7 @@ export default function Radio({ field_id,
     field_options }
 
 ) {
-    console.log(field_options)
+
     const { handleChange } = useContext(FormContext)
     return (
         <div>

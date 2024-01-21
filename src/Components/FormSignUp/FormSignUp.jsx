@@ -8,6 +8,7 @@ import './FormSingUp.css'
 import { IP } from '../../App';
 import { useNavigate } from "react-router-dom";
 
+
 export default function FormSignUp({ handleTabChange }) {
     const navigate = useNavigate();
     const [isPrivate, setIsPerivate] = useState(true)
@@ -16,17 +17,17 @@ export default function FormSignUp({ handleTabChange }) {
         lastName: '',
         email: "",
         phone: "",
-        username: "",
         password: "",
         confirmPass: "",
     }
     )
 
-
+    // for change of situation of eye
     const handleToggle = () => {
         setIsPerivate((e) => !e);
     }
 
+    // change values of signInUpInfo state
     const handleChange = (e) => {
         const { name, value } = e.target;
         setSignUpInfo((prevInfo) => ({
@@ -35,9 +36,11 @@ export default function FormSignUp({ handleTabChange }) {
         }));
     };
 
+    // send vlaue of form to server
     async function submit(e) {
         e.preventDefault();
 
+        // do check  value of input
         for (const key in signInUpInfo) {
             if (signInUpInfo[key].trim() === "") {
                 toast.warning(`${key.charAt(0).toUpperCase() + key.slice(1)} cannot be empty.`, {
@@ -54,21 +57,45 @@ export default function FormSignUp({ handleTabChange }) {
             }
         }
 
+        // reg ex for Validations of inputs
         const inputValidations = [
             { name: 'firstName', regex: /^[a-zA-Z]+$/ },
             { name: 'lastName', regex: /^[a-zA-Z]+$/ },
             { name: 'email', regex: /^[^\s@]+@[^\s@]+\.[^\s@]+$/ },
-            { name: 'username', regex: /^[a-zA-Z0-9]+$/ },
+            { name: 'phone', regex: /^[0-9]+$/ },
         ];
 
+        // check Validations of inputs
         for (const validation of inputValidations) {
             const { name, regex } = validation;
             if (!regex.test(signInUpInfo[name])) {
                 toast.error(`${name.charAt(0).toUpperCase() + name.slice(1)} is not valid.`, {
-
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
                 });
                 return;
             }
+        }
+
+        // it check that the value of password input and confirmpass input is the same
+        if (signInUpInfo.password !== signInUpInfo.confirmPass) {
+            toast.error("Confirmation password does not match the password", {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+            });
+            return false;
         }
 
 
@@ -150,13 +177,19 @@ export default function FormSignUp({ handleTabChange }) {
                             placeholder='Phone Number'
                             value={signInUpInfo.phone}
                             onChange={handleChange}
+                            // for just enter number value
+                            onKeyPress={(e) => {
+                                const isValid = /^\d+$/.test(e.key);
+                                if (!isValid) {
+                                    e.preventDefault();
+                                }
+                            }}
                         />
                     </div>
                     <div className='input-signup-wrapper'>
                         <input
                             name='email'
                             className='input-signin input-email'
-                            type="email"
                             autoComplete="false"
                             placeholder='Email'
                             value={signInUpInfo.email}
@@ -198,6 +231,8 @@ export default function FormSignUp({ handleTabChange }) {
                             placeholder='ConfirmPassword'
                             value={signInUpInfo.confirmPass}
                             onChange={handleChange}
+                            // for user cant paste password value in confirmpass
+                            onPaste={(e) => e.preventDefault()}
                         />
                         {isPrivate ? (
                             <FaEye
@@ -216,7 +251,10 @@ export default function FormSignUp({ handleTabChange }) {
                         )}
                     </div>
                     <p className='registered text-muted'>Already have an account?
-                        <span className='create-account' onClick={() => handleTabChange(1)}> Sign In</span>
+                        <span className='link-to-form'
+                            onClick={() => handleTabChange(1)}>
+                            Sign In
+                        </span>
                     </p>
                     <div className='btn-signIn-wrapper'>
                         <Button

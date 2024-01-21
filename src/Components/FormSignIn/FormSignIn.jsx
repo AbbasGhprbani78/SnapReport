@@ -8,7 +8,7 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
 import logo from '../../Images/logo.svg'
-import { Form } from 'react-bootstrap';
+
 
 export default function FormSignIn({ handleTabChange }) {
     const navigate = useNavigate();
@@ -16,11 +16,12 @@ export default function FormSignIn({ handleTabChange }) {
     const [userName, setUserName] = useState(null)
     const [password, setPassword] = useState(null)
 
+    // for change of situation of eye
     const handleToggle = () => {
         setIsPerivate((e) => !e);
     }
 
-
+    // check vlaue of input
     const validate = () => {
         let result = true;
         if (userName === "" || userName === null) {
@@ -53,6 +54,7 @@ export default function FormSignIn({ handleTabChange }) {
         return result;
     };
 
+    // send value of form to server
     async function submit(e) {
         e.preventDefault();
         if (!validate()) return;
@@ -101,8 +103,6 @@ export default function FormSignIn({ handleTabChange }) {
 
     }
 
-
-
     return (
         <>
             <div className="form-signin-container">
@@ -148,7 +148,7 @@ export default function FormSignIn({ handleTabChange }) {
                         )}
                     </div>
                     <p className='registered text-muted'>Not registered yet?
-                        <span className='create-account' onClick={() => handleTabChange(2)}> Create Account</span>
+                        <span className='link-to-form' onClick={() => handleTabChange(2)}> Create Account</span>
                     </p>
                     <div className='btn-signIn-wrapper'>
                         <Button

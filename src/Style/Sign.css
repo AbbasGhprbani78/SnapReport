@@ -5,6 +5,12 @@ body {
     height: 100%;
 }
 
+.sign-container {
+    position: fixed;
+    bottom: 0;
+    height: 100%;
+}
+
 .signIn-container {
     height: 100%;
 }
@@ -22,13 +28,8 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+
 }
-
-.header-signin {
-    padding: 5% 0 0 7%;
-}
-
-
 
 /* signIn-right */
 
@@ -67,8 +68,6 @@ body {
 .input-signin::placeholder {
     font-size: .9rem;
 }
-
-
 
 @media (max-width:768px) {
     .backGround {

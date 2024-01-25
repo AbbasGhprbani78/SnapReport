@@ -143,7 +143,7 @@ export default function FormSignUp({ handleTabChange }) {
 
     return (
         <>
-            <div className="form-signin-container">
+            <div className={`form-container signUp`}>
                 <p className='signIn-text'>Create Account</p>
                 <form className='form-signup' onSubmit={submit}>
                     <div className='input-signup-wrapper'>

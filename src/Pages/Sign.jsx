@@ -12,9 +12,11 @@ export default function SignIn() {
     const [loginTab, setLoginTab] = useState(1)
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
+
     // for display signin form or signUp form as tab
     const changeTab = (tabnumber) => {
-        setLoginTab(tabnumber)
+
+        setLoginTab(tabnumber);
     }
 
 
@@ -57,19 +59,25 @@ export default function SignIn() {
                         </div>
                     </>
                 ) : (
-                    <div style={{ position: "fixed", bottom: "0", height: "100%" }} className='container-fluid'>
+                    <div className='container-fluid sign-container'>
                         <Row className='d-flex signIn-container'>
 
-                            <Col className='signIn-left' xs={12} md={6} lg={5}>
+                            <Col
+                                className={`signIn-left`}
+                                xs={12}
+                                md={6}
+                                lg={5}>
 
                                 {
                                     loginTab === 1 ?
                                         <FormSignIn
                                             handleTabChange={changeTab}
+
                                         /> :
                                         loginTab === 2 ?
                                             <FormSignUp
                                                 handleTabChange={changeTab}
+
                                             />
                                             : ""
                                 }

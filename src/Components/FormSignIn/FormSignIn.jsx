@@ -105,7 +105,7 @@ export default function FormSignIn({ handleTabChange }) {
 
     return (
         <>
-            <div className="form-signin-container">
+            <div className={`form-container signIn`}>
                 <div className="header-signin">
                     <img className='header-SignIn-img' src={logo} alt="logo" />
                 </div>

@@ -1,6 +1,6 @@
 @import url(../../Style/Main.css);
 
-.form-signin-container {
+.form-container {
     box-shadow: var(--boxShadow-1);
     border-radius: var(--border-radius-1);
     background-color: var(--main-white-signin);
@@ -8,7 +8,11 @@
     position: relative;
     padding-bottom: 50px;
     margin: 0 auto;
-    padding: 7%;
+    transition: transform 0.5s
+}
+
+.signIn {
+    padding: 3% 7% 7% 7%;
 }
 
 .form-signin {
@@ -83,11 +87,11 @@
 
 @media(max-width:768px) {
 
-    .form-signin-container>.header-signin {
+    .form-container>.header-signin {
         display: none;
     }
 
-    .form-signin-container {
+    .form-container {
         margin-top: 10%;
     }
 }

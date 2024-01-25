@@ -7,12 +7,12 @@
     width: 75%;
     position: relative;
     padding-bottom: 50px;
-    margin: 10% auto 0 auto
+    margin: 0 auto;
+    padding: 7%;
 }
 
 .form-signin {
     position: relative;
-    width: 80%;
     text-align: center;
     margin: 10% auto 0 auto;
 }
@@ -85,6 +85,10 @@
 
     .form-signin-container>.header-signin {
         display: none;
+    }
+
+    .form-signin-container {
+        margin-top: 10%;
     }
 }
 

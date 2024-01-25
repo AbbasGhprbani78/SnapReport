@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import '../Style/SignIn.css';
+import '../Style/Sign.css';
 import { Row, Col } from 'react-bootstrap';
 import FormSignIn from '../Components/FormSignIn/FormSignIn'
 import FormSignUp from '../Components/FormSignUp/FormSignUp';

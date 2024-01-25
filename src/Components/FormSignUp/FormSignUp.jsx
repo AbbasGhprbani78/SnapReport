@@ -250,6 +250,7 @@ export default function FormSignUp({ handleTabChange }) {
                             />
                         )}
                     </div>
+
                     <p className='registered text-muted'>Already have an account?
                         <span className='link-to-form'
                             onClick={() => handleTabChange(1)}>

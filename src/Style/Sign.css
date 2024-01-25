@@ -28,7 +28,7 @@ body {
     padding: 5% 0 0 7%;
 }
 
-.signIn-form {}
+
 
 /* signIn-right */
 
@@ -68,6 +68,8 @@ body {
     font-size: .9rem;
 }
 
+
+
 @media (max-width:768px) {
     .backGround {
         display: flex;
@@ -78,17 +80,19 @@ body {
 
     .header-signin {
         padding: 0;
+        position: absolute;
+        left: 3%;
+        top: 1%;
     }
+
 }
 
 
 @media (max-width:576px) {
+
     .input-signin::placeholder {
         font-size: 10px;
     }
 
-    /* .header-SignIn-img {
-        width: 100px;
-    } */
 
 }

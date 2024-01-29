@@ -7,10 +7,12 @@ import "react-toastify/dist/ReactToastify.css";
 import './FormSingUp.css'
 import { IP } from '../../App';
 import { useNavigate } from "react-router-dom";
+import DropDown from '../DropDown/DropDown';
 
 
 export default function FormSignUp({ handleTabChange }) {
     const navigate = useNavigate();
+    const [allTypeUsers, setAllTypeUsers] = useState(["Senior Officer", "Ordinary Officer", "Manual Worker"])
     const [isPrivate, setIsPerivate] = useState(true)
     const [signInUpInfo, setSignUpInfo] = useState({
         firstName: "",
@@ -19,6 +21,7 @@ export default function FormSignUp({ handleTabChange }) {
         phone: "",
         password: "",
         confirmPass: "",
+        userType: ""
     }
     )
 
@@ -35,6 +38,12 @@ export default function FormSignUp({ handleTabChange }) {
             [name]: value,
         }));
     };
+
+    //change type of user in drop down
+    const changeTypeUser = (value) => {
+        signInUpInfo.userType = value
+        console.log(signInUpInfo)
+    }
 
     // send vlaue of form to server
     async function submit(e) {
@@ -196,6 +205,11 @@ export default function FormSignUp({ handleTabChange }) {
                             onChange={handleChange}
                         />
                     </div>
+                    <DropDown name="usertype"
+                        allTypeUsers={allTypeUsers}
+                        defaultDrop={"User"}
+                        changeValue={changeTypeUser}
+                    />
                     <div className='input-signup-wrapper d-flex align-items-end'>
                         <input
                             name='password'

@@ -1,0 +1,43 @@
+@import url('./Main.css');
+
+.addFormContainer {
+    margin: 0 auto;
+    padding-top: 1%;
+}
+
+/* from style start */
+
+
+.form-display-container {
+    height: 95vh;
+    min-height: 95vh;
+    overflow-y: scroll;
+}
+
+.form-display {
+    border: 1px solid var(--color-9);
+    border-radius: var(--border-radius-1);
+    width: 95%;
+    height: 100%;
+    padding: 20px;
+}
+
+
+/* form style end */
+
+.form-create-option-container {
+    padding-top: 2%;
+}
+
+.dropDown-wrapper {
+    margin-bottom: 5%;
+}
+
+.addFormBtn {
+    margin-bottom: 5%;
+}
+
+.form-create-option-container {
+    height: 95vh;
+    overflow-y: scroll;
+}

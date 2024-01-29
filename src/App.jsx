@@ -1,9 +1,13 @@
 import './App.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { useRoutes } from 'react-router-dom';
+import { Route, Routes, useRoutes } from 'react-router-dom';
 import routes from './Routes';
-import Form from './Form/Form';
-import Form2 from './Form2/Form2';
+import SideBar from './Components/SideBar/SideBar';
+import SignIn from './Pages/Sign';
+import Header from './Components/Header/Header';
+import { Col } from 'react-bootstrap';
+
+
 export const IP = ""
 
 function App() {
@@ -11,9 +15,25 @@ function App() {
   let router = useRoutes(routes);
   return (
     <>
-      {router}
-      {/* <Form /> */}
-      {/* <Form2 /> */}
+      {
+
+        window.location.pathname === "/signin" ?
+          <Routes>
+            <Route path="/signin" element={<SignIn />} />
+          </Routes>
+          :
+          <div>
+            <Header />
+            <div className="d-flex w-100">
+              <div style={{ width: "20%" }}>
+                <SideBar />
+              </div>
+              {router}
+            </div>
+          </div>
+      }
+
+
     </>
   )
 }

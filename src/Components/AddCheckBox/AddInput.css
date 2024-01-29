@@ -1,0 +1,13 @@
+@import url('../../Style/Main.css');
+
+.checkBoxText-Wrapper {
+    color: var(--color-6);
+    width: 224.2px;
+}
+
+.checkBoxText-Wrapper {}
+
+
+.checkBoxText {
+    font-size: .8rem;
+}

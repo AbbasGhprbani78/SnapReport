@@ -83,7 +83,7 @@ export default function FormSignIn({ handleTabChange }) {
                 });
                 console.log(responseData)
                 console.log(post)
-                navigate('/')
+                navigate('/home')
 
             }
         } catch (e) {

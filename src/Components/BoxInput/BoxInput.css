@@ -1,0 +1,8 @@
+@import url('../../Style/Main.css');
+
+.Delete-form-Icon {
+    color: #9747FF;
+    font-size: 1.1rem;
+    margin-left: 10px;
+    cursor: pointer;
+}

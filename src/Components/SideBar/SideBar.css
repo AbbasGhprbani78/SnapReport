@@ -1,0 +1,72 @@
+@import url('../../Style/Main.css');
+
+
+.sideBar-img-wrapper {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    padding-top: 5%;
+}
+
+.sideBar-userInfo-wrapper {
+    display: flex;
+    align-items: start;
+    justify-content: space-evenly;
+    width: 100%;
+    margin-top: 15%;
+}
+
+.sideBar-imgUser-wrapper {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.sideBar-imgUser {
+    width: 100%;
+    height: 100%;
+}
+
+
+.sideBar-user-text,
+.sideBar-user-job {
+    font-size: 13px;
+    display: block;
+}
+
+.sideBar-user-job {
+    font-weight: bold;
+    margin-top: 5%;
+}
+
+.fade-enter {
+    opacity: 0;
+}
+
+.fade-enter-active {
+    opacity: 1;
+    transition: opacity 300ms;
+}
+
+.fade-exit {
+    opacity: 1;
+}
+
+.fade-exit-active {
+    opacity: 0;
+    transition: opacity 300ms;
+}
+
+
+::-webkit-scrollbar {
+    display: none;
+
+}
+
+
+@media (max-width:992px) {
+    .sidebarContainer {
+        display: none;
+    }
+}

@@ -1,12 +1,12 @@
 import Home from "./Pages/Home";
-import SignIn from "./Pages/Sign";
 import PageNotFound from "./Pages/PageNotFound";
-
+import AddForm from "./Pages/AddForm";
 
 let routes = [
-    { path: "/", element: <Home /> },
-    { path: "/signin", element: <SignIn /> },
+    { path: "home", element: <Home /> },
+    { path: "/addnewform", element: <AddForm /> },
     { path: "*", element: <PageNotFound /> },
+
 ]
 
 export default routes

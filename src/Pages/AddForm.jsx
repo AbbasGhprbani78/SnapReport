@@ -7,11 +7,14 @@ import AddInput from '../Components/AddCheckBox/AddInput'
 import BoxInput from '../Components/BoxInput/BoxInput'
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import FormDisplay from '../Components/FormDisplay/FormDisplay'
+
 export default function AddForm() {
 
-    const [typeInput, setTypeInput] = useState(null)
+    const [typeInput, setTypeInput] = useState("radio")
     const [numberTypeInput, setNumberTypeInput] = useState([])
     const [hasFunctionRun, setHasFunctionRun] = useState(false);
+    const [isCreate, setIsCreate] = useState(false)
     const [fromInfom, setFormInfom] = useState(
 
         {
@@ -25,7 +28,7 @@ export default function AddForm() {
     )
 
     const [fields, setFields] = useState({
-        type: "",
+        type: "radio",
         question: "",
         options: [
 
@@ -48,8 +51,12 @@ export default function AddForm() {
             [name]: value,
         }));
     };
+    // console.log(fromInfom)
+    // console.log(fields)
+
     // create box for option of question
     const createBox = () => {
+
         if ((typeInput === "Short Answer" || typeInput === "textarea" || typeInput === "date" || typeInput === "time")) {
             if (!hasFunctionRun) {
                 const newBox = {
@@ -130,9 +137,8 @@ export default function AddForm() {
 
     const addToForm = () => {
 
-
         if (!fromInfom.type || !fromInfom.title || !fromInfom.description || !fields.question || !typeInput) {
-            toast.warning("Please fill in all the required fields", {
+            toast.warning("Please fill in all the required fields (Form Type, Title, Description, Question, Answer Type)", {
                 position: "top-right",
                 autoClose: 5000,
                 hideProgressBar: false,
@@ -145,9 +151,8 @@ export default function AddForm() {
             return;
         }
 
-
-        if ((!fields.type || !fields.question || !fields.options.length > 0) && fields.options.some(option => !option.content)) {
-            toast.warning("Please fill in all the options", {
+        if (!fields.type || !fields.question || fields.options.some(option => !option.content)) {
+            toast.warning("Please fill in all the options for the question.", {
                 position: "top-right",
                 autoClose: 5000,
                 hideProgressBar: false,
@@ -159,26 +164,46 @@ export default function AddForm() {
             });
             return;
         }
+
+        if (fields.options.length === 0) {
+            toast.warning("Please add a option", {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+            });
+
+            return
+        }
+
         setFormInfom((prevInfo) => ({
             ...prevInfo,
             fields: [...prevInfo.fields, fields],
         }));
 
         setFields({
-            type: "",
+            type: fields.type,
             question: "",
             options: [],
         });
 
-        setTypeInput(null);
+        setTypeInput(fields.type);
         setNumberTypeInput([])
-
-
+        setHasFunctionRun(false)
+        setIsCreate(true)
     }
+
+
 
     const sendFormHandler = () => {
 
-
+        console.log("hello")
+        console.log(fromInfom)
+        console.log(fields)
     }
 
 
@@ -187,6 +212,10 @@ export default function AddForm() {
             <Row className='addFormContainer d-flex align-items-start w-100'>
                 <Col md={9} className='form-display-container'>
                     <div className="form-display">
+                        {
+                            fromInfom.title &&
+                            <FormDisplay fromInfom={fromInfom} />
+                        }
 
                     </div>
                 </Col>
@@ -221,24 +250,31 @@ export default function AddForm() {
                             onChange={handleChangeQuetion}
                         />
 
-                        <div className='dropDown-wrapper'
-                            style={{ width: "225.2px", fontSize: "13px", height: "45px", lineHeight: "37px" }}>
-                            <select
-                                onChange={(e) => {
-                                    setTypeInput(e.target.value)
-                                    fields.type = e.target.value
-                                }
-                                }
-                                className='dropDwon'>
-                                <option defaultValue={"Add Answer"}>Add Answer</option>
-                                <option value="radio">Radio Button</option>
-                                <option value="checkbox">Check Box</option>
-                                <option value="dropdown">Dropdown</option>
-                                <option value="Short Answer">Short Answer</option>
-                                <option value="textarea" >Text Area</option>
-                                <option value="date">Date</option>
-                                <option value="time">Time</option>
-                            </select>
+                        <div>
+                            <span className='input-title'>
+                                Type Of Option
+                            </span>
+                            <div className='dropDwonForm'
+                                style={{ width: "225.2px", fontSize: "13px", height: "45px", lineHeight: "37px" }}>
+
+                                <select
+                                    onChange={(e) => {
+                                        setTypeInput(e.target.value)
+                                        fields.type = e.target.value
+                                        setNumberTypeInput([])
+                                        fields.options = []
+                                    }
+                                    }
+                                    className='dropDwon'>
+                                    <option value="radio">Radio Button</option>
+                                    <option value="checkbox">Check Box</option>
+                                    <option value="dropdown">Dropdown</option>
+                                    <option value="Short Answer">Short Answer</option>
+                                    <option value="textarea" >Text Area</option>
+                                    <option value="date">Date</option>
+                                    <option value="time">Time</option>
+                                </select>
+                            </div>
                         </div>
 
                         <AddInput
@@ -246,7 +282,6 @@ export default function AddForm() {
                         />
 
                         {
-
                             numberTypeInput.map((input, i) => (
                                 <BoxInput
                                     key={i}
@@ -268,6 +303,7 @@ export default function AddForm() {
                             btnCalss={"button-component"}
                             content={"Create"}
                             onClick={sendFormHandler}
+                            disabled={!isCreate}
                         />
 
                     </div>

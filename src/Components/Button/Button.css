@@ -8,3 +8,8 @@
     transition: all .5s;
     background-color: var(--color-7);
 }
+
+.btn-component:hover {
+
+    cursor: not-allowed;
+}

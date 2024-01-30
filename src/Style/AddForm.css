@@ -41,3 +41,10 @@
     height: 95vh;
     overflow-y: scroll;
 }
+
+.dropDwonForm {
+    margin-top: 7%;
+    border: 1px solid #80c8e7;
+    border-radius: var(--border-radius-1);
+    padding: 5px 8px;
+}

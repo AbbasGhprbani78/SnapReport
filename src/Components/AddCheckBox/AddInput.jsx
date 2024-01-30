@@ -4,7 +4,7 @@ import AddIcon from '@mui/icons-material/Add';
 export default function AddInput({ createBox }) {
     return (
         <>
-            <div className="checkBoxText-Wrapper d-flex align-items-start justify-content-between">
+            <div className="checkBoxText-Wrapper d-flex align-items-start justify-content-between mt-3">
                 <p className="checkBoxText">
                     Add
                 </p>

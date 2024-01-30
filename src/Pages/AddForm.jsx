@@ -5,10 +5,13 @@ import InputCreateForm from '../Components/InputCreateForm/InputCreateForm'
 import Button from '../Components/Button/Button'
 import AddInput from '../Components/AddCheckBox/AddInput'
 import BoxInput from '../Components/BoxInput/BoxInput'
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 export default function AddForm() {
 
     const [typeInput, setTypeInput] = useState(null)
     const [numberTypeInput, setNumberTypeInput] = useState([])
+    const [hasFunctionRun, setHasFunctionRun] = useState(false);
     const [fromInfom, setFormInfom] = useState(
 
         {
@@ -45,27 +48,139 @@ export default function AddForm() {
             [name]: value,
         }));
     };
-
     // create box for option of question
     const createBox = () => {
+        if ((typeInput === "Short Answer" || typeInput === "textarea" || typeInput === "date" || typeInput === "time")) {
+            if (!hasFunctionRun) {
+                const newBox = {
+                    uuid: crypto.randomUUID(),
+                    content: typeInput
+                }
+                setNumberTypeInput(prevState => {
+                    return [...prevState, newBox];
+                })
+                setFields((prevFields) => ({
+                    ...prevFields,
+                    options: [...prevFields.options, { content: "" }],
+                }));
 
-        const newBox = {
-            uuid: crypto.randomUUID(),
-            content: typeInput
+                setHasFunctionRun(true);
+            }
+        } else {
+            const newBox = {
+                uuid: crypto.randomUUID(),
+                content: typeInput
+            }
+            setNumberTypeInput(prevState => {
+                return [...prevState, newBox];
+            })
+            setFields((prevFields) => ({
+                ...prevFields,
+                options: [...prevFields.options, { content: "" }],
+            }));
         }
-        setNumberTypeInput(prevState => {
-            return [...prevState, newBox];
-        })
-
     }
 
+    const handleChangeContent = (uuid, content) => {
+
+        const boxIndex = numberTypeInput.findIndex(input => input.uuid === uuid);
+
+        if (boxIndex !== -1) {
+            setNumberTypeInput(prevState => {
+                const updatedBoxes = [...prevState];
+                updatedBoxes[boxIndex] = {
+                    ...updatedBoxes[boxIndex],
+                    content: content
+                };
+                return updatedBoxes;
+            });
+
+
+            setFields(prevFields => {
+                const updatedOptions = [...prevFields.options];
+                updatedOptions[boxIndex] = {
+                    content: content
+                };
+                return {
+                    ...prevFields,
+                    options: updatedOptions
+                };
+            });
+        }
+    }
+    // delete box for option of question
 
     const deleteBox = (uuid) => {
         const NewNumberTypeInput = numberTypeInput.filter(input => {
             return input.uuid !== uuid
         })
         setNumberTypeInput(NewNumberTypeInput)
+        const boxIndexInFields = fields.options.findIndex(option => option.uuid === uuid);
+
+
+        setFields(prevFields => {
+            const updatedOptions = [...prevFields.options];
+            updatedOptions.splice(boxIndexInFields, 1);
+            return {
+                ...prevFields,
+                options: updatedOptions
+            };
+        });
     }
+
+    const addToForm = () => {
+
+
+        if (!fromInfom.type || !fromInfom.title || !fromInfom.description || !fields.question || !typeInput) {
+            toast.warning("Please fill in all the required fields", {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+            });
+            return;
+        }
+
+
+        if ((!fields.type || !fields.question || !fields.options.length > 0) && fields.options.some(option => !option.content)) {
+            toast.warning("Please fill in all the options", {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+            });
+            return;
+        }
+        setFormInfom((prevInfo) => ({
+            ...prevInfo,
+            fields: [...prevInfo.fields, fields],
+        }));
+
+        setFields({
+            type: "",
+            question: "",
+            options: [],
+        });
+
+        setTypeInput(null);
+        setNumberTypeInput([])
+
+
+    }
+
+    const sendFormHandler = () => {
+
+
+    }
+
 
     return (
         <>
@@ -118,7 +233,7 @@ export default function AddForm() {
                                 <option defaultValue={"Add Answer"}>Add Answer</option>
                                 <option value="radio">Radio Button</option>
                                 <option value="checkbox">Check Box</option>
-                                <option value="text">Dropdown</option>
+                                <option value="dropdown">Dropdown</option>
                                 <option value="Short Answer">Short Answer</option>
                                 <option value="textarea" >Text Area</option>
                                 <option value="date">Date</option>
@@ -126,13 +241,10 @@ export default function AddForm() {
                             </select>
                         </div>
 
-                        {
-                            (typeInput === "radio" || typeInput === "checkbox" || typeInput === "text") &&
-                            <AddInput
-                                createBox={createBox}
-                                textAdd={typeInput}
-                            />
-                        }
+                        <AddInput
+                            createBox={createBox}
+                        />
+
                         {
 
                             numberTypeInput.map((input, i) => (
@@ -141,6 +253,8 @@ export default function AddForm() {
                                     type={input.content}
                                     deleteBox={deleteBox}
                                     uuid={input.uuid}
+                                    name='content'
+                                    onChange={handleChangeContent}
                                 />
                             ))
                         }
@@ -148,18 +262,23 @@ export default function AddForm() {
                         <Button
                             btnCalss={"button-component addFormBtn"}
                             content={"Add"}
-
+                            onClick={addToForm}
                         />
                         <Button
                             btnCalss={"button-component"}
-                            content={"Create"} />
+                            content={"Create"}
+                            onClick={sendFormHandler}
+                        />
+
                     </div>
                 </Col>
 
             </Row>
+            <ToastContainer />
         </>
     )
 }
+
 
 
 

@@ -1,10 +1,10 @@
 import React from 'react'
 import './QuestionComponent.css'
-export default function QuestionCOmponent({ content, selectElement, showBorder }) {
+export default function QuestionCOmponent({ content, selectElement }) {
 
     return (
         <>
-            <div className={`question-wrapper ${showBorder ? "borderActive" : ""}`} onClick={() => selectElement(content.question, content)}>
+            <div className={`question-wrapper`} onClick={() => selectElement(content.question, content)}>
                 <p className='qusetion-form'>{content.question}</p>
 
                 {

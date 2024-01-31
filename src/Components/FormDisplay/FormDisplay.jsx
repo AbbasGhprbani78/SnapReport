@@ -1,7 +1,7 @@
 import React from 'react'
 import './FormDisplay.css'
 import QuestionCOmponent from '../QuestionComponent/QuestionCOmponent'
-export default function FormDisplay({ fromInfom, selectElement, showBorder }) {
+export default function FormDisplay({ fromInfom, selectElement }) {
     return (
         <>
             <h2 className='from-title'>{fromInfom.title}</h2>
@@ -10,7 +10,7 @@ export default function FormDisplay({ fromInfom, selectElement, showBorder }) {
                 <QuestionCOmponent key={i}
                     content={content}
                     selectElement={selectElement}
-                    showBorder={showBorder}
+
                 />
             ))}
 

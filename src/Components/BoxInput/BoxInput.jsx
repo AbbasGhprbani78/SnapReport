@@ -11,7 +11,6 @@ export default function BoxInput({ type, deleteBox, uuid, onChange, name, value 
                 className=" d-flex align-items-center">
                 <input
                     className='input-form'
-                    placeholder={type}
                     onChange={(e) => onChange(uuid, e.target.value)}
                     name={name}
                     value={value}
@@ -21,9 +20,6 @@ export default function BoxInput({ type, deleteBox, uuid, onChange, name, value 
                     className='Delete-form-Icon'
                     onClick={() => deleteBox(uuid)}
                 />
-
-
-
             </div>
         </>
     )

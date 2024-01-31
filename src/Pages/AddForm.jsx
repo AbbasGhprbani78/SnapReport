@@ -11,12 +11,11 @@ import FormDisplay from '../Components/FormDisplay/FormDisplay'
 import DeleteIcon from '@mui/icons-material/Delete';
 
 export default function AddForm() {
-    const [showBorder, setShowBorder] = useState(false)
+
     const [typeInput, setTypeInput] = useState("radio")
     const [numberTypeInput, setNumberTypeInput] = useState([])
     const [showDeleteIcon, setShowDeleteIcon] = useState(false)
     const [hasFunctionRun, setHasFunctionRun] = useState(false);
-    const [addButtonContent, setAddButtonContent] = useState("Add");
     const [MainDeleteQuestion, setMainDeleteQuestion] = useState(null)
     const [isCreate, setIsCreate] = useState(false)
     const [fromInfom, setFormInfom] = useState(
@@ -56,16 +55,14 @@ export default function AddForm() {
         }));
     };
 
-    console.log(fromInfom)
-    console.log(fields)
-    // create box for option of question
+
     const createBox = () => {
 
         if ((typeInput === "Short Answer" || typeInput === "textarea" || typeInput === "date" || typeInput === "time")) {
             if (!hasFunctionRun) {
                 const newBox = {
                     uuid: crypto.randomUUID(),
-                    content: typeInput
+                    content: ""
                 }
                 setNumberTypeInput(prevState => {
                     return [...prevState, newBox];
@@ -80,7 +77,7 @@ export default function AddForm() {
         } else {
             const newBox = {
                 uuid: crypto.randomUUID(),
-                content: typeInput
+                content: ""
             }
             setNumberTypeInput(prevState => {
                 return [...prevState, newBox];
@@ -153,6 +150,7 @@ export default function AddForm() {
             return;
         }
 
+
         if (!fields.type || !fields.question || fields.options.some(option => !option.content)) {
             toast.warning("Please fill in all the options for the question.", {
                 position: "top-right",
@@ -181,6 +179,7 @@ export default function AddForm() {
 
             return
         }
+
         const optionsWithUuid = fields.options.map(option => ({
             ...option,
             uuid: crypto.randomUUID(),
@@ -191,7 +190,7 @@ export default function AddForm() {
             fields: [...prevInfo.fields, { ...fields, options: optionsWithUuid }],
         }));
 
-        if (addButtonContent === "Save") {
+        if (showDeleteIcon) {
 
             const updatedFields = fromInfom.fields.map(question => {
                 if (question.question === MainDeleteQuestion) {
@@ -211,14 +210,13 @@ export default function AddForm() {
             options: [],
         });
 
-        setTypeInput(fields.type);
         setNumberTypeInput([])
         setHasFunctionRun(false)
         setIsCreate(true)
-        setAddButtonContent("Add");
+        setShowDeleteIcon(false)
     }
 
-    const sendFormHandler = () => {
+    const sendFormHandler = async () => {
 
         if (!fromInfom.fields.length > 0) {
             toast.warning("Please create form ", {
@@ -234,26 +232,70 @@ export default function AddForm() {
             return
 
         } else {
-            console.log("send")
+            try {
+                const response = await fetch(`${IP}//`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(fromInfom),
+                });
+
+                if (response.status === 200) {
+                    const responseData = await response.json();
+                    toast.success("Successfull", {
+                        position: "top-right",
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "colored",
+                    });
+                    console.log(responseData)
+
+                }
+            } catch (e) {
+                console.log(e)
+                toast.error(`${e.response.data.message}`, {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                });
+            }
+
         }
 
     }
 
 
     const selectElement = (question, content) => {
-        console.log(content)
         setMainDeleteQuestion(question)
+        fields.options = content.options
+        fields.question = question
+        fields.type = content.type
+        setTypeInput(content.type)
+        setHasFunctionRun(prevState => !prevState)
         setShowDeleteIcon(prevState => !prevState)
-        setShowBorder(prevState => !prevState)
+        console.log(fields)
 
         if (!showDeleteIcon) {
             setNumberTypeInput(content.options)
         } else {
             setNumberTypeInput([])
+            setFields({
+                type: fields.type,
+                question: "",
+                options: [],
+            });
         }
-        setAddButtonContent("Save");
     }
-
 
     const deleteQuestion = () => {
         const questionIndex = fromInfom.fields.findIndex(question => question.question === MainDeleteQuestion);
@@ -269,11 +311,15 @@ export default function AddForm() {
 
         setShowDeleteIcon(false);
         setMainDeleteQuestion(null);
-        setShowBorder(false)
         setNumberTypeInput([])
         setAddButtonContent("Add")
-
+        setFields({
+            type: fields.type,
+            question: "",
+            options: [],
+        });
     }
+
 
 
     return (
@@ -286,7 +332,7 @@ export default function AddForm() {
                             <FormDisplay
                                 selectElement={selectElement}
                                 fromInfom={fromInfom}
-                                showBorder={showBorder}
+
                             />
                         }
 
@@ -322,7 +368,7 @@ export default function AddForm() {
                                     Add Question
                                 </span>
                                 <input
-                                    value={MainDeleteQuestion ? MainDeleteQuestion : fields.question}
+                                    value={fields.question}
                                     type="text"
                                     className='input-form'
                                     placeholder={"Question"}
@@ -351,6 +397,7 @@ export default function AddForm() {
                                         setTypeInput(e.target.value)
                                         fields.type = e.target.value
                                         setNumberTypeInput([])
+                                        setHasFunctionRun(false)
                                         fields.options = []
                                     }
                                     }
@@ -372,21 +419,33 @@ export default function AddForm() {
 
                         {
                             numberTypeInput.map((input, i) => (
-                                <BoxInput
-                                    key={i}
-                                    type={input.content}
-                                    deleteBox={deleteBox}
-                                    uuid={input.uuid}
-                                    name='content'
-                                    onChange={handleChangeContent}
+                                showDeleteIcon ? (
+                                    <BoxInput
+                                        key={i}
+                                        type={input.content}
+                                        deleteBox={deleteBox}
+                                        uuid={input.uuid}
+                                        name='content'
+                                        onChange={handleChangeContent}
+                                        value={input.content}
+                                    />
+                                ) : (
+                                    <BoxInput
+                                        key={i}
+                                        type={input.content}
+                                        deleteBox={deleteBox}
+                                        uuid={input.uuid}
+                                        name='content'
+                                        onChange={handleChangeContent}
 
-                                />
+                                    />
+                                )
                             ))
                         }
 
                         <Button
                             btnCalss={"button-component addFormBtn"}
-                            content={addButtonContent}
+                            content={showDeleteIcon ? "save" : "Add"}
                             onClick={addToForm}
                         />
                         <Button
@@ -395,7 +454,6 @@ export default function AddForm() {
                             onClick={sendFormHandler}
                             disabled={!isCreate}
                         />
-
                     </div>
                 </Col>
 

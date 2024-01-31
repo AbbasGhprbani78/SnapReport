@@ -1,10 +1,10 @@
 import React from 'react'
 import './QuestionComponent.css'
-export default function QuestionCOmponent({ content }) {
+export default function QuestionCOmponent({ content, selectElement, showBorder }) {
 
     return (
         <>
-            <div>
+            <div className={`question-wrapper ${showBorder ? "borderActive" : ""}`} onClick={() => selectElement(content.question, content)}>
                 <p className='qusetion-form'>{content.question}</p>
 
                 {
@@ -12,7 +12,7 @@ export default function QuestionCOmponent({ content }) {
                         <div>
                             <select >
                                 {content.options && content.options.map((option, i) => (
-                                    <option>{option.content}</option>
+                                    <option key={i}>{option.content}</option>
                                 ))}
                             </select>
                         </div>
@@ -40,3 +40,7 @@ export default function QuestionCOmponent({ content }) {
 
     )
 }
+
+
+
+

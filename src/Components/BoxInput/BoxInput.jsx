@@ -2,7 +2,7 @@ import React from 'react'
 import DeleteIcon from '@mui/icons-material/Delete';
 import './BoxInput.css'
 
-export default function BoxInput({ type, deleteBox, uuid, onChange, name }) {
+export default function BoxInput({ type, deleteBox, uuid, onChange, name, value }) {
 
     return (
         <>
@@ -14,6 +14,7 @@ export default function BoxInput({ type, deleteBox, uuid, onChange, name }) {
                     placeholder={type}
                     onChange={(e) => onChange(uuid, e.target.value)}
                     name={name}
+                    value={value}
                 />
 
                 <DeleteIcon
@@ -23,6 +24,7 @@ export default function BoxInput({ type, deleteBox, uuid, onChange, name }) {
 
 
 
-            </div></>
+            </div>
+        </>
     )
 }

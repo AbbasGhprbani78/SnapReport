@@ -45,7 +45,7 @@ body {
     /* login form */
     --border-radius-1: 16px;
     /* searchbar in navbar  and eny part*/
-    --border-radius-1: 8px;
+    --border-radius-2: 8px;
     --fontsize-title: 1.7rem;
     --fontsize-text1: 1rem;
     /* for size less 576px */

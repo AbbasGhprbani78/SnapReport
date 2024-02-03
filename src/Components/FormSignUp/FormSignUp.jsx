@@ -107,7 +107,7 @@ export default function FormSignUp({ handleTabChange }) {
             return false;
         }
 
-
+        console.log(signInUpInfo)
         try {
             const response = await fetch(`${IP}//`, {
                 method: 'POST',

@@ -1,10 +1,12 @@
 import Home from "./Pages/Home";
 import PageNotFound from "./Pages/PageNotFound";
-import AddForm from "./Pages/AddForm";
+import AddNewForm from "./Pages/AddNewForm";
+
+
 
 let routes = [
-    { path: "home", element: <Home /> },
-    { path: "/addnewform", element: <AddForm /> },
+    { path: "/", element: <Home /> },
+    { path: "/addnewform", element: <AddNewForm /> },
     { path: "*", element: <PageNotFound /> },
 
 ]

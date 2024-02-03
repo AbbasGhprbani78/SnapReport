@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { styled, useTheme } from '@mui/material/styles';
+import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
 import CssBaseline from '@mui/material/CssBaseline';;
@@ -12,12 +12,14 @@ import MailIcon from '@mui/icons-material/Mail';
 import CottageIcon from '@mui/icons-material/Cottage';
 import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
 import AddIcon from '@mui/icons-material/Add';
-import { Badge } from '@mui/material';
 import './SideBar.css'
 import logoColor from '../../Images/logoColor.svg'
 import user from '../../Images/user.jpg'
 import { useNavigate } from 'react-router-dom';
 import { CSSTransition } from 'react-transition-group';
+import { useLocation } from 'react-router-dom';
+import '../../Style/Main.css'
+
 
 const drawerWidth = 280;
 
@@ -32,10 +34,13 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 export default function sideBar() {
 
     const [open, setOpen] = React.useState(true);
+    const location = useLocation();
+    const currentRoute = location.pathname;
+
     //all icons in side bar
     const drawerIcons = [<CottageIcon />, <MailIcon />, <NotificationsNoneIcon />, <AddIcon />];
     //slelect route
-    const [selectedRoute, setSelectedRoute] = React.useState('/home');
+    const [selectedRoute, setSelectedRoute] = React.useState('/');
     const navigate = useNavigate();
 
     //change route
@@ -68,8 +73,9 @@ export default function sideBar() {
                                 display: "flex",
                                 flexDirection: "column",
                                 paddingBottom: "10%",
-                                borderBottom: "1px solid  lightgrey"
+                                borderBottom: "1px solid  lightgrey",
                             }}
+                            className='DrawerHeader'
                         >
                             <div className='sideBar-img-wrapper'>
                                 <img className='sideBar-img' src={logoColor} alt="logo" />
@@ -84,9 +90,8 @@ export default function sideBar() {
                                     <span></span>
                                 </div>
                                 <div className="sideBar-notif-wrapper">
-                                    <Badge badgeContent={1} color="success">
-                                        <NotificationsNoneIcon />
-                                    </Badge>
+                                    <span className="notif-number">1</span>
+                                    <NotificationsNoneIcon />
                                 </div>
                             </div>
                         </DrawerHeader>
@@ -96,10 +101,11 @@ export default function sideBar() {
                                 <CSSTransition key={text} timeout={300} classNames="fade">
                                     <ListItem key={text} disablePadding>
                                         <ListItemButton
-                                            onClick={() => handleItemClick(`/${text.toLowerCase().replace(/\s/g, '')}`)}
+                                            onClick={() => handleItemClick(text === 'Home' ? '/' : `/${text.toLowerCase().replace(/\s/g, '')}`)}
                                             sx={{
                                                 '&:hover': { backgroundColor: '#DDF0FA' },
-                                                backgroundColor: selectedRoute === `/${text.toLowerCase().replace(/\s/g, '')}` ? '#DDF0FA' : 'inherit'
+                                                backgroundColor: currentRoute === (text === 'Home' ? '/' : `/${text.toLowerCase().replace(/\s/g, '')}`) ? '#DDF0FA' : 'inherit',
+
                                             }}
                                         >
                                             <ListItemIcon style={{ color: "#000" }}>
@@ -113,7 +119,7 @@ export default function sideBar() {
                         </List>
 
                     </Drawer>
-                </Box>
+                </Box>y
             </div>
 
         </>

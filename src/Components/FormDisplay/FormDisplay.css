@@ -1,1 +1,11 @@
 @import url('../../Style/Main.css');
+
+.from-title {
+    color: var(--color-9);
+}
+
+.from-description {
+    color: rgb(158, 151, 151);
+    margin-top: 10px;
+    font-size: .8rem;
+}

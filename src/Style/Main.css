@@ -17,6 +17,13 @@ body {
     font-family: 'Poppines', sans-serif !important;
 }
 
+.css-10hburv-MuiTypography-root {
+    font-family: 'Poppines',
+        sans-serif !important;
+    font-size: .9rem !important;
+    font-weight: bold !important;
+}
+
 :root {
     /* color login for linear*/
     --color-1: #89CCE5;
@@ -32,11 +39,11 @@ body {
     --color-8: #CC3366;
     /* color buuton   and title pages*/
     --color-9: #45ABE5;
-
-    --color-10: #45ABE5;
     /* hover optioin in navbar */
     --color-11: #DDF0FA;
     --color--12: #EEEEEE;
+
+    --color-text: #b3b3b3;
 
     --main-white: #f0f8ff;
     --main-white-signin: #ffffff;

@@ -1,0 +1,66 @@
+@import url('../../Style/Main.css');
+
+
+.question-wrapper {
+    padding: 10px 15px;
+    border-radius: var(--border-radius-2);
+    margin: 2% 0;
+}
+
+.question-wrapper:hover {
+    border: 1px solid var(--color-9);
+    cursor: pointer;
+}
+
+.borderActive {
+    border: 1px solid var(--color-9);
+}
+
+.qusetion-form,
+.lable-option {
+    color: var(--color-9);
+}
+
+.qusetion-form {
+    font-size: .9rem;
+}
+
+.option-wrapper {
+    margin: 2% 0;
+}
+
+.multiyop {
+    margin-left: 2%;
+}
+
+.input-answer {
+    border: 1px solid var(--color-9);
+    border-radius: var(--border-radius-1);
+    padding: 0 10px;
+    margin-left: 2%;
+    height: 30px;
+}
+
+.lableAnswer {
+    font-size: .9rem;
+}
+
+.textarea-option {
+    border: 1px solid var(--color-9);
+    border-radius: var(--border-radius-1);
+    padding: 0 10px;
+    margin-left: 2%;
+}
+
+.dropDwon-option {
+    border-radius: var(--border-radius-1);
+    outline: none;
+    border: 1px solid var(--color-9);
+    width: 250px;
+    max-width: 250px;
+    padding: 10px;
+}
+
+.date-option {
+    font-size: .9rem;
+}

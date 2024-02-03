@@ -48,6 +48,10 @@
     margin-top: 15%;
 }
 
+.btn-signIn-wrapper>button {
+    width: 80%;
+}
+
 
 .button-component {
     background-color: var(--color-9);
@@ -55,7 +59,7 @@
     border: none;
     outline: none;
     border-radius: var(--border-radius-1);
-    width: 80%;
+
 }
 
 .registered {
@@ -84,6 +88,12 @@
     margin-top: 12%;
 }
 
+@media screen and (min-width: 768px) and (max-width: 1290px) {
+    .form-container {
+        width: 90%;
+    }
+}
+
 @media(max-width:768px) {
 
     .form-container>.header-signin {
@@ -91,7 +101,7 @@
     }
 
     .form-container {
-        margin-top: 10%;
+        margin-top: 14%;
     }
 }
 

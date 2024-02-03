@@ -5,10 +5,7 @@ import routes from './Routes';
 import SideBar from './Components/SideBar/SideBar';
 import SignIn from './Pages/Sign';
 import Header from './Components/Header/Header';
-import { Col } from 'react-bootstrap';
-
-
-export const IP = ""
+export const IP = "https://snapreport.ariisco.com"
 
 function App() {
 
@@ -25,9 +22,7 @@ function App() {
           <div>
             <Header />
             <div className="d-flex w-100">
-              <div style={{ width: "20%" }}>
-                <SideBar />
-              </div>
+              <SideBar />
               {router}
             </div>
           </div>
@@ -39,3 +34,5 @@ function App() {
 }
 
 export default App
+
+

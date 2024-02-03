@@ -1,26 +1,64 @@
-import React, { useState } from 'react'
-import '../Style/AddForm.css'
+import React, { useState, useEffect } from 'react'
+import '../Style/AddNewForm.css'
 import { Row, Col } from 'react-bootstrap'
 import InputCreateForm from '../Components/InputCreateForm/InputCreateForm'
 import Button from '../Components/Button/Button'
-import AddInput from '../Components/AddCheckBox/AddInput'
+import AddInput from '../Components/AddInput/AddInput'
 import BoxInput from '../Components/BoxInput/BoxInput'
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import FormDisplay from '../Components/FormDisplay/FormDisplay'
 import DeleteIcon from '@mui/icons-material/Delete';
+import OutlinedInput from '@mui/material/OutlinedInput';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import ListItemText from '@mui/material/ListItemText';
+import Select from '@mui/material/Select';
+import Checkbox from '@mui/material/Checkbox';
+import { IP } from '../App'
+import { v4 as uuidv4 } from 'uuid';
 
-export default function AddForm() {
+const ITEM_HEIGHT = 48;
+const ITEM_PADDING_TOP = 8;
+const MenuProps = {
+    PaperProps: {
+        style: {
+            maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+            width: 250,
+        },
+    },
+};
 
+const names = [
+    "Senior Officer",
+    "Ordinary Officer",
+    "Manual Worker"
+];
+
+
+
+export default function AddNewForm() {
+
+    const [personName, setPersonName] = React.useState([]);
+
+    const handleSelectType = (event) => {
+        const {
+            target: { value },
+        } = event;
+        setPersonName(
+
+            typeof value === 'string' ? value.split(',') : value,
+        );
+    };
     const [typeInput, setTypeInput] = useState("radio")
     const [numberTypeInput, setNumberTypeInput] = useState([])
     const [showDeleteIcon, setShowDeleteIcon] = useState(false)
-    const [hasFunctionRun, setHasFunctionRun] = useState(false);
     const [MainDeleteQuestion, setMainDeleteQuestion] = useState(null)
     const [isCreate, setIsCreate] = useState(false)
     const [fromInfom, setFormInfom] = useState(
 
         {
+            personType: [],
             type: "",
             title: "",
             description: "",
@@ -29,6 +67,13 @@ export default function AddForm() {
             ]
         }
     )
+    useEffect(() => {
+
+        setFormInfom((prevInfo) => ({
+            ...prevInfo,
+            personType: personName,
+        }));
+    }, [personName]);
 
     const [fields, setFields] = useState({
         type: "radio",
@@ -38,6 +83,7 @@ export default function AddForm() {
         ]
     })
 
+    console.log(fields)
     const handleChange = (e) => {
 
         const { name, value } = e.target;
@@ -58,25 +104,21 @@ export default function AddForm() {
 
     const createBox = () => {
 
-        if ((typeInput === "Short Answer" || typeInput === "textarea" || typeInput === "date" || typeInput === "time")) {
-            if (!hasFunctionRun) {
-                const newBox = {
-                    uuid: crypto.randomUUID(),
-                    content: ""
-                }
-                setNumberTypeInput(prevState => {
-                    return [...prevState, newBox];
-                })
-                setFields((prevFields) => ({
-                    ...prevFields,
-                    options: [...prevFields.options, { content: "" }],
-                }));
-
-                setHasFunctionRun(true);
-            }
+        if ((typeInput === "ShortAnswer" || typeInput === "textarea" || typeInput === "date" || typeInput === "time")) {
+            toast.warning("You can Add option to these radio ,checkbox and dropdown", {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+            });
+            return false
         } else {
             const newBox = {
-                uuid: crypto.randomUUID(),
+                uuid: uuidv4(),
                 content: ""
             }
             setNumberTypeInput(prevState => {
@@ -114,6 +156,7 @@ export default function AddForm() {
             });
         }
     };
+
     // delete box for option of question
 
     const deleteBox = (uuid) => {
@@ -165,24 +208,27 @@ export default function AddForm() {
             return;
         }
 
-        if (fields.options.length === 0) {
-            toast.warning("Please add a option", {
-                position: "top-right",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "colored",
-            });
+        if ((typeInput === "radio" || typeInput === "checkbox" || typeInput === "dropdown")) {
+            if (fields.options.length === 0) {
+                toast.warning("Please add a option", {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                });
 
-            return
+                return
+            }
         }
+
 
         const optionsWithUuid = fields.options.map(option => ({
             ...option,
-            uuid: crypto.randomUUID(),
+            uuid: uuidv4(),
         }));
 
         setFormInfom((prevInfo) => ({
@@ -204,6 +250,8 @@ export default function AddForm() {
                 fields: updatedFields,
             }));
         }
+
+
         setFields({
             type: fields.type,
             question: "",
@@ -211,14 +259,16 @@ export default function AddForm() {
         });
 
         setNumberTypeInput([])
-        setHasFunctionRun(false)
         setIsCreate(true)
         setShowDeleteIcon(false)
     }
 
     const sendFormHandler = async () => {
 
-        if (!fromInfom.fields.length > 0) {
+        console.log(fields)
+        console.log(fromInfom)
+
+        if (!fromInfom.fields.length > 0 || !fromInfom.personType.length > 0) {
             toast.warning("Please create form ", {
                 position: "top-right",
                 autoClose: 5000,
@@ -281,9 +331,8 @@ export default function AddForm() {
         fields.question = question
         fields.type = content.type
         setTypeInput(content.type)
-        setHasFunctionRun(prevState => !prevState)
         setShowDeleteIcon(prevState => !prevState)
-        console.log(fields)
+
 
         if (!showDeleteIcon) {
             setNumberTypeInput(content.options)
@@ -312,7 +361,6 @@ export default function AddForm() {
         setShowDeleteIcon(false);
         setMainDeleteQuestion(null);
         setNumberTypeInput([])
-        setAddButtonContent("Add")
         setFields({
             type: fields.type,
             question: "",
@@ -340,6 +388,33 @@ export default function AddForm() {
                 </Col>
                 <Col md={3} className='form-create-option-container'>
                     <div className="form-create-option">
+                        <div className='inputWrapper'>
+                            <span className='input-title'>
+                                type of User
+                            </span>
+                            <FormControl sx={{
+                                width: "100% "
+                            }}>
+                                <Select
+                                    labelId="demo-multiple-checkbox-label"
+                                    id="demo-multiple-checkbox"
+                                    multiple
+                                    value={personName}
+                                    onChange={handleSelectType}
+                                    input={<OutlinedInput label="Tag" />}
+                                    renderValue={(selected) => selected.join(', ')}
+                                    MenuProps={MenuProps}
+                                >
+                                    {names.map((name) => (
+                                        <MenuItem key={name} value={name}>
+                                            <Checkbox checked={personName.indexOf(name) > -1} />
+                                            <ListItemText primary={name} />
+                                        </MenuItem>
+                                    ))}
+                                </Select>
+                            </FormControl>
+                        </div>
+
                         <InputCreateForm
                             lable={"Permit"}
                             title={"Form Type"}
@@ -390,22 +465,25 @@ export default function AddForm() {
                                 Type Of Option
                             </span>
                             <div className='dropDwonForm'
-                                style={{ width: "225.2px", fontSize: "13px", height: "45px", lineHeight: "37px" }}>
+                                style={{ fontSize: "13px", height: "45px", lineHeight: "37px" }}>
 
                                 <select
                                     onChange={(e) => {
                                         setTypeInput(e.target.value)
+                                        if (typeInput === "ShortAnswer" || typeInput === "textarea" || typeInput === "date" || typeInput === "time") {
+                                            setNumberTypeInput([])
+                                            fields.options = []
+                                        }
                                         fields.type = e.target.value
-                                        setNumberTypeInput([])
-                                        setHasFunctionRun(false)
-                                        fields.options = []
                                     }
                                     }
-                                    className='dropDwon'>
+                                    className='dropDwon'
+                                    value={fields.type}
+                                >
                                     <option value="radio">Radio Button</option>
                                     <option value="checkbox">Check Box</option>
                                     <option value="dropdown">Dropdown</option>
-                                    <option value="Short Answer">Short Answer</option>
+                                    <option value="ShortAnswer">Short Answer</option>
                                     <option value="textarea" >Text Area</option>
                                     <option value="date">Date</option>
                                     <option value="time">Time</option>
@@ -456,7 +534,6 @@ export default function AddForm() {
                         />
                     </div>
                 </Col>
-
             </Row>
             <ToastContainer />
         </>

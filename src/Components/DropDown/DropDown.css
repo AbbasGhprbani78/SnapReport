@@ -11,5 +11,5 @@
     border: none;
     outline: none;
     width: 100%;
-    font-size: .8rem;
+    font-size: var(--fontsize-3);
 }

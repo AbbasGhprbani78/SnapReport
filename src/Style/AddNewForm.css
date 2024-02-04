@@ -65,6 +65,15 @@
     outline: none !important;
 }
 
+
+.fomImg {
+    background-image: url('../Images/fomImg.svg');
+    background-size: 50%;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+
 @media (max-width:768px) {
     .form-display {
         width: 100%;

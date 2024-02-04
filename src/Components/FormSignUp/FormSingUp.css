@@ -12,6 +12,10 @@
     margin-top: 10%;
 }
 
+.input-signin {
+    font-size: var(--fontsize-text1);
+}
+
 .signUp {
     padding: 7%;
 }

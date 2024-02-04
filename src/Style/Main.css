@@ -54,7 +54,7 @@ body {
     /* searchbar in navbar  and eny part*/
     --border-radius-2: 8px;
     --fontsize-title: 1.7rem;
-    --fontsize-text1: 1rem;
+    --fontsize-text1: .9rem;
     /* for size less 576px */
     --fontsize-text2: .5rem;
     --fontsize-3: .8rem;

@@ -8,20 +8,20 @@ import './FormSingUp.css'
 import { IP } from '../../App';
 import { useNavigate } from "react-router-dom";
 import DropDown from '../DropDown/DropDown';
+import axios from 'axios';
 
 
 export default function FormSignUp({ handleTabChange }) {
     const navigate = useNavigate();
-    const [allTypeUsers, setAllTypeUsers] = useState(["Senior Officer", "Ordinary Officer", "Manual Worker"])
     const [isPrivate, setIsPerivate] = useState(true)
     const [signInUpInfo, setSignUpInfo] = useState({
-        firstName: "",
-        lastName: '',
+        first_name: "",
+        last_name: '',
         email: "",
-        phone: "",
+        username: "",
         password: "",
-        confirmPass: "",
-        userType: ""
+        confirm_password: "",
+        user_type: ""
     }
     )
 
@@ -41,11 +41,11 @@ export default function FormSignUp({ handleTabChange }) {
 
     //change type of user in drop down
     const changeTypeUser = (value) => {
-        signInUpInfo.userType = value
+        signInUpInfo.user_type = value
         console.log(signInUpInfo)
     }
 
-    // send vlaue of form to server
+
     async function submit(e) {
         e.preventDefault();
 
@@ -71,7 +71,6 @@ export default function FormSignUp({ handleTabChange }) {
             { name: 'firstName', regex: /^[a-zA-Z]+$/ },
             { name: 'lastName', regex: /^[a-zA-Z]+$/ },
             { name: 'email', regex: /^[^\s@]+@[^\s@]+\.[^\s@]+$/ },
-            { name: 'phone', regex: /^[0-9]+$/ },
         ];
 
         // check Validations of inputs
@@ -93,7 +92,7 @@ export default function FormSignUp({ handleTabChange }) {
         }
 
         // it check that the value of password input and confirmpass input is the same
-        if (signInUpInfo.password !== signInUpInfo.confirmPass) {
+        if (signInUpInfo.password !== signInUpInfo.confirm_password) {
             toast.error("Confirmation password does not match the password", {
                 position: "top-right",
                 autoClose: 5000,
@@ -107,36 +106,20 @@ export default function FormSignUp({ handleTabChange }) {
             return false;
         }
 
-        console.log(signInUpInfo)
+        const body = signInUpInfo
         try {
-            const response = await fetch(`${IP}//`, {
-                method: 'POST',
+            const response = await axios.post(`${IP}/user/signup/`, body, {
                 headers: {
-                    'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(signInUpInfo),
             });
 
-            if (response.status === 200) {
-                const responseData = await response.json();
-                toast.success("Successfull", {
-                    position: "top-right",
-                    autoClose: 5000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "colored",
-                });
-                console.log(responseData)
-
-                navigate('/signin')
-
+            if (response.status === 201) {
+                handleTabChange(1)
             }
-        } catch (e) {
-            console.log(e)
-            toast.error(`${e.response.data.message}`, {
+
+        } catch (error) {
+
+            toast.error(`${error.response.data.message}`, {
                 position: "top-right",
                 autoClose: 5000,
                 hideProgressBar: false,
@@ -146,6 +129,7 @@ export default function FormSignUp({ handleTabChange }) {
                 progress: undefined,
                 theme: "colored",
             });
+
         }
     }
 
@@ -157,42 +141,36 @@ export default function FormSignUp({ handleTabChange }) {
                 <form className='form-signup' onSubmit={submit}>
                     <div className='input-signup-wrapper'>
                         <input
-                            name='firstName'
+                            name='first_name'
                             className='input-signin input-name'
                             type="text"
                             autoComplete="false"
                             placeholder='First Name'
-                            value={signInUpInfo.firstName}
+                            value={signInUpInfo.first_name}
                             onChange={handleChange}
                         />
                     </div>
                     <div className='input-signup-wrapper'>
                         <input
-                            name='lastName'
+                            name='last_name'
                             className='input-signin input-lastNAme'
                             type="text"
                             autoComplete="false"
                             placeholder='Last Name'
-                            value={signInUpInfo.lastName}
+                            value={signInUpInfo.last_name}
                             onChange={handleChange}
                         />
                     </div>
                     <div className='input-signup-wrapper'>
                         <input
-                            name='phone'
-                            className='input-signin input-phone'
+                            name='username'
+                            className='input-signin input-userName'
                             type="text"
                             autoComplete="false"
-                            placeholder='Phone Number'
-                            value={signInUpInfo.phone}
+                            placeholder='user Name'
+                            value={signInUpInfo.username}
                             onChange={handleChange}
-                            // for just enter number value
-                            onKeyPress={(e) => {
-                                const isValid = /^\d+$/.test(e.key);
-                                if (!isValid) {
-                                    e.preventDefault();
-                                }
-                            }}
+
                         />
                     </div>
                     <div className='input-signup-wrapper'>
@@ -205,8 +183,8 @@ export default function FormSignUp({ handleTabChange }) {
                             onChange={handleChange}
                         />
                     </div>
-                    <DropDown name="usertype"
-                        allTypeUsers={allTypeUsers}
+
+                    <DropDown name="user_type"
                         defaultDrop={"User"}
                         changeValue={changeTypeUser}
                     />
@@ -238,14 +216,13 @@ export default function FormSignUp({ handleTabChange }) {
                     </div>
                     <div className='input-signup-wrapper d-flex align-items-end'>
                         <input
-                            name='confirmPass'
+                            name='confirm_password'
                             className='input-signin input-password'
                             type={isPrivate ? "password" : "text"}
                             autoComplete="false"
                             placeholder='ConfirmPassword'
-                            value={signInUpInfo.confirmPass}
+                            value={signInUpInfo.confirm_password}
                             onChange={handleChange}
-                            // for user cant paste password value in confirmpass
                             onPaste={(e) => e.preventDefault()}
                         />
                         {isPrivate ? (
@@ -282,3 +259,108 @@ export default function FormSignUp({ handleTabChange }) {
         </>
     )
 }
+
+
+
+// send vlaue of form to server
+// async function submit(e) {
+//     e.preventDefault();
+
+//     // do check  value of input
+//     for (const key in signInUpInfo) {
+//         if (signInUpInfo[key].trim() === "") {
+//             toast.warning(`${key.charAt(0).toUpperCase() + key.slice(1)} cannot be empty.`, {
+//                 position: "top-right",
+//                 autoClose: 5000,
+//                 hideProgressBar: false,
+//                 closeOnClick: true,
+//                 pauseOnHover: true,
+//                 draggable: true,
+//                 progress: undefined,
+//                 theme: "colored",
+//             });
+//             return;
+//         }
+//     }
+
+//     // reg ex for Validations of inputs
+//     const inputValidations = [
+//         { name: 'first_name', regex: /^[a-zA-Z]+$/ },
+//         { name: 'lastName', regex: /^[a-zA-Z]+$/ },
+//         { name: 'email', regex: /^[^\s@]+@[^\s@]+\.[^\s@]+$/ },
+//
+//     ];
+
+//     // check Validations of inputs
+//     for (const validation of inputValidations) {
+//         const { name, regex } = validation;
+//         if (!regex.test(signInUpInfo[name])) {
+//             toast.error(`${name.charAt(0).toUpperCase() + name.slice(1)} is not valid.`, {
+//                 position: "top-right",
+//                 autoClose: 5000,
+//                 hideProgressBar: false,
+//                 closeOnClick: true,
+//                 pauseOnHover: true,
+//                 draggable: true,
+//                 progress: undefined,
+//                 theme: "colored",
+//             });
+//             return;
+//         }
+//     }
+
+//     // it check that the value of password input and confirmpass input is the same
+//     if (signInUpInfo.password !== signInUpInfo.confirmPass) {
+//         toast.error("Confirmation password does not match the password", {
+//             position: "top-right",
+//             autoClose: 5000,
+//             hideProgressBar: false,
+//             closeOnClick: true,
+//             pauseOnHover: true,
+//             draggable: true,
+//             progress: undefined,
+//             theme: "colored",
+//         });
+//         return false;
+//     }
+
+//     try {
+//         const response = await fetch(`${IP}/signup/`, {
+//             method: 'POST',
+//             headers: {
+//                 'Content-Type': 'application/json',
+//             },
+//             body: JSON.stringify(signInUpInfo),
+//         });
+
+//         if (response.status === 200) {
+//             const responseData = await response.json();
+//             toast.success("Successfull", {
+//                 position: "top-right",
+//                 autoClose: 5000,
+//                 hideProgressBar: false,
+//                 closeOnClick: true,
+//                 pauseOnHover: true,
+//                 draggable: true,
+//                 progress: undefined,
+//                 theme: "colored",
+//             });
+//             console.log(responseData)
+
+//             // navigate('/signin')
+
+//         }
+//     } catch (e) {
+//         console.log(e)
+//         toast.error(`${e.response.data.message}`, {
+//             position: "top-right",
+//             autoClose: 5000,
+//             hideProgressBar: false,
+//             closeOnClick: true,
+//             pauseOnHover: true,
+//             draggable: true,
+//             progress: undefined,
+//             theme: "colored",
+//         });
+//     }
+// }

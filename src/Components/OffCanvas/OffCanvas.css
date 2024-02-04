@@ -1,10 +1,10 @@
 @import url('../../Style/Main.css');
 
+.custom-offcanvas {
+    background-color: var(--main-white);
+    width: max-content !important;
+}
 
-
-@media (max-width:576px) {
-    .custom-offcanvas {
-        width: 60%;
-        max-width: 60%;
-    }
+.btn-close {
+    color: #0000 !important;
 }

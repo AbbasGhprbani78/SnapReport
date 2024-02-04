@@ -4,8 +4,6 @@
     color: var(--color-6);
 }
 
-
-
 .checkBoxText {
-    font-size: .8rem;
+    font-size: var(--fontsize-3);
 }

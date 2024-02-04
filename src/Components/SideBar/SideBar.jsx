@@ -18,6 +18,9 @@ import user from '../../Images/user.jpg'
 import { useNavigate } from 'react-router-dom';
 import { CSSTransition } from 'react-transition-group';
 import { useLocation } from 'react-router-dom';
+import LogoutIcon from '@mui/icons-material/Logout';
+import axios from 'axios';
+import { IP } from '../../App'
 import '../../Style/Main.css'
 
 
@@ -38,17 +41,54 @@ export default function sideBar() {
     const currentRoute = location.pathname;
 
     //all icons in side bar
-    const drawerIcons = [<CottageIcon />, <MailIcon />, <NotificationsNoneIcon />, <AddIcon />];
+    const drawerIcons = [<CottageIcon />, <MailIcon />, <NotificationsNoneIcon />, <AddIcon />, <LogoutIcon />];
     //slelect route
     const [selectedRoute, setSelectedRoute] = React.useState('/');
     const navigate = useNavigate();
 
-    //change route
 
+
+    const logOutHandler = async () => {
+
+
+        const access = localStorage.getItem('access')
+        const refresh = localStorage.getItem('refresh')
+
+        const headers = {
+            Authorization: `Bearer ${access}`,
+
+        };
+        const body = {
+            refresh: refresh
+        }
+        try {
+            const response = await axios.post(`${IP}/user/logout/`, body, {
+                headers
+            })
+
+            if (response.status === 200) {
+                console.log(response)
+                localStorage.removeItem('access')
+                localStorage.removeItem('uuid')
+                localStorage.removeItem('refresh')
+                localStorage.removeItem("user_type")
+                navigate('/signin')
+            }
+        } catch (e) {
+            console.log(e)
+        }
+    }
+
+    //change route
     const handleItemClick = (route) => {
-        navigate(route);
+        if (route === '/logout') {
+            logOutHandler()
+        } else {
+            navigate(route);
+        }
         setSelectedRoute(route);
     };
+
 
     return (
         <>
@@ -97,7 +137,7 @@ export default function sideBar() {
                         </DrawerHeader>
 
                         <List>
-                            {['Home', 'Starred', 'Send email', 'Add New Form'].map((text, index) => (
+                            {['Home', 'Starred', 'Send email', 'Add New Form', "Log out"].map((text, index) => (
                                 <CSSTransition key={text} timeout={300} classNames="fade">
                                     <ListItem key={text} disablePadding>
                                         <ListItemButton
@@ -119,7 +159,7 @@ export default function sideBar() {
                         </List>
 
                     </Drawer>
-                </Box>y
+                </Box>
             </div>
 
         </>

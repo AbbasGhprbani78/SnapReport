@@ -8,6 +8,7 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
 import logo from '../../Images/logo.svg'
+import axios from 'axios';
 
 
 export default function FormSignIn({ handleTabChange }) {
@@ -61,35 +62,22 @@ export default function FormSignIn({ handleTabChange }) {
         const post = { username: userName, password: password };
 
         try {
-            const response = await fetch(`${IP}/login/`, {
-                method: 'POST',
+            const response = await axios.post(`${IP}/user/login/`, post, {
                 headers: {
-                    'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(post),
             });
 
             if (response.status === 200) {
-                const responseData = await response.json();
-                toast.success("Successfull", {
-                    position: "top-right",
-                    autoClose: 5000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "colored",
-                });
-                console.log(responseData)
-                console.log(post)
-                navigate('/home')
-
+                window.localStorage.setItem("access", response.data.access);
+                window.localStorage.setItem('uuid', response.data.uuid);
+                window.localStorage.setItem("refresh", response.data.refresh);
+                window.localStorage.setItem("user_type", response.data.user_type)
+                navigate("/")
             }
-        } catch (e) {
 
-            console.log(e)
-            toast.error("Login Faild due to :" + e.message, {
+        } catch (error) {
+
+            toast.error(`${error.response.data.message}`, {
                 position: "top-right",
                 autoClose: 5000,
                 hideProgressBar: false,
@@ -99,8 +87,8 @@ export default function FormSignIn({ handleTabChange }) {
                 progress: undefined,
                 theme: "colored",
             });
-        }
 
+        }
     }
 
     return (

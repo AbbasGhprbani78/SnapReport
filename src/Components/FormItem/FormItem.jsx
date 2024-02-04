@@ -1,13 +1,14 @@
 import React from 'react'
 import './FormItem.css'
 export default function FormItem({ content, selectElement }) {
+    console.log(content.fields_type)
     return (
         <>
-            <div className={`question-wrapper`} onClick={() => selectElement(content.question, content)}>
-                <p className='qusetion-form'>{content.question}</p>
+            <div className={`question-wrapper`} onClick={() => selectElement(content.questions, content)}>
+                <p className='qusetion-form'>{content.questions}</p>
 
                 {
-                    content.type === "dropdown" ?
+                    content.fields_type === "dropdown" ?
                         <div
 
                             style={{ fontSize: "13px", height: "45px", lineHeight: "37px" }}
@@ -21,7 +22,7 @@ export default function FormItem({ content, selectElement }) {
                             </select>
                         </div>
 
-                        : content.type === "ShortAnswer" ?
+                        : content.fields_type === "ShortAnswer" ?
                             content &&
                             <div >
                                 <input
@@ -29,7 +30,7 @@ export default function FormItem({ content, selectElement }) {
                                     className='input-answer' type="text" />
                             </div>
 
-                            : content.type === "textarea" ?
+                            : content.fields_type === "textarea" ?
                                 content &&
                                 <div className='d-flex align-items-center'>
                                     <textarea className='textarea-option'
@@ -38,7 +39,7 @@ export default function FormItem({ content, selectElement }) {
                                     />
                                 </div>
                                 :
-                                content.type === "date" ?
+                                content.fields_type === "date" ?
                                     content &&
                                     <div >
                                         <input
@@ -46,7 +47,7 @@ export default function FormItem({ content, selectElement }) {
                                             className='input-answer' type="date" />
                                     </div>
                                     :
-                                    content.type === "time" ?
+                                    content.fields_type === "time" ?
                                         content &&
                                         <div >
                                             <input
@@ -57,7 +58,7 @@ export default function FormItem({ content, selectElement }) {
                                         : content.options && content.options.map((option, i) => (
 
                                             <div className='option-wrapper' key={i}>
-                                                <input type={content.type} />
+                                                <input type={content.fields_type} />
                                                 <label className='lable-option multiyop'>{option.content}</label>
                                             </div>
                                         ))

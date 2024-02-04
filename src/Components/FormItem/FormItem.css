@@ -22,7 +22,7 @@
 }
 
 .qusetion-form {
-    font-size: .9rem;
+    font-size: var(--fontsize-text1);
 }
 
 .option-wrapper {
@@ -42,7 +42,7 @@
 }
 
 .lableAnswer {
-    font-size: .9rem;
+    font-size: var(--fontsize-text1);
 }
 
 .textarea-option {
@@ -62,5 +62,5 @@
 }
 
 .date-option {
-    font-size: .9rem;
+    font-size: var(--fontsize-text1);
 }

@@ -17,6 +17,8 @@ import Select from '@mui/material/Select';
 import Checkbox from '@mui/material/Checkbox';
 import { IP } from '../App'
 import { v4 as uuidv4 } from 'uuid';
+import axios from 'axios'
+
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -59,9 +61,9 @@ export default function AddNewForm() {
 
         {
             personType: [],
-            type: "",
+            Form_Type: "",
             title: "",
-            description: "",
+            descriptions: "",
             fields: [
 
             ]
@@ -76,10 +78,9 @@ export default function AddNewForm() {
     }, [personName]);
 
     const [fields, setFields] = useState({
-        type: "radio",
-        question: "",
+        fields_type: "radio",
+        questions: "",
         options: [
-
         ]
     })
 
@@ -179,7 +180,7 @@ export default function AddNewForm() {
 
     const addToForm = () => {
 
-        if (!fromInfom.type || !fromInfom.title || !fromInfom.description || !fields.question || !typeInput) {
+        if (!fromInfom.Form_Type || !fromInfom.title || !fromInfom.descriptions || !fields.questions || !typeInput) {
             toast.warning("Please fill in all the required fields (Form Type, Title, Description, Question, Answer Type)", {
                 position: "top-right",
                 autoClose: 5000,
@@ -194,7 +195,7 @@ export default function AddNewForm() {
         }
 
 
-        if (!fields.type || !fields.question || fields.options.some(option => !option.content)) {
+        if (!fields.fields_type || !fields.questions || fields.options.some(options => !options.content)) {
             toast.warning("Please fill in all the options for the question.", {
                 position: "top-right",
                 autoClose: 5000,
@@ -239,7 +240,7 @@ export default function AddNewForm() {
         if (showDeleteIcon) {
 
             const updatedFields = fromInfom.fields.map(question => {
-                if (question.question === MainDeleteQuestion) {
+                if (question.questions === MainDeleteQuestion) {
                     return { ...fields, options: optionsWithUuid };
                 }
                 return question;
@@ -253,8 +254,8 @@ export default function AddNewForm() {
 
 
         setFields({
-            type: fields.type,
-            question: "",
+            fields_type: fields.fields_type,
+            questions: "",
             options: [],
         });
 
@@ -264,9 +265,6 @@ export default function AddNewForm() {
     }
 
     const sendFormHandler = async () => {
-
-        console.log(fields)
-        console.log(fromInfom)
 
         if (!fromInfom.fields.length > 0 || !fromInfom.personType.length > 0) {
             toast.warning("Please create form ", {
@@ -282,33 +280,27 @@ export default function AddNewForm() {
             return
 
         } else {
+            const body = {
+                ...fromInfom,
+                creator: localStorage.getItem("uuid"),
+            };
+            const access = localStorage.getItem("access")
+
+            const headers = {
+                Authorization: `Bearer ${access}`
+            };
             try {
-                const response = await fetch(`${IP}//`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(fromInfom),
+                const response = await axios.post(`${IP}/form/create-fields/`, body, {
+                    headers
                 });
 
                 if (response.status === 200) {
-                    const responseData = await response.json();
-                    toast.success("Successfull", {
-                        position: "top-right",
-                        autoClose: 5000,
-                        hideProgressBar: false,
-                        closeOnClick: true,
-                        pauseOnHover: true,
-                        draggable: true,
-                        progress: undefined,
-                        theme: "colored",
-                    });
-                    console.log(responseData)
-
+                    console.log(response)
                 }
-            } catch (e) {
-                console.log(e)
-                toast.error(`${e.response.data.message}`, {
+
+            } catch (error) {
+
+                toast.error(`${error.response.data.message}`, {
                     position: "top-right",
                     autoClose: 5000,
                     hideProgressBar: false,
@@ -318,19 +310,21 @@ export default function AddNewForm() {
                     progress: undefined,
                     theme: "colored",
                 });
-            }
 
+            }
         }
 
     }
 
 
     const selectElement = (question, content) => {
+        console.log(question)
+        console.log(content)
         setMainDeleteQuestion(question)
         fields.options = content.options
-        fields.question = question
-        fields.type = content.type
-        setTypeInput(content.type)
+        fields.questions = question
+        fields.fields_type = content.fields_type
+        setTypeInput(content.fields_type)
         setShowDeleteIcon(prevState => !prevState)
 
 
@@ -339,8 +333,8 @@ export default function AddNewForm() {
         } else {
             setNumberTypeInput([])
             setFields({
-                type: fields.type,
-                question: "",
+                fields_type: fields.fields_type,
+                questions: "",
                 options: [],
             });
         }
@@ -362,19 +356,17 @@ export default function AddNewForm() {
         setMainDeleteQuestion(null);
         setNumberTypeInput([])
         setFields({
-            type: fields.type,
-            question: "",
+            fields_type: fields.fields_type,
+            questions: "",
             options: [],
         });
     }
-
-
 
     return (
         <>
             <Row className='addFormContainer d-flex align-items-start w-100'>
                 <Col md={9} className='form-display-container'>
-                    <div className="form-display">
+                    <div className={`form-display ${fromInfom.title ? '' : "fomImg"}`}>
                         {
                             fromInfom.title &&
                             <FormDisplay
@@ -418,9 +410,9 @@ export default function AddNewForm() {
                         <InputCreateForm
                             lable={"Permit"}
                             title={"Form Type"}
-                            value={fromInfom.type}
+                            value={fromInfom.Form_Type}
                             onChange={handleChange}
-                            name="type"
+                            name="Form_Type"
                         />
                         <InputCreateForm
                             lable={"Title"}
@@ -432,8 +424,8 @@ export default function AddNewForm() {
                         <InputCreateForm
                             lable={"Description"}
                             title={"Description"}
-                            value={fromInfom.description}
-                            name="description"
+                            value={fromInfom.descriptions}
+                            name="descriptions"
                             onChange={handleChange}
                         />
 
@@ -443,12 +435,12 @@ export default function AddNewForm() {
                                     Add Question
                                 </span>
                                 <input
-                                    value={fields.question}
+                                    value={fields.questions}
                                     type="text"
                                     className='input-form'
                                     placeholder={"Question"}
                                     onChange={handleChangeQuetion}
-                                    name={"question"}
+                                    name={"questions"}
                                 />
                             </div>
                             {
@@ -474,11 +466,11 @@ export default function AddNewForm() {
                                             setNumberTypeInput([])
                                             fields.options = []
                                         }
-                                        fields.type = e.target.value
+                                        fields.fields_type = e.target.value
                                     }
                                     }
                                     className='dropDwon'
-                                    value={fields.type}
+                                    value={fields.fields_type}
                                 >
                                     <option value="radio">Radio Button</option>
                                     <option value="checkbox">Check Box</option>

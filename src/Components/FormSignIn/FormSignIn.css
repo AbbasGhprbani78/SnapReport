@@ -65,7 +65,7 @@
 .registered {
     margin-top: 25px;
     text-align: left;
-    font-size: .8rem
+    font-size: var(--fontsize-3)
 }
 
 .link-to-form {

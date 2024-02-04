@@ -15,7 +15,7 @@
     height: 45px;
     border-radius: var(--border-radius-1);
     padding: 0 10px;
-    font-size: .8rem;
+    font-size: var(--fontsize-3);
 }
 
 
@@ -23,7 +23,7 @@
 .input-title {
     color: var(--color-6);
     margin-bottom: 5px;
-    font-size: .8rem;
+    font-size: var(--fontsize-3);
 }
 
 ::-webkit-input-placeholder {

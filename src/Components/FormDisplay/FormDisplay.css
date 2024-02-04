@@ -7,5 +7,5 @@
 .from-description {
     color: rgb(158, 151, 151);
     margin-top: 10px;
-    font-size: .8rem;
+    font-size: var(--fontsize-3);
 }

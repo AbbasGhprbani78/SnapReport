@@ -8,9 +8,9 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';;
-import MailIcon from '@mui/icons-material/Mail';
 import CottageIcon from '@mui/icons-material/Cottage';
 import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
+import FormatListNumberedIcon from '@mui/icons-material/FormatListNumbered';
 import AddIcon from '@mui/icons-material/Add';
 import './SideBar.css'
 import logoColor from '../../Images/logoColor.svg'
@@ -41,7 +41,7 @@ export default function sideBar() {
     const currentRoute = location.pathname;
 
     //all icons in side bar
-    const drawerIcons = [<CottageIcon />, <MailIcon />, <NotificationsNoneIcon />, <AddIcon />, <LogoutIcon />];
+    const drawerIcons = [<CottageIcon />, <AddIcon />, <FormatListNumberedIcon />, <LogoutIcon />];
     //slelect route
     const [selectedRoute, setSelectedRoute] = React.useState('/');
     const navigate = useNavigate();
@@ -137,7 +137,7 @@ export default function sideBar() {
                         </DrawerHeader>
 
                         <List>
-                            {['Home', 'Starred', 'Send email', 'Add New Form', "Log out"].map((text, index) => (
+                            {['Home', 'Add New Form', 'All form', "Log out"].map((text, index) => (
                                 <CSSTransition key={text} timeout={300} classNames="fade">
                                     <ListItem key={text} disablePadding>
                                         <ListItemButton

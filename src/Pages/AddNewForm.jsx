@@ -18,6 +18,7 @@ import Checkbox from '@mui/material/Checkbox';
 import { IP } from '../App'
 import { v4 as uuidv4 } from 'uuid';
 import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
 
 
 const ITEM_HEIGHT = 48;
@@ -52,6 +53,7 @@ export default function AddNewForm() {
             typeof value === 'string' ? value.split(',') : value,
         );
     };
+    const navigate = useNavigate()
     const [typeInput, setTypeInput] = useState("radio")
     const [numberTypeInput, setNumberTypeInput] = useState([])
     const [showDeleteIcon, setShowDeleteIcon] = useState(false)
@@ -61,7 +63,7 @@ export default function AddNewForm() {
 
         {
             personType: [],
-            Form_Type: "",
+            type: "",
             title: "",
             descriptions: "",
             fields: [
@@ -84,7 +86,6 @@ export default function AddNewForm() {
         ]
     })
 
-    console.log(fields)
     const handleChange = (e) => {
 
         const { name, value } = e.target;
@@ -105,7 +106,7 @@ export default function AddNewForm() {
 
     const createBox = () => {
 
-        if ((typeInput === "ShortAnswer" || typeInput === "textarea" || typeInput === "date" || typeInput === "time")) {
+        if ((typeInput === "shortanswer" || typeInput === "textarea" || typeInput === "date" || typeInput === "time")) {
             toast.warning("You can Add option to these radio ,checkbox and dropdown", {
                 position: "top-right",
                 autoClose: 5000,
@@ -120,14 +121,14 @@ export default function AddNewForm() {
         } else {
             const newBox = {
                 uuid: uuidv4(),
-                content: ""
+                choice: ""
             }
             setNumberTypeInput(prevState => {
                 return [...prevState, newBox];
             })
             setFields((prevFields) => ({
                 ...prevFields,
-                options: [...prevFields.options, { content: "" }],
+                options: [...prevFields.options, { choice: "" }],
             }));
         }
     }
@@ -140,7 +141,7 @@ export default function AddNewForm() {
                 const updatedBoxes = [...prevState];
                 updatedBoxes[boxIndex] = {
                     ...updatedBoxes[boxIndex],
-                    content: updatedContent,
+                    choice: updatedContent,
                 };
                 return updatedBoxes;
             });
@@ -148,7 +149,7 @@ export default function AddNewForm() {
             setFields((prevFields) => {
                 const updatedOptions = [...prevFields.options];
                 updatedOptions[boxIndex] = {
-                    content: updatedContent,
+                    choice: updatedContent,
                 };
                 return {
                     ...prevFields,
@@ -180,7 +181,7 @@ export default function AddNewForm() {
 
     const addToForm = () => {
 
-        if (!fromInfom.Form_Type || !fromInfom.title || !fromInfom.descriptions || !fields.questions || !typeInput) {
+        if (!fromInfom.type || !fromInfom.title || !fromInfom.descriptions || !fields.questions || !typeInput) {
             toast.warning("Please fill in all the required fields (Form Type, Title, Description, Question, Answer Type)", {
                 position: "top-right",
                 autoClose: 5000,
@@ -195,7 +196,7 @@ export default function AddNewForm() {
         }
 
 
-        if (!fields.fields_type || !fields.questions || fields.options.some(options => !options.content)) {
+        if (!fields.fields_type || !fields.questions || fields.options.some(options => !options.choice)) {
             toast.warning("Please fill in all the options for the question.", {
                 position: "top-right",
                 autoClose: 5000,
@@ -280,10 +281,13 @@ export default function AddNewForm() {
             return
 
         } else {
+
             const body = {
                 ...fromInfom,
                 creator: localStorage.getItem("uuid"),
             };
+            console
+
             const access = localStorage.getItem("access")
 
             const headers = {
@@ -294,8 +298,21 @@ export default function AddNewForm() {
                     headers
                 });
 
-                if (response.status === 200) {
+                if (response.status === 201) {
                     console.log(response)
+                    toast.success(`The form was created successfully`, {
+                        position: "top-right",
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "colored",
+                    });
+                    setTimeout(() => {
+                        navigate('/')
+                    }, 2000)
                 }
 
             } catch (error) {
@@ -316,10 +333,7 @@ export default function AddNewForm() {
 
     }
 
-
     const selectElement = (question, content) => {
-        console.log(question)
-        console.log(content)
         setMainDeleteQuestion(question)
         fields.options = content.options
         fields.questions = question
@@ -410,9 +424,9 @@ export default function AddNewForm() {
                         <InputCreateForm
                             lable={"Permit"}
                             title={"Form Type"}
-                            value={fromInfom.Form_Type}
+                            value={fromInfom.type}
                             onChange={handleChange}
-                            name="Form_Type"
+                            name="type"
                         />
                         <InputCreateForm
                             lable={"Title"}
@@ -462,7 +476,7 @@ export default function AddNewForm() {
                                 <select
                                     onChange={(e) => {
                                         setTypeInput(e.target.value)
-                                        if (typeInput === "ShortAnswer" || typeInput === "textarea" || typeInput === "date" || typeInput === "time") {
+                                        if (typeInput === "shortanswer" || typeInput === "textarea" || typeInput === "date" || typeInput === "time") {
                                             setNumberTypeInput([])
                                             fields.options = []
                                         }
@@ -475,7 +489,7 @@ export default function AddNewForm() {
                                     <option value="radio">Radio Button</option>
                                     <option value="checkbox">Check Box</option>
                                     <option value="dropdown">Dropdown</option>
-                                    <option value="ShortAnswer">Short Answer</option>
+                                    <option value="shortanswer">Short Answer</option>
                                     <option value="textarea" >Text Area</option>
                                     <option value="date">Date</option>
                                     <option value="time">Time</option>

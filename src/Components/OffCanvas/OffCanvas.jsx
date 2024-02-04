@@ -11,7 +11,6 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';;
-import MailIcon from '@mui/icons-material/Mail';
 import CottageIcon from '@mui/icons-material/Cottage';
 import AddIcon from '@mui/icons-material/Add';
 import { useNavigate } from 'react-router-dom';
@@ -20,6 +19,7 @@ import { useLocation } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { styled } from '@mui/material/styles';
+import FormatListNumberedIcon from '@mui/icons-material/FormatListNumbered';
 import axios from 'axios';
 import { IP } from '../../App';
 
@@ -38,7 +38,7 @@ export default function OffCanvas({ show, onHide }) {
     const currentRoute = location.pathname;
 
     //all icons in side bar
-    const drawerIcons = [<CottageIcon />, <MailIcon />, <NotificationsNoneIcon />, <AddIcon />, <LogoutIcon />];
+    const drawerIcons = [<CottageIcon />, <AddIcon />, <FormatListNumberedIcon />, <LogoutIcon />];
     //slelect route
     const [selectedRoute, setSelectedRoute] = React.useState('/');
     const navigate = useNavigate();
@@ -138,7 +138,7 @@ export default function OffCanvas({ show, onHide }) {
                         </DrawerHeader>
 
                         <List>
-                            {['Home', 'Starred', 'Send email', 'Add New Form', "Log out"].map((text, index) => (
+                            {['Home', 'Add New Form', 'All form', "Log out"].map((text, index) => (
                                 <CSSTransition key={text} timeout={300} classNames="fade">
                                     <ListItem key={text} disablePadding>
                                         <ListItemButton

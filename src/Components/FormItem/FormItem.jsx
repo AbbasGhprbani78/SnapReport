@@ -1,7 +1,10 @@
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 import './FormItem.css'
 export default function FormItem({ content, selectElement }) {
-    console.log(content.fields_type)
+    const formEndRef = useRef(null);
+    useEffect(() => {
+        formEndRef.current?.scrollIntoView({ behavior: 'smooth', block: 'end', inline: 'nearest' });
+    }, [content])
     return (
         <>
             <div className={`question-wrapper`} onClick={() => selectElement(content.questions, content)}>
@@ -17,12 +20,12 @@ export default function FormItem({ content, selectElement }) {
                                 className=' dropDwon-option'
                             >
                                 {content.options && content.options.map((option, i) => (
-                                    <option key={i}>{option.content}</option>
+                                    <option key={i}>{option.choice}</option>
                                 ))}
                             </select>
                         </div>
 
-                        : content.fields_type === "ShortAnswer" ?
+                        : content.fields_type === "shortanswer" ?
                             content &&
                             <div >
                                 <input
@@ -59,12 +62,13 @@ export default function FormItem({ content, selectElement }) {
 
                                             <div className='option-wrapper' key={i}>
                                                 <input type={content.fields_type} />
-                                                <label className='lable-option multiyop'>{option.content}</label>
+                                                <label className='lable-option multiyop'>{option.choice}</label>
                                             </div>
                                         ))
                 }
 
             </div>
+            <div ref={formEndRef} />
         </>
 
     )

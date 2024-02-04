@@ -8,12 +8,14 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    backdrop-filter: blur(5px);
 }
 
 .loader {
     width: 60px;
     height: 60px;
     display: grid;
+    z-index: 99;
 }
 
 .loader:before,

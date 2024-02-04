@@ -1,13 +1,24 @@
 @import url('../Style/Main.css');
 
+.home-container {
+    width: 100%;
+}
+
 .recentForm-conteiner {
     padding: 1% 2%;
     width: 100%;
     /* border-bottom: 1px solid rgb(154, 146, 146); */
 }
 
-.allFormText {
+
+
+.allFormText,
+.defaultFormText {
     color: rgb(154, 146, 146);
+}
+
+.defaultFormText {
+    margin-left: 2%;
 }
 
 .linkAll-form {
@@ -15,11 +26,20 @@
     cursor: pointer;
 }
 
-.recentForm {
-    border-bottom: 1px solid lightgray;
-    padding-bottom: 3%;
+
+
+.grid-form-recentItem {
+    flex-wrap: nowrap;
+    overflow-x: scroll;
+    padding: 5px 0 10px 0;
+    width: 95%;
+    border-bottom: 1px solid lightgray
 }
 
 .item-recent {
     min-height: 150px;
+    max-height: 150px;
+    margin: 0 10px;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    cursor: pointer;
 }

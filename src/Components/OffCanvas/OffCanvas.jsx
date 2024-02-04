@@ -20,6 +20,7 @@ import Box from '@mui/material/Box';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { styled } from '@mui/material/styles';
 import FormatListNumberedIcon from '@mui/icons-material/FormatListNumbered';
+import ContentPasteIcon from '@mui/icons-material/ContentPaste';
 import axios from 'axios';
 import { IP } from '../../App';
 
@@ -38,7 +39,7 @@ export default function OffCanvas({ show, onHide }) {
     const currentRoute = location.pathname;
 
     //all icons in side bar
-    const drawerIcons = [<CottageIcon />, <AddIcon />, <FormatListNumberedIcon />, <LogoutIcon />];
+    const drawerIcons = [<CottageIcon />, <AddIcon />, <FormatListNumberedIcon />, <ContentPasteIcon />, <LogoutIcon />,];
     //slelect route
     const [selectedRoute, setSelectedRoute] = React.useState('/');
     const navigate = useNavigate();
@@ -78,6 +79,7 @@ export default function OffCanvas({ show, onHide }) {
 
     //change route
     const handleItemClick = (route) => {
+        onHide(false)
         if (route === '/logout') {
             logOutHandler()
         } else {
@@ -138,7 +140,7 @@ export default function OffCanvas({ show, onHide }) {
                         </DrawerHeader>
 
                         <List>
-                            {['Home', 'Add New Form', 'All form', "Log out"].map((text, index) => (
+                            {['Home', 'Add New Form', 'All form', "Reports", "Log out"].map((text, index) => (
                                 <CSSTransition key={text} timeout={300} classNames="fade">
                                     <ListItem key={text} disablePadding>
                                         <ListItemButton

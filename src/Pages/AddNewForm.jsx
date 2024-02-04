@@ -19,6 +19,8 @@ import { IP } from '../App'
 import { v4 as uuidv4 } from 'uuid';
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import Loading from '../Components/Loading/Loading'
 
 
 const ITEM_HEIGHT = 48;
@@ -38,9 +40,8 @@ const names = [
     "Manual Worker"
 ];
 
+export default function AddNewForm({ showForm, back }) {
 
-
-export default function AddNewForm() {
 
     const [personName, setPersonName] = React.useState([]);
 
@@ -59,6 +60,7 @@ export default function AddNewForm() {
     const [showDeleteIcon, setShowDeleteIcon] = useState(false)
     const [MainDeleteQuestion, setMainDeleteQuestion] = useState(null)
     const [isCreate, setIsCreate] = useState(false)
+    const [loading, setLoading] = useState(false)
     const [fromInfom, setFormInfom] = useState(
 
         {
@@ -282,12 +284,11 @@ export default function AddNewForm() {
 
         } else {
 
+            setLoading(true)
             const body = {
                 ...fromInfom,
                 creator: localStorage.getItem("uuid"),
             };
-            console
-
             const access = localStorage.getItem("access")
 
             const headers = {
@@ -300,6 +301,7 @@ export default function AddNewForm() {
 
                 if (response.status === 201) {
                     console.log(response)
+                    setLoading(false)
                     toast.success(`The form was created successfully`, {
                         position: "top-right",
                         autoClose: 5000,
@@ -312,7 +314,7 @@ export default function AddNewForm() {
                     });
                     setTimeout(() => {
                         navigate('/')
-                    }, 2000)
+                    }, 3000)
                 }
 
             } catch (error) {
@@ -378,169 +380,187 @@ export default function AddNewForm() {
 
     return (
         <>
-            <Row className='addFormContainer d-flex align-items-start w-100'>
-                <Col md={9} className='form-display-container'>
-                    <div className={`form-display ${fromInfom.title ? '' : "fomImg"}`}>
+            {
+                loading ?
+                    <Loading />
+                    :
+                    <Row className='addFormContainer d-flex align-items-start w-100'>
                         {
-                            fromInfom.title &&
-                            <FormDisplay
-                                selectElement={selectElement}
-                                fromInfom={fromInfom}
-
-                            />
+                            showForm &&
+                            <div className='mb-2'>
+                                <div
+                                    onClick={back}
+                                    style={{ all: "unset", display: "block", color: "#45ABE5" }}
+                                >
+                                    <ArrowBackIcon
+                                        style={{ fontSize: "1rem", cursor: "pointer" }} />back
+                                </div>
+                            </div>
                         }
-
-                    </div>
-                </Col>
-                <Col md={3} className='form-create-option-container'>
-                    <div className="form-create-option">
-                        <div className='inputWrapper'>
-                            <span className='input-title'>
-                                type of User
-                            </span>
-                            <FormControl sx={{
-                                width: "100% "
-                            }}>
-                                <Select
-                                    labelId="demo-multiple-checkbox-label"
-                                    id="demo-multiple-checkbox"
-                                    multiple
-                                    value={personName}
-                                    onChange={handleSelectType}
-                                    input={<OutlinedInput label="Tag" />}
-                                    renderValue={(selected) => selected.join(', ')}
-                                    MenuProps={MenuProps}
-                                >
-                                    {names.map((name) => (
-                                        <MenuItem key={name} value={name}>
-                                            <Checkbox checked={personName.indexOf(name) > -1} />
-                                            <ListItemText primary={name} />
-                                        </MenuItem>
-                                    ))}
-                                </Select>
-                            </FormControl>
-                        </div>
-
-                        <InputCreateForm
-                            lable={"Permit"}
-                            title={"Form Type"}
-                            value={fromInfom.type}
-                            onChange={handleChange}
-                            name="type"
-                        />
-                        <InputCreateForm
-                            lable={"Title"}
-                            title={"Header"}
-                            value={fromInfom.title}
-                            onChange={handleChange}
-                            name="title"
-                        />
-                        <InputCreateForm
-                            lable={"Description"}
-                            title={"Description"}
-                            value={fromInfom.descriptions}
-                            name="descriptions"
-                            onChange={handleChange}
-                        />
-
-                        <div className='d-flex align-items-center'>
-                            <div className="inputWrapper">
-                                <span className='input-title'>
-                                    Add Question
-                                </span>
-                                <input
-                                    value={fields.questions}
-                                    type="text"
-                                    className='input-form'
-                                    placeholder={"Question"}
-                                    onChange={handleChangeQuetion}
-                                    name={"questions"}
-                                />
-                            </div>
-                            {
-                                showDeleteIcon &&
-                                <DeleteIcon
-                                    onClick={deleteQuestion}
-                                    className='Delete-form-Icon'
-                                />
-                            }
-
-                        </div>
-                        <div>
-                            <span className='input-title'>
-                                Type Of Option
-                            </span>
-                            <div className='dropDwonForm'
-                                style={{ fontSize: "13px", height: "45px", lineHeight: "37px" }}>
-
-                                <select
-                                    onChange={(e) => {
-                                        setTypeInput(e.target.value)
-                                        if (typeInput === "shortanswer" || typeInput === "textarea" || typeInput === "date" || typeInput === "time") {
-                                            setNumberTypeInput([])
-                                            fields.options = []
-                                        }
-                                        fields.fields_type = e.target.value
-                                    }
-                                    }
-                                    className='dropDwon'
-                                    value={fields.fields_type}
-                                >
-                                    <option value="radio">Radio Button</option>
-                                    <option value="checkbox">Check Box</option>
-                                    <option value="dropdown">Dropdown</option>
-                                    <option value="shortanswer">Short Answer</option>
-                                    <option value="textarea" >Text Area</option>
-                                    <option value="date">Date</option>
-                                    <option value="time">Time</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <AddInput
-                            createBox={createBox}
-                        />
-
-                        {
-                            numberTypeInput.map((input, i) => (
-                                showDeleteIcon ? (
-                                    <BoxInput
-                                        key={i}
-                                        type={input.content}
-                                        deleteBox={deleteBox}
-                                        uuid={input.uuid}
-                                        name='content'
-                                        onChange={handleChangeContent}
-                                        value={input.content}
-                                    />
-                                ) : (
-                                    <BoxInput
-                                        key={i}
-                                        type={input.content}
-                                        deleteBox={deleteBox}
-                                        uuid={input.uuid}
-                                        name='content'
-                                        onChange={handleChangeContent}
+                        <Col md={9} className='form-display-container'>
+                            <div className={`form-display ${fromInfom.title ? '' : "fomImg"}`}>
+                                {
+                                    fromInfom.title &&
+                                    <FormDisplay
+                                        selectElement={selectElement}
+                                        fromInfom={fromInfom}
 
                                     />
-                                )
-                            ))
-                        }
+                                }
 
-                        <Button
-                            btnCalss={"button-component addFormBtn"}
-                            content={showDeleteIcon ? "save" : "Add"}
-                            onClick={addToForm}
-                        />
-                        <Button
-                            btnCalss={"button-component"}
-                            content={"Create"}
-                            onClick={sendFormHandler}
-                            disabled={!isCreate}
-                        />
-                    </div>
-                </Col>
-            </Row>
+                            </div>
+                        </Col>
+                        <Col md={3} className='form-create-option-container'>
+                            <div className="form-create-option">
+                                <div className='inputWrapper'>
+                                    <span className='input-title'>
+                                        type of User
+                                    </span>
+                                    <FormControl sx={{
+                                        width: "100% "
+                                    }}>
+                                        <Select
+                                            labelId="demo-multiple-checkbox-label"
+                                            id="demo-multiple-checkbox"
+                                            multiple
+                                            value={personName}
+                                            onChange={handleSelectType}
+                                            input={<OutlinedInput label="Tag" />}
+                                            renderValue={(selected) => selected.join(', ')}
+                                            MenuProps={MenuProps}
+                                        >
+                                            {names.map((name) => (
+                                                <MenuItem key={name} value={name}>
+                                                    <Checkbox checked={personName.indexOf(name) > -1} />
+                                                    <ListItemText primary={name} />
+                                                </MenuItem>
+                                            ))}
+                                        </Select>
+                                    </FormControl>
+                                </div>
+
+                                <InputCreateForm
+                                    lable={"Permit"}
+                                    title={"Form Type"}
+                                    value={fromInfom.type}
+                                    onChange={handleChange}
+                                    name="type"
+                                />
+                                <InputCreateForm
+                                    lable={"Title"}
+                                    title={"Header"}
+                                    value={fromInfom.title}
+                                    onChange={handleChange}
+                                    name="title"
+                                />
+                                <InputCreateForm
+                                    lable={"Description"}
+                                    title={"Description"}
+                                    value={fromInfom.descriptions}
+                                    name="descriptions"
+                                    onChange={handleChange}
+                                />
+
+                                <div className='d-flex align-items-center'>
+                                    <div className="inputWrapper">
+                                        <span className='input-title'>
+                                            Add Question
+                                        </span>
+                                        <input
+                                            value={fields.questions}
+                                            type="text"
+                                            className='input-form'
+                                            placeholder={"Question"}
+                                            onChange={handleChangeQuetion}
+                                            name={"questions"}
+                                        />
+                                    </div>
+                                    {
+                                        showDeleteIcon &&
+                                        <DeleteIcon
+                                            onClick={deleteQuestion}
+                                            className='Delete-form-Icon'
+                                        />
+                                    }
+
+                                </div>
+                                <div>
+                                    <span className='input-title'>
+                                        Type Of Option
+                                    </span>
+                                    <div className='dropDwonForm'
+                                        style={{ fontSize: "13px", height: "45px", lineHeight: "37px" }}>
+
+                                        <select
+                                            onChange={(e) => {
+                                                setTypeInput(e.target.value)
+                                                if (typeInput === "shortanswer" || typeInput === "textarea" || typeInput === "date" || typeInput === "time") {
+                                                    setNumberTypeInput([])
+                                                    fields.options = []
+                                                }
+                                                fields.fields_type = e.target.value
+                                            }
+                                            }
+                                            className='dropDwon'
+                                            value={fields.fields_type}
+                                        >
+                                            <option value="radio">Radio Button</option>
+                                            <option value="checkbox">Check Box</option>
+                                            <option value="dropdown">Dropdown</option>
+                                            <option value="shortanswer">Short Answer</option>
+                                            <option value="textarea" >Text Area</option>
+                                            <option value="date">Date</option>
+                                            <option value="time">Time</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <AddInput
+                                    createBox={createBox}
+                                />
+
+                                {
+                                    numberTypeInput.map((input, i) => (
+                                        showDeleteIcon ? (
+                                            <BoxInput
+                                                key={i}
+                                                type={input.content}
+                                                deleteBox={deleteBox}
+                                                uuid={input.uuid}
+                                                name='content'
+                                                onChange={handleChangeContent}
+                                                value={input.content}
+                                            />
+                                        ) : (
+                                            <BoxInput
+                                                key={i}
+                                                type={input.content}
+                                                deleteBox={deleteBox}
+                                                uuid={input.uuid}
+                                                name='content'
+                                                onChange={handleChangeContent}
+
+                                            />
+                                        )
+                                    ))
+                                }
+
+                                <Button
+                                    btnCalss={"button-component addFormBtn"}
+                                    content={showDeleteIcon ? "save" : "Add"}
+                                    onClick={addToForm}
+                                />
+                                <Button
+                                    btnCalss={"button-component"}
+                                    content={"Create"}
+                                    onClick={sendFormHandler}
+                                    disabled={!isCreate}
+                                />
+                            </div>
+                        </Col>
+                    </Row>
+            }
+
             <ToastContainer />
         </>
     )

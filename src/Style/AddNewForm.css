@@ -26,7 +26,6 @@
 /* form style end */
 
 .form-create-option-container {
-    padding-top: 2%;
     padding-bottom: 2%;
 }
 
@@ -83,6 +82,7 @@
 
     .form-create-option-container {
         margin-bottom: 3%;
+        padding-top: 2%;
     }
 
     .form-display-container {

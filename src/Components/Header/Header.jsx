@@ -20,7 +20,6 @@ export default function Header() {
             />
             <div className="header-wrapper d-flex">
                 <IconButton
-                    onHide={() => setShowOffCanvas(false)}
                     style={{ color: "#45ABE5", marginLeft: "5px" }}
                     aria-label="open drawer"
                     edge="start"

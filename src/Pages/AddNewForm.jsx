@@ -40,7 +40,7 @@ const names = [
     "Manual Worker"
 ];
 
-export default function AddNewForm({ showForm, back, mainForm }) {
+export default function AddNewForm({ showForm, back, mainForm, isDelete }) {
 
     console.log(mainForm)
     const [personName, setPersonName] = React.useState(mainForm ? mainForm.person_type : []);
@@ -307,8 +307,8 @@ export default function AddNewForm({ showForm, back, mainForm }) {
                     form_uuid: mainForm.uuid
                 };
 
-                const jsonString = JSON.stringify(body);
-                console.log(jsonString)
+                // const jsonString = JSON.stringify(body);
+                // console.log(jsonString)
 
 
                 const access = localStorage.getItem("access")
@@ -415,6 +415,10 @@ export default function AddNewForm({ showForm, back, mainForm }) {
     }
 
     const selectElement = (question, content) => {
+        if (isDelete) {
+            return false
+
+        }
         setMainDeleteQuestion(question);
 
         const copiedOptions = content.options.map(option => ({ ...option }));
@@ -462,6 +466,57 @@ export default function AddNewForm({ showForm, back, mainForm }) {
             questions: "",
             options: [],
         });
+    }
+
+    const deleteFromHandler = async () => {
+        console.log("delete")
+        // const access = localStorage.getItem("access")
+
+        // const headers = {
+        //     Authorization: `Bearer ${access}`
+        // };
+
+        // const body = mainForm.uuid
+
+        // try {
+        //     const response = await axios.delete(`${IP}/form/create-fields/`, body, {
+        //         headers
+        //     });
+
+        //     if (response.status === 200) {
+        //         console.log(response)
+        //         setLoading(false)
+        //         toast.success(`The form was created successfully`, {
+        //             position: "top-right",
+        //             autoClose: 5000,
+        //             hideProgressBar: false,
+        //             closeOnClick: true,
+        //             pauseOnHover: true,
+        //             draggable: true,
+        //             progress: undefined,
+        //             theme: "colored",
+        //         });
+        //         setTimeout(() => {
+        //             navigate('/')
+        //         }, 3000)
+        //     }
+
+        // } catch (error) {
+
+        //     toast.error(`${error.response.data.message}`, {
+        //         position: "top-right",
+        //         autoClose: 5000,
+        //         hideProgressBar: false,
+        //         closeOnClick: true,
+        //         pauseOnHover: true,
+        //         draggable: true,
+        //         progress: undefined,
+        //         theme: "colored",
+        //     });
+
+        // } finally {
+        //     setLoading(false)
+        // }
     }
 
     return (
@@ -630,18 +685,29 @@ export default function AddNewForm({ showForm, back, mainForm }) {
                                         )
                                     ))
                                 }
+                                {
+                                    isDelete ?
+                                        <Button
+                                            btnCalss={"button-component addFormBtn deleteButton"}
+                                            content={"Delete"}
+                                            onClick={deleteFromHandler}
+                                        /> :
+                                        <>
+                                            <Button
+                                                btnCalss={"button-component addFormBtn"}
+                                                content={showDeleteIcon ? "save" : "Add"}
+                                                onClick={addToForm}
+                                            />
+                                            <Button
+                                                btnCalss={"button-component"}
+                                                content={"Create"}
+                                                onClick={sendFormHandler}
+                                                disabled={!isCreate}
+                                            />
+                                        </>
 
-                                <Button
-                                    btnCalss={"button-component addFormBtn"}
-                                    content={showDeleteIcon ? "save" : "Add"}
-                                    onClick={addToForm}
-                                />
-                                <Button
-                                    btnCalss={"button-component"}
-                                    content={"Create"}
-                                    onClick={sendFormHandler}
-                                    disabled={!isCreate}
-                                />
+                                }
+
                             </div>
                         </Col>
                     </Row>

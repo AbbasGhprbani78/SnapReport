@@ -7,21 +7,13 @@
     justify-content: center;
     align-items: center;
     height: 100vh;
-    /* Set the desired height */
-    background-color: #f0f0f0;
-    /* Set your desired background color */
+
 }
 
 .form-overview {
-    border: 2px solid #ccc;
-    /* Set border styles */
-    border-radius: 10px;
     padding: 20px;
-    background-color: #fff;
-    /* Set the background color of the form */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    max-width: 600px;
-    /* Set the maximum width of the form */
+    height: 100%;
+    max-width: px;
     width: 100%;
-    /* Take full width */
+
 }

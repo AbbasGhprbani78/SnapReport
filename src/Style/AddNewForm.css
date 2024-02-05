@@ -72,6 +72,10 @@
     background-position: center;
 }
 
+.deleteButton {
+    background-color: var(--color-8) !important;
+}
+
 
 @media (max-width:768px) {
     .form-display {

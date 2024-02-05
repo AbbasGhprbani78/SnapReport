@@ -39,8 +39,20 @@
 .item-recent {
     min-height: 150px;
     max-height: 150px;
-    margin: 0 10px;
+    margin: 10px;
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
     cursor: pointer;
-    overflow: scroll;
+
+}
+
+.deleteFormIcon {
+    color: var(--color-8);
+    font-size: 1.8rem !important;
+}
+
+.col-container {
+    overflow-y: scroll;
+    height: 100%;
+    position: relative;
+
 }

@@ -7,7 +7,8 @@ import AddNewForm from './AddNewForm';
 import { IP } from '../App';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-// import FormOverView from '../Components/FormOverView/FormOverView';
+import FormOverView from '../Components/FormOverView/FormOverView';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 
 
 export default function Home() {
@@ -16,6 +17,7 @@ export default function Home() {
     const [formuuid, setFromuuid] = useState(null)
     const [allform, setAllForm] = useState([])
     const [mainForm, setMainForm] = useState(null)
+    const [isDelete, setIsDelete] = useState(false)
 
 
     const getAllForm = async () => {
@@ -57,10 +59,14 @@ export default function Home() {
 
     }
 
-
     return (
         <>{
-            showForm ? <AddNewForm showForm={showForm} back={openFormHandler} mainForm={mainForm} /> :
+            showForm ? <AddNewForm
+                showForm={showForm}
+                back={openFormHandler}
+                mainForm={mainForm}
+                isDelete={isDelete}
+            /> :
                 <div className="home-container">
                     <div className='recentForm-conteiner'>
                         <div className="allFormText">
@@ -71,6 +77,7 @@ export default function Home() {
                                 {
                                     allform.length > 0 && allform.map(form => (
                                         <Col
+                                            style={{ position: "relative" }}
                                             key={form.uuid}
                                             className='item-recent'
                                             xs={12} md={4}
@@ -80,7 +87,18 @@ export default function Home() {
                                                 setMainForm(form)
                                             }}
                                         >
-                                            {/* <FormOverView formData={form} /> */}
+                                            <div className="col-container">
+                                                <FormOverView formData={form} />
+                                            </div>
+                                            <span
+                                                style={{ position: "absolute", bottom: "2%", zIndex: "99", right: "2%" }}>
+                                                <DeleteForeverIcon
+                                                    className='deleteFormIcon'
+                                                    onClick={() => {
+                                                        openFormHandler()
+                                                        setIsDelete(true)
+                                                    }} />
+                                            </span>
                                         </Col>
                                     ))
                                 }
@@ -103,30 +121,3 @@ export default function Home() {
 
 
 
-
-// const getFormInfo = async () => {
-//     const access = localStorage.getItem("access")
-//     const headers = {
-//         Authorization: `Bearer ${access}`
-//     };
-
-//     try {
-//         const response = await axios.post(`${IP}//`, {
-//             headers,
-//         });
-//         if (response.status === 200) {
-
-//             console.log(response)
-
-//         }
-
-//     } catch (e) {
-//         console.log(e)
-//         // if (e.response.status === 401) {
-//         //     localStorage.removeItem('access')
-//         //     localStorage.removeItem('uuid')
-//         //     localStorage.removeItem('refresh')
-//         //     navigate("/signin")
-//         // }
-//     }
-// }

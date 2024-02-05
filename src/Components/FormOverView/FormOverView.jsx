@@ -1,5 +1,5 @@
 import React from 'react'
-import './FormOverView'
+import './FormOverView.css'
 import FormDisplay from '../FormDisplay/FormDisplay'
 export default function FormOverView({ formData }) {
     return (

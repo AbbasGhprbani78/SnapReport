@@ -7,40 +7,41 @@ import AddNewForm from './AddNewForm';
 import { IP } from '../App';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import FormOverView from '../Components/FormOverView/FormOverView';
+// import FormOverView from '../Components/FormOverView/FormOverView';
 
 
 export default function Home() {
     const navigate = useNavigate()
     const [showForm, setShowForm] = useState(false)
-    const [formId, setFromId] = useState(null)
-    const [allform, setAllForm] = useState()
+    const [formuuid, setFromuuid] = useState(null)
+    const [allform, setAllForm] = useState([])
+    const [mainForm, setMainForm] = useState(null)
 
 
     const getAllForm = async () => {
         const access = localStorage.getItem("access")
-        const uuid = localStorage.getItem('uuid')
+
         const headers = {
             Authorization: `Bearer ${access}`
         };
         try {
-            const response = await axios.get(`${IP}/form/get-user-form/${uuid}`, {
+            const response = await axios.get(`${IP}/form/get-user-form`, {
                 headers,
             });
             if (response.status === 200) {
-
+                setAllForm(response.data)
                 console.log(response)
 
             }
 
         } catch (e) {
             console.log(e)
-            // if (e.response.status === 401) {
-            //     localStorage.removeItem('access')
-            //     localStorage.removeItem('uuid')
-            //     localStorage.removeItem('refresh')
-            //     navigate("/signin")
-            // }
+            if (e.response.status === 401) {
+                localStorage.removeItem('access')
+                localStorage.removeItem('uuid')
+                localStorage.removeItem('refresh')
+                navigate("/signin")
+            }
         }
     }
 
@@ -48,46 +49,18 @@ export default function Home() {
         getAllForm()
     }, [])
 
-    const getFormInfo = async () => {
-        const access = localStorage.getItem("access")
-        const headers = {
-            Authorization: `Bearer ${access}`
-        };
-
-        try {
-            const response = await axios.post(`${IP}//`, {
-                headers,
-            });
-            if (response.status === 200) {
-
-                console.log(response)
-
-            }
-
-        } catch (e) {
-            console.log(e)
-            // if (e.response.status === 401) {
-            //     localStorage.removeItem('access')
-            //     localStorage.removeItem('uuid')
-            //     localStorage.removeItem('refresh')
-            //     navigate("/signin")
-            // }
-        }
-    }
 
     const openFormHandler = () => {
         setShowForm(prevState => {
             setShowForm(!prevState)
         })
-        if (showForm) {
-            getFormInfo()
-        }
+
     }
 
 
     return (
         <>{
-            showForm ? <AddNewForm showForm={showForm} back={openFormHandler} /> :
+            showForm ? <AddNewForm showForm={showForm} back={openFormHandler} mainForm={mainForm} /> :
                 <div className="home-container">
                     <div className='recentForm-conteiner'>
                         <div className="allFormText">
@@ -95,13 +68,24 @@ export default function Home() {
                         </div>
                         <div className='recentForm mt-3'>
                             <div className='grid-form-recentItem d-flex '>
-                                <Col className='item-recent'
-                                    xs={12} md={4}
-                                    onClick={openFormHandler}
-                                >
-                                    asfsac
-                                    {/* <FormOverView formData={"dsfsfc"} /> */}
-                                </Col>
+                                {
+                                    allform.length > 0 && allform.map(form => (
+                                        <Col
+                                            key={form.uuid}
+                                            className='item-recent'
+                                            xs={12} md={4}
+                                            onClick={() => {
+                                                openFormHandler();
+                                                setFromuuid(form.uuid);
+                                                setMainForm(form)
+                                            }}
+                                        >
+                                            {/* <FormOverView formData={form} /> */}
+                                        </Col>
+                                    ))
+                                }
+
+
 
                             </div>
                         </div>
@@ -116,3 +100,33 @@ export default function Home() {
         </>
     )
 }
+
+
+
+
+// const getFormInfo = async () => {
+//     const access = localStorage.getItem("access")
+//     const headers = {
+//         Authorization: `Bearer ${access}`
+//     };
+
+//     try {
+//         const response = await axios.post(`${IP}//`, {
+//             headers,
+//         });
+//         if (response.status === 200) {
+
+//             console.log(response)
+
+//         }
+
+//     } catch (e) {
+//         console.log(e)
+//         // if (e.response.status === 401) {
+//         //     localStorage.removeItem('access')
+//         //     localStorage.removeItem('uuid')
+//         //     localStorage.removeItem('refresh')
+//         //     navigate("/signin")
+//         // }
+//     }
+// }

@@ -40,10 +40,11 @@ const names = [
     "Manual Worker"
 ];
 
-export default function AddNewForm({ showForm, back }) {
+export default function AddNewForm({ showForm, back, mainForm }) {
 
+    console.log(mainForm)
+    const [personName, setPersonName] = React.useState(mainForm ? mainForm.person_type : []);
 
-    const [personName, setPersonName] = React.useState([]);
 
     const handleSelectType = (event) => {
         const {
@@ -59,25 +60,35 @@ export default function AddNewForm({ showForm, back }) {
     const [numberTypeInput, setNumberTypeInput] = useState([])
     const [showDeleteIcon, setShowDeleteIcon] = useState(false)
     const [MainDeleteQuestion, setMainDeleteQuestion] = useState(null)
-    const [isCreate, setIsCreate] = useState(false)
+    const [isCreate, setIsCreate] = useState(mainForm ? true : false)
     const [loading, setLoading] = useState(false)
     const [fromInfom, setFormInfom] = useState(
 
         {
-            personType: [],
-            type: "",
-            title: "",
-            descriptions: "",
-            fields: [
-
-            ]
+            person_type: [...personName],
+            type: mainForm ? mainForm.type : "",
+            title: mainForm ? mainForm.title : "",
+            descriptions: mainForm ? mainForm.descriptions : "",
+            fields: []
         }
     )
+    console.log(fromInfom.person_type)
+    useEffect(() => {
+
+        if (mainForm && mainForm.fields && mainForm.fields.length > 0) {
+
+            setFormInfom((prevInfo) => ({
+                ...prevInfo,
+                fields: [...mainForm.fields],
+            }));
+
+        }
+    }, [mainForm]);
     useEffect(() => {
 
         setFormInfom((prevInfo) => ({
             ...prevInfo,
-            personType: personName,
+            person_type: personName,
         }));
     }, [personName]);
 
@@ -87,6 +98,7 @@ export default function AddNewForm({ showForm, back }) {
         options: [
         ]
     })
+
 
     const handleChange = (e) => {
 
@@ -104,6 +116,7 @@ export default function AddNewForm({ showForm, back }) {
             [name]: value,
         }));
     };
+
 
 
     const createBox = () => {
@@ -151,6 +164,7 @@ export default function AddNewForm({ showForm, back }) {
             setFields((prevFields) => {
                 const updatedOptions = [...prevFields.options];
                 updatedOptions[boxIndex] = {
+                    ...updatedOptions[boxIndex],
                     choice: updatedContent,
                 };
                 return {
@@ -160,6 +174,7 @@ export default function AddNewForm({ showForm, back }) {
             });
         }
     };
+
 
     // delete box for option of question
 
@@ -237,8 +252,9 @@ export default function AddNewForm({ showForm, back }) {
 
         setFormInfom((prevInfo) => ({
             ...prevInfo,
-            fields: [...prevInfo.fields, { ...fields, options: optionsWithUuid }],
+            fields: [...prevInfo.fields, { ...fields, options: [...optionsWithUuid] }],
         }));
+
 
         if (showDeleteIcon) {
 
@@ -269,7 +285,7 @@ export default function AddNewForm({ showForm, back }) {
 
     const sendFormHandler = async () => {
 
-        if (!fromInfom.fields.length > 0 || !fromInfom.personType.length > 0) {
+        if (!fromInfom.fields.length > 0 || !fromInfom.person_type.length > 0) {
             toast.warning("Please create form ", {
                 position: "top-right",
                 autoClose: 5000,
@@ -283,26 +299,49 @@ export default function AddNewForm({ showForm, back }) {
             return
 
         } else {
+            if (mainForm) {
+                setLoading(true)
+                const body = {
+                    ...fromInfom,
+                    creator: localStorage.getItem("uuid"),
+                    form_uuid: mainForm.uuid
+                };
 
-            setLoading(true)
-            const body = {
-                ...fromInfom,
-                creator: localStorage.getItem("uuid"),
-            };
-            const access = localStorage.getItem("access")
+                const jsonString = JSON.stringify(body);
+                console.log(jsonString)
 
-            const headers = {
-                Authorization: `Bearer ${access}`
-            };
-            try {
-                const response = await axios.post(`${IP}/form/create-fields/`, body, {
-                    headers
-                });
 
-                if (response.status === 201) {
-                    console.log(response)
-                    setLoading(false)
-                    toast.success(`The form was created successfully`, {
+                const access = localStorage.getItem("access")
+
+                const headers = {
+                    Authorization: `Bearer ${access}`
+                };
+                try {
+                    const response = await axios.put(`${IP}/form/create-fields/`, body, {
+                        headers
+                    });
+
+                    if (response.status === 201) {
+                        console.log(response)
+                        setLoading(false)
+                        toast.success(`The form was created successfully`, {
+                            position: "top-right",
+                            autoClose: 5000,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                            theme: "colored",
+                        });
+                        setTimeout(() => {
+                            navigate('/')
+                        }, 3000)
+                    }
+
+                } catch (error) {
+                    console.log(fromInfom)
+                    toast.error(`${error.response.data.message}`, {
                         position: "top-right",
                         autoClose: 5000,
                         hideProgressBar: false,
@@ -312,52 +351,99 @@ export default function AddNewForm({ showForm, back }) {
                         progress: undefined,
                         theme: "colored",
                     });
-                    setTimeout(() => {
-                        navigate('/')
-                    }, 3000)
+
+                } finally {
+                    setLoading(false)
                 }
+            } else {
+                setLoading(true)
+                const body = {
+                    ...fromInfom,
+                    creator: localStorage.getItem("uuid"),
+                };
 
-            } catch (error) {
 
-                toast.error(`${error.response.data.message}`, {
-                    position: "top-right",
-                    autoClose: 5000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "colored",
-                });
+                const access = localStorage.getItem("access")
 
+                const headers = {
+                    Authorization: `Bearer ${access}`
+                };
+                try {
+                    const response = await axios.post(`${IP}/form/create-fields/`, body, {
+                        headers
+                    });
+
+                    if (response.status === 201) {
+                        console.log(response)
+                        setLoading(false)
+                        toast.success(`The form was created successfully`, {
+                            position: "top-right",
+                            autoClose: 5000,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                            theme: "colored",
+                        });
+                        setTimeout(() => {
+                            navigate('/')
+                        }, 3000)
+                    }
+
+                } catch (error) {
+
+                    toast.error(`${error.response.data.message}`, {
+                        position: "top-right",
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "colored",
+                    });
+
+                } finally {
+                    setLoading(false)
+                }
             }
+
+
         }
 
     }
 
     const selectElement = (question, content) => {
-        setMainDeleteQuestion(question)
-        fields.options = content.options
-        fields.questions = question
-        fields.fields_type = content.fields_type
-        setTypeInput(content.fields_type)
-        setShowDeleteIcon(prevState => !prevState)
+        setMainDeleteQuestion(question);
 
+        const copiedOptions = content.options.map(option => ({ ...option }));
+
+        const newFields = {
+            fields_type: content.fields_type,
+            questions: question,
+            options: copiedOptions,
+        };
+
+        setFields(newFields);
+        setTypeInput(content.fields_type);
+        setShowDeleteIcon(prevState => !prevState);
 
         if (!showDeleteIcon) {
-            setNumberTypeInput(content.options)
+            setNumberTypeInput(copiedOptions);
         } else {
-            setNumberTypeInput([])
+            setNumberTypeInput([]);
             setFields({
-                fields_type: fields.fields_type,
+                fields_type: content.fields_type,
                 questions: "",
                 options: [],
             });
         }
-    }
+    };
+
 
     const deleteQuestion = () => {
-        const questionIndex = fromInfom.fields.findIndex(question => question.question === MainDeleteQuestion);
+        const questionIndex = fromInfom.fields.findIndex(question => question.questions === MainDeleteQuestion);
 
         if (questionIndex !== -1) {
             const updatedFields = [...fromInfom.fields];
@@ -416,9 +502,7 @@ export default function AddNewForm({ showForm, back }) {
                                     <span className='input-title'>
                                         type of User
                                     </span>
-                                    <FormControl sx={{
-                                        width: "100% "
-                                    }}>
+                                    <FormControl sx={{ width: "100%" }}>
                                         <Select
                                             labelId="demo-multiple-checkbox-label"
                                             id="demo-multiple-checkbox"
@@ -426,17 +510,19 @@ export default function AddNewForm({ showForm, back }) {
                                             value={personName}
                                             onChange={handleSelectType}
                                             input={<OutlinedInput label="Tag" />}
-                                            renderValue={(selected) => selected.join(', ')}
+                                            renderValue={(selected) => selected.join(',')}
                                             MenuProps={MenuProps}
                                         >
                                             {names.map((name) => (
-                                                <MenuItem key={name} value={name}>
-                                                    <Checkbox checked={personName.indexOf(name) > -1} />
+                                                <MenuItem key={name} value={name.charAt(0)}>
+                                                    <Checkbox checked={personName.indexOf(name.charAt(0)) > -1} />
                                                     <ListItemText primary={name} />
                                                 </MenuItem>
                                             ))}
                                         </Select>
                                     </FormControl>
+
+
                                 </div>
 
                                 <InputCreateForm
@@ -524,20 +610,20 @@ export default function AddNewForm({ showForm, back }) {
                                         showDeleteIcon ? (
                                             <BoxInput
                                                 key={i}
-                                                type={input.content}
+                                                type={input.choice}
                                                 deleteBox={deleteBox}
                                                 uuid={input.uuid}
-                                                name='content'
+                                                name='choice'
                                                 onChange={handleChangeContent}
-                                                value={input.content}
+                                                value={input.choice}
                                             />
                                         ) : (
                                             <BoxInput
                                                 key={i}
-                                                type={input.content}
+                                                type={input.choice}
                                                 deleteBox={deleteBox}
                                                 uuid={input.uuid}
-                                                name='content'
+                                                name='choice'
                                                 onChange={handleChangeContent}
 
                                             />
@@ -569,3 +655,45 @@ export default function AddNewForm({ showForm, back }) {
 
 
 
+
+
+// {
+//     fields_type: "radio",
+//         questions: "qqqqqqq",
+//             options: [
+//                 { choice: "qwwe", uuid: crypto.randomUUID() },
+//                 { choice: "olm", uuid: crypto.randomUUID() },
+//                 { choice: "rty", uuid: crypto.randomUUID() },
+
+//             ]
+// },
+// {
+//     fields_type: "checkbox",
+//         questions: "zzzzzzzz",
+//             options: [
+//                 { choice: "75nk", uuid: crypto.randomUUID() },
+//                 { choice: "ngh76", uuid: crypto.randomUUID() },
+//                 { choice: "qaw45", uuid: crypto.randomUUID() },
+
+//             ]
+// },
+// {
+//     fields_type: "dropdown",
+//         questions: "gbbs34p",
+//             options: [
+//                 { choice: "cxvd24zv", uuid: crypto.randomUUID() },
+//                 { choice: "csd343@", uuid: crypto.randomUUID() },
+//                 { choice: "rbnlsd35d1", uuid: crypto.randomUUID() },
+
+//             ]
+// },
+// {
+//     fields_type: "shortanswer",
+//         questions: "gnr9932dcd@",
+//             options: [
+//                 { choice: "bdmpf78", uuid: crypto.randomUUID() },
+//                 { choice: "cccccswee@", uuid: crypto.randomUUID() },
+//                 { choice: "qqwescf643", uuid: crypto.randomUUID() },
+
+//             ]
+// },

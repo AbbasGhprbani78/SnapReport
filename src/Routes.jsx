@@ -3,6 +3,7 @@ import PageNotFound from "./Pages/PageNotFound";
 import AddNewForm from "./Pages/AddNewForm";
 import AllForm from "./Pages/AllForm";
 import Report from './Pages/Report'
+import Chat from './Pages/Chat'
 
 
 
@@ -11,6 +12,7 @@ let routes = [
     { path: "/addnewform", element: <AddNewForm /> },
     { path: "/allform", element: <AllForm /> },
     { path: "/reports", element: <Report /> },
+    { path: "/chat", element: <Chat /> },
     { path: "*", element: <PageNotFound /> },
 
 ]

@@ -2,7 +2,7 @@ import React from 'react'
 import DeleteIcon from '@mui/icons-material/Delete';
 import './BoxInput.css'
 
-export default function BoxInput({ type, deleteBox, uuid, onChange, name, value }) {
+export default function BoxInput({ deleteBox, uuid, onChange, name, value }) {
 
     return (
         <>

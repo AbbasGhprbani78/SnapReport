@@ -20,6 +20,7 @@ import { CSSTransition } from 'react-transition-group';
 import { useLocation } from 'react-router-dom';
 import LogoutIcon from '@mui/icons-material/Logout';
 import ContentPasteIcon from '@mui/icons-material/ContentPaste';
+import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
 import axios from 'axios';
 import { IP } from '../../App'
 import '../../Style/Main.css'
@@ -42,7 +43,7 @@ export default function sideBar() {
     const currentRoute = location.pathname;
 
     //all icons in side bar
-    const drawerIcons = [<CottageIcon />, <AddIcon />, <FormatListNumberedIcon />, <ContentPasteIcon />, <LogoutIcon />,];
+    const drawerIcons = [<CottageIcon />, <AddIcon />, <FormatListNumberedIcon />, <ChatBubbleOutlineIcon />, <ContentPasteIcon />, <LogoutIcon />,];
     //slelect route
     const [selectedRoute, setSelectedRoute] = React.useState('/');
     const navigate = useNavigate();
@@ -138,7 +139,7 @@ export default function sideBar() {
                         </DrawerHeader>
 
                         <List>
-                            {['Home', 'Add New Form', 'All form', "Reports", "Log out"].map((text, index) => (
+                            {['Home', 'Add New Form', 'All form', "chat", "Reports", "Log out"].map((text, index) => (
                                 <CSSTransition key={text} timeout={300} classNames="fade">
                                     <ListItem key={text} disablePadding>
                                         <ListItemButton

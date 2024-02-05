@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import '../Style/AllForm.css'
 import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
@@ -15,6 +15,40 @@ const Item = styled(Paper)(({ theme }) => ({
 export default function AllForm() {
 
     const [showForm, setShowForm] = useState(false)
+    const [allform, setAllForm] = useState([])
+    const [mainForm, setMainForm] = useState(null)
+    const [formuuid, setFromuuid] = useState(null)
+
+    const getAllForm = async () => {
+        const access = localStorage.getItem("access")
+
+        const headers = {
+            Authorization: `Bearer ${access}`
+        };
+        try {
+            const response = await axios.get(`${IP}/form/get-user-form`, {
+                headers,
+            });
+            if (response.status === 200) {
+                setAllForm(response.data)
+                console.log(response)
+
+            }
+
+        } catch (e) {
+            console.log(e)
+            if (e.response.status === 401) {
+                localStorage.removeItem('access')
+                localStorage.removeItem('uuid')
+                localStorage.removeItem('refresh')
+                navigate("/signin")
+            }
+        }
+    }
+
+    useEffect(() => {
+        getAllForm()
+    }, [])
 
     const openFormHandler = () => {
         setShowForm(prevState => {
@@ -32,7 +66,10 @@ export default function AllForm() {
                         item
                         xs={12}
                         md={4}
-                        onClick={openFormHandler}
+                        onClick={() => {
+                            openFormHandler
+                        }}
+                        style={{ cursor: "pointer" }}
                     >
                         <Item className='allFormItem'>xs=8</Item>
                     </Grid>

@@ -5,7 +5,7 @@ export default function FormOverView({ formData }) {
     return (
         <div className="form-overview-container">
             <div className="form-overview">
-                <FormDisplay fromInfom={formData} />
+                <FormDisplay fromInfom={formData} ishover={"hover"} disable={true} />
             </div>
         </div>
     )

@@ -1,5 +1,9 @@
 @import url(../../Style/Main.css);
 
+.headerContainer {
+    position: sticky;
+}
+
 .header-wrapper {
     padding: 2% 0 0 2%;
     align-items: start;

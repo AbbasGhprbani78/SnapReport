@@ -10,8 +10,6 @@
     /* border-bottom: 1px solid rgb(154, 146, 146); */
 }
 
-
-
 .allFormText,
 .defaultFormText {
     color: rgb(154, 146, 146);
@@ -41,14 +39,10 @@
     max-height: 150px;
     margin: 10px;
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-    cursor: pointer;
-
+    border-radius: var(--border-radius-2);
 }
 
-.deleteFormIcon {
-    color: var(--color-8);
-    font-size: 1.8rem !important;
-}
+
 
 .col-container {
     overflow-y: scroll;
@@ -56,3 +50,47 @@
     position: relative;
 
 }
+
+.actions-form {
+    position: absolute;
+    right: 0;
+    opacity: 0;
+    visibility: hidden;
+    bottom: 2%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 99;
+    transition: all .5s;
+
+}
+
+.item-recent:hover .actions-form {
+    right: 2%;
+    opacity: 1;
+    visibility: visible;
+}
+
+
+.deleteFormIcon {
+    color: var(--color-8);
+    font-size: 1.8rem !important;
+    z-index: 99
+}
+
+.editFormIcom {
+    color: #2fcd96;
+    font-size: 1.5rem !important;
+    margin-bottom: 5px;
+    z-index: 99
+}
+
+/* .cover {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 2;
+    backdrop-filter: blur(.5px);
+} */

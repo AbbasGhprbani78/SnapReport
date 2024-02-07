@@ -1,6 +1,9 @@
-import * as React from 'react';
-import { styled } from '@mui/material/styles';
-import Box from '@mui/material/Box';
+import React from 'react'
+import Offcanvas from 'react-bootstrap/Offcanvas';
+import './OffCanvas.css'
+import logoColor from '../../Images/logoColor.svg'
+import user from '../../Images/user.jpg'
+import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
 import Drawer from '@mui/material/Drawer';
 import CssBaseline from '@mui/material/CssBaseline';;
 import List from '@mui/material/List';
@@ -9,25 +12,20 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';;
 import CottageIcon from '@mui/icons-material/Cottage';
-import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
-import FormatListNumberedIcon from '@mui/icons-material/FormatListNumbered';
 import AddIcon from '@mui/icons-material/Add';
-import './SideBar.css'
-import logoColor from '../../Images/logoColor.svg'
-import user from '../../Images/user.jpg'
 import { useNavigate } from 'react-router-dom';
 import { CSSTransition } from 'react-transition-group';
 import { useLocation } from 'react-router-dom';
+import Box from '@mui/material/Box';
 import LogoutIcon from '@mui/icons-material/Logout';
+import { styled } from '@mui/material/styles';
+import FormatListNumberedIcon from '@mui/icons-material/FormatListNumbered';
 import ContentPasteIcon from '@mui/icons-material/ContentPaste';
 import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
 import axios from 'axios';
-import { IP } from '../../App'
-import '../../Style/Main.css'
-
+import { IP } from '../../App';
 
 const drawerWidth = 280;
-
 const DrawerHeader = styled('div')(({ theme }) => ({
     display: 'flex',
     alignItems: 'center',
@@ -36,8 +34,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
     justifyContent: 'flex-end',
 }));
 
-export default function sideBar() {
-
+export default function SeniorOffCanvas({ show, onHide }) {
     const [open, setOpen] = React.useState(true);
     const location = useLocation();
     const currentRoute = location.pathname;
@@ -50,8 +47,8 @@ export default function sideBar() {
 
 
 
-    const logOutHandler = async () => {
 
+    const logOutHandler = async () => {
 
         const access = localStorage.getItem('access')
         const refresh = localStorage.getItem('refresh')
@@ -83,6 +80,7 @@ export default function sideBar() {
 
     //change route
     const handleItemClick = (route) => {
+        onHide(false)
         if (route === '/logout') {
             logOutHandler()
         } else {
@@ -92,9 +90,13 @@ export default function sideBar() {
     };
 
 
+
     return (
         <>
-            <div className='sidebarContainer'>
+            <Offcanvas
+                className="custom-offcanvas "
+                show={show}
+                onHide={onHide}>
                 <Box sx={{ display: 'flex' }}>
                     <CssBaseline />
                     <Drawer
@@ -162,8 +164,7 @@ export default function sideBar() {
 
                     </Drawer>
                 </Box>
-            </div>
-
+            </Offcanvas>
         </>
-    );
+    )
 }

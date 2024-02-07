@@ -2,7 +2,7 @@ import './App.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Route, Routes, useRoutes } from 'react-router-dom';
 import routes from './Routes';
-import SideBar from './Components/SideBar/SideBar';
+import SeniorsideBar from './Components/SideBars/SeniorSideBar';
 import SignIn from './Pages/Sign';
 import Header from './Components/Header/Header';
 export const IP = "https://snapreport.ariisco.com"
@@ -22,7 +22,7 @@ function App() {
           <div>
             <Header />
             <div className="d-flex w-100">
-              <SideBar />
+              <SeniorsideBar />
               {router}
             </div>
           </div>
@@ -30,6 +30,7 @@ function App() {
 
 
     </>
+
   )
 }
 

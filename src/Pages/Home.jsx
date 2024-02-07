@@ -9,9 +9,11 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import FormOverView from '../Components/FormOverView/FormOverView';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import EditCalendarIcon from '@mui/icons-material/EditCalendar';
 
 
 export default function Home() {
+
     const navigate = useNavigate()
     const [showForm, setShowForm] = useState(false)
     const [formuuid, setFromuuid] = useState(null)
@@ -56,6 +58,10 @@ export default function Home() {
         setShowForm(prevState => {
             setShowForm(!prevState)
         })
+        if (!showForm) {
+
+            setIsDelete(false)
+        }
 
     }
 
@@ -72,7 +78,7 @@ export default function Home() {
                         <div className="allFormText">
                             <Link className='linkAll-form' to={'/allform'}>All Form <ChevronRightIcon /></Link>
                         </div>
-                        <div className='recentForm mt-3'>
+                        <div className='recentForm '>
                             <div className='grid-form-recentItem d-flex '>
                                 {
                                     allform.length > 0 && allform.map(form => (
@@ -81,30 +87,46 @@ export default function Home() {
                                             key={form.uuid}
                                             className='item-recent'
                                             xs={12} md={4}
-                                            onClick={() => {
-                                                openFormHandler();
-                                                setFromuuid(form.uuid);
-                                                setMainForm(form)
-                                            }}
                                         >
                                             <div className="col-container">
                                                 <FormOverView formData={form} />
                                             </div>
-                                            <span
-                                                style={{ position: "absolute", bottom: "2%", zIndex: "99", right: "2%" }}>
-                                                <DeleteForeverIcon
-                                                    className='deleteFormIcon'
-                                                    onClick={() => {
-                                                        openFormHandler()
-                                                        setIsDelete(true)
-                                                    }} />
-                                            </span>
+                                            <div>
+                                                <div
+                                                    className='actions-form'
+                                                >
+                                                    <span
+                                                        style={{ cursor: "pointer" }}
+
+                                                    >
+                                                        <EditCalendarIcon
+                                                            className='editFormIcom'
+                                                            onClick={() => {
+                                                                openFormHandler();
+                                                                setFromuuid(form.uuid);
+                                                                setMainForm(form)
+                                                            }}
+                                                        />
+                                                    </span>
+                                                    <span
+                                                        style={{ cursor: "pointer" }}
+
+                                                    >
+                                                        <DeleteForeverIcon
+                                                            className='deleteFormIcon'
+                                                            onClick={() => {
+                                                                openFormHandler()
+                                                                setMainForm(form)
+                                                                setIsDelete(true)
+                                                            }}
+                                                        />
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            {/* <div className='cover'></div> */}
                                         </Col>
                                     ))
                                 }
-
-
-
                             </div>
                         </div>
                     </div>
@@ -112,12 +134,12 @@ export default function Home() {
                         <span className='linkAll-form'>Default Forms</span>
                     </div>
                 </div>
-
         }
 
         </>
     )
 }
+
 
 
 

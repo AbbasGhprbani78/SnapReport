@@ -72,7 +72,7 @@ export default function AddNewForm({ showForm, back, mainForm, isDelete }) {
             fields: []
         }
     )
-    console.log(fromInfom.person_type)
+
     useEffect(() => {
 
         if (mainForm && mainForm.fields && mainForm.fields.length > 0) {
@@ -117,9 +117,10 @@ export default function AddNewForm({ showForm, back, mainForm, isDelete }) {
         }));
     };
 
-
-
     const createBox = () => {
+        if (isDelete) {
+            return
+        }
 
         if ((typeInput === "shortanswer" || typeInput === "textarea" || typeInput === "date" || typeInput === "time")) {
             toast.warning("You can Add option to these radio ,checkbox and dropdown", {
@@ -179,12 +180,33 @@ export default function AddNewForm({ showForm, back, mainForm, isDelete }) {
     // delete box for option of question
 
     const deleteBox = (uuid) => {
+
         const NewNumberTypeInput = numberTypeInput.filter(input => {
             return input.uuid !== uuid
         })
+
         setNumberTypeInput(NewNumberTypeInput)
+
         const boxIndexInFields = fields.options.findIndex(option => option.uuid === uuid);
 
+        setFields(prevFields => {
+            const updatedOptions = [...prevFields.options];
+            updatedOptions.splice(boxIndexInFields, 1);
+            return {
+                ...prevFields,
+                options: updatedOptions
+            };
+        });
+    }
+    const deleteMainBox = (id) => {
+
+        const NewNumberTypeInput = numberTypeInput.filter(input => {
+            return input.id !== id
+        })
+
+        setNumberTypeInput(NewNumberTypeInput)
+
+        const boxIndexInFields = fields.options.findIndex(option => option.id === id);
 
         setFields(prevFields => {
             const updatedOptions = [...prevFields.options];
@@ -310,7 +332,6 @@ export default function AddNewForm({ showForm, back, mainForm, isDelete }) {
                 // const jsonString = JSON.stringify(body);
                 // console.log(jsonString)
 
-
                 const access = localStorage.getItem("access")
 
                 const headers = {
@@ -413,8 +434,10 @@ export default function AddNewForm({ showForm, back, mainForm, isDelete }) {
         }
 
     }
-
+    const [questionUuid, setQuestionUuid] = useState()
     const selectElement = (question, content) => {
+        console.log(content)
+        console.log(question)
         if (isDelete) {
             return false
 
@@ -466,6 +489,23 @@ export default function AddNewForm({ showForm, back, mainForm, isDelete }) {
             questions: "",
             options: [],
         });
+    }
+
+
+    const deleteMinnQuestions = (uuid) => {
+
+
+        const newNumberQuestions = fromInfom.fields.findIndex(fields => fields.uuid === uuid);
+
+        fromInfom(prevFields => {
+            const updatedOptions = [...fields];
+            updatedOptions.splice(newNumberQuestions, 1);
+            return {
+                ...prevFields,
+                fields: updatedOptions
+            };
+        });
+
     }
 
     const deleteFromHandler = async () => {
@@ -531,7 +571,7 @@ export default function AddNewForm({ showForm, back, mainForm, isDelete }) {
                             <div className='mb-2'>
                                 <div
                                     onClick={back}
-                                    style={{ all: "unset", display: "block", color: "#45ABE5" }}
+                                    style={{ all: "unset", display: "block", color: "#45ABE5", cursor: "pointer" }}
                                 >
                                     <ArrowBackIcon
                                         style={{ fontSize: "1rem", cursor: "pointer" }} />back
@@ -567,6 +607,7 @@ export default function AddNewForm({ showForm, back, mainForm, isDelete }) {
                                             input={<OutlinedInput label="Tag" />}
                                             renderValue={(selected) => selected.join(',')}
                                             MenuProps={MenuProps}
+                                            disabled={isDelete}
                                         >
                                             {names.map((name) => (
                                                 <MenuItem key={name} value={name.charAt(0)}>
@@ -586,6 +627,7 @@ export default function AddNewForm({ showForm, back, mainForm, isDelete }) {
                                     value={fromInfom.type}
                                     onChange={handleChange}
                                     name="type"
+                                    disabled={isDelete}
                                 />
                                 <InputCreateForm
                                     lable={"Title"}
@@ -593,6 +635,8 @@ export default function AddNewForm({ showForm, back, mainForm, isDelete }) {
                                     value={fromInfom.title}
                                     onChange={handleChange}
                                     name="title"
+                                    disabled={isDelete}
+
                                 />
                                 <InputCreateForm
                                     lable={"Description"}
@@ -600,6 +644,7 @@ export default function AddNewForm({ showForm, back, mainForm, isDelete }) {
                                     value={fromInfom.descriptions}
                                     name="descriptions"
                                     onChange={handleChange}
+                                    disabled={isDelete}
                                 />
 
                                 <div className='d-flex align-items-center'>
@@ -614,12 +659,13 @@ export default function AddNewForm({ showForm, back, mainForm, isDelete }) {
                                             placeholder={"Question"}
                                             onChange={handleChangeQuetion}
                                             name={"questions"}
+                                            disabled={isDelete}
                                         />
                                     </div>
                                     {
                                         showDeleteIcon &&
                                         <DeleteIcon
-                                            onClick={deleteQuestion}
+                                            onClick={mainForm ? deleteMinnQuestions : deleteQuestion}
                                             className='Delete-form-Icon'
                                         />
                                     }
@@ -644,6 +690,7 @@ export default function AddNewForm({ showForm, back, mainForm, isDelete }) {
                                             }
                                             className='dropDwon'
                                             value={fields.fields_type}
+                                            disabled={isDelete}
                                         >
                                             <option value="radio">Radio Button</option>
                                             <option value="checkbox">Check Box</option>
@@ -658,15 +705,17 @@ export default function AddNewForm({ showForm, back, mainForm, isDelete }) {
 
                                 <AddInput
                                     createBox={createBox}
+
                                 />
 
                                 {
+                                    numberTypeInput.length > 0 &&
                                     numberTypeInput.map((input, i) => (
                                         showDeleteIcon ? (
                                             <BoxInput
                                                 key={i}
                                                 type={input.choice}
-                                                deleteBox={deleteBox}
+                                                deleteBox={mainForm ? deleteMainBox : deleteBox}
                                                 uuid={input.uuid}
                                                 name='choice'
                                                 onChange={handleChangeContent}
@@ -705,7 +754,6 @@ export default function AddNewForm({ showForm, back, mainForm, isDelete }) {
                                                 disabled={!isCreate}
                                             />
                                         </>
-
                                 }
 
                             </div>
@@ -723,43 +771,3 @@ export default function AddNewForm({ showForm, back, mainForm, isDelete }) {
 
 
 
-// {
-//     fields_type: "radio",
-//         questions: "qqqqqqq",
-//             options: [
-//                 { choice: "qwwe", uuid: crypto.randomUUID() },
-//                 { choice: "olm", uuid: crypto.randomUUID() },
-//                 { choice: "rty", uuid: crypto.randomUUID() },
-
-//             ]
-// },
-// {
-//     fields_type: "checkbox",
-//         questions: "zzzzzzzz",
-//             options: [
-//                 { choice: "75nk", uuid: crypto.randomUUID() },
-//                 { choice: "ngh76", uuid: crypto.randomUUID() },
-//                 { choice: "qaw45", uuid: crypto.randomUUID() },
-
-//             ]
-// },
-// {
-//     fields_type: "dropdown",
-//         questions: "gbbs34p",
-//             options: [
-//                 { choice: "cxvd24zv", uuid: crypto.randomUUID() },
-//                 { choice: "csd343@", uuid: crypto.randomUUID() },
-//                 { choice: "rbnlsd35d1", uuid: crypto.randomUUID() },
-
-//             ]
-// },
-// {
-//     fields_type: "shortanswer",
-//         questions: "gnr9932dcd@",
-//             options: [
-//                 { choice: "bdmpf78", uuid: crypto.randomUUID() },
-//                 { choice: "cccccswee@", uuid: crypto.randomUUID() },
-//                 { choice: "qqwescf643", uuid: crypto.randomUUID() },
-
-//             ]
-// },

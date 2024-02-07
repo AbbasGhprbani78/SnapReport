@@ -7,7 +7,7 @@
     margin: 2% 0;
 }
 
-.question-wrapper:hover {
+.option-item-form:hover {
     border: 1px solid var(--color-9);
     cursor: pointer;
 }

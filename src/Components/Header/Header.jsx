@@ -3,7 +3,7 @@ import "./Header.css"
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import logoColor from '../../Images/logoColor.svg'
-import OffCanvas from '../OffCanvas/OffCanvas';
+import SeniorOffCanvas from '../OffCanvas/SeniorOffCanvas';
 export default function Header() {
 
     const [showOffCanvas, setShowOffCanvas] = useState(false);
@@ -13,8 +13,8 @@ export default function Header() {
     };
 
     return (
-        <div className="d-lg-none mb-2">
-            <OffCanvas
+        <div className="d-lg-none mb-2 headerContainer">
+            <SeniorOffCanvas
                 show={showOffCanvas}
                 onHide={() => setShowOffCanvas(false)}
             />

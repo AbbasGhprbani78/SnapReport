@@ -4,6 +4,11 @@ import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
 import AddNewForm from './AddNewForm';
+import FormOverView from '../Components/FormOverView/FormOverView';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import EditCalendarIcon from '@mui/icons-material/EditCalendar';
+import axios from 'axios';
+import { IP } from '../App';
 
 const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -15,9 +20,10 @@ const Item = styled(Paper)(({ theme }) => ({
 export default function AllForm() {
 
     const [showForm, setShowForm] = useState(false)
+    const [formuuid, setFromuuid] = useState(null)
     const [allform, setAllForm] = useState([])
     const [mainForm, setMainForm] = useState(null)
-    const [formuuid, setFromuuid] = useState(null)
+    const [isDelete, setIsDelete] = useState(false)
 
     const getAllForm = async () => {
         const access = localStorage.getItem("access")
@@ -50,29 +56,77 @@ export default function AllForm() {
         getAllForm()
     }, [])
 
+
     const openFormHandler = () => {
         setShowForm(prevState => {
             setShowForm(!prevState)
         })
-        if (showForm) {
+        if (!showForm) {
 
+            setIsDelete(false)
         }
+
     }
     return (
         <>{
-            showForm ? <AddNewForm showForm={showForm} back={openFormHandler} /> :
-                <Grid container spacing={2} style={{ padding: "13px" }}>
-                    <Grid
-                        item
-                        xs={12}
-                        md={4}
-                        onClick={() => {
-                            openFormHandler
-                        }}
-                        style={{ cursor: "pointer" }}
-                    >
-                        <Item className='allFormItem'>xs=8</Item>
-                    </Grid>
+            showForm ?
+                <AddNewForm
+                    showForm={showForm}
+                    back={openFormHandler}
+                    mainForm={mainForm}
+                    isDelete={isDelete}
+
+                /> :
+                <Grid container style={{ padding: "13px" }}>
+                    {
+                        allform && allform.length > 0 && allform.map(form => (
+                            <Grid
+                                className='item-recent'
+                                key={form.uuid}
+                                item
+                                xs={12}
+                                md={4}
+                                onClick={() => {
+                                    openFormHandler
+                                }}
+                                style={{ position: "relative", overflow: "hidden" }}
+                            >
+                                <div className="col-container">
+                                    <FormOverView formData={form} />
+                                </div>
+                                <div className="actions-form">
+
+                                    <span
+                                        style={{ cursor: "pointer" }}
+
+                                    >
+                                        <EditCalendarIcon
+                                            className='editFormIcom'
+                                            onClick={() => {
+                                                openFormHandler();
+                                                setFromuuid(form.uuid);
+                                                setMainForm(form)
+                                            }}
+                                        />
+                                    </span>
+                                    <span
+                                        style={{ cursor: "pointer" }}
+
+                                    >
+                                        <DeleteForeverIcon
+                                            className='deleteFormIcon'
+                                            onClick={() => {
+                                                openFormHandler()
+                                                setMainForm(form)
+                                                setIsDelete(true)
+                                            }}
+                                        />
+                                    </span>
+                                </div>
+                            </Grid>
+                        ))
+                    }
+
                 </Grid>
         }
 

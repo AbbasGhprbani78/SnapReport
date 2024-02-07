@@ -1,1 +1,157 @@
 @import url('./Main.css');
+
+@font-face {
+    font-family: 'Poppines';
+    src: url('../font/Poppins-Medium.ttf') format('ttf'),
+        url('../font/Poppins-Medium.woff2') format('woff2'),
+        url('../font/Poppins-Medium.woff') format('woff');
+}
+
+.chat-container {
+    width: 100%;
+    position: relative;
+}
+
+.chat-header {
+    background-color: #f3f5f9;
+    backdrop-filter: blur(1px);
+    padding: 10px 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    left: 0;
+    right: 0;
+}
+
+.member-info {
+    display: flex;
+    align-items: center;
+    width: -webkit-fill-available;
+}
+
+.member-img-wrapper {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.member-img {
+    width: 100%;
+    height: 100%;
+}
+
+.member-name {
+    margin-left: 2%;
+}
+
+.chat-body {
+    min-height: 100vh;
+}
+
+.chat-actions {
+    width: 100%;
+    display: flex;
+    position: sticky;
+    bottom: 2%;
+    margin: 0 auto;
+}
+
+.input-wrapper {
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+    position: relative;
+    padding: 10px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    width: 88%;
+    margin-left: 1%;
+    backdrop-filter: blur(1px);
+}
+
+.input-send {
+    border: none;
+    outline: none;
+    width: 100%;
+    backdrop-filter: blur(5px);
+    background: none
+}
+
+.send-icon {
+    position: absolute;
+    right: 3%;
+    cursor: pointer;
+}
+
+.plus-actions {
+    display: flex;
+    align-items: center;
+}
+
+.voice-wrapper,
+.send-file-action {
+    background-color: var(--color-9);
+    padding: 10px;
+    border-radius: 50%;
+    color: #fff;
+    cursor: pointer;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+}
+
+.input-send::placeholder {
+    color: #000;
+}
+
+.voice-wrapper {
+    margin: 0 10px;
+}
+
+.send-icon2 {
+    position: absolute;
+    right: 3%;
+    cursor: pointer;
+}
+
+.plus-actions2 {
+    position: absolute;
+    right: 50px;
+}
+
+.voice-wrapper2,
+.send-file-action2 {
+    padding: 5px;
+    border-radius: 50%;
+    color: #000;
+    cursor: pointer;
+}
+
+.list-users {
+    width: 95%;
+    min-height: 450px;
+    max-height: 550px;
+    margin-top: 4%;
+    border-radius: var(--border-radius-2);
+    overflow-y: scroll;
+    margin: 2% auto;
+}
+
+#file {
+    display: none;
+}
+
+.Voice-wave {
+    display: none;
+}
+
+
+@media (max-width:992px) {
+    .input-wrapper {
+        width: 100%;
+    }
+
+    .input-wrapper {
+        margin-right: 1%;
+    }
+}

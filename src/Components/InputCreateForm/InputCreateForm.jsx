@@ -1,7 +1,7 @@
 import * as React from 'react';
 import './InputCreateForm.css';
 
-export default function InputCreateForm({ lable, title, onChange, value, name }) {
+export default function InputCreateForm({ lable, title, onChange, value, name, disabled }) {
 
     return (
         <>
@@ -16,6 +16,7 @@ export default function InputCreateForm({ lable, title, onChange, value, name })
                     placeholder={lable}
                     onChange={onChange}
                     name={name}
+                    disabled={disabled}
                 />
             </div>
 

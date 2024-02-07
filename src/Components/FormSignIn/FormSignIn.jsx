@@ -7,6 +7,7 @@ import { IP } from '../../App'
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
+import { useMyContext } from '../RoleContext';
 import logo from '../../Images/logo.svg'
 import axios from 'axios';
 
@@ -16,6 +17,7 @@ export default function FormSignIn({ handleTabChange }) {
     const [isPrivate, setIsPerivate] = useState(true)
     const [userName, setUserName] = useState(null)
     const [password, setPassword] = useState(null)
+    const { sharedData, updateSharedData } = useMyContext();
 
     // for change of situation of eye
     const handleToggle = () => {
@@ -68,11 +70,18 @@ export default function FormSignIn({ handleTabChange }) {
             });
 
             if (response.status === 200) {
+                console.log(response)
                 window.localStorage.setItem("access", response.data.access);
                 window.localStorage.setItem('uuid', response.data.uuid);
                 window.localStorage.setItem("refresh", response.data.refresh);
-                window.localStorage.setItem("user_type", response.data.user_type)
-                navigate("/")
+                updateSharedData(response.data.user_type)
+                if (response.data.user_type === "S") {
+                    navigate("/")
+                } if (response.data.user_type === "O") {
+                    navigate("/ordinaryhome")
+                } if (response.data.user_type === "M") {
+                    navigate("/manualhome")
+                }
             }
 
         } catch (error) {

@@ -62,6 +62,7 @@ export default function Chat() {
 
     const selectUser = (employeeId) => {
         console.log("se")
+        setShowChat(true)
         localStorage.removeItem('userUuid')
         window.localStorage.setItem("userUuid", employeeId)
         const mainUser = user.find(employee => employee.uuid == employeeId)
@@ -154,7 +155,6 @@ export default function Chat() {
         }
     }
     const sendtext = async (employeeId) => {
-
         const access = localStorage.getItem("access")
         if (text) {
 
@@ -297,9 +297,6 @@ export default function Chat() {
         }
     }
 
-    const exitChatPage = () => {
-        setShowChat(false)
-    }
 
     const toggleAudianceActive = () => {
         setIsAudianceActive(prevState => !prevState);
@@ -324,15 +321,23 @@ export default function Chat() {
                         {showChat ?
                             <>
                                 <div className="chat-container">
-                                    <div className="chat-header">
-                                        <div className="member-info">
-                                            <div className="member-img-wrapper">
-                                                <img className='member-img' src={avatar} alt="member" />
+                                    <div className="chat-body">
+                                        <div className="chat-header">
+                                            <div className="member-info">
+                                                <div className="member-img-wrapper">
+                                                    <img className='member-img' src={avatar} alt="member" />
+                                                </div>
+                                                <span className="member-name">Abbas Ghorbani</span>
                                             </div>
-                                            <span className="member-name">Abbas Ghorbani</span>
+                                            <ArrowForwardIcon onClick={() => setShowChat(false)} />
                                         </div>
+                                        {
+                                            allMessage.map((message, i) => (
+                                                <Message key={i}  {...message} />
+                                            ))
+                                        }
+                                        <div ref={messageEndRef} />
                                     </div>
-                                    <div className="chat-body"></div>
                                     <div className="chat-actions">
                                         <div className="input-wrapper">
                                             <input
@@ -342,7 +347,7 @@ export default function Chat() {
                                                 type="text"
                                                 className='input-send'
                                                 placeholder='Text Message...' />
-                                            <SendSharpIcon className='send-icon2' />
+                                            <SendSharpIcon className='send-icon2' onClick={sendtext} />
                                             <div className="plus-actions2">
                                                 <span className='voice-wrapper2'>
                                                     <ReactMic className='Voice-wave'

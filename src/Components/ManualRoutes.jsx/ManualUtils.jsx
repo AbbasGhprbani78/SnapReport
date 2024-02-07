@@ -1,7 +1,9 @@
-import React from 'react'
+const isManual = (type) => {
 
-export default function ManualUtils() {
-    return (
-        <div>ManualUtils</div>
-    )
+    if (type === "M") {
+        return true
+    }
+    return false
 }
+
+export { isManual }

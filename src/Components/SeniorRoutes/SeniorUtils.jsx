@@ -1,7 +1,9 @@
-import React from 'react'
+const isSenior = (type) => {
 
-export default function SeniorUtils() {
-    return (
-        <div>SeniorUtils</div>
-    )
+    if (type === "S") {
+        return true
+    }
+    return false
 }
+
+export { isSenior }

@@ -1,7 +1,9 @@
-import React from 'react'
+const isOrdinary = (type) => {
 
-export default function OrdinaryUtils() {
-    return (
-        <div>OrdinaryUtils</div>
-    )
+    if (type === "O") {
+        return true
+    }
+    return false
 }
+
+export { isOrdinary }

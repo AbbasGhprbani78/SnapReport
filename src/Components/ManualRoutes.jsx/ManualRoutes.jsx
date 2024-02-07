@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { isSenior } from './SeniorUtils'
-import { useMyContext } from '../RoleContext';
-import { IP } from '../../App';
+import { IP } from '../../App'
 import axios from 'axios';
+import { useMyContext } from '../RoleContext';
+import { isManual } from './ManualUtils';
+import { useNavigate } from 'react-router-dom';
 import Loading from '../Loading/Loading';
 
-export default function SeniorRoute({ children }) {
+export default function ManualRoutes({ children }) {
     const [typeUser, setTypeUser] = useState();
     const [isLoading, setIsLoading] = useState(true);
+
     const navigate = useNavigate()
+
     const validateUser = async () => {
         const refresh = localStorage.getItem('refresh');
 
@@ -48,7 +50,7 @@ export default function SeniorRoute({ children }) {
     }, []);
 
     const { sharedData } = useMyContext();
-    const seniorTrue = isSenior(sharedData);
+    const OrdinerTrue = isManual(sharedData);
 
     if (isLoading) {
         return <Loading />
@@ -56,10 +58,10 @@ export default function SeniorRoute({ children }) {
 
     return (
         <div style={{ width: "100%" }}>
-            {(seniorTrue || typeUser === "S") ? (
+            {(OrdinerTrue || typeUser === "M") ? (
                 children
             ) : (
-                navigate("/signin")
+                navigate('/signin')
             )}
         </div>
     );

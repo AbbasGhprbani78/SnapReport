@@ -45,7 +45,7 @@ export default function Home() {
                 localStorage.removeItem('access')
                 localStorage.removeItem('uuid')
                 localStorage.removeItem('refresh')
-                navigate("/signin")
+                navigate("/login")
             }
         }
     }

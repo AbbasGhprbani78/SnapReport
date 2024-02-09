@@ -347,7 +347,7 @@ export default function FormSignUp({ handleTabChange }) {
 //             });
 //             console.log(responseData)
 
-//             // navigate('/signin')
+//             // navigate('/login')
 
 //         }
 //     } catch (e) {

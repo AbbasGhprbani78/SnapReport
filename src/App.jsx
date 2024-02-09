@@ -19,9 +19,9 @@ function App() {
   return (
     <>
       {
-        window.location.pathname === "/signin" ?
+        window.location.pathname === "/login" ?
           <Routes>
-            <Route path="/signin" element={<SignIn />} />
+            <Route path="/login" element={<SignIn />} />
           </Routes>
           :
           <>

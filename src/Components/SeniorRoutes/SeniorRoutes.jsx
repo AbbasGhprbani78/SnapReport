@@ -35,7 +35,7 @@ export default function SeniorRoute({ children }) {
                 localStorage.removeItem('access')
                 localStorage.removeItem('uuid')
                 localStorage.removeItem('refresh')
-                navigate("/signin")
+                navigate("/login")
             }
 
         } finally {
@@ -59,7 +59,7 @@ export default function SeniorRoute({ children }) {
             {(seniorTrue || typeUser === "S") ? (
                 children
             ) : (
-                navigate("/signin")
+                navigate("/login")
             )}
         </div>
     );

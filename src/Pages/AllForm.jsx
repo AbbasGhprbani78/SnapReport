@@ -49,7 +49,7 @@ export default function AllForm() {
                 localStorage.removeItem('access')
                 localStorage.removeItem('uuid')
                 localStorage.removeItem('refresh')
-                navigate("/signin")
+                navigate("/login")
             }
         }
     }

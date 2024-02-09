@@ -37,7 +37,7 @@ export default function OrdinaryRoutes({ children }) {
                 localStorage.removeItem('access')
                 localStorage.removeItem('uuid')
                 localStorage.removeItem('refresh')
-                navigate("/signin")
+                navigate("/login")
             }
 
         } finally {
@@ -61,7 +61,7 @@ export default function OrdinaryRoutes({ children }) {
             {(OrdinerTrue || typeUser === "O") ? (
                 children
             ) : (
-                navigate('/signin')
+                navigate('/login')
             )}
         </div>
     );

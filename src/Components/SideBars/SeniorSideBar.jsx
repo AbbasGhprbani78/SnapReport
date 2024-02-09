@@ -52,7 +52,6 @@ export default function SeniorsideBar() {
 
     const logOutHandler = async () => {
 
-
         const access = localStorage.getItem('access')
         const refresh = localStorage.getItem('refresh')
 
@@ -74,12 +73,13 @@ export default function SeniorsideBar() {
                 localStorage.removeItem('uuid')
                 localStorage.removeItem('refresh')
                 localStorage.removeItem("user_type")
-                navigate('/signin')
+                navigate('/login')
             }
         } catch (e) {
             console.log(e)
         }
     }
+
 
     //change route
     const handleItemClick = (route) => {

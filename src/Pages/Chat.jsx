@@ -52,7 +52,7 @@ export default function Chat() {
                 localStorage.removeItem('access')
                 localStorage.removeItem('uuid')
                 localStorage.removeItem('refresh')
-                navigate("/signin")
+                navigate("/login")
             }
         }
     }
@@ -121,7 +121,7 @@ export default function Chat() {
                 localStorage.removeItem('access')
                 localStorage.removeItem('uuid')
                 localStorage.removeItem('refresh')
-                navigate("/signin")
+                navigate("/login")
             }
         }
     }
@@ -151,7 +151,7 @@ export default function Chat() {
                 localStorage.removeItem('access')
                 localStorage.removeItem('uuid')
                 localStorage.removeItem('refresh')
-                navigate("/signin")
+                navigate("/login")
             }
         }
     }
@@ -197,7 +197,7 @@ export default function Chat() {
                     localStorage.removeItem('uuid')
                     localStorage.removeItem('refresh')
 
-                    navigate("/signin")
+                    navigate("/login")
                 }
             }
 
@@ -230,7 +230,7 @@ export default function Chat() {
                 localStorage.removeItem('access')
                 localStorage.removeItem('uuid')
                 localStorage.removeItem('refresh')
-                navigate("/signin")
+                navigate("/login")
             }
         }
 
@@ -268,7 +268,7 @@ export default function Chat() {
                     localStorage.removeItem('access')
                     localStorage.removeItem('uuid')
                     localStorage.removeItem('refresh')
-                    navigate("/signin")
+                    navigate("/login")
                 }
             }
         }

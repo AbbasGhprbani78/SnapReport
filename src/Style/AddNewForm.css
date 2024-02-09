@@ -80,8 +80,8 @@
 @media (max-width:768px) {
     .form-display {
         width: 100%;
-        min-height: 350px;
-        max-height: 350px;
+        min-height: 90vh;
+        max-height: 90vh;
     }
 
     .form-create-option-container {

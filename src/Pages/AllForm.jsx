@@ -9,6 +9,7 @@ import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import EditCalendarIcon from '@mui/icons-material/EditCalendar';
 import axios from 'axios';
 import { IP } from '../App';
+import Header from '../Components/Header/Header';;
 
 const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -41,6 +42,7 @@ export default function AllForm() {
 
             }
 
+
         } catch (e) {
             console.log(e)
             if (e.response.status === 401) {
@@ -68,67 +70,71 @@ export default function AllForm() {
 
     }
     return (
-        <>{
-            showForm ?
-                <AddNewForm
-                    showForm={showForm}
-                    back={openFormHandler}
-                    mainForm={mainForm}
-                    isDelete={isDelete}
+        <>
+            {
+                showForm ?
+                    <AddNewForm
+                        showForm={showForm}
+                        back={openFormHandler}
+                        mainForm={mainForm}
+                        isDelete={isDelete}
 
-                /> :
-                <Grid container style={{ padding: "13px" }}>
-                    {
-                        allform && allform.length > 0 && allform.map(form => (
-                            <Grid
-                                className='item-recent'
-                                key={form.uuid}
-                                item
-                                xs={12}
-                                md={4}
-                                onClick={() => {
-                                    openFormHandler
-                                }}
-                                style={{ position: "relative", overflow: "hidden" }}
-                            >
-                                <div className="col-container">
-                                    <FormOverView formData={form} />
-                                </div>
-                                <div className="actions-form">
+                    /> :
+                    <div style={{ width: "100%" }}>
+                        <Header />
+                        <div className={`${allform.length < 0 ? "emptyForm" : ""} allForm-container`} >
 
-                                    <span
-                                        style={{ cursor: "pointer" }}
 
+                            {
+                                allform && allform.length > 0 && allform.map(form => (
+                                    <div
+                                        className='item-recent'
+                                        key={form.uuid}
+                                        onClick={() => {
+                                            openFormHandler
+                                        }}
+                                        style={{ position: "relative", overflow: "hidden" }}
                                     >
-                                        <EditCalendarIcon
-                                            className='editFormIcom'
-                                            onClick={() => {
-                                                openFormHandler();
-                                                setFromuuid(form.uuid);
-                                                setMainForm(form)
-                                            }}
-                                        />
-                                    </span>
-                                    <span
-                                        style={{ cursor: "pointer" }}
+                                        <div className="col-container">
+                                            <FormOverView formData={form} />
+                                        </div>
+                                        <div className="actions-form">
 
-                                    >
-                                        <DeleteForeverIcon
-                                            className='deleteFormIcon'
-                                            onClick={() => {
-                                                openFormHandler()
-                                                setMainForm(form)
-                                                setIsDelete(true)
-                                            }}
-                                        />
-                                    </span>
-                                </div>
-                            </Grid>
-                        ))
-                    }
+                                            <span
+                                                style={{ cursor: "pointer" }}
 
-                </Grid>
-        }
+                                            >
+                                                <EditCalendarIcon
+                                                    className='editFormIcom'
+                                                    onClick={() => {
+                                                        openFormHandler();
+                                                        setFromuuid(form.uuid);
+                                                        setMainForm(form)
+                                                    }}
+                                                />
+                                            </span>
+                                            <span
+                                                style={{ cursor: "pointer" }}
+
+                                            >
+                                                <DeleteForeverIcon
+                                                    className='deleteFormIcon'
+                                                    onClick={() => {
+                                                        openFormHandler()
+                                                        setMainForm(form)
+                                                        setIsDelete(true)
+                                                    }}
+                                                />
+                                            </span>
+                                        </div>
+                                    </div>
+                                ))
+                            }
+
+                        </div>
+                    </div>
+
+            }
 
         </>
     )

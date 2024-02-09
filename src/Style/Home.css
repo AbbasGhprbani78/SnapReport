@@ -7,7 +7,6 @@
 .recentForm-conteiner {
     padding: 1% 2%;
     width: 100%;
-    /* border-bottom: 1px solid rgb(154, 146, 146); */
 }
 
 .allFormText,
@@ -84,13 +83,3 @@
     margin-bottom: 5px;
     z-index: 99
 }
-
-/* .cover {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
-    z-index: 2;
-    backdrop-filter: blur(.5px);
-} */

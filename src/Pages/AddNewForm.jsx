@@ -21,6 +21,7 @@ import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import Loading from '../Components/Loading/Loading'
+import Header from '../Components/Header/Header'
 
 
 const ITEM_HEIGHT = 48;
@@ -62,6 +63,7 @@ export default function AddNewForm({ showForm, back, mainForm, isDelete }) {
     const [MainDeleteQuestion, setMainDeleteQuestion] = useState(null)
     const [isCreate, setIsCreate] = useState(mainForm ? true : false)
     const [loading, setLoading] = useState(false)
+    const [questionUuid, setQuestionUuid] = useState()
     const [fromInfom, setFormInfom] = useState(
 
         {
@@ -93,6 +95,7 @@ export default function AddNewForm({ showForm, back, mainForm, isDelete }) {
     }, [personName]);
 
     const [fields, setFields] = useState({
+        uuid: uuidv4(),
         fields_type: "radio",
         questions: "",
         options: [
@@ -105,7 +108,7 @@ export default function AddNewForm({ showForm, back, mainForm, isDelete }) {
         const { name, value } = e.target;
         setFormInfom((prevInfo) => ({
             ...prevInfo,
-            [name]: value,
+            [name]: value.trimStart(),
         }));
     };
 
@@ -113,7 +116,7 @@ export default function AddNewForm({ showForm, back, mainForm, isDelete }) {
         const { name, value } = e.target;
         setFields((prevInfo) => ({
             ...prevInfo,
-            [name]: value,
+            [name]: value.trimStart(),
         }));
     };
 
@@ -157,7 +160,7 @@ export default function AddNewForm({ showForm, back, mainForm, isDelete }) {
                 const updatedBoxes = [...prevState];
                 updatedBoxes[boxIndex] = {
                     ...updatedBoxes[boxIndex],
-                    choice: updatedContent,
+                    choice: updatedContent.trimStart(),
                 };
                 return updatedBoxes;
             });
@@ -166,7 +169,7 @@ export default function AddNewForm({ showForm, back, mainForm, isDelete }) {
                 const updatedOptions = [...prevFields.options];
                 updatedOptions[boxIndex] = {
                     ...updatedOptions[boxIndex],
-                    choice: updatedContent,
+                    choice: updatedContent.trimStart(),
                 };
                 return {
                     ...prevFields,
@@ -434,10 +437,11 @@ export default function AddNewForm({ showForm, back, mainForm, isDelete }) {
         }
 
     }
-    const [questionUuid, setQuestionUuid] = useState()
+
     const selectElement = (question, content) => {
         console.log(content)
-        console.log(question)
+        setQuestionUuid(content.uuid)
+
         if (isDelete) {
             return false
 
@@ -469,17 +473,11 @@ export default function AddNewForm({ showForm, back, mainForm, isDelete }) {
     };
 
 
-    const deleteQuestion = () => {
-        const questionIndex = fromInfom.fields.findIndex(question => question.questions === MainDeleteQuestion);
-
-        if (questionIndex !== -1) {
-            const updatedFields = [...fromInfom.fields];
-            updatedFields.splice(questionIndex, 1);
-            setFormInfom(prevInfo => ({
-                ...prevInfo,
-                fields: updatedFields,
-            }));
-        }
+    const deleteQuestion = (questionUuid) => {
+        setFormInfom((prevInfo) => ({
+            ...prevInfo,
+            fields: prevInfo.fields.filter((field) => field.uuid !== questionUuid),
+        }));
 
         setShowDeleteIcon(false);
         setMainDeleteQuestion(null);
@@ -493,7 +491,6 @@ export default function AddNewForm({ showForm, back, mainForm, isDelete }) {
 
 
     const deleteMinnQuestions = (uuid) => {
-
 
         const newNumberQuestions = fromInfom.fields.findIndex(fields => fields.uuid === uuid);
 
@@ -561,204 +558,208 @@ export default function AddNewForm({ showForm, back, mainForm, isDelete }) {
 
     return (
         <>
+
             {
                 loading ?
                     <Loading />
                     :
-                    <Row className='addFormContainer d-flex align-items-start w-100'>
-                        {
-                            showForm &&
-                            <div className='mb-2'>
-                                <div
-                                    onClick={back}
-                                    style={{ all: "unset", display: "block", color: "#45ABE5", cursor: "pointer" }}
-                                >
-                                    <ArrowBackIcon
-                                        style={{ fontSize: "1rem", cursor: "pointer" }} />back
-                                </div>
-                            </div>
-                        }
-                        <Col md={9} className='form-display-container'>
-                            <div className={`form-display ${fromInfom.title ? '' : "fomImg"}`}>
-                                {
-                                    fromInfom.title &&
-                                    <FormDisplay
-                                        selectElement={selectElement}
-                                        fromInfom={fromInfom}
-
-                                    />
-                                }
-
-                            </div>
-                        </Col>
-                        <Col md={3} className='form-create-option-container'>
-                            <div className="form-create-option">
-                                <div className='inputWrapper'>
-                                    <span className='input-title'>
-                                        type of User
-                                    </span>
-                                    <FormControl sx={{ width: "100%" }}>
-                                        <Select
-                                            labelId="demo-multiple-checkbox-label"
-                                            id="demo-multiple-checkbox"
-                                            multiple
-                                            value={personName}
-                                            onChange={handleSelectType}
-                                            input={<OutlinedInput label="Tag" />}
-                                            renderValue={(selected) => selected.join(',')}
-                                            MenuProps={MenuProps}
-                                            disabled={isDelete}
-                                        >
-                                            {names.map((name) => (
-                                                <MenuItem key={name} value={name.charAt(0)}>
-                                                    <Checkbox checked={personName.indexOf(name.charAt(0)) > -1} />
-                                                    <ListItemText primary={name} />
-                                                </MenuItem>
-                                            ))}
-                                        </Select>
-                                    </FormControl>
-
-
-                                </div>
-
-                                <InputCreateForm
-                                    lable={"Permit"}
-                                    title={"Form Type"}
-                                    value={fromInfom.type}
-                                    onChange={handleChange}
-                                    name="type"
-                                    disabled={isDelete}
-                                />
-                                <InputCreateForm
-                                    lable={"Title"}
-                                    title={"Header"}
-                                    value={fromInfom.title}
-                                    onChange={handleChange}
-                                    name="title"
-                                    disabled={isDelete}
-
-                                />
-                                <InputCreateForm
-                                    lable={"Description"}
-                                    title={"Description"}
-                                    value={fromInfom.descriptions}
-                                    name="descriptions"
-                                    onChange={handleChange}
-                                    disabled={isDelete}
-                                />
-
-                                <div className='d-flex align-items-center'>
-                                    <div className="inputWrapper">
-                                        <span className='input-title'>
-                                            Add Question
-                                        </span>
-                                        <input
-                                            value={fields.questions}
-                                            type="text"
-                                            className='input-form'
-                                            placeholder={"Question"}
-                                            onChange={handleChangeQuetion}
-                                            name={"questions"}
-                                            disabled={isDelete}
-                                        />
+                    <div style={{ width: "100%" }}>
+                        <Header />
+                        <Row className='addFormContainer d-flex align-items-start w-100'>
+                            {
+                                showForm &&
+                                <div className='mb-2'>
+                                    <div
+                                        onClick={back}
+                                        style={{ all: "unset", display: "block", color: "#45ABE5", cursor: "pointer" }}
+                                    >
+                                        <ArrowBackIcon
+                                            style={{ fontSize: "1rem", cursor: "pointer" }} />back
                                     </div>
+                                </div>
+                            }
+                            <Col md={9} className='form-display-container'>
+                                <div className={`form-display ${fromInfom.title ? '' : "fomImg"}`}>
                                     {
-                                        showDeleteIcon &&
-                                        <DeleteIcon
-                                            onClick={mainForm ? deleteMinnQuestions : deleteQuestion}
-                                            className='Delete-form-Icon'
+                                        fromInfom.title &&
+                                        <FormDisplay
+                                            selectElement={selectElement}
+                                            fromInfom={fromInfom}
+
                                         />
                                     }
 
                                 </div>
-                                <div>
-                                    <span className='input-title'>
-                                        Type Of Option
-                                    </span>
-                                    <div className='dropDwonForm'
-                                        style={{ fontSize: "13px", height: "45px", lineHeight: "37px" }}>
+                            </Col>
+                            <Col md={3} className='form-create-option-container'>
+                                <div className="form-create-option">
+                                    <div className='inputWrapper'>
+                                        <span className='input-title'>
+                                            type of User
+                                        </span>
+                                        <FormControl sx={{ width: "100%" }}>
+                                            <Select
+                                                labelId="demo-multiple-checkbox-label"
+                                                id="demo-multiple-checkbox"
+                                                multiple
+                                                value={personName}
+                                                onChange={handleSelectType}
+                                                input={<OutlinedInput label="Tag" />}
+                                                renderValue={(selected) => selected.join(',')}
+                                                MenuProps={MenuProps}
+                                                disabled={isDelete}
+                                            >
+                                                {names.map((name) => (
+                                                    <MenuItem key={name} value={name.charAt(0)}>
+                                                        <Checkbox checked={personName.indexOf(name.charAt(0)) > -1} />
+                                                        <ListItemText primary={name} />
+                                                    </MenuItem>
+                                                ))}
+                                            </Select>
+                                        </FormControl>
 
-                                        <select
-                                            onChange={(e) => {
-                                                setTypeInput(e.target.value)
-                                                if (typeInput === "shortanswer" || typeInput === "textarea" || typeInput === "date" || typeInput === "time") {
-                                                    setNumberTypeInput([])
-                                                    fields.options = []
-                                                }
-                                                fields.fields_type = e.target.value
-                                            }
-                                            }
-                                            className='dropDwon'
-                                            value={fields.fields_type}
-                                            disabled={isDelete}
-                                        >
-                                            <option value="radio">Radio Button</option>
-                                            <option value="checkbox">Check Box</option>
-                                            <option value="dropdown">Dropdown</option>
-                                            <option value="shortanswer">Short Answer</option>
-                                            <option value="textarea" >Text Area</option>
-                                            <option value="date">Date</option>
-                                            <option value="time">Time</option>
-                                        </select>
+
                                     </div>
+
+                                    <InputCreateForm
+                                        lable={"Permit"}
+                                        title={"Form Type"}
+                                        value={fromInfom.type}
+                                        onChange={handleChange}
+                                        name="type"
+                                        disabled={isDelete}
+                                    />
+                                    <InputCreateForm
+                                        lable={"Title"}
+                                        title={"Header"}
+                                        value={fromInfom.title}
+                                        onChange={handleChange}
+                                        name="title"
+                                        disabled={isDelete}
+
+                                    />
+                                    <InputCreateForm
+                                        lable={"Description"}
+                                        title={"Description"}
+                                        value={fromInfom.descriptions}
+                                        name="descriptions"
+                                        onChange={handleChange}
+                                        disabled={isDelete}
+                                    />
+
+                                    <div className='d-flex align-items-center'>
+                                        <div className="inputWrapper">
+                                            <span className='input-title'>
+                                                Add Question
+                                            </span>
+                                            <input
+                                                value={fields.questions}
+                                                type="text"
+                                                className='input-form'
+                                                placeholder={"Question"}
+                                                onChange={handleChangeQuetion}
+                                                name={"questions"}
+                                                disabled={isDelete}
+                                            />
+                                        </div>
+                                        {
+                                            showDeleteIcon &&
+                                            <DeleteIcon
+                                                onClick={mainForm ? deleteMinnQuestions : () => deleteQuestion(questionUuid)}
+                                                className='Delete-form-Icon'
+                                            />
+                                        }
+
+                                    </div>
+                                    <div>
+                                        <span className='input-title'>
+                                            Type Of Option
+                                        </span>
+                                        <div className='dropDwonForm'
+                                            style={{ fontSize: "13px", height: "45px", lineHeight: "37px" }}>
+
+                                            <select
+                                                onChange={(e) => {
+                                                    setTypeInput(e.target.value)
+                                                    if (typeInput === "shortanswer" || typeInput === "textarea" || typeInput === "date" || typeInput === "time") {
+                                                        setNumberTypeInput([])
+                                                        fields.options = []
+                                                    }
+                                                    fields.fields_type = e.target.value
+                                                }
+                                                }
+                                                className='dropDwon'
+                                                value={fields.fields_type}
+                                                disabled={isDelete}
+                                            >
+                                                <option value="radio">Radio Button</option>
+                                                <option value="checkbox">Check Box</option>
+                                                <option value="dropdown">Dropdown</option>
+                                                <option value="shortanswer">Short Answer</option>
+                                                <option value="textarea" >Text Area</option>
+                                                <option value="date">Date</option>
+                                                <option value="time">Time</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <AddInput
+                                        createBox={createBox}
+
+                                    />
+
+                                    {
+                                        numberTypeInput.length > 0 &&
+                                        numberTypeInput.map((input, i) => (
+                                            showDeleteIcon ? (
+                                                <BoxInput
+                                                    key={i}
+                                                    type={input.choice}
+                                                    deleteBox={mainForm ? deleteMainBox : deleteBox}
+                                                    uuid={input.uuid}
+                                                    name='choice'
+                                                    onChange={handleChangeContent}
+                                                    value={input.choice}
+                                                />
+                                            ) : (
+                                                <BoxInput
+                                                    key={i}
+                                                    type={input.choice}
+                                                    deleteBox={deleteBox}
+                                                    uuid={input.uuid}
+                                                    name='choice'
+                                                    onChange={handleChangeContent}
+
+                                                />
+                                            )
+                                        ))
+                                    }
+                                    {
+                                        isDelete ?
+                                            <Button
+                                                btnCalss={"button-component addFormBtn deleteButton"}
+                                                content={"Delete"}
+                                                onClick={deleteFromHandler}
+                                            /> :
+                                            <>
+                                                <Button
+                                                    btnCalss={"button-component addFormBtn"}
+                                                    content={showDeleteIcon ? "save" : "Add"}
+                                                    onClick={addToForm}
+                                                />
+                                                <Button
+                                                    btnCalss={"button-component"}
+                                                    content={"Create"}
+                                                    onClick={sendFormHandler}
+                                                    disabled={!isCreate}
+                                                />
+                                            </>
+                                    }
+
                                 </div>
-
-                                <AddInput
-                                    createBox={createBox}
-
-                                />
-
-                                {
-                                    numberTypeInput.length > 0 &&
-                                    numberTypeInput.map((input, i) => (
-                                        showDeleteIcon ? (
-                                            <BoxInput
-                                                key={i}
-                                                type={input.choice}
-                                                deleteBox={mainForm ? deleteMainBox : deleteBox}
-                                                uuid={input.uuid}
-                                                name='choice'
-                                                onChange={handleChangeContent}
-                                                value={input.choice}
-                                            />
-                                        ) : (
-                                            <BoxInput
-                                                key={i}
-                                                type={input.choice}
-                                                deleteBox={deleteBox}
-                                                uuid={input.uuid}
-                                                name='choice'
-                                                onChange={handleChangeContent}
-
-                                            />
-                                        )
-                                    ))
-                                }
-                                {
-                                    isDelete ?
-                                        <Button
-                                            btnCalss={"button-component addFormBtn deleteButton"}
-                                            content={"Delete"}
-                                            onClick={deleteFromHandler}
-                                        /> :
-                                        <>
-                                            <Button
-                                                btnCalss={"button-component addFormBtn"}
-                                                content={showDeleteIcon ? "save" : "Add"}
-                                                onClick={addToForm}
-                                            />
-                                            <Button
-                                                btnCalss={"button-component"}
-                                                content={"Create"}
-                                                onClick={sendFormHandler}
-                                                disabled={!isCreate}
-                                            />
-                                        </>
-                                }
-
-                            </div>
-                        </Col>
-                    </Row>
+                            </Col>
+                        </Row>
+                    </div>
             }
 
             <ToastContainer />

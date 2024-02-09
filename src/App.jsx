@@ -6,7 +6,7 @@ import SeniorsideBar from './Components/SideBars/SeniorSideBar';
 import OrdinarySideBars from './Components/SideBars/OrdinarySideBars'
 import ManualSideBar from './Components/SideBars/ManualSideBar'
 import SignIn from './Pages/Sign';
-import Header from './Components/Header/Header';
+
 import { useMyContext } from './Components/RoleContext';
 
 export const IP = "https://snapreport.ariisco.com"
@@ -25,16 +25,17 @@ function App() {
           </Routes>
           :
           <>
-            <Header />
+
             <div className="d-flex w-100">
-              {
+              {/* {
                 sharedData === "S" ?
                   <SeniorsideBar /> :
                   sharedData === "O" ?
                     <OrdinarySideBars /> :
-                    <ManualSideBar />
-              }
-
+                    sharedData === "M" ?
+                      <ManualSideBar /> : null
+              } */}
+              <SeniorsideBar />
               {router}
             </div>
           </>

@@ -10,6 +10,7 @@ import { useNavigate } from 'react-router-dom';
 import FormOverView from '../Components/FormOverView/FormOverView';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import EditCalendarIcon from '@mui/icons-material/EditCalendar';
+import Header from '../Components/Header/Header'
 
 
 export default function Home() {
@@ -66,75 +67,78 @@ export default function Home() {
     }
 
     return (
-        <>{
-            showForm ? <AddNewForm
-                showForm={showForm}
-                back={openFormHandler}
-                mainForm={mainForm}
-                isDelete={isDelete}
-            /> :
-                <div className="home-container">
-                    <div className='recentForm-conteiner'>
-                        <div className="allFormText">
-                            <Link className='linkAll-form' to={'/allform'}>All Form <ChevronRightIcon /></Link>
-                        </div>
-                        <div className='recentForm '>
-                            <div className='grid-form-recentItem d-flex '>
-                                {
-                                    allform.length > 0 && allform.map(form => (
-                                        <Col
-                                            style={{ position: "relative" }}
-                                            key={form.uuid}
-                                            className='item-recent'
-                                            xs={12} md={4}
-                                        >
-                                            <div className="col-container">
-                                                <FormOverView formData={form} />
-                                            </div>
-                                            <div>
-                                                <div
-                                                    className='actions-form'
-                                                >
-                                                    <span
-                                                        style={{ cursor: "pointer" }}
 
-                                                    >
-                                                        <EditCalendarIcon
-                                                            className='editFormIcom'
-                                                            onClick={() => {
-                                                                openFormHandler();
-                                                                setFromuuid(form.uuid);
-                                                                setMainForm(form)
-                                                            }}
-                                                        />
-                                                    </span>
-                                                    <span
-                                                        style={{ cursor: "pointer" }}
+        <>
 
-                                                    >
-                                                        <DeleteForeverIcon
-                                                            className='deleteFormIcon'
-                                                            onClick={() => {
-                                                                openFormHandler()
-                                                                setMainForm(form)
-                                                                setIsDelete(true)
-                                                            }}
-                                                        />
-                                                    </span>
+            {
+                showForm ? <AddNewForm
+                    showForm={showForm}
+                    back={openFormHandler}
+                    mainForm={mainForm}
+                    isDelete={isDelete}
+                /> :
+                    <div className="home-container">
+                        <Header />
+                        <div className='recentForm-conteiner'>
+                            <div className="allFormText">
+                                <Link className='linkAll-form' to={'/allform'}>All Form <ChevronRightIcon /></Link>
+                            </div>
+                            <div className='recentForm '>
+                                <div className='grid-form-recentItem d-flex '>
+                                    {
+                                        allform.length > 0 && allform.map(form => (
+                                            <Col
+                                                style={{ position: "relative" }}
+                                                key={form.uuid}
+                                                className='item-recent'
+                                                xs={12} md={4}
+                                            >
+                                                <div className="col-container">
+                                                    <FormOverView formData={form} />
                                                 </div>
-                                            </div>
-                                            {/* <div className='cover'></div> */}
-                                        </Col>
-                                    ))
-                                }
+                                                <div>
+                                                    <div
+                                                        className='actions-form'
+                                                    >
+                                                        <span
+                                                            style={{ cursor: "pointer" }}
+
+                                                        >
+                                                            <EditCalendarIcon
+                                                                className='editFormIcom'
+                                                                onClick={() => {
+                                                                    openFormHandler();
+                                                                    setFromuuid(form.uuid);
+                                                                    setMainForm(form)
+                                                                }}
+                                                            />
+                                                        </span>
+                                                        <span
+                                                            style={{ cursor: "pointer" }}
+
+                                                        >
+                                                            <DeleteForeverIcon
+                                                                className='deleteFormIcon'
+                                                                onClick={() => {
+                                                                    openFormHandler()
+                                                                    setMainForm(form)
+                                                                    setIsDelete(true)
+                                                                }}
+                                                            />
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </Col>
+                                        ))
+                                    }
+                                </div>
                             </div>
                         </div>
+                        <div className="defaultFormText">
+                            <span className='linkAll-form'>Default Forms</span>
+                        </div>
                     </div>
-                    <div className="defaultFormText">
-                        <span className='linkAll-form'>Default Forms</span>
-                    </div>
-                </div>
-        }
+            }
 
         </>
     )

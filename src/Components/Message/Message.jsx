@@ -15,7 +15,7 @@ export default function Message(props) {
 
                         {props.is_from_manager ?
                                 (<>
-                                        <div className='mt-2'>
+                                        <div className='mt-3'>
                                                 <div className='d-flex align-items-end  col-sm-12' style={{ direction: "rtl" }}>
 
                                                         {props.content &&
@@ -79,10 +79,10 @@ export default function Message(props) {
 
                                 ) : (
                                         <>
-                                                <div className='align-items-center mt-2 col-sm-12'>
+                                                <div className='align-items-center mt-3 col-sm-12'>
                                                         {
                                                                 props.content &&
-                                                                <div className="message-wrapper mt-2">
+                                                                <div className="message-wrapper mt-4">
 
                                                                         <div className="message-content  content-left">
                                                                                 <p className="message-text">

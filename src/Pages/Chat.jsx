@@ -14,6 +14,7 @@ import { useNavigate } from 'react-router-dom';
 import MicOffIcon from '@mui/icons-material/MicOff';
 import KeyboardVoiceIcon from '@mui/icons-material/KeyboardVoice';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import Header from '../Components/Header/Header';
 export default function Chat() {
 
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
@@ -154,9 +155,10 @@ export default function Chat() {
             }
         }
     }
-    const sendtext = async (employeeId) => {
+    const sendText = async (employeeId) => {
         const access = localStorage.getItem("access")
-        if (text) {
+        const trimmedText = text.trim();
+        if (trimmedText) {
 
             const headers = {
                 Authorization: `Bearer ${access}`
@@ -167,7 +169,7 @@ export default function Chat() {
                 user_uuid: employeeId
             }
             const newMessage = {
-                is_from_manager: true,
+                is_from_manager: false,
                 content: text,
                 data: text
             }
@@ -234,11 +236,7 @@ export default function Chat() {
 
     }
 
-    useEffect(() => {
-        if (selectedUser) {
-            getMessages(selectedUser);
-        }
-    }, [selectedUser]);
+
 
     const sendVoice = async (audioBlob) => {
 
@@ -287,12 +285,15 @@ export default function Chat() {
 
 
     useEffect(() => {
-        messageEndRef.current?.scrollIntoView();
-    }, [allMessage])
+
+        if (allMessage.length > 5) {
+            messageEndRef.current?.scrollIntoView();
+        }
+    }, [allMessage]);
 
     const handleKeyDown = (event) => {
         if (event.key === "Enter" && !event.shiftkey) {
-            sendtext(selectedUser)
+            sendText(selectedUser)
             event.preventDefault()
         }
     }
@@ -347,8 +348,8 @@ export default function Chat() {
                                                 type="text"
                                                 className='input-send'
                                                 placeholder='Text Message...' />
-                                            <SendSharpIcon className='send-icon2' onClick={sendtext} />
-                                            <div className="plus-actions2">
+                                            <SendSharpIcon className='send-icon2' onClick={sendText} />
+                                            <div className={text ? "plus-actions2 hiddenActions" : "plus-actions2"}>
                                                 <span className='voice-wrapper2'>
                                                     <ReactMic className='Voice-wave'
                                                         record={isRecording}
@@ -382,24 +383,27 @@ export default function Chat() {
                                 </div>
                             </> :
                             <>
-                                <div className="list-users">
-                                    <UserInfo
-                                        selectUser={selectUser}
-                                    />
+                                <div style={{ width: "100%" }}>
+                                    <Header />
+                                    <div className="list-users">
+                                        <UserInfo
+                                            selectUser={selectUser}
+                                        />
+                                    </div>
                                 </div>
                             </>
                         }
 
-                    </> : <>
-
+                    </> : <div style={{ width: "100%" }}>
+                        <Header />
+                        <Audiance
+                            selectUser={selectUser}
+                            isActive={isAudianceActive}
+                            toggleAudianceActive={toggleAudianceActive}
+                        />
                         <div className="chat-container">
                             <div className="chat-body">
                                 <div className="chat-header">
-                                    <Audiance
-                                        selectUser={selectUser}
-                                        isActive={isAudianceActive}
-                                        toggleAudianceActive={toggleAudianceActive}
-                                    />
                                     <div className="member-info">
                                         <div className="member-img-wrapper">
                                             <img className='member-img' src={avatar} alt="member" />
@@ -432,7 +436,7 @@ export default function Chat() {
                                         placeholder='Text Message...' />
                                     <SendSharpIcon
                                         className='send-icon'
-                                        onClick={sendtext}
+                                        onClick={sendText}
                                     />
                                 </div>
                                 <div className="plus-actions">
@@ -467,7 +471,7 @@ export default function Chat() {
 
                             </div>
                         </div>
-                    </>
+                    </div>
             }
 
         </>

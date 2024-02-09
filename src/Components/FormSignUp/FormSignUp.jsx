@@ -42,7 +42,7 @@ export default function FormSignUp({ handleTabChange }) {
     //change type of user in drop down
     const changeTypeUser = (value) => {
         signInUpInfo.user_type = value
-        console.log(signInUpInfo)
+
     }
 
 

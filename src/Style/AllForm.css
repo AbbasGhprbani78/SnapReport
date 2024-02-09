@@ -1,1 +1,17 @@
 @import url('../Style/AllForm.css');
+
+.emptyForm {
+    height: 100vh;
+    background-image: url("../Images/fomImg.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 50%;
+}
+
+
+.allForm-container {
+    display: grid;
+    width: 100%;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+
+}

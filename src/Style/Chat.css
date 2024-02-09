@@ -14,7 +14,6 @@
 
 .chat-header {
     background-color: #f3f5f9;
-    backdrop-filter: blur(1px);
     padding: 10px 15px;
     display: flex;
     justify-content: space-between;
@@ -23,6 +22,7 @@
     top: 0;
     left: 0;
     right: 0;
+    z-index: 999;
 }
 
 .member-info {
@@ -57,6 +57,7 @@
     position: sticky;
     bottom: 2%;
     margin: 0 auto;
+    padding-top: 20px;
 }
 
 .input-wrapper {
@@ -146,6 +147,10 @@
     display: none;
 }
 
+.hiddenActions {
+    display: none !important;
+}
+
 
 @media (max-width:992px) {
     .input-wrapper {
@@ -154,5 +159,11 @@
 
     .input-wrapper {
         margin-right: 1%;
+    }
+}
+
+@media (max-width:576px) {
+    .input-send {
+        width: 90%;
     }
 }

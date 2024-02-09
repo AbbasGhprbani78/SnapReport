@@ -11,17 +11,16 @@ import OrdinaryRoutes from "./Components/OrdinaryRoutes/OrdinaryRoutes";
 import ManualRoutes from "./Components/ManualRoutes.jsx/ManualRoutes";
 
 
-
 let routes = [
 
     { path: "/manualhome", element: <OrdinaryRoutes><ManualHome /></OrdinaryRoutes> },
     { path: "/manualchat", element: <OrdinaryRoutes><ManualChat /></OrdinaryRoutes> },
 
-    { path: "/", element: <SeniorRoutes><Home /></SeniorRoutes> },
-    { path: "/addnewform", element: <SeniorRoutes><AddNewForm /></SeniorRoutes> },
-    { path: "/allform", element: <SeniorRoutes><AllForm /></SeniorRoutes> },
-    { path: "/reports", element: <SeniorRoutes><Report /></SeniorRoutes> },
-    { path: "/chat", element: <SeniorRoutes><Chat /></SeniorRoutes> },
+    { path: "/", element: <Home /> },
+    { path: "/addnewform", element: <AddNewForm /> },
+    { path: "/allform", element: <AllForm /> },
+    { path: "/reports", element: <Report /> },
+    { path: "/chat", element: <Chat /> },
     { path: "*", element: <PageNotFound /> },
 
 ]

@@ -42,7 +42,7 @@ export default function OrdinarySideBars() {
     const currentRoute = location.pathname;
 
     //all icons in side bar
-    const drawerIcons = [<CottageIcon />, <AddIcon />, <FormatListNumberedIcon />, <ChatBubbleOutlineIcon />, <ContentPasteIcon />, <LogoutIcon />,];
+    const drawerIcons = [<CottageIcon />, <ChatBubbleOutlineIcon />, <LogoutIcon />,];
     //slelect route
     const [selectedRoute, setSelectedRoute] = React.useState('/');
     const navigate = useNavigate();
@@ -138,14 +138,14 @@ export default function OrdinarySideBars() {
                         </DrawerHeader>
 
                         <List>
-                            {['Home', 'Add New Form', 'All form', "chat", "Reports", "Log out"].map((text, index) => (
+                            {['Home', "chat", "Log out"].map((text, index) => (
                                 <CSSTransition key={text} timeout={300} classNames="fade">
                                     <ListItem key={text} disablePadding>
                                         <ListItemButton
-                                            onClick={() => handleItemClick(text === 'Home' ? '/' : `/${text.toLowerCase().replace(/\s/g, '')}`)}
+                                            onClick={() => handleItemClick(text === 'Home' ? '/ordinaryhome' : text === "chat" ? '/ordinaryhome' : `/${text.toLowerCase().replace(/\s/g, '')}`)}
                                             sx={{
                                                 '&:hover': { backgroundColor: '#DDF0FA' },
-                                                backgroundColor: currentRoute === (text === 'Home' ? '/' : `/${text.toLowerCase().replace(/\s/g, '')}`) ? '#DDF0FA' : 'inherit',
+                                                backgroundColor: currentRoute === (text === 'Home' ? '/ordinaryhome' : text === "chat" ? '/ordinarychat' : `/${text.toLowerCase().replace(/\s/g, '')}`) ? '#DDF0FA' : 'inherit',
 
                                             }}
                                         >

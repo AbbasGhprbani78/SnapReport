@@ -21,7 +21,6 @@ const Item = styled(Paper)(({ theme }) => ({
 export default function AllForm() {
 
     const [showForm, setShowForm] = useState(false)
-    const [formuuid, setFromuuid] = useState(null)
     const [allform, setAllForm] = useState([])
     const [mainForm, setMainForm] = useState(null)
     const [isDelete, setIsDelete] = useState(false)
@@ -60,14 +59,13 @@ export default function AllForm() {
 
 
     const openFormHandler = () => {
-        setShowForm(prevState => {
-            setShowForm(!prevState)
-        })
+        setShowForm(true)
         if (!showForm) {
-
             setIsDelete(false)
         }
-
+    }
+    const backHandler = () => {
+        setShowForm(false)
     }
     return (
         <>
@@ -75,7 +73,7 @@ export default function AllForm() {
                 showForm ?
                     <AddNewForm
                         showForm={showForm}
-                        back={openFormHandler}
+                        back={backHandler}
                         mainForm={mainForm}
                         isDelete={isDelete}
 
@@ -108,7 +106,6 @@ export default function AllForm() {
                                                     className='editFormIcom'
                                                     onClick={() => {
                                                         openFormHandler();
-                                                        setFromuuid(form.uuid);
                                                         setMainForm(form)
                                                     }}
                                                 />

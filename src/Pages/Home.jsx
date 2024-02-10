@@ -17,7 +17,6 @@ export default function Home() {
 
     const navigate = useNavigate()
     const [showForm, setShowForm] = useState(false)
-    const [formuuid, setFromuuid] = useState(null)
     const [allform, setAllForm] = useState([])
     const [mainForm, setMainForm] = useState(null)
     const [isDelete, setIsDelete] = useState(false)
@@ -56,14 +55,13 @@ export default function Home() {
 
 
     const openFormHandler = () => {
-        setShowForm(prevState => {
-            setShowForm(!prevState)
-        })
+        setShowForm(true)
         if (!showForm) {
-
             setIsDelete(false)
         }
-
+    }
+    const backHandler = () => {
+        setShowForm(false)
     }
 
     return (
@@ -73,7 +71,7 @@ export default function Home() {
             {
                 showForm ? <AddNewForm
                     showForm={showForm}
-                    back={openFormHandler}
+                    back={backHandler}
                     mainForm={mainForm}
                     isDelete={isDelete}
                 /> :
@@ -86,7 +84,7 @@ export default function Home() {
                             <div className='recentForm '>
                                 <div className='grid-form-recentItem d-flex '>
                                     {
-                                        allform.length > 0 && allform.map(form => (
+                                        allform.length > 0 ? allform.map(form => (
                                             <Col
                                                 style={{ position: "relative" }}
                                                 key={form.uuid}
@@ -100,37 +98,39 @@ export default function Home() {
                                                     <div
                                                         className='actions-form'
                                                     >
-                                                        <span
+                                                        <div
+                                                            onClick={() => {
+
+                                                                openFormHandler();
+                                                                setMainForm(form);
+                                                            }}
                                                             style={{ cursor: "pointer" }}
 
                                                         >
                                                             <EditCalendarIcon
                                                                 className='editFormIcom'
-                                                                onClick={() => {
-                                                                    openFormHandler();
-                                                                    setFromuuid(form.uuid);
-                                                                    setMainForm(form)
-                                                                }}
                                                             />
-                                                        </span>
-                                                        <span
+                                                        </div>
+
+                                                        <div
+                                                            onClick={() => {
+
+                                                                openFormHandler()
+                                                                setMainForm(form)
+                                                                setIsDelete(true)
+                                                            }}
                                                             style={{ cursor: "pointer" }}
 
                                                         >
                                                             <DeleteForeverIcon
                                                                 className='deleteFormIcon'
-                                                                onClick={() => {
-                                                                    openFormHandler()
-                                                                    setMainForm(form)
-                                                                    setIsDelete(true)
-                                                                }}
+
                                                             />
-                                                        </span>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </Col>
-                                        ))
-                                    }
+                                        )) : <div className='noform'>There is no form</div>}
                                 </div>
                             </div>
                         </div>

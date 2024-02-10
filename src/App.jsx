@@ -6,6 +6,7 @@ import SeniorsideBar from './Components/SideBars/SeniorSideBar';
 import OrdinarySideBars from './Components/SideBars/OrdinarySideBars'
 import ManualSideBar from './Components/SideBars/ManualSideBar'
 import SignIn from './Pages/Sign';
+import Form from './Form/Form'
 
 import { useMyContext } from './Components/RoleContext';
 
@@ -27,14 +28,14 @@ function App() {
           <>
 
             <div className="d-flex w-100">
-              {/* {
+              {
                 sharedData === "S" ?
                   <SeniorsideBar /> :
                   sharedData === "O" ?
                     <OrdinarySideBars /> :
                     sharedData === "M" ?
                       <ManualSideBar /> : null
-              } */}
+              }
               <SeniorsideBar />
               {router}
             </div>
@@ -42,6 +43,9 @@ function App() {
 
       }
     </>
+    // <>
+    //   <Form />
+    // </>
   )
 }
 

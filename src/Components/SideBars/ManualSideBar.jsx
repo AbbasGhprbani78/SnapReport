@@ -146,7 +146,6 @@ export default function ManualSideBar() {
                                             sx={{
                                                 '&:hover': { backgroundColor: '#DDF0FA' },
                                                 backgroundColor: currentRoute === (text === 'Home' ? '/manualhome' : text === "chat" ? '/manualchat' : `/${text.toLowerCase().replace(/\s/g, '')}`) ? '#DDF0FA' : 'inherit',
-
                                             }}
                                         >
                                             <ListItemIcon style={{ color: "#000" }}>

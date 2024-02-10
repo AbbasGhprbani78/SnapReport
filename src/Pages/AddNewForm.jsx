@@ -75,6 +75,7 @@ export default function AddNewForm({ showForm, back, mainForm, isDelete }) {
         }
     )
 
+    console.log(fromInfom)
     useEffect(() => {
 
         if (mainForm && mainForm.fields && mainForm.fields.length > 0) {
@@ -298,6 +299,7 @@ export default function AddNewForm({ showForm, back, mainForm, isDelete }) {
 
 
         setFields({
+            uuid: uuidv4(),
             fields_type: fields.fields_type,
             questions: "",
             options: [],
@@ -364,7 +366,7 @@ export default function AddNewForm({ showForm, back, mainForm, isDelete }) {
                     }
 
                 } catch (error) {
-                    console.log(fromInfom)
+
                     toast.error(`${error.response.data.message}`, {
                         position: "top-right",
                         autoClose: 5000,
@@ -432,8 +434,6 @@ export default function AddNewForm({ showForm, back, mainForm, isDelete }) {
                     setLoading(false)
                 }
             }
-
-
         }
 
     }
@@ -465,6 +465,7 @@ export default function AddNewForm({ showForm, back, mainForm, isDelete }) {
         } else {
             setNumberTypeInput([]);
             setFields({
+                uuid: uuidv4(),
                 fields_type: content.fields_type,
                 questions: "",
                 options: [],
@@ -473,10 +474,10 @@ export default function AddNewForm({ showForm, back, mainForm, isDelete }) {
     };
 
 
-    const deleteQuestion = (questionUuid) => {
+    const deleteQuestion = (uuid) => {
         setFormInfom((prevInfo) => ({
             ...prevInfo,
-            fields: prevInfo.fields.filter((field) => field.uuid !== questionUuid),
+            fields: prevInfo.fields.filter((field) => field.uuid !== uuid),
         }));
 
         setShowDeleteIcon(false);
@@ -491,19 +492,22 @@ export default function AddNewForm({ showForm, back, mainForm, isDelete }) {
 
 
     const deleteMinnQuestions = (uuid) => {
-
-        const newNumberQuestions = fromInfom.fields.findIndex(fields => fields.uuid === uuid);
-
-        fromInfom(prevFields => {
-            const updatedOptions = [...fields];
-            updatedOptions.splice(newNumberQuestions, 1);
-            return {
-                ...prevFields,
-                fields: updatedOptions
-            };
+        setFormInfom((prevInfo) => ({
+            ...prevInfo,
+            fields: prevInfo.fields.filter((field) => field.uuid !== uuid),
+        }));
+        setShowDeleteIcon(false);
+        setMainDeleteQuestion(null);
+        setNumberTypeInput([])
+        setFields({
+            uuid: uuidv4(),
+            fields_type: fields.fields_type,
+            questions: "",
+            options: [],
         });
-
     }
+
+
 
     const deleteFromHandler = async () => {
         console.log("delete")
@@ -665,7 +669,7 @@ export default function AddNewForm({ showForm, back, mainForm, isDelete }) {
                                         {
                                             showDeleteIcon &&
                                             <DeleteIcon
-                                                onClick={mainForm ? deleteMinnQuestions : () => deleteQuestion(questionUuid)}
+                                                onClick={mainForm ? () => deleteMinnQuestions(questionUuid) : () => deleteQuestion(questionUuid)}
                                                 className='Delete-form-Icon'
                                             />
                                         }

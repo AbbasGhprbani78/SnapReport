@@ -64,10 +64,11 @@
 
 }
 
+
 .item-recent:hover .actions-form {
-    right: 2%;
     opacity: 1;
     visibility: visible;
+    right: 2%
 }
 
 
@@ -82,4 +83,12 @@
     font-size: 1.5rem !important;
     margin-bottom: 5px;
     z-index: 99
+}
+
+.noform {
+    color: lightgray;
+    border: 1px solid lightgray;
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
 }

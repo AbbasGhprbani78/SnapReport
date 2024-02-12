@@ -9,6 +9,7 @@ import Loading from '../Loading/Loading';
 export default function SeniorRoute({ children }) {
     const [typeUser, setTypeUser] = useState();
     const [isLoading, setIsLoading] = useState(true);
+    const { type, updateType } = useMyContext()
     const navigate = useNavigate()
     const validateUser = async () => {
         const refresh = localStorage.getItem('refresh');
@@ -18,13 +19,14 @@ export default function SeniorRoute({ children }) {
         };
 
         try {
-            const response = await axios.post(`${IP}//`, body);
+            const response = await axios.post(`${IP}/user/token/refresh/`, body);
 
             if (response.status === 200) {
                 window.localStorage.removeItem('access');
                 window.localStorage.removeItem('uuid');
                 window.localStorage.setItem('access', response.data.access);
                 window.localStorage.setItem('uuid', response.data.uuid);
+                updateType(response.data.user_type)
                 setTypeUser(response.data.user_type);
                 setIsLoading(false)
             }
@@ -32,9 +34,7 @@ export default function SeniorRoute({ children }) {
         } catch (e) {
             console.log(e);
             if (e.response.status === 401) {
-                localStorage.removeItem('access')
-                localStorage.removeItem('uuid')
-                localStorage.removeItem('refresh')
+                localStorage.clear()
                 navigate("/login")
             }
 

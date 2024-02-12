@@ -6,16 +6,15 @@ import SeniorsideBar from './Components/SideBars/SeniorSideBar';
 import OrdinarySideBars from './Components/SideBars/OrdinarySideBars'
 import ManualSideBar from './Components/SideBars/ManualSideBar'
 import SignIn from './Pages/Sign';
-import Form from './Form/Form'
-
 import { useMyContext } from './Components/RoleContext';
 
 export const IP = "https://snapreport.ariisco.com"
 // export const IP = "http://185.79.156.226:9500"
 function App() {
   let router = useRoutes(routes);
-  const { sharedData } = useMyContext();
 
+  const { sharedData } = useMyContext();
+  const { type } = useMyContext()
 
   return (
     <>
@@ -26,26 +25,22 @@ function App() {
           </Routes>
           :
           <>
-
             <div className="d-flex w-100">
               {
-                sharedData === "S" ?
+                (sharedData || type) === "S" ?
                   <SeniorsideBar /> :
-                  sharedData === "O" ?
+                  (sharedData || type) === "O" ?
                     <OrdinarySideBars /> :
-                    sharedData === "M" ?
+                    (sharedData || type) === "M" ?
                       <ManualSideBar /> : null
               }
-              <SeniorsideBar />
               {router}
             </div>
           </>
 
       }
     </>
-    // <>
-    //   <Form />
-    // </>
+
   )
 }
 

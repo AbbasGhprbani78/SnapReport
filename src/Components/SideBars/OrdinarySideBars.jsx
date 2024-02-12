@@ -68,11 +68,7 @@ export default function OrdinarySideBars() {
             })
 
             if (response.status === 200) {
-                console.log(response)
-                localStorage.removeItem('access')
-                localStorage.removeItem('uuid')
-                localStorage.removeItem('refresh')
-                localStorage.removeItem("user_type")
+                localStorage.clear()
                 navigate('/login')
             }
         } catch (e) {
@@ -142,7 +138,7 @@ export default function OrdinarySideBars() {
                                 <CSSTransition key={text} timeout={300} classNames="fade">
                                     <ListItem key={text} disablePadding>
                                         <ListItemButton
-                                            onClick={() => handleItemClick(text === 'Home' ? '/ordinaryhome' : text === "chat" ? '/ordinaryhome' : `/${text.toLowerCase().replace(/\s/g, '')}`)}
+                                            onClick={() => handleItemClick(text === 'Home' ? '/ordinaryhome' : text === "chat" ? '/ordinarychat' : `/${text.toLowerCase().replace(/\s/g, '')}`)}
                                             sx={{
                                                 '&:hover': { backgroundColor: '#DDF0FA' },
                                                 backgroundColor: currentRoute === (text === 'Home' ? '/ordinaryhome' : text === "chat" ? '/ordinarychat' : `/${text.toLowerCase().replace(/\s/g, '')}`) ? '#DDF0FA' : 'inherit',

@@ -68,11 +68,7 @@ export default function SeniorsideBar() {
             })
 
             if (response.status === 200) {
-                console.log(response)
-                localStorage.removeItem('access')
-                localStorage.removeItem('uuid')
-                localStorage.removeItem('refresh')
-                localStorage.removeItem("user_type")
+                localStorage.clear()
                 navigate('/login')
             }
         } catch (e) {

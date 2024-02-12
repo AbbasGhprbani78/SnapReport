@@ -34,16 +34,12 @@ export default function Home() {
             });
             if (response.status === 200) {
                 setAllForm(response.data)
-                console.log(response)
-
             }
 
         } catch (e) {
             console.log(e)
             if (e.response.status === 401) {
-                localStorage.removeItem('access')
-                localStorage.removeItem('uuid')
-                localStorage.removeItem('refresh')
+                localStorage.clear()
                 navigate("/login")
             }
         }
@@ -74,6 +70,7 @@ export default function Home() {
                     back={backHandler}
                     mainForm={mainForm}
                     isDelete={isDelete}
+                    getAllForm={getAllForm}
                 /> :
                     <div className="home-container">
                         <Header />

@@ -41,7 +41,7 @@ const names = [
     "Manual Worker"
 ];
 
-export default function AddNewForm({ showForm, back, mainForm, isDelete }) {
+export default function AddNewForm({ showForm, back, mainForm, isDelete, getAllForm }) {
 
     console.log(mainForm)
     const [personName, setPersonName] = React.useState(mainForm ? mainForm.person_type : []);
@@ -202,25 +202,6 @@ export default function AddNewForm({ showForm, back, mainForm, isDelete }) {
             };
         });
     }
-    const deleteMainBox = (id) => {
-
-        const NewNumberTypeInput = numberTypeInput.filter(input => {
-            return input.id !== id
-        })
-
-        setNumberTypeInput(NewNumberTypeInput)
-
-        const boxIndexInFields = fields.options.findIndex(option => option.id === id);
-
-        setFields(prevFields => {
-            const updatedOptions = [...prevFields.options];
-            updatedOptions.splice(boxIndexInFields, 1);
-            return {
-                ...prevFields,
-                options: updatedOptions
-            };
-        });
-    }
 
     const addToForm = () => {
 
@@ -269,7 +250,6 @@ export default function AddNewForm({ showForm, back, mainForm, isDelete }) {
                 return
             }
         }
-
 
         const optionsWithUuid = fields.options.map(option => ({
             ...option,
@@ -327,15 +307,23 @@ export default function AddNewForm({ showForm, back, mainForm, isDelete }) {
 
         } else {
             if (mainForm) {
+
                 setLoading(true)
                 const body = {
                     ...fromInfom,
                     creator: localStorage.getItem("uuid"),
                     form_uuid: mainForm.uuid
                 };
+                const updatedFields = body.fields.map(({ uuid, ...rest }) => rest);
 
-                // const jsonString = JSON.stringify(body);
-                // console.log(jsonString)
+                const updatedBody = {
+                    ...body,
+                    fields: updatedFields
+                };
+
+
+                const jsonString = JSON.stringify(updatedBody)
+                console.log(jsonString)
 
                 const access = localStorage.getItem("access")
 
@@ -343,14 +331,14 @@ export default function AddNewForm({ showForm, back, mainForm, isDelete }) {
                     Authorization: `Bearer ${access}`
                 };
                 try {
-                    const response = await axios.put(`${IP}/form/create-fields/`, body, {
+                    const response = await axios.put(`${IP}/form/create-fields/`, updatedBody, {
                         headers
                     });
 
-                    if (response.status === 201) {
+                    if (response.status === 200) {
                         console.log(response)
                         setLoading(false)
-                        toast.success(`The form was created successfully`, {
+                        toast.success(`The form was edited successfully`, {
                             position: "top-right",
                             autoClose: 5000,
                             hideProgressBar: false,
@@ -361,7 +349,8 @@ export default function AddNewForm({ showForm, back, mainForm, isDelete }) {
                             theme: "colored",
                         });
                         setTimeout(() => {
-                            navigate('/')
+                            getAllForm()
+                            back()
                         }, 3000)
                     }
 
@@ -383,11 +372,11 @@ export default function AddNewForm({ showForm, back, mainForm, isDelete }) {
                 }
             } else {
                 setLoading(true)
+
                 const body = {
                     ...fromInfom,
                     creator: localStorage.getItem("uuid"),
                 };
-
 
                 const access = localStorage.getItem("access")
 
@@ -414,7 +403,7 @@ export default function AddNewForm({ showForm, back, mainForm, isDelete }) {
                         });
                         setTimeout(() => {
                             navigate('/')
-                        }, 3000)
+                        }, 2000)
                     }
 
                 } catch (error) {
@@ -439,7 +428,6 @@ export default function AddNewForm({ showForm, back, mainForm, isDelete }) {
     }
 
     const selectElement = (question, content) => {
-        console.log(content)
         setQuestionUuid(content.uuid)
 
         if (isDelete) {
@@ -451,6 +439,7 @@ export default function AddNewForm({ showForm, back, mainForm, isDelete }) {
         const copiedOptions = content.options.map(option => ({ ...option }));
 
         const newFields = {
+            uuid: content.uuid,
             fields_type: content.fields_type,
             questions: question,
             options: copiedOptions,
@@ -473,6 +462,31 @@ export default function AddNewForm({ showForm, back, mainForm, isDelete }) {
         }
     };
 
+    const deleteMainBox = () => {
+
+        // const boxIndex = fromInfom.fields.findIndex(question => question.question === MainDeleteQuestion);
+
+        // if (boxIndex !== -1) {
+        //     const updatedFields = [...fromInfom.fields];
+        //     updatedFields.splice(boxIndex, 1);
+        //     setFormInfom(prevInfo => ({
+        //         ...prevInfo,
+        //         fields: updatedFields,
+        //     }));
+        // }
+
+        // setShowDeleteIcon(false);
+        // setMainDeleteQuestion(null);
+        // setNumberTypeInput([])
+        // setFields({
+        //     uuid: uuidv4(),
+        //     fields_type: fields.fields_type,
+        //     questions: "",
+        //     options: [],
+        // });
+    }
+
+
 
     const deleteQuestion = (uuid) => {
         setFormInfom((prevInfo) => ({
@@ -490,74 +504,60 @@ export default function AddNewForm({ showForm, back, mainForm, isDelete }) {
         });
     }
 
-
-    const deleteMinnQuestions = (uuid) => {
-        setFormInfom((prevInfo) => ({
-            ...prevInfo,
-            fields: prevInfo.fields.filter((field) => field.uuid !== uuid),
-        }));
-        setShowDeleteIcon(false);
-        setMainDeleteQuestion(null);
-        setNumberTypeInput([])
-        setFields({
-            uuid: uuidv4(),
-            fields_type: fields.fields_type,
-            questions: "",
-            options: [],
-        });
-    }
-
-
-
     const deleteFromHandler = async () => {
-        console.log("delete")
-        // const access = localStorage.getItem("access")
+        const access = localStorage.getItem("access");
 
-        // const headers = {
-        //     Authorization: `Bearer ${access}`
-        // };
+        const headers = {
+            Authorization: `Bearer ${access}`,
+            'Content-Type': 'application/json'
+        };
 
-        // const body = mainForm.uuid
+        const body = {
+            uuid: mainForm.uuid
+        };
 
-        // try {
-        //     const response = await axios.delete(`${IP}/form/create-fields/`, body, {
-        //         headers
-        //     });
 
-        //     if (response.status === 200) {
-        //         console.log(response)
-        //         setLoading(false)
-        //         toast.success(`The form was created successfully`, {
-        //             position: "top-right",
-        //             autoClose: 5000,
-        //             hideProgressBar: false,
-        //             closeOnClick: true,
-        //             pauseOnHover: true,
-        //             draggable: true,
-        //             progress: undefined,
-        //             theme: "colored",
-        //         });
-        //         setTimeout(() => {
-        //             navigate('/')
-        //         }, 3000)
-        //     }
+        try {
+            const response = await fetch(`${IP}/form/create-fields/`, {
+                method: 'DELETE',
+                headers: headers,
+                body: JSON.stringify(body)
+            });
 
-        // } catch (error) {
+            if (response.status === 200) {
+                console.log(response);
+                setLoading(false);
+                toast.success(`The form was deleted successfully`, {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                });
+                setTimeout(() => {
+                    back()
+                    getAllForm()
+                }, 2000);
+            }
 
-        //     toast.error(`${error.response.data.message}`, {
-        //         position: "top-right",
-        //         autoClose: 5000,
-        //         hideProgressBar: false,
-        //         closeOnClick: true,
-        //         pauseOnHover: true,
-        //         draggable: true,
-        //         progress: undefined,
-        //         theme: "colored",
-        //     });
+        } catch (error) {
+            toast.error(`${error.message}`, {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+            });
 
-        // } finally {
-        //     setLoading(false)
-        // }
+        } finally {
+            setLoading(false);
+        }
     }
 
     return (
@@ -669,7 +669,7 @@ export default function AddNewForm({ showForm, back, mainForm, isDelete }) {
                                         {
                                             showDeleteIcon &&
                                             <DeleteIcon
-                                                onClick={mainForm ? () => deleteMinnQuestions(questionUuid) : () => deleteQuestion(questionUuid)}
+                                                onClick={() => deleteQuestion(questionUuid)}
                                                 className='Delete-form-Icon'
                                             />
                                         }
@@ -709,7 +709,6 @@ export default function AddNewForm({ showForm, back, mainForm, isDelete }) {
 
                                     <AddInput
                                         createBox={createBox}
-
                                     />
 
                                     {
@@ -770,9 +769,4 @@ export default function AddNewForm({ showForm, back, mainForm, isDelete }) {
         </>
     )
 }
-
-
-
-
-
 

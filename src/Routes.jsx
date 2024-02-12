@@ -21,11 +21,11 @@ let routes = [
     { path: "/ordinaryhome", element: <OrdinaryRoutes><OrdinaryHome /></OrdinaryRoutes> },
     { path: "/ordinarychat", element: <OrdinaryRoutes><OrdinaryChat /></OrdinaryRoutes> },
 
-    { path: "/", element: <Home /> },
-    { path: "/addnewform", element: <AddNewForm /> },
-    { path: "/allform", element: <AllForm /> },
-    { path: "/reports", element: <Report /> },
-    { path: "/chat", element: <Chat /> },
+    { path: "/", element: <SeniorRoutes><Home /></SeniorRoutes > },
+    { path: "/addnewform", element: <SeniorRoutes><AddNewForm /></SeniorRoutes> },
+    { path: "/allform", element: <SeniorRoutes><AllForm /></SeniorRoutes> },
+    { path: "/reports", element: <SeniorRoutes><Report /></SeniorRoutes> },
+    { path: "/chat", element: <SeniorRoutes><Chat /></SeniorRoutes> },
     { path: "*", element: <PageNotFound /> },
 
 ]

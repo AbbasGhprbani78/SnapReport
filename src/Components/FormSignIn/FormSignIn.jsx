@@ -70,7 +70,6 @@ export default function FormSignIn({ handleTabChange }) {
             });
 
             if (response.status === 200) {
-                console.log(response)
                 window.localStorage.setItem("access", response.data.access);
                 window.localStorage.setItem('uuid', response.data.uuid);
                 window.localStorage.setItem("refresh", response.data.refresh);

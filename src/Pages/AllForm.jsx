@@ -48,6 +48,8 @@ export default function AllForm() {
                 localStorage.removeItem('access')
                 localStorage.removeItem('uuid')
                 localStorage.removeItem('refresh')
+                localStorage.removeItem("type")
+                localStorage.removeItem("type")
                 navigate("/login")
             }
         }

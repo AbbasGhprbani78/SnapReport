@@ -8,10 +8,8 @@ import dayjs from 'dayjs';
 
 export default function Message(props) {
 
-        console.log(props)
-
         const dateObject = dayjs(props.created_at);
-        const formattedTime = dateObject.format('HH:mm');
+        const formattedTime = dateObject.format('YYYY-MM-DD HH:mm');
 
         const user_uuid = localStorage.getItem("uuid")
         const imgPattern = /(jpg|png|jpeg|webp|bmp|gif|svg|tiff)$/i;
@@ -42,7 +40,12 @@ export default function Message(props) {
 
                                                                 <div className='d-flex align-items-end mt-5 col-sm-12 my-5' style={{ direction: "rtl" }}>
 
-                                                                        <a className='img-url ' href={`${IP}${props.file}`} target='blank'>
+                                                                        <a
+                                                                                className='img-url '
+                                                                                href={`${IP}${props.file}`}
+                                                                                target='blank'
+                                                                                style={{ textDecoration: "none" }}
+                                                                        >
                                                                                 <div className='file-content d-flex flex-column'>
                                                                                         <img className='img-send' src={`${IP}${props.file}`} />
                                                                                         <p className="message-time">
@@ -101,7 +104,12 @@ export default function Message(props) {
 
                                                         {props.file && imgPattern.test(props.file) &&
                                                                 <div className='d-flex mt-5 user align-items-end my-5'>
-                                                                        <a className='img-url' href={`${IP}${props.file}`} target='blank'>
+                                                                        <a
+                                                                                className='img-url'
+                                                                                href={`${IP}${props.file}`}
+                                                                                target='blank'
+                                                                                style={{ textDecoration: "none" }}
+                                                                        >
                                                                                 <div className='d-flex flex-column' style={{ marginLeft: "10px" }}>
                                                                                         <img src={(`${IP}${props.file}`)} className='img-send' />
                                                                                         <p className="message-time">

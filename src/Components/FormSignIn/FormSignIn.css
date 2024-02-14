@@ -80,9 +80,7 @@
     color: var(--color-7);
 }
 
-.input-signin-wrapper {
-    margin-top: 7%;
-}
+
 
 .input-signin-wrapper:nth-child(2) {
     margin-top: 12%;
@@ -107,11 +105,30 @@
 
 @media (max-width:576px) {
     .registered {
-        font-size: 10px;
+        font-size: 11px;
     }
 
     .signIn-text {
-        font-size: 1.2rem;
+        font-size: 1.5rem;
     }
 
+    .signIn {
+        min-height: 400px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .input-signin::placeholder {
+        font-size: .8rem;
+    }
+
+    .btn-signIn-wrapper>button {
+        width: 100%;
+    }
+
+    .form-container {
+        width: 85%;
+    }
 }

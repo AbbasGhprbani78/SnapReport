@@ -11,6 +11,14 @@ import { useNavigate } from 'react-router-dom';
 import MicOffIcon from '@mui/icons-material/MicOff';
 import KeyboardVoiceIcon from '@mui/icons-material/KeyboardVoice';
 import Header from '../../Components/Header/Header';
+import { IconButton } from '@mui/material';
+import MenuIcon from '@mui/icons-material/Menu';
+import SeniorOffCanvas from '../../Components/OffCanvas/SeniorOffCanvas';
+import ManualOffcanvas from '../../Components/OffCanvas/ManualOffcanvas';
+import OrdinaryOffcanvas from '../../Components/OffCanvas/OrdinaryOffcanvas';
+import { useMyContext } from '../../Components/RoleContext';
+import { CircularProgressbar } from "react-circular-progressbar";
+import { BsFillFileEarmarkArrowDownFill } from 'react-icons/bs'
 export default function ManualChat() {
 
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
@@ -20,6 +28,14 @@ export default function ManualChat() {
     const [isRecording, setIsRecording] = useState(false);
     const micRef = useRef(null);
     const navigate = useNavigate()
+    const [showOffCanvas, setShowOffCanvas] = useState(false);
+    const [showfile, setShowFile] = useState(false)
+    const [uploadPercentage, setUploadPercentage] = useState(0);
+    const handleToggleOffCanvas = () => {
+        setShowOffCanvas(!showOffCanvas);
+    };
+    const { sharedData } = useMyContext();
+    const { type } = useMyContext()
 
 
     const startRecording = () => {
@@ -47,7 +63,6 @@ export default function ManualChat() {
             })
 
             if (response.status === 200) {
-                // console.log(response.data)
                 setAllMessage(response.data)
             }
             else {
@@ -57,41 +72,12 @@ export default function ManualChat() {
         } catch (e) {
             console.log(e)
             if (e.response.status === 401) {
-                // localStorage.clear()
-                // navigate("/login")
+                localStorage.clear()
+                navigate("/login")
             }
         }
     }
 
-    // const getUnreadMessages = async () => {
-    //     const access = localStorage.getItem("access")
-    //     const headers = {
-    //         Authorization: `Bearer ${access}`
-    //     };
-    //     try {
-    //         const response = await axios.get(`${IP}/chat/get-unread-chat/`, {
-    //             headers,
-    //         });
-
-    //         if (response.status === 200) {
-    //             console.log(response)
-    //             // setAllMessage(prevState => {
-    //             //     return [...prevState, ...response.data.Messages]
-    //             // })
-
-    //         }
-
-    //     } catch (e) {
-    //         console.log(e)
-    //         if (e.response.status === 401) {
-    //             localStorage.removeItem('access')
-    //             localStorage.removeItem('uuid')
-    //             localStorage.removeItem('refresh')
-    //             localStorage.removeItem("type")
-    //             navigate("/login")
-    //         }
-    //     }
-    // }
 
     const sendText = async () => {
         const access = localStorage.getItem("access")
@@ -120,20 +106,20 @@ export default function ManualChat() {
             catch (e) {
                 console.log(e)
                 if (e.response.status === 401) {
-                    // localStorage.clear()
+                    localStorage.clear()
 
-                    // navigate("/login")
+                    navigate("/login")
                 }
             }
 
         }
     }
 
-    const sendFile = async (e, employeeId) => {
+    const sendFile = async (e) => {
+        setShowFile(true)
         const access = localStorage.getItem("access")
         const formData = new FormData()
         formData.append('file', e.target.files[0])
-        formData.append("receiver", employeeId)
 
         const headers = {
             Authorization: `Bearer ${access}`
@@ -143,31 +129,35 @@ export default function ManualChat() {
 
             const response = await axios.post(`${IP}/chat/send-message-senior/`, formData, {
                 headers,
+                onUploadProgress: (progressEvent) => {
+                    const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+                    setUploadPercentage(progress);
+                },
             })
 
             if (response.status === 200) {
                 console.log(response)
+                setShowFile(false)
             }
 
         } catch (e) {
-            // console.log(e)
-            // if (e.response.status === 401) {
-            //     localStorage.clear()
-            //     navigate("/login")
-            // }
+            console.log(e)
+            if (e.response.status === 401) {
+                localStorage.clear()
+                navigate("/login")
+            }
         }
 
     }
 
     const sendVoice = async (audioBlob) => {
 
-        const uuid = localStorage.getItem("userUuid")
         const access = localStorage.getItem('access')
         if (audioBlob) {
 
             const formvoiceData = new FormData();
             formvoiceData.append('file', audioBlob);
-            formvoiceData.append("receiver", uuid)
+
             const headers = {
                 Authorization: `Bearer ${access}`
             };
@@ -192,14 +182,12 @@ export default function ManualChat() {
 
     }
 
-    // useEffect(() => {
-    //     const interval = setInterval(() => {
-    //         getMessages()
-    //         // getUnreadMessages();
-
-    //     }, 1000);
-    //     return () => clearInterval(interval);
-    // }, []);
+    useEffect(() => {
+        const interval = setInterval(() => {
+            getMessages()
+        }, 1000);
+        return () => clearInterval(interval);
+    }, []);
 
 
     useEffect(() => {
@@ -234,7 +222,6 @@ export default function ManualChat() {
             {
                 windowWidth < 576 ?
                     <>
-
                         <>
                             <div className="chat-container">
                                 <div className="chat-body">
@@ -246,12 +233,77 @@ export default function ManualChat() {
 
                                             <span className="member-name">Abbas ghorbani</span>
                                         </div>
+                                        <div>
+                                            {
+                                                (sharedData || type) === "S" ?
+                                                    <SeniorOffCanvas
+                                                        show={showOffCanvas}
+                                                        onHide={() => setShowOffCanvas(false)}
+                                                    />
+                                                    :
+                                                    (sharedData || type) === "M" ?
+                                                        <ManualOffcanvas
+                                                            show={showOffCanvas}
+                                                            onHide={() => setShowOffCanvas(false)}
+                                                        />
+                                                        :
+                                                        (sharedData || type) === "O" ?
+                                                            <OrdinaryOffcanvas
+                                                                show={showOffCanvas}
+                                                                onHide={() => setShowOffCanvas(false)}
+                                                            /> :
+                                                            null
+                                            }
+
+                                            <div className="header-wrapper d-flex">
+                                                <IconButton
+                                                    style={{ color: "#45ABE5", marginLeft: "5px" }}
+                                                    aria-label="open drawer"
+                                                    edge="start"
+                                                    onClick={handleToggleOffCanvas}
+                                                >
+                                                    <MenuIcon />
+                                                </IconButton>
+                                            </div>
+                                        </div>
                                     </div>
-                                    {
-                                        allMessage.map((message, i) => (
-                                            <Message key={i}  {...message} />
-                                        ))
-                                    }
+                                    <>
+                                        {
+                                            allMessage.map((message) => (
+                                                <Message key={message.id}  {...message} />
+                                            ))
+
+                                        }
+                                        {showfile &&
+                                            <div className='d-flex align-items-end mt-4 col-sm-12' style={{ direction: "rtl" }}>
+                                                <div className='file-content' style={{ position: "relative" }}>
+                                                    <a className='place' href="#" target='blank' download>
+                                                        <BsFillFileEarmarkArrowDownFill className='fileIcon file-right' />
+                                                    </a>
+                                                    <div className='progress-upload'>
+                                                        <div style={{ width: "55px", height: "55px" }}>
+                                                            <CircularProgressbar
+                                                                minValue={0}
+                                                                maxValue={100}
+                                                                value={uploadPercentage}
+                                                                strokeWidth={5}
+                                                                background={false}
+                                                                styles={{
+                                                                    path: {
+                                                                        stroke: `#45ABE5`,
+                                                                    },
+                                                                    trail: {
+                                                                        stroke: "#ffffff",
+                                                                    },
+                                                                }}
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        }
+                                    </>
                                     <div ref={messageEndRef} />
                                 </div>
                                 <div className="chat-actions">
@@ -284,7 +336,7 @@ export default function ManualChat() {
                                             </span>
                                             <span className='send-file-action2'>
                                                 <input
-                                                    onChange={(e) => sendFile(e, selectedUser)}
+                                                    onChange={(e) => sendFile(e)}
                                                     type="file"
                                                     id='file'
                                                 />
@@ -314,9 +366,43 @@ export default function ManualChat() {
                                     </div>
                                 </div>
 
-                                {allMessage.map((message) => (
-                                    <Message key={message.id}  {...message} />
-                                ))}
+                                <>
+                                    {
+                                        allMessage.map((message) => (
+                                            <Message key={message.id}  {...message} />
+                                        ))
+
+                                    }
+                                    {showfile &&
+                                        <div className='d-flex align-items-end mt-4 col-sm-12' style={{ direction: "rtl" }}>
+                                            <div className='file-content' style={{ position: "relative" }}>
+                                                <a className='place' href="#" target='blank' download>
+                                                    <BsFillFileEarmarkArrowDownFill className='fileIcon file-right' />
+                                                </a>
+                                                <div className='progress-upload'>
+                                                    <div style={{ width: "55px", height: "55px" }}>
+                                                        <CircularProgressbar
+                                                            minValue={0}
+                                                            maxValue={100}
+                                                            value={uploadPercentage}
+                                                            strokeWidth={5}
+                                                            background={false}
+                                                            styles={{
+                                                                path: {
+                                                                    stroke: `#45ABE5`,
+                                                                },
+                                                                trail: {
+                                                                    stroke: "#ffffff",
+                                                                },
+                                                            }}
+                                                        />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    }
+                                </>
                                 <div ref={messageEndRef} />
                             </div>
                             <div className="chat-actions">
@@ -351,7 +437,7 @@ export default function ManualChat() {
                                     </span>
                                     <span className='send-file-action'>
                                         <input
-                                            onChange={(e) => sendFile(e, selectedUser)}
+                                            onChange={(e) => sendFile(e)}
                                             type="file"
                                             id='file'
                                         />

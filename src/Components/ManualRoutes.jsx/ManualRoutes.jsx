@@ -36,8 +36,8 @@ export default function ManualRoutes({ children }) {
         } catch (e) {
             console.log(e);
             if (e.response.status === 401) {
-                // localStorage.clear()
-                // navigate("/login")
+                localStorage.clear()
+                navigate("/login")
             }
 
         } finally {
@@ -55,9 +55,6 @@ export default function ManualRoutes({ children }) {
     if (isLoading) {
         return <Loading />
     }
-
-    console.log(OrdinerTrue)
-    console.log(typeUser)
 
     return (
         <div style={{ width: "100%" }}>

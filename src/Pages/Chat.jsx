@@ -117,7 +117,6 @@ export default function Chat() {
             })
 
             if (response.status === 200) {
-                console.log(response.data)
                 setAllMessage(response.data)
             }
             else {
@@ -281,6 +280,7 @@ export default function Chat() {
             window.removeEventListener('resize', handleWindowResize);
         };
     }, []);
+
     return (
         <>
             {
@@ -302,41 +302,43 @@ export default function Chat() {
                                             </div>
                                             <ArrowForwardIcon onClick={() => setShowChat(false)} />
                                         </div>
-                                        {
-                                            allMessage.map((message) => (
-                                                <Message key={message.id}  {...message} />
-                                            ))
+                                        <>
+                                            {
+                                                allMessage.map((message) => (
+                                                    <Message key={message.id}  {...message} />
+                                                ))
 
-                                        }
-                                        {showfile &&
-                                            <div className='d-flex align-items-end mt-4 col-sm-12' style={{ direction: "rtl" }}>
-                                                <div className='file-content' style={{ position: "relative" }}>
-                                                    <a className='place' href="#" target='blank' download>
-                                                        <BsFillFileEarmarkArrowDownFill className='fileIcon file-right' />
-                                                    </a>
-                                                    <div className='progress-upload'>
-                                                        <div style={{ width: "55px", height: "55px" }}>
-                                                            <CircularProgressbar
-                                                                minValue={0}
-                                                                maxValue={100}
-                                                                value={uploadPercentage}
-                                                                strokeWidth={5}
-                                                                background={false}
-                                                                styles={{
-                                                                    path: {
-                                                                        stroke: `#45ABE5`,
-                                                                    },
-                                                                    trail: {
-                                                                        stroke: "#ffffff",
-                                                                    },
-                                                                }}
-                                                            />
+                                            }
+                                            {showfile &&
+                                                <div className='d-flex align-items-end mt-4 col-sm-12' style={{ direction: "rtl" }}>
+                                                    <div className='file-content' style={{ position: "relative" }}>
+                                                        <a className='place' href="#" target='blank' download>
+                                                            <BsFillFileEarmarkArrowDownFill className='fileIcon file-right' />
+                                                        </a>
+                                                        <div className='progress-upload'>
+                                                            <div style={{ width: "55px", height: "55px" }}>
+                                                                <CircularProgressbar
+                                                                    minValue={0}
+                                                                    maxValue={100}
+                                                                    value={uploadPercentage}
+                                                                    strokeWidth={5}
+                                                                    background={false}
+                                                                    styles={{
+                                                                        path: {
+                                                                            stroke: `#45ABE5`,
+                                                                        },
+                                                                        trail: {
+                                                                            stroke: "#ffffff",
+                                                                        },
+                                                                    }}
+                                                                />
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
 
-                                        }
+                                            }
+                                        </>
                                         <div ref={messageEndRef} />
                                     </div>
                                     <div className="chat-actions">
@@ -406,18 +408,13 @@ export default function Chat() {
 
                     </> : <div style={{ width: "100%" }}>
                         <Header />
-                        {
-                            user && user.length > 0 && user.map((user) => (
-                                <Audiance
-                                    key={user.uuid}
-                                    selectUser={() => selectUser(user.uuid)}
-                                    isActive={isAudianceActive}
-                                    toggleAudianceActive={toggleAudianceActive}
-                                    user={user}
-                                />
-                            ))
-                        }
 
+                        <Audiance
+                            selectUser={selectUser}
+                            isActive={isAudianceActive}
+                            toggleAudianceActive={toggleAudianceActive}
+                            user={user}
+                        />
                         <div className="chat-container">
                             <div className="chat-body">
                                 <div className="chat-header">
@@ -524,15 +521,12 @@ export default function Chat() {
 
                             </div>
                         </div>
-                        {console.log(uploadPercentage)}
                     </div >
             }
 
         </>
     )
 }
-
-
 
 // const getUnreadMessages = async () => {
 //     const access = localStorage.getItem("access")

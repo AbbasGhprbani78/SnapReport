@@ -23,3 +23,13 @@
 .setin {
     cursor: pointer;
 }
+
+@media (max-width:576px) {
+    .signUp {
+        width: 85%;
+    }
+
+    .registered {
+        font-size: 11px;
+    }
+}

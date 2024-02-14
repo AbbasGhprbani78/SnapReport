@@ -1,8 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import '../Style/AllForm.css'
-import { styled } from '@mui/material/styles';
-import Paper from '@mui/material/Paper';
-import Grid from '@mui/material/Grid';
 import AddNewForm from './AddNewForm';
 import FormOverView from '../Components/FormOverView/FormOverView';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
@@ -11,13 +8,6 @@ import axios from 'axios';
 import { IP } from '../App';
 import Header from '../Components/Header/Header';;
 
-const Item = styled(Paper)(({ theme }) => ({
-    backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-    ...theme.typography.body2,
-    padding: theme.spacing(1),
-    textAlign: 'center',
-    color: theme.palette.text.secondary,
-}));
 export default function AllForm() {
 
     const [showForm, setShowForm] = useState(false)
@@ -54,6 +44,7 @@ export default function AllForm() {
             }
         }
     }
+    console.log(allform)
 
     useEffect(() => {
         getAllForm()
@@ -78,12 +69,12 @@ export default function AllForm() {
                         back={backHandler}
                         mainForm={mainForm}
                         isDelete={isDelete}
+                        getAllForm={getAllForm}
 
                     /> :
                     <div style={{ width: "100%" }}>
                         <Header />
-                        <div className={`${allform.length < 0 ? "emptyForm" : ""} allForm-container`} >
-
+                        <div className={`${allform.length === 0 ? "emptyForm" : ""} allForm-container`} >
 
                             {
                                 allform && allform.length > 0 && allform.map(form => (

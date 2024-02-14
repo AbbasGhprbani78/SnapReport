@@ -12,9 +12,15 @@ export default function Audiance({ isActive, toggleAudianceActive, selectUser, u
                         onClick={toggleAudianceActive}
                         style={{ cursor: "pointer" }} />
                 </div>
-                <UserInfo
-                    user={user}
-                    selectUser={selectUser} />
+                {
+                    user.map(user => (
+                        <UserInfo
+                            key={user.uuid}
+                            user={user}
+                            selectUser={() => selectUser(user.uuid)} />
+                    ))
+                }
+
             </div>
         </>
     )

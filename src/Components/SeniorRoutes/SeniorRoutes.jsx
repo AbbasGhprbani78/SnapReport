@@ -53,9 +53,6 @@ export default function SeniorRoute({ children }) {
     if (isLoading) {
         return <Loading />
     }
-
-    console.log(seniorTrue)
-    console.log(typeUser)
     return (
         <div style={{ width: "100%" }}>
             {(seniorTrue || typeUser === "S") ? (

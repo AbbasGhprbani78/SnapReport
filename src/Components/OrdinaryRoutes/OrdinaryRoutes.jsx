@@ -30,6 +30,7 @@ export default function OrdinaryRoutes({ children }) {
                 window.localStorage.setItem('uuid', response.data.uuid);
                 window.localStorage.setItem("type", response.data.user_type)
                 updateType(response.data.user_type)
+                setTypeUser(response.data.user_type);
                 setIsLoading(false)
             }
 

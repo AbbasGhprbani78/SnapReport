@@ -2,8 +2,7 @@ import React from 'react'
 import './Audiance.css'
 import CloseIcon from '@mui/icons-material/Close';
 import UserInfo from '../UserInfo/UserInfo';
-export default function Audiance({ isActive, toggleAudianceActive, selectUser }) {
-
+export default function Audiance({ isActive, toggleAudianceActive, selectUser, user }) {
 
     return (
         <>
@@ -14,6 +13,7 @@ export default function Audiance({ isActive, toggleAudianceActive, selectUser })
                         style={{ cursor: "pointer" }} />
                 </div>
                 <UserInfo
+                    user={user}
                     selectUser={selectUser} />
             </div>
         </>

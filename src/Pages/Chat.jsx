@@ -15,6 +15,8 @@ import MicOffIcon from '@mui/icons-material/MicOff';
 import KeyboardVoiceIcon from '@mui/icons-material/KeyboardVoice';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import Header from '../Components/Header/Header';
+import { CircularProgressbar } from "react-circular-progressbar";
+import { BsFillFileEarmarkArrowDownFill } from 'react-icons/bs'
 export default function Chat() {
 
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
@@ -30,6 +32,8 @@ export default function Chat() {
     const [isAudianceActive, setIsAudianceActive] = useState(false);
     const [showChat, setShowChat] = useState(false)
     const navigate = useNavigate()
+    const [uploadPercentage, setUploadPercentage] = useState(0);
+    const [showfile, setShowFile] = useState(false)
 
     const getAllUser = async () => {
         const access = localStorage.getItem("access")
@@ -37,44 +41,41 @@ export default function Chat() {
             Authorization: `Bearer ${access}`
         };
         try {
-            const response = await axios.get(`${IP}//`, {
+            const response = await axios.get(`${IP}/user/user-chat`, {
                 headers,
             })
 
             if (response.status === 200) {
-                console.log(response)
+                setUser(response.data)
 
             }
 
         } catch (e) {
             console.log(e)
             if (e.response.status === 401) {
-                localStorage.removeItem('access')
-                localStorage.removeItem('uuid')
-                localStorage.removeItem('refresh')
-                localStorage.removeItem("type")
+                localStorage.clear()
                 navigate("/login")
             }
         }
     }
-    // useEffect(() => {
-    //     getAllUser()
-    // }, [])
+
+    useEffect(() => {
+        getAllUser()
+    }, [])
 
 
     const selectUser = (employeeId) => {
-        console.log("se")
-        setShowChat(true)
         localStorage.removeItem('userUuid')
         window.localStorage.setItem("userUuid", employeeId)
         const mainUser = user.find(employee => employee.uuid == employeeId)
         setAudiuanceInfo(mainUser)
         setActiveUser(employeeId);
         setSelectedUser(employeeId)
-        if (selectedUser) {
+        if (activeEmployee) {
             setShowChat(true)
         }
     }
+
 
     useEffect(() => {
 
@@ -98,19 +99,26 @@ export default function Chat() {
 
     };
 
-    const getMessages = async (employeeId) => {
+
+
+    const getMessages = async (selectedUser) => {
         const access = localStorage.getItem("access")
         const headers = {
             Authorization: `Bearer ${access}`
         };
+
+        const body = {
+            receiver: selectedUser,
+        }
+
         try {
-            const response = await axios.get(`${IP}/get-messages/${employeeId}`, {
+            const response = await axios.post(`${IP}/chat/get-chat/`, body, {
                 headers,
             })
 
             if (response.status === 200) {
-                setAllMessage(response.data.Messages)
-
+                console.log(response.data)
+                setAllMessage(response.data)
             }
             else {
                 setAllMessage([])
@@ -119,45 +127,14 @@ export default function Chat() {
         } catch (e) {
             console.log(e)
             if (e.response.status === 401) {
-                localStorage.removeItem('access')
-                localStorage.removeItem('uuid')
-                localStorage.removeItem('refresh')
-                localStorage.removeItem("type")
+                localStorage.clear()
                 navigate("/login")
             }
         }
     }
 
-    const getUnreadMessages = async (employeeId) => {
-        const access = localStorage.getItem("access")
-        const headers = {
-            Authorization: `Bearer ${access}`
-        };
-        try {
-            const response = await axios.get(`${IP}//${employeeId}`, {
-                headers,
-            });
-            if (response.status === 200) {
 
-                setAllMessage(prevState => {
-                    return [...prevState, ...response.data.Messages]
-                })
 
-                console.log(response)
-
-            }
-
-        } catch (e) {
-            console.log(e)
-            if (e.response.status === 401) {
-                localStorage.removeItem('access')
-                localStorage.removeItem('uuid')
-                localStorage.removeItem('refresh')
-                localStorage.removeItem("type")
-                navigate("/login")
-            }
-        }
-    }
     const sendText = async (employeeId) => {
         const access = localStorage.getItem("access")
         const trimmedText = text.trim();
@@ -168,39 +145,28 @@ export default function Chat() {
             };
 
             const body = {
-                content: text,
-                user_uuid: employeeId
-            }
-            const newMessage = {
-                is_from_manager: false,
-                content: text,
-                data: text
+                message: trimmedText,
+                receiver: employeeId
             }
 
-            setAllMessage(prevState => {
-                return [...prevState, newMessage]
-            })
+            console.log(body)
 
             try {
-                const response = await axios.post(`${IP}//`, body, {
+                const response = await axios.post(`${IP}/chat/send-message/`, body, {
                     headers,
                 })
 
                 if (response.status === 200) {
-
+                    console.log(response)
                     setText('')
+
                 }
 
             }
             catch (e) {
-                setText('')
-                console.log(e)
-                if (e.response.status === 401) {
-                    localStorage.removeItem('access')
-                    localStorage.removeItem('uuid')
-                    localStorage.removeItem('refresh')
-                    localStorage.removeItem("type")
 
+                if (e.response.status === 401) {
+                    localStorage.clear()
                     navigate("/login")
                 }
             }
@@ -209,10 +175,11 @@ export default function Chat() {
     }
 
     const sendFile = async (e, employeeId) => {
+        setShowFile(true)
         const access = localStorage.getItem("access")
         const formData = new FormData()
         formData.append('file', e.target.files[0])
-        formData.append("user_uuid", employeeId)
+        formData.append("receiver", employeeId)
 
         const headers = {
             Authorization: `Bearer ${access}`
@@ -220,60 +187,53 @@ export default function Chat() {
 
         try {
 
-            const response = await axios.post(`${IP}//`, formData, {
+            const response = await axios.post(`${IP}/chat/send-message/`, formData, {
                 headers,
+                onUploadProgress: (progressEvent) => {
+                    const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+                    setUploadPercentage(progress);
+                },
             })
 
             if (response.status === 200) {
                 console.log(response)
+                setShowFile(false)
             }
 
         } catch (e) {
             console.log(e)
             if (e.response.status === 401) {
-                localStorage.removeItem('access')
-                localStorage.removeItem('uuid')
-                localStorage.removeItem('refresh')
-                localStorage.removeItem("type")
+                localStorage.clear()
                 navigate("/login")
             }
         }
-
     }
-
-
 
     const sendVoice = async (audioBlob) => {
 
         const uuid = localStorage.getItem("userUuid")
         const access = localStorage.getItem('access')
         if (audioBlob) {
-
             const formvoiceData = new FormData();
-            formvoiceData.append('file', audioBlob);
-            formvoiceData.append("user_uuid", uuid)
+            formvoiceData.append('voice', audioBlob);
+            formvoiceData.append("receiver", uuid)
             const headers = {
                 Authorization: `Bearer ${access}`
             };
             try {
 
-                const response = await axios.post(`${IP}//`, formvoiceData, {
+                const response = await axios.post(`${IP}/chat/send-message/`, formvoiceData, {
                     headers,
                 })
 
                 if (response.status === 200) {
-
                     console.log(response)
-
                 }
 
             } catch (e) {
                 console.log(e)
                 if (e.response.status === 401) {
-                    localStorage.removeItem('access')
-                    localStorage.removeItem('uuid')
-                    localStorage.removeItem('refresh')
-                    localStorage.removeItem("type")
+                    localStorage.clear()
                     navigate("/login")
                 }
             }
@@ -281,13 +241,14 @@ export default function Chat() {
 
     }
 
-    // useEffect(() => {
-    //     const interval = setInterval(() => {
-    //         getUnreadMessages(selectedUser);
 
-    //     }, 1000);
-    //     return () => clearInterval(interval);
-    // }, [allMessage]);
+    useEffect(() => {
+        const interval = setInterval(() => {
+            getMessages(selectedUser)
+
+        }, 1000);
+        return () => clearInterval(interval);
+    }, [selectedUser]);
 
 
     useEffect(() => {
@@ -299,11 +260,11 @@ export default function Chat() {
 
     const handleKeyDown = (event) => {
         if (event.key === "Enter" && !event.shiftkey) {
-            sendText(selectedUser)
             event.preventDefault()
+            sendText(selectedUser)
+
         }
     }
-
 
     const toggleAudianceActive = () => {
         setIsAudianceActive(prevState => !prevState);
@@ -334,14 +295,47 @@ export default function Chat() {
                                                 <div className="member-img-wrapper">
                                                     <img className='member-img' src={avatar} alt="member" />
                                                 </div>
-                                                <span className="member-name">Abbas Ghorbani</span>
+                                                {
+                                                    audiuanceinfo &&
+                                                    <span className="member-name">{audiuanceinfo && audiuanceinfo.first_name} {audiuanceinfo.last_name}</span>
+                                                }
                                             </div>
                                             <ArrowForwardIcon onClick={() => setShowChat(false)} />
                                         </div>
                                         {
-                                            allMessage.map((message, i) => (
-                                                <Message key={i}  {...message} />
+                                            allMessage.map((message) => (
+                                                <Message key={message.id}  {...message} />
                                             ))
+
+                                        }
+                                        {showfile &&
+                                            <div className='d-flex align-items-end mt-4 col-sm-12' style={{ direction: "rtl" }}>
+                                                <div className='file-content' style={{ position: "relative" }}>
+                                                    <a className='place' href="#" target='blank' download>
+                                                        <BsFillFileEarmarkArrowDownFill className='fileIcon file-right' />
+                                                    </a>
+                                                    <div className='progress-upload'>
+                                                        <div style={{ width: "55px", height: "55px" }}>
+                                                            <CircularProgressbar
+                                                                minValue={0}
+                                                                maxValue={100}
+                                                                value={uploadPercentage}
+                                                                strokeWidth={5}
+                                                                background={false}
+                                                                styles={{
+                                                                    path: {
+                                                                        stroke: `#45ABE5`,
+                                                                    },
+                                                                    trail: {
+                                                                        stroke: "#ffffff",
+                                                                    },
+                                                                }}
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
                                         }
                                         <div ref={messageEndRef} />
                                     </div>
@@ -354,8 +348,12 @@ export default function Chat() {
                                                 type="text"
                                                 className='input-send'
                                                 placeholder='Text Message...' />
-                                            <SendSharpIcon className='send-icon2' onClick={sendText} />
+                                            <SendSharpIcon
+                                                className='send-icon2'
+                                                onClick={() => sendText(selectedUser)}
+                                            />
                                             <div className={text ? "plus-actions2 hiddenActions" : "plus-actions2"}>
+
                                                 <span className='voice-wrapper2'>
                                                     <ReactMic className='Voice-wave'
                                                         record={isRecording}
@@ -392,9 +390,15 @@ export default function Chat() {
                                 <div style={{ width: "100%" }}>
                                     <Header />
                                     <div className="list-users">
-                                        <UserInfo
-                                            selectUser={selectUser}
-                                        />
+                                        {
+                                            user && user.length > 0 && user.map((user) => (
+                                                <UserInfo
+                                                    key={user.uuid}
+                                                    user={user}
+                                                    selectUser={() => selectUser(user.uuid)}
+                                                />
+                                            ))
+                                        }
                                     </div>
                                 </div>
                             </>
@@ -402,11 +406,18 @@ export default function Chat() {
 
                     </> : <div style={{ width: "100%" }}>
                         <Header />
-                        <Audiance
-                            selectUser={selectUser}
-                            isActive={isAudianceActive}
-                            toggleAudianceActive={toggleAudianceActive}
-                        />
+                        {
+                            user && user.length > 0 && user.map((user) => (
+                                <Audiance
+                                    key={user.uuid}
+                                    selectUser={() => selectUser(user.uuid)}
+                                    isActive={isAudianceActive}
+                                    toggleAudianceActive={toggleAudianceActive}
+                                    user={user}
+                                />
+                            ))
+                        }
+
                         <div className="chat-container">
                             <div className="chat-body">
                                 <div className="chat-header">
@@ -414,7 +425,11 @@ export default function Chat() {
                                         <div className="member-img-wrapper">
                                             <img className='member-img' src={avatar} alt="member" />
                                         </div>
-                                        <span className="member-name">Abbas Ghorbani</span>
+                                        {
+                                            audiuanceinfo &&
+                                            <span className="member-name">{audiuanceinfo && audiuanceinfo.first_name} {audiuanceinfo.last_name}</span>
+                                        }
+
                                     </div>
                                     <AccountBoxIcon
                                         onClick={toggleAudianceActive}
@@ -424,11 +439,43 @@ export default function Chat() {
                                         }}
                                     />
                                 </div>
-                                {
-                                    allMessage.map((message, i) => (
-                                        <Message key={i}  {...message} />
-                                    ))
-                                }
+                                <>
+                                    {
+                                        allMessage.map((message) => (
+                                            <Message key={message.id}  {...message} />
+                                        ))
+
+                                    }
+                                    {showfile &&
+                                        <div className='d-flex align-items-end mt-4 col-sm-12' style={{ direction: "rtl" }}>
+                                            <div className='file-content' style={{ position: "relative" }}>
+                                                <a className='place' href="#" target='blank' download>
+                                                    <BsFillFileEarmarkArrowDownFill className='fileIcon file-right' />
+                                                </a>
+                                                <div className='progress-upload'>
+                                                    <div style={{ width: "55px", height: "55px" }}>
+                                                        <CircularProgressbar
+                                                            minValue={0}
+                                                            maxValue={100}
+                                                            value={uploadPercentage}
+                                                            strokeWidth={5}
+                                                            background={false}
+                                                            styles={{
+                                                                path: {
+                                                                    stroke: `#45ABE5`,
+                                                                },
+                                                                trail: {
+                                                                    stroke: "#ffffff",
+                                                                },
+                                                            }}
+                                                        />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    }
+                                </>
                                 <div ref={messageEndRef} />
                             </div>
                             <div className="chat-actions">
@@ -442,7 +489,7 @@ export default function Chat() {
                                         placeholder='Text Message...' />
                                     <SendSharpIcon
                                         className='send-icon'
-                                        onClick={sendText}
+                                        onClick={() => sendText(selectedUser)}
                                     />
                                 </div>
                                 <div className="plus-actions">
@@ -477,9 +524,46 @@ export default function Chat() {
 
                             </div>
                         </div>
-                    </div>
+                        {console.log(uploadPercentage)}
+                    </div >
             }
 
         </>
     )
 }
+
+
+
+// const getUnreadMessages = async () => {
+//     const access = localStorage.getItem("access")
+//     const headers = {
+//         Authorization: `Bearer ${access}`
+//     };
+//     try {
+//         const response = await axios.get(`${IP}/chat/get-unread-chat/`, {
+//             headers,
+//         });
+
+//         if (response.status === 200) {
+//             console.log(response)
+//             // setAllMessage(prevState => {
+//             //     return [...prevState, ...response.data.Messages]
+//             // })
+
+//         }
+
+//     } catch (e) {
+//         console.log(e)
+//         if (e.response.status === 401) {
+//             localStorage.removeItem('access')
+//             localStorage.removeItem('uuid')
+//             localStorage.removeItem('refresh')
+//             localStorage.removeItem("type")
+//             navigate("/login")
+//         }
+//     }
+// }
+
+
+
+// 

@@ -19,7 +19,6 @@ export default function ManualRoutes({ children }) {
             refresh: refresh,
         };
 
-
         try {
             const response = await axios.post(`${IP}/user/token/refresh/`, body);
 
@@ -30,14 +29,15 @@ export default function ManualRoutes({ children }) {
                 window.localStorage.setItem('uuid', response.data.uuid);
                 window.localStorage.setItem("type", response.data.user_type)
                 updateType(response.data.user_type)
+                setTypeUser(response.data.user_type);
                 setIsLoading(false)
             }
 
         } catch (e) {
             console.log(e);
             if (e.response.status === 401) {
-                localStorage.clear()
-                navigate("/login")
+                // localStorage.clear()
+                // navigate("/login")
             }
 
         } finally {
@@ -55,6 +55,9 @@ export default function ManualRoutes({ children }) {
     if (isLoading) {
         return <Loading />
     }
+
+    console.log(OrdinerTrue)
+    console.log(typeUser)
 
     return (
         <div style={{ width: "100%" }}>

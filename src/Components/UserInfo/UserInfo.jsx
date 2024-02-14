@@ -1,6 +1,6 @@
 import React from 'react'
 import avatar from '../../Images/avatar.png'
-export default function UserInfo({ selectUser }) {
+export default function UserInfo({ selectUser, user }) {
     return (
         <div
             className="audiance-item"
@@ -9,7 +9,11 @@ export default function UserInfo({ selectUser }) {
             <div className="audiance-img-container">
                 <img src={avatar} alt="audiance img" className="audiance-img" />
             </div>
-            <span className="audiance-text">Abbas Ghorbani 7</span>
+            {
+                user &&
+                <span className="audiance-text">{user.first_name}{user.last_name}</span>
+            }
+
         </div>
     )
 }

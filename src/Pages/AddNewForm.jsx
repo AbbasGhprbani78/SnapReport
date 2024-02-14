@@ -427,7 +427,9 @@ export default function AddNewForm({ showForm, back, mainForm, isDelete, getAllF
 
     }
 
+
     const selectElement = (question, content) => {
+
         setQuestionUuid(content.uuid)
 
         if (isDelete) {
@@ -462,29 +464,26 @@ export default function AddNewForm({ showForm, back, mainForm, isDelete, getAllF
         }
     };
 
-    const deleteMainBox = () => {
+    const deleteMainBox = (i) => {
+        const NewNumberTypeInput = numberTypeInput.filter((input, index) => {
+            return index !== i
+        })
 
-        // const boxIndex = fromInfom.fields.findIndex(question => question.question === MainDeleteQuestion);
+        setNumberTypeInput(NewNumberTypeInput)
+        const updatedFields = fields.options.filter((field, index) => index !== i);
 
-        // if (boxIndex !== -1) {
-        //     const updatedFields = [...fromInfom.fields];
-        //     updatedFields.splice(boxIndex, 1);
-        //     setFormInfom(prevInfo => ({
-        //         ...prevInfo,
-        //         fields: updatedFields,
-        //     }));
-        // }
+        setFields(prevFields => {
+            const updatedOptions = [...prevFields.options];
+            updatedOptions.splice(updatedFields, 1);
+            return {
+                ...prevFields,
+                options: updatedOptions
+            };
+        });
+        console.log(i)
 
-        // setShowDeleteIcon(false);
-        // setMainDeleteQuestion(null);
-        // setNumberTypeInput([])
-        // setFields({
-        //     uuid: uuidv4(),
-        //     fields_type: fields.fields_type,
-        //     questions: "",
-        //     options: [],
-        // });
-    }
+    };
+
 
 
 
@@ -718,7 +717,7 @@ export default function AddNewForm({ showForm, back, mainForm, isDelete, getAllF
                                                 <BoxInput
                                                     key={i}
                                                     type={input.choice}
-                                                    deleteBox={mainForm ? deleteMainBox : deleteBox}
+                                                    deleteBox={mainForm ? () => deleteMainBox(i) : deleteBox}
                                                     uuid={input.uuid}
                                                     name='choice'
                                                     onChange={handleChangeContent}

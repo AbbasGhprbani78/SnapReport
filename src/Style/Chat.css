@@ -151,6 +151,17 @@
     display: none !important;
 }
 
+.progress-upload {
+    top: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-Items: center;
+    position: absolute;
+    z-index: 999;
+    backdrop-filter: blur(3px);
+}
 
 @media (max-width:992px) {
     .input-wrapper {

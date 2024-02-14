@@ -50,8 +50,6 @@ export default function ManualSideBar() {
 
 
     const logOutHandler = async () => {
-
-
         const access = localStorage.getItem('access')
         const refresh = localStorage.getItem('refresh')
 
@@ -139,7 +137,7 @@ export default function ManualSideBar() {
                                 <CSSTransition key={text} timeout={300} classNames="fade">
                                     <ListItem key={text} disablePadding>
                                         <ListItemButton
-                                            onClick={() => handleItemClick(text === 'Home' ? '/manualchat' : text === "chat" ? '/manualchat' : `/${text.toLowerCase().replace(/\s/g, '')}`)}
+                                            onClick={() => handleItemClick(text === 'Home' ? '/manualhome' : text === "chat" ? '/manualchat' : `/${text.toLowerCase().replace(/\s/g, '')}`)}
                                             sx={{
                                                 '&:hover': { backgroundColor: '#DDF0FA' },
                                                 backgroundColor: currentRoute === (text === 'Home' ? '/manualhome' : text === "chat" ? '/manualchat' : `/${text.toLowerCase().replace(/\s/g, '')}`) ? '#DDF0FA' : 'inherit',

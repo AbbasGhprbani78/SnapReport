@@ -135,7 +135,7 @@ export default function OrdinaryOffcanvas({ show, onHide }) {
                             <CSSTransition key={text} timeout={300} classNames="fade">
                                 <ListItem key={text} disablePadding>
                                     <ListItemButton
-                                        onClick={() => handleItemClick(text === 'Home' ? '/ordinarychat' : text === "chat" ? '/ordinaryhome' : `/${text.toLowerCase().replace(/\s/g, '')}`)}
+                                        onClick={() => handleItemClick(text === 'Home' ? '/ordinaryhome' : text === "chat" ? '/ordinarychat' : `/${text.toLowerCase().replace(/\s/g, '')}`)}
                                         sx={{
                                             '&:hover': { backgroundColor: '#DDF0FA' },
                                             backgroundColor: currentRoute === (text === 'Home' ? '/ordinaryhome' : text === "chat" ? '/ordinarychat' : `/${text.toLowerCase().replace(/\s/g, '')}`) ? '#DDF0FA' : 'inherit',

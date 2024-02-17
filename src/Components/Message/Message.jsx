@@ -7,7 +7,6 @@ import dayjs from 'dayjs';
 
 
 export default function Message(props) {
-
         const dateObject = dayjs(props.created_at);
         const formattedTime = dateObject.format('YYYY-MM-DD HH:mm');
 
@@ -22,7 +21,6 @@ export default function Message(props) {
                                 (<>
                                         <div className='mt-3'>
                                                 <div className='d-flex align-items-end  col-sm-12' style={{ direction: "rtl" }}>
-
                                                         {props.message &&
                                                                 <div className="message-wrapper mt-2">
 
@@ -39,7 +37,6 @@ export default function Message(props) {
                                                         {props.file && imgPattern.test(props.file) &&
 
                                                                 <div className='d-flex align-items-end mt-5 col-sm-12 my-5' style={{ direction: "rtl" }}>
-
                                                                         <a
                                                                                 className='img-url '
                                                                                 href={`${IP}${props.file}`}

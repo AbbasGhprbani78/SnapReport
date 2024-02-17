@@ -100,7 +100,6 @@ export default function Chat() {
     };
 
 
-
     const getMessages = async (selectedUser) => {
         const access = localStorage.getItem("access")
         const headers = {
@@ -131,7 +130,6 @@ export default function Chat() {
             }
         }
     }
-
 
 
     const sendText = async (employeeId) => {
@@ -268,6 +266,7 @@ export default function Chat() {
     const toggleAudianceActive = () => {
         setIsAudianceActive(prevState => !prevState);
     };
+
     useEffect(() => {
 
         const handleWindowResize = () => {

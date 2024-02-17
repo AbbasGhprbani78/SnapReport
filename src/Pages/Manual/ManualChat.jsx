@@ -156,7 +156,7 @@ export default function ManualChat() {
         if (audioBlob) {
 
             const formvoiceData = new FormData();
-            formvoiceData.append('file', audioBlob);
+            formvoiceData.append('voice', audioBlob);
 
             const headers = {
                 Authorization: `Bearer ${access}`

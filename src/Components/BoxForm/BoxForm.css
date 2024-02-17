@@ -1,0 +1,45 @@
+@import url('../../Style/Main.css');
+
+.BoxForm-Container {
+    padding: 2%;
+}
+
+.BoxForm-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 3%;
+}
+
+.BoxForm-content {
+    display: flex;
+    align-items: center;
+}
+
+.BoxForm {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.boxForm-text {
+    font-weight: bold;
+}
+
+.BoxForm-Link {
+    font-size: .9rem;
+}
+
+.BoxForm-des {
+    width: 70%;
+    line-height: 1.3rem;
+    font-size: .8rem;
+}
+
+@media (max-width:576px) {
+
+    .BoxForm-des {
+        width: 100%
+    }
+}

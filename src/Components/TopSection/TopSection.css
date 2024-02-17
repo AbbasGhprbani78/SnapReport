@@ -1,0 +1,9 @@
+@import url('../../Style/Main.css');
+
+.top-sections {
+    margin: 0 auto;
+    color: lightgray;
+    border-bottom: 1px solid lightgray;
+    padding: 1% 0 1% 0;
+    width: 96%;
+}

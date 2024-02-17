@@ -7,8 +7,8 @@ import dayjs from 'dayjs';
 
 
 export default function Message(props) {
-        const dateObject = dayjs(props.created_at);
-        const formattedTime = dateObject.format('YYYY-MM-DD HH:mm');
+        const dateObject = dayjs(props.created_at).format('YYYY-MM-DD HH:mm');;
+
 
         const user_uuid = localStorage.getItem("uuid")
         const imgPattern = /(jpg|png|jpeg|webp|bmp|gif|svg|tiff)$/i;
@@ -29,7 +29,7 @@ export default function Message(props) {
                                                                                         {props.message}
                                                                                 </p>
                                                                                 <p className="message-time">
-                                                                                        {formattedTime}
+                                                                                        {dateObject}
                                                                                 </p>
                                                                         </div>
                                                                 </div>
@@ -46,7 +46,7 @@ export default function Message(props) {
                                                                                 <div className='file-content d-flex flex-column'>
                                                                                         <img className='img-send' src={`${IP}${props.file}`} />
                                                                                         <p className="message-time">
-                                                                                                {formattedTime}
+                                                                                                {dateObject}
                                                                                         </p>
                                                                                 </div>
                                                                         </a>
@@ -60,7 +60,7 @@ export default function Message(props) {
                                                                                         <BsFillFileEarmarkArrowDownFill className='fileIcon file-right' />
                                                                                 </a>
                                                                                 <p className="message-time">
-                                                                                        {formattedTime}
+                                                                                        {dateObject}
                                                                                 </p>
                                                                         </div>
                                                                 </div>
@@ -71,7 +71,7 @@ export default function Message(props) {
                                                                         <div className='file-content'>
                                                                                 <audio className='audioright' src={`${IP}${props.voice}`} controls></audio>
                                                                                 <p className="message-time-audio">
-                                                                                        {formattedTime}
+                                                                                        {dateObject}
                                                                                 </p>
                                                                         </div>
 
@@ -93,7 +93,7 @@ export default function Message(props) {
                                                                                         {props.message}
                                                                                 </p>
                                                                                 <p className="message-time">
-                                                                                        {formattedTime}
+                                                                                        {dateObject}
                                                                                 </p>
                                                                         </div>
                                                                 </div>
@@ -110,7 +110,7 @@ export default function Message(props) {
                                                                                 <div className='d-flex flex-column' style={{ marginLeft: "10px" }}>
                                                                                         <img src={(`${IP}${props.file}`)} className='img-send' />
                                                                                         <p className="message-time">
-                                                                                                {formattedTime}
+                                                                                                {dateObject}
                                                                                         </p>
                                                                                 </div>
                                                                         </a>
@@ -125,7 +125,7 @@ export default function Message(props) {
                                                                         <div style={{ marginLeft: "10px" }}>
                                                                                 <audio className='audioChat audio-left' src={`${IP}${props.voice}`} controls ></audio>
                                                                                 <p className=" message-time-audio">
-                                                                                        {formattedTime}
+                                                                                        {dateObject}
                                                                                 </p>
                                                                         </div>
                                                                 </div>
@@ -141,7 +141,7 @@ export default function Message(props) {
                                                                                         <BsFillFileEarmarkArrowDownFill className='fileIcon file-left' />
                                                                                 </a>
                                                                                 <p className="message-time">
-                                                                                        {formattedTime}
+                                                                                        {dateObject}
                                                                                 </p>
                                                                         </div>
                                                                 </div>

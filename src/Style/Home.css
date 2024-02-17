@@ -92,3 +92,21 @@
     padding: 10px;
     border-radius: 8px;
 }
+
+.bluedot {
+    background-color: var(--color-6);
+}
+
+.greendot {
+    background-color: #2fcd96;
+}
+
+.topHome-worker {
+    height: 50vh;
+    overflow-y: scroll;
+}
+
+.bottomHome-worker {
+    height: 50vh;
+    overflow-y: scroll;
+}

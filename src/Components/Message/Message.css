@@ -64,6 +64,7 @@ audio::-webkit-media-controls-play-button {
     padding-bottom: 5px;
     font-size: 13px;
     margin-bottom: 0 !important;
+    line-height: 1.5rem;
 }
 
 .message-time {
@@ -125,6 +126,8 @@ audio::-webkit-media-controls-play-button {
 
     .message-text {
         font-size: 13px;
+        line-height: 1.6rem;
+        line-height: 1.5rem;
     }
 
     .message-content {

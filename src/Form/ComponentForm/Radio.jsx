@@ -4,7 +4,6 @@ import { FormContext } from '../../Components/FormWorker/FormContext'
 
 export default function Radio({ field_id,
     field_lable,
-    field_type,
     field_value,
     field_options }
 
@@ -17,7 +16,8 @@ export default function Radio({ field_id,
             {
                 field_options.map((option, i) => (
                     <div key={i}>
-                        <input type="radio"
+                        <input
+                            type="radio"
                             id={field_id}
                             name={`radio_${field_id}`}
                             value={option.option_value}

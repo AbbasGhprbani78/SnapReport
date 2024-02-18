@@ -2,36 +2,117 @@ import React, { useState } from 'react'
 import './FormWorker.css'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { FormContext } from './FormContext';
+import Element from './Element';
+import { ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import axios from 'axios';
+import { IP } from '../../App';
+
 export default function FormWorker({
     back,
     mainTitle,
     mianDes,
+    mainFields,
     uuid,
-    mainFields }) {
+    getFormData
+}) {
 
-    const [fields, setFields] = useState(mainFields)
+    const user = localStorage.getItem("uuid")
+
+    const newData = mainFields.map(item => {
+        return { ...item, value: "", user: user };
+    });
+
+    const [allfields, setAllFields] = useState(newData)
+    const [sendFileds, setSendFields] = useState([])
 
     const handleChange = (id, event) => {
-        const newElements = [...fields]
+        const newElements = [...allfields]
         newElements.forEach(element => {
 
-            const { uuid, field_type } = element
+            const { uuid, fields_type } = element
 
-            if (id === field_id) {
-                switch (field_type) {
-                    case 'checkbox':
-                        element.field_value = event.target.checked
-                        break;
-
+            if (id === uuid) {
+                switch (fields_type) {
                     default:
-                        element.field_value = event.target.value;
+                        element.value = event.target.value;
                         break;
                 }
             }
 
         })
-        setFields(newElements)
+        setAllFields(newElements)
+        setSendFields(newElements)
 
+    }
+
+    const sendFormHandler = async () => {
+        const updatedFields = sendFileds.map(obj => {
+            return { ...obj, field_uuid: obj.uuid, uuid: undefined };
+        });
+        updatedFields.forEach(fields => {
+            delete fields.uuid
+        })
+        const hasEmptyValue = sendFileds.some(field => field.value === "");
+        if (hasEmptyValue) {
+            toast.warning("Please fill all of items", {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+            });
+            return;
+        }
+
+        const access = localStorage.getItem("access")
+
+        const headers = {
+            Authorization: `Bearer ${access}`
+        };
+
+        const body = {
+            form_uuid: uuid,
+            fields: updatedFields
+        }
+
+        try {
+            const response = await axios.post(`${IP}/form/check-full-form/`, body, {
+                headers,
+            })
+
+            if (response.status === 201) {
+                console.log(response)
+                toast.success(`The form was completed successfully`, {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                });
+                setTimeout(() => {
+                    back()
+                    getFormData()
+                }, 3000)
+            }
+            else {
+
+            }
+
+        } catch (e) {
+            console.log(e)
+            if (e.response.status === 401) {
+                localStorage.clear()
+                navigate("/login")
+            }
+        }
     }
 
     return (
@@ -50,16 +131,29 @@ export default function FormWorker({
 
                     <div className="formWorker-top my-4">
                         <span style={{ color: "lightgray" }}>Permit Forms</span>
-                        <button className='view-btn'>View Request</button>
+
                     </div>
                     <div className="formWorker form-display">
                         <h3 className='from-title'>{mainTitle}</h3>
                         <p className='from-description'>{mianDes}</p>
+                        {console.log(allfields)}
+                        {
+                            allfields.map((field) => (
+                                <Element
+                                    key={field.uuid}
+                                    field={field}
+                                />
+
+                            ))
+                        }
                     </div>
-                    <div className='mt-4' style={{ direction: "rtl" }} > <button className='view-btn send-worker'>Send</button></div>
+                    <div className='mt-4' style={{ direction: "rtl" }} > <button onClick={sendFormHandler} className='view-btn send-worker'>Send</button></div>
                 </div>
             </FormContext.Provider>
+            <ToastContainer />
 
         </>
     )
 }
+
+

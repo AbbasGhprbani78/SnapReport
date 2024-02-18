@@ -12,16 +12,15 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';;
 import CottageIcon from '@mui/icons-material/Cottage';
-import AddIcon from '@mui/icons-material/Add';
+import ContentPasteIcon from '@mui/icons-material/ContentPaste';
 import { useNavigate } from 'react-router-dom';
 import { CSSTransition } from 'react-transition-group';
 import { useLocation } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { styled } from '@mui/material/styles';
-import FormatListNumberedIcon from '@mui/icons-material/FormatListNumbered';
-import ContentPasteIcon from '@mui/icons-material/ContentPaste';
 import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
+import ContentPasteGoIcon from '@mui/icons-material/ContentPasteGo';
 import axios from 'axios';
 import { IP } from '../../App';
 
@@ -39,7 +38,7 @@ export default function ManualOffcanvas({ show, onHide }) {
     const currentRoute = location.pathname;
 
     //all icons in side bar
-    const drawerIcons = [<CottageIcon />, <ChatBubbleOutlineIcon />, <LogoutIcon />,];
+    const drawerIcons = [<CottageIcon />, <ChatBubbleOutlineIcon />, <ContentPasteGoIcon />, <ContentPasteIcon />, <LogoutIcon />,];
     //slelect route
     const [selectedRoute, setSelectedRoute] = React.useState('/');
     const navigate = useNavigate();
@@ -132,7 +131,7 @@ export default function ManualOffcanvas({ show, onHide }) {
                     </DrawerHeader>
 
                     <List>
-                        {['Home', "chat", "Log out"].map((text, index) => (
+                        {['Home', "chat", "Permit form", "Accident form", "Log out"].map((text, index) => (
                             <CSSTransition key={text} timeout={300} classNames="fade">
                                 <ListItem key={text} disablePadding>
                                     <ListItemButton

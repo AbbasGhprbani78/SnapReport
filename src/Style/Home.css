@@ -102,11 +102,11 @@
 }
 
 .topHome-worker {
-    height: 50vh;
+    max-height: 50vh;
     overflow-y: scroll;
 }
 
 .bottomHome-worker {
-    height: 50vh;
+    max-height: 50vh;
     overflow-y: scroll;
 }

@@ -1,0 +1,18 @@
+import React from 'react'
+import { useContext } from 'react'
+import { FormContext } from './FormContext'
+export default function Texteara({ uuid, value }) {
+
+    const { handleChange } = useContext(FormContext)
+    return (
+        <div class="option-wrapper">
+            <textarea
+                className='textarea-option'
+                id={uuid}
+                value={value}
+                onChange={e => handleChange(uuid, e)}
+                style={{ minWidth: "250px", maxWidth: "250px", outline: "none", padding: "10px" }}
+                placeholder='Write Your Text ...' />
+        </div>
+    )
+}

@@ -17,7 +17,7 @@ export default function FormItem({ content, selectElement, ishover, disable }) {
                 {
                     content.fields_type === "dropdown" ?
                         <div
-
+                            class="option-wrapper"
                             style={{ fontSize: "13px", height: "45px", lineHeight: "37px" }}
                         >
                             <select
@@ -32,7 +32,7 @@ export default function FormItem({ content, selectElement, ishover, disable }) {
 
                         : content.fields_type === "shortanswer" ?
                             content &&
-                            <div >
+                            <div className="option-wrapper">
                                 <input
                                     placeholder='Short Answer'
                                     className='input-answer'
@@ -43,7 +43,7 @@ export default function FormItem({ content, selectElement, ishover, disable }) {
 
                             : content.fields_type === "textarea" ?
                                 content &&
-                                <div className='d-flex align-items-center'>
+                                <div className='d-flex align-items-center option-wrapper'>
                                     <textarea className='textarea-option'
                                         style={{ minWidth: "250px", maxWidth: "250px", outline: "none", padding: "10px" }}
                                         placeholder='Write Your Text ...'
@@ -53,7 +53,7 @@ export default function FormItem({ content, selectElement, ishover, disable }) {
                                 :
                                 content.fields_type === "date" ?
                                     content &&
-                                    <div >
+                                    <div class="option-wrapper">
                                         <input
                                             placeholder='Short Answer date-option'
                                             className='input-answer'
@@ -64,7 +64,7 @@ export default function FormItem({ content, selectElement, ishover, disable }) {
                                     :
                                     content.fields_type === "time" ?
                                         content &&
-                                        <div >
+                                        <div className="option-wrapper" >
                                             <input
                                                 placeholder='Short Answer'
                                                 className='input-answer'

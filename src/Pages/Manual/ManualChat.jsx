@@ -31,6 +31,8 @@ export default function ManualChat() {
     const [showOffCanvas, setShowOffCanvas] = useState(false);
     const [showfile, setShowFile] = useState(false)
     const [uploadPercentage, setUploadPercentage] = useState(0);
+    const [userInfo, setUserInfo] = useState('')
+
     const handleToggleOffCanvas = () => {
         setShowOffCanvas(!showOffCanvas);
     };
@@ -231,7 +233,7 @@ export default function ManualChat() {
                                                 <img className='member-img' src={avatar} alt="member" />
                                             </div>
 
-                                            <span className="member-name">Abbas ghorbani</span>
+                                            <span className="member-name">{userInfo && userInfo.first_name} {userInfo && userInfo.last_name}</span>
                                         </div>
                                         <div>
                                             {
@@ -362,7 +364,7 @@ export default function ManualChat() {
                                         <div className="member-img-wrapper">
                                             <img className='member-img' src={avatar} alt="member" />
                                         </div>
-                                        <span className="member-name"> Abbas ghorbani</span>
+                                        <span className="member-name">{userInfo && userInfo.first_name} {userInfo && userInfo.last_name}</span>
                                     </div>
                                 </div>
 

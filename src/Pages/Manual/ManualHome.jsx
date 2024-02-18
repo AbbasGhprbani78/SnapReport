@@ -7,6 +7,7 @@ import BoxtForm from '../../Components/BoxForm/BoxForm';
 import TopSection from '../../Components/TopSection/TopSection';
 import FormWorker from '../../Components/FormWorker/FormWorker';
 import { useMyContext } from '../../Components/RoleContext';
+
 export default function ManualHome() {
     const [formData, setFormData] = useState([])
     const [showForm, setShowForm] = useState(false)
@@ -15,7 +16,6 @@ export default function ManualHome() {
     const [uuid, setUuuid] = useState('')
     const [mainFields, setMainFields] = useState([])
     const { type } = useMyContext();
-
 
     const getFormData = async () => {
         const access = localStorage.getItem("access")
@@ -38,8 +38,8 @@ export default function ManualHome() {
         } catch (e) {
             console.log(e)
             if (e.response.status === 401) {
-                // localStorage.clear()
-                // navigate("/login")
+                localStorage.clear()
+                navigate("/login")
             }
         }
     }
@@ -64,12 +64,12 @@ export default function ManualHome() {
                 showForm ? (
                     <>
                         <FormWorker
-                            title={''}
                             back={backHandler}
                             mainTitle={mainTitle}
                             mianDes={mianDes}
                             uuid={uuid}
                             mainFields={mainFields}
+                            getFormData={getFormData}
                         />
                     </>) : (
                     <>
@@ -81,35 +81,68 @@ export default function ManualHome() {
                             <div className='topHome-worker'>
 
                                 {
-                                    formData.map((form) => (
-                                        <BoxtForm
-                                            key={form.uuid}
-                                            styleCalss={"bluedot"}
-                                            title={"Permit Forms"}
-                                            openForm={openFormHandler}
-                                            des={form.descriptions}
-                                            setMainTitle={setMainTitle}
-                                            setMainDes={setMainDes}
-                                            setuuid={setUuuid}
-                                            setMainFields={setMainFields}
-                                            titleForm={form.title}
-                                            uuid={form.uuid}
-                                            fields={form.fields}
-                                        />
-                                    ))
+                                    formData.length > 0 ? (
+                                        formData.map((form) => {
+                                            if (form.type === "permit") {
+                                                return (
+                                                    <BoxtForm
+                                                        key={form.uuid}
+                                                        styleCalss={"bluedot"}
+                                                        title="Permit Forms"
+                                                        openForm={openFormHandler}
+                                                        des={form.descriptions}
+                                                        setMainTitle={setMainTitle}
+                                                        setMainDes={setMainDes}
+                                                        setuuid={setUuuid}
+                                                        setMainFields={setMainFields}
+                                                        titleForm={form.title}
+                                                        uuid={form.uuid}
+                                                        fields={form.fields}
+                                                    />
+                                                );
+                                            } else {
+                                                return null
+                                            }
+                                        })
+                                    ) : (
+                                        <div className="noform">There is no permit form</div>
+                                    )
                                 }
-
 
                             </div>
                             <TopSection
-                                text="accidents forms"
+                                text="Accidents forms"
                             />
                             <div className='bottomHome-worker'>
 
-                                <BoxtForm
-                                    styleCalss={"greendot"}
-                                    title={"Accident Forms"}
-                                />
+                                {
+                                    formData.length > 0 ? (
+                                        formData.map((form) => {
+                                            if (form.type === "accident") {
+                                                return (
+                                                    <BoxtForm
+                                                        key={form.uuid}
+                                                        styleCalss={"greendot"}
+                                                        title="accident Forms"
+                                                        openForm={openFormHandler}
+                                                        des={form.descriptions}
+                                                        setMainTitle={setMainTitle}
+                                                        setMainDes={setMainDes}
+                                                        setuuid={setUuuid}
+                                                        setMainFields={setMainFields}
+                                                        titleForm={form.title}
+                                                        uuid={form.uuid}
+                                                        fields={form.fields}
+                                                    />
+                                                );
+                                            } else {
+                                                return null
+                                            }
+                                        })
+                                    ) : (
+                                        <div className="noform">There is no accident form</div>
+                                    )
+                                }
 
                             </div>
 

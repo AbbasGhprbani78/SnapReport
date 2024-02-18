@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
-import Element from "./Element"
+import Element from './Element'
 import { FormContext } from '../../Components/FormWorker/FormContext'
+
 export default function Form() {
 
     const [fields, setFields] = useState([
@@ -59,12 +60,6 @@ export default function Form() {
 
             ]
         },
-        {
-            field_id: 5,
-            field_lable: "write",
-            field_type: "textarea",
-            field_value: ""
-        },
     ])
 
     const handleChange = (id, event) => {
@@ -81,6 +76,7 @@ export default function Form() {
 
                     default:
                         element.field_value = event.target.value;
+
                         break;
                 }
             }
@@ -95,15 +91,14 @@ export default function Form() {
         console.log(fields)
 
     }
-
     return (
         <FormContext.Provider value={{ handleChange }}>
             <div>
                 <form onSubmit={submit}>
                     {
-                        fields.map((field) => (
+                        fields.map((field, i) => (
                             <Element
-                                key={field.uuid}
+                                key={i}
                                 field={field}
                             />
                         ))

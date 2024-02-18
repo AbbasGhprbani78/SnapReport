@@ -13,7 +13,8 @@ export default function CheckBox({
         <div>
             <label htmlFor={field_id}>{field_lable}</label>
             <input
-                id={field_id} type="checkbox"
+                id={field_id}
+                type="checkbox"
                 checked={field_value}
                 onChange={e => handleChange(field_id, e)}
             />

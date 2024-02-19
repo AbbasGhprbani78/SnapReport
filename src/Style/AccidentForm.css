@@ -1,1 +1,6 @@
 @import url('./Main.css');
+
+.accidentForm-container {
+    max-height: 95vh;
+    overflow-y: scroll;
+}

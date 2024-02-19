@@ -75,7 +75,6 @@ export default function AddNewForm({ showForm, back, mainForm, isDelete, getAllF
         }
     )
 
-    console.log(fromInfom)
     useEffect(() => {
 
         if (mainForm && mainForm.fields && mainForm.fields.length > 0) {
@@ -625,7 +624,7 @@ export default function AddNewForm({ showForm, back, mainForm, isDelete, getAllF
                                     </div>
 
                                     <InputCreateForm
-                                        lable={"Permit"}
+                                        lable={"Permit or Accident"}
                                         title={"Form Type"}
                                         value={fromInfom.type}
                                         onChange={handleChange}

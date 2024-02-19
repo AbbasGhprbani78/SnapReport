@@ -34,6 +34,7 @@ export default function Home() {
             });
             if (response.status === 200) {
                 setAllForm(response.data)
+                console.log(response)
             }
 
         } catch (e) {

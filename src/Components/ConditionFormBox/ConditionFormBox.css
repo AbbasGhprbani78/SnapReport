@@ -1,0 +1,69 @@
+@import url('../../Style/Main.css');
+
+.ConditionFormBox-container {
+    padding: 2%;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.ConditionFormBox-left {
+    width: 70%;
+}
+
+.ConditionFormBox-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 3%;
+}
+
+.ConditionFormBox-permit {
+    color: rgb(189, 181, 181);
+}
+
+.viewmore {
+    color: var(--color-9);
+    cursor: pointer;
+}
+
+.ConditionFormBox-dec {
+    font-size: .8rem;
+    line-height: 1.5rem;
+}
+
+.permkitFormBox-right {}
+
+.condition-request-text {
+    color: rgb(189, 181, 181);
+}
+
+.condition-request-done,
+.condition-request-reject {
+    padding: 3px;
+    border-radius: 50%;
+    color: #ffff;
+    margin-left: 5px;
+}
+
+.condition-request-done {
+    background-color: var(--color-9);
+}
+
+.condition-request-reject {
+    background-color: var(--color-8);
+}
+
+
+.ConditionFormBox-container-small {
+    padding: 2%;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin: 2% 0;
+}
+
+@media (max-width:817px) {
+    .ConditionFormBox-left {
+        width: 100%;
+    }
+}

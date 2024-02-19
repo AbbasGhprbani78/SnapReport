@@ -105,7 +105,10 @@ export default function ManualHome() {
                                             }
                                         })
                                     ) : (
-                                        <div className="noform">There is no permit form</div>
+                                        <div className='mt-1' style={{ width: "95%", margin: "0 auto" }}>
+                                            <div className="noform">There is no permit form</div>
+                                        </div>
+
                                     )
                                 }
 
@@ -123,7 +126,7 @@ export default function ManualHome() {
                                                     <BoxtForm
                                                         key={form.uuid}
                                                         styleCalss={"greendot"}
-                                                        title="accident Forms"
+                                                        title="Accident Forms"
                                                         openForm={openFormHandler}
                                                         des={form.descriptions}
                                                         setMainTitle={setMainTitle}
@@ -140,7 +143,10 @@ export default function ManualHome() {
                                             }
                                         })
                                     ) : (
-                                        <div className="noform">There is no accident form</div>
+                                        <div className='mt-1' style={{ width: "95%", margin: "0 auto" }}>
+                                            <div className="noform">There is no accident form</div>
+                                        </div>
+
                                     )
                                 }
 

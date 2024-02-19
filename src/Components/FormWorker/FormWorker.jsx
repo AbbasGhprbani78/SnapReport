@@ -130,7 +130,7 @@ export default function FormWorker({
                     </div>
 
                     <div className="formWorker-top my-4">
-                        <span style={{ color: "lightgray" }}>Permit Forms</span>
+                        <span style={{ color: "#bdb5b5" }}>Permit Forms</span>
 
                     </div>
                     <div className="formWorker form-display">

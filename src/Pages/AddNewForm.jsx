@@ -487,9 +487,6 @@ export default function AddNewForm({ showForm, back, mainForm, isDelete, getAllF
 
     };
 
-
-
-
     const deleteQuestion = (uuid) => {
         setFormInfom((prevInfo) => ({
             ...prevInfo,
@@ -772,3 +769,18 @@ export default function AddNewForm({ showForm, back, mainForm, isDelete, getAllF
     )
 }
 
+// fetch('https://api.example.com/data')
+//   .then(response => {
+//     if (!response.ok) {
+//       throw new Error('Network response was not ok');
+//     }
+//     return response.json();
+//   })
+//   .then(data => {
+//     // Handle successful response here
+//     console.log(data);
+//   })
+//   .catch(error => {
+//     // Handle error here
+//     alert('Error fetching data: ' + error.message);
+//   });

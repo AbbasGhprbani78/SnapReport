@@ -195,6 +195,9 @@ body {
 
 textarea {
     font-size: var(--fontsize-3);
+    width: 100%;
+    height: 200px;
+    resize: none;
 }
 
 @media (min-width:1200px) {}

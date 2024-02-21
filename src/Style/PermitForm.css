@@ -4,3 +4,7 @@
     max-height: 95vh;
     overflow-y: scroll;
 }
+
+.padding-style {
+    padding: 3%;
+}

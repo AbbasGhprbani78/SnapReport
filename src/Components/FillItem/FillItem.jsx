@@ -1,7 +1,8 @@
 import React from 'react'
 import TextField from '@mui/material/TextField';
-export default function FillItem({ field }) {
+export default function FillItem({ field, setChecks }) {
 
+    setChecks(field.checks[0].group)
     return (
         <div>
             <div className={`question-wrapper`}>
@@ -38,11 +39,10 @@ export default function FillItem({ field }) {
                                 field &&
                                 <div className='d-flex align-items-center option-wrapper'>
                                     <textarea className='textarea-option'
-                                        style={{ minWidth: "250px", maxWidth: "250px", outline: "none", padding: "10px" }}
+                                        style={{ outline: "none", padding: "10px" }}
                                         placeholder='Write Your Text ...'
                                         value={field.checks[0].value}
                                         disabled
-
                                     />
                                 </div>
                                 :

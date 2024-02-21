@@ -11,7 +11,7 @@ export default function Texteara({ uuid, value }) {
                 id={uuid}
                 value={value}
                 onChange={e => handleChange(uuid, e)}
-                style={{ minWidth: "250px", maxWidth: "250px", outline: "none", padding: "10px" }}
+                style={{ outline: "none", padding: "10px" }}
                 placeholder='Write Your Text ...' />
         </div>
     )

@@ -53,6 +53,7 @@ export default function AccidentForm() {
         setShowForm(false)
     }
 
+    const sortForm = [...accidentFroms]
 
 
     return (
@@ -76,7 +77,7 @@ export default function AccidentForm() {
                             />
                             <div className="accidentForm-container">
                                 {
-                                    accidentFroms.map((form) => (
+                                    sortForm.length > 0 && sortForm.slice().reverse().map((form) => (
                                         < ConditionFormBox
                                             key={form.uuid}
                                             dec={form.descriptions}
@@ -87,6 +88,7 @@ export default function AccidentForm() {
                                             setDescription={setDescription}
                                             setFields={setFields}
                                             form={form}
+                                            paddingStyle={"padding-style"}
 
                                         />
                                     ))

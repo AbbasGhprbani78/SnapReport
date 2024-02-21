@@ -73,7 +73,6 @@ export default function BasicTabs() {
     };
 
 
-
     const getAllFillForms = async () => {
         const access = localStorage.getItem("access")
         const headers = {
@@ -86,6 +85,8 @@ export default function BasicTabs() {
 
             if (response.status === 200) {
                 setAllForms(response.data.forms)
+                console.log(response.data.forms)
+
 
             }
 
@@ -103,9 +104,8 @@ export default function BasicTabs() {
     }, [])
 
 
-    const permitForm = allforms.filter(form => form.type === "permit")
-    const accidentForm = allforms.filter(form => form.type === "accident")
-
+    const permitForm = [...allforms].filter(form => form.type === "permit")
+    const accidentForm = [...allforms].filter(form => form.type === "accident")
 
     return (
         <>
@@ -137,7 +137,7 @@ export default function BasicTabs() {
                                     permitForm.length ?
                                         (
 
-                                            permitForm.map((form, i) => (
+                                            permitForm.slice().reverse().map((form, i) => (
                                                 <ConditionFormBox
                                                     key={i}
                                                     title={"Permit Form"}
@@ -159,7 +159,6 @@ export default function BasicTabs() {
                                                 <div className='noform'>There is no permit form</div>
                                             </>
                                         )
-
                                 }
                             </CustomTabPanel>
 
@@ -168,7 +167,7 @@ export default function BasicTabs() {
 
                                     accidentForm.length ?
                                         (
-                                            accidentForm.filter(form => form.type === "accident").map((form, i) => (
+                                            accidentForm.slice().reverse().filter(form => form.type === "accident").map((form, i) => (
                                                 <ConditionFormBox
                                                     key={i}
                                                     title={"Accident Form"}
@@ -185,7 +184,6 @@ export default function BasicTabs() {
                                         <>
                                             <div className='noform'>There is no accident form</div>
                                         </>
-
                                 }
                             </CustomTabPanel>
 

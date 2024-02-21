@@ -15,8 +15,12 @@ export default function ConditionFormBox({
     form,
     setFields,
     setFormUuid,
-    accept
+    accept,
+    paddingStyle
 }) {
+
+    const acceptForm = form.fields[0].checks[0].accept
+
 
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
@@ -41,7 +45,7 @@ export default function ConditionFormBox({
                     {
                         accept ? (
                             <>
-                                <div className='ConditionFormBox-container-small'>
+                                <div className={`ConditionFormBox-container-small ${paddingStyle}`}>
                                     <div className='d-flex align-items-center justify-content-between mb-4'>
                                         <div className='d-flex align-items-center'>
                                             <div className={`BoxForm ${styleCalss}`}></div>
@@ -49,15 +53,15 @@ export default function ConditionFormBox({
                                         </div>
                                         {
                                             accept &&
-                                            <p className='condition-request-text'>{accept === "accept" ?
+                                            <p className='condition-request-text'>{acceptForm === "2" ?
                                                 (<>
                                                     Accepted <span style={{ marginLeft: "15px" }} ><DoneIcon className='condition-request-done icon-condition' /></span>
                                                 </>) :
-                                                accept === "reject" ?
+                                                acceptForm === "1" ?
                                                     (<>
                                                         Reject <span style={{ marginLeft: "15px" }} ><CloseIcon className='condition-request-reject icon-condition' /></span>
                                                     </>) :
-                                                    <>pending <span ><ReportGmailerrorredIcon className='condition-request-pending icon-condition' /></span></>}
+                                                    <>pending <span style={{ marginLeft: "15px" }}><ReportGmailerrorredIcon className='condition-request-pending icon-condition' /></span></>}
                                             </p>
                                         }
 
@@ -74,7 +78,7 @@ export default function ConditionFormBox({
                                 </div>
                             </>) : (
                             <>
-                                <div className={"ConditionFormBox-container-small"} style={{ width: "100%" }}>
+                                <div className={`ConditionFormBox-container-small ${paddingStyle}`} style={{ width: "100%" }}>
                                     <div style={{ marginBottom: "1.7%" }} className='d-flex align-items-center justify-content-between mb-4'>
                                         <div className='d-flex align-items-center '>
                                             <div className={`BoxForm ${styleCalss}`}></div>
@@ -82,7 +86,11 @@ export default function ConditionFormBox({
                                         </div>
                                         <div className='viewmore'
                                             onClick={() => {
-
+                                                openFormHandler()
+                                                setTitle(form.title)
+                                                setDescription(form.descriptions)
+                                                setFields(form.fields)
+                                                setFormUuid(form.uuid)
                                             }}>view More
                                         </div>
                                     </div>
@@ -120,15 +128,15 @@ export default function ConditionFormBox({
                                     <div className="permkitFormBox-right">
                                         {
                                             accept &&
-                                            <p className='condition-request-text'>{accept === "accept" ?
+                                            <p className='condition-request-text'>{acceptForm === "2" ?
                                                 (<>
                                                     Accepted <span style={{ marginLeft: "15px" }} ><DoneIcon className='condition-request-done icon-condition' /></span>
                                                 </>) :
-                                                accept === "reject" ?
+                                                acceptForm === "1" ?
                                                     (<>
                                                         Reject <span style={{ marginLeft: "15px" }} ><CloseIcon className='condition-request-reject icon-condition' /></span>
                                                     </>) :
-                                                    <>pending <span ><ReportGmailerrorredIcon className='condition-request-pending icon-condition' /></span></>}
+                                                    <>pending <span style={{ marginLeft: "15px" }}><ReportGmailerrorredIcon className='condition-request-pending icon-condition' /></span></>}
                                             </p>
                                         }
                                     </div>

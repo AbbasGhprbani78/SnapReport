@@ -26,8 +26,6 @@ export default function PermitForm() {
             })
 
             if (response.status === 200) {
-
-                console.log(response.data.forms)
                 setPermitForms(response.data.forms)
             }
 
@@ -53,6 +51,8 @@ export default function PermitForm() {
         setShowForm(false)
     }
 
+    const sortForm = [...permitForms]
+
     return (
         <>
             {
@@ -74,7 +74,7 @@ export default function PermitForm() {
 
                             <div className="permitForm-container">
                                 {
-                                    permitForms.map((form) => (
+                                    sortForm.length > 0 && sortForm.slice().reverse().map((form) => (
                                         < ConditionFormBox
                                             key={form.uuid}
                                             dec={form.descriptions}
@@ -86,6 +86,7 @@ export default function PermitForm() {
                                             setFields={setFields}
                                             form={form}
                                             accept={form.accept}
+                                            paddingStyle={"padding-style"}
                                         />
                                     ))
                                 }

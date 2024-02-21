@@ -45,7 +45,7 @@ export default function FormItem({ content, selectElement, ishover, disable }) {
                                 content &&
                                 <div className='d-flex align-items-center option-wrapper'>
                                     <textarea className='textarea-option'
-                                        style={{ minWidth: "250px", maxWidth: "250px", outline: "none", padding: "10px" }}
+                                        style={{ outline: "none", padding: "10px" }}
                                         placeholder='Write Your Text ...'
                                         disabled={true}
                                     />

@@ -12,6 +12,8 @@ import { ToastContainer } from "react-toastify";
 
 export default function PlaceForm({ back, title, description, fields, formUuid, getAllFillForms }) {
     const [accept, setAccept] = useState(null);
+    const [checks, setChecks] = useState('')
+
 
     const sendCondition = async (e, accept) => {
         e.preventDefault();
@@ -22,9 +24,13 @@ export default function PlaceForm({ back, title, description, fields, formUuid, 
 
         const body = {
             uuid: formUuid,
-            accept: accept
+            accept: accept,
+            group: checks
         };
-        console.log(body)
+        // console.log(body)
+
+        // const upd = JSON.stringify(body)
+        // console.log(upd)
 
         swal({
             title: "Are you Sure ?",
@@ -58,8 +64,8 @@ export default function PlaceForm({ back, title, description, fields, formUuid, 
 
                     console.error("Error:", e);
                     if (e.response.status === 401) {
-                        localStorage.clear();
-                        navigate("/login");
+                        // localStorage.clear();
+                        // navigate("/login");
                     }
                 }
             }
@@ -89,6 +95,7 @@ export default function PlaceForm({ back, title, description, fields, formUuid, 
                             <FillItem
                                 key={field.uuid}
                                 field={field}
+                                setChecks={setChecks}
                             />
                         ))
                     }
@@ -98,13 +105,13 @@ export default function PlaceForm({ back, title, description, fields, formUuid, 
                     formUuid &&
                     <div className=' btn-ar-wrapper'>
                         <button className='btn-ar acceptBtn' onClick={(e) => {
-                            setAccept("accept")
-                            sendCondition(e, "accept")
+                            setAccept("2")
+                            sendCondition(e, "2")
 
                         }}>Accept</button>
                         <button className='btn-ar rejecttBtn' onClick={(e) => {
-                            setAccept('reject')
-                            sendCondition(e, "reject")
+                            setAccept("1")
+                            sendCondition(e, "1")
                         }}>Reject</button>
                     </div>
                 }

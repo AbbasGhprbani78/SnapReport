@@ -112,6 +112,7 @@ export default function ManualHome() {
                             </div>
                             <TopSection
                                 text="Accident forms"
+
                             />
                             <div className='bottomHome-worker'>
                                 {

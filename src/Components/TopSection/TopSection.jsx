@@ -3,7 +3,7 @@ import './TopSection.css'
 export default function TopSection({ text }) {
     return (
         <>
-            <p className='top-sections'>{text}</p>
+            <p className={`top-sections`}>{text}</p>
         </>
     )
 }

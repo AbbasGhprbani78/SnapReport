@@ -21,13 +21,13 @@
     border: none;
     outline: none;
     padding: 6px;
-    border-radius: var(--border-radius-2);
+    border-radius: var(--border-radius-1);
     background-color: var(--color-9);
     color: #ffffff;
 }
 
 .formWorker {
-    border-radius: var(--border-radius-2);
+    border-radius: var(--border-radius-1);
     border: 1px solid var(--color-9);
     max-height: 70vh;
     overflow-y: scroll;

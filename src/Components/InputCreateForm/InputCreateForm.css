@@ -13,7 +13,7 @@
     all: unset;
     border: 1px solid var(--color-9);
     height: 45px;
-    border-radius: var(--border-radius-1);
+    border-radius: var(--border-radius-2);
     padding: 0 10px;
     font-size: var(--fontsize-3);
 }
@@ -27,6 +27,6 @@
 }
 
 ::-webkit-input-placeholder {
-    color: rgb(189, 181, 181);
+    color: #9a9a9a;
     font-size: 13px;
 }

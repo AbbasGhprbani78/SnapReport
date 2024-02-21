@@ -57,6 +57,9 @@ export default function ManualHome() {
         setShowForm(false)
     }
 
+    const PermitForms = formData.filter(form => form.type === "permit")
+    const accidentForms = formData.filter(form => form.type === "accident")
+
     return (
 
         <>
@@ -76,78 +79,68 @@ export default function ManualHome() {
                         <div div className="home-container" >
                             <Header />
                             <TopSection
-                                text="PermitForm"
+                                text="Permit forms"
                             />
                             <div className='topHome-worker'>
-
                                 {
-                                    formData.length > 0 ? (
-                                        formData.map((form) => {
-                                            if (form.type === "permit") {
-                                                return (
-                                                    <BoxtForm
-                                                        key={form.uuid}
-                                                        styleCalss={"bluedot"}
-                                                        title="Permit Forms"
-                                                        openForm={openFormHandler}
-                                                        des={form.descriptions}
-                                                        setMainTitle={setMainTitle}
-                                                        setMainDes={setMainDes}
-                                                        setuuid={setUuuid}
-                                                        setMainFields={setMainFields}
-                                                        titleForm={form.title}
-                                                        uuid={form.uuid}
-                                                        fields={form.fields}
-                                                    />
-                                                );
-                                            } else {
-                                                return null
-                                            }
-                                        })
-                                    ) : (
-                                        <div className='mt-1' style={{ width: "95%", margin: "0 auto" }}>
-                                            <div className="noform">There is no permit form</div>
-                                        </div>
+                                    PermitForms.length > 0 ? (
+                                        PermitForms.map((form) => (
+                                            <BoxtForm
+                                                key={form.uuid}
+                                                styleCalss={"bluedot"}
+                                                title="Permit Form"
+                                                openForm={openFormHandler}
+                                                des={form.descriptions}
+                                                setMainTitle={setMainTitle}
+                                                setMainDes={setMainDes}
+                                                setuuid={setUuuid}
+                                                setMainFields={setMainFields}
+                                                titleForm={form.title}
+                                                uuid={form.uuid}
+                                                fields={form.fields}
+                                            />
+                                        ))
 
-                                    )
+                                    ) : (
+                                        <>
+                                            <div className='mt-1' style={{ width: "95%", margin: "0 auto" }}>
+                                                <div className="noform">There is no permit form</div>
+                                            </div>
+                                        </>)
                                 }
 
                             </div>
                             <TopSection
-                                text="Accidents forms"
+                                text="Accident forms"
                             />
                             <div className='bottomHome-worker'>
-
                                 {
-                                    formData.length > 0 ? (
-                                        formData.map((form) => {
-                                            if (form.type === "accident") {
-                                                return (
-                                                    <BoxtForm
-                                                        key={form.uuid}
-                                                        styleCalss={"greendot"}
-                                                        title="Accident Forms"
-                                                        openForm={openFormHandler}
-                                                        des={form.descriptions}
-                                                        setMainTitle={setMainTitle}
-                                                        setMainDes={setMainDes}
-                                                        setuuid={setUuuid}
-                                                        setMainFields={setMainFields}
-                                                        titleForm={form.title}
-                                                        uuid={form.uuid}
-                                                        fields={form.fields}
-                                                    />
-                                                );
-                                            } else {
-                                                return null
-                                            }
-                                        })
-                                    ) : (
-                                        <div className='mt-1' style={{ width: "95%", margin: "0 auto" }}>
-                                            <div className="noform">There is no accident form</div>
-                                        </div>
-
-                                    )
+                                    accidentForms.length > 0 ?
+                                        (
+                                            accidentForms.map((form) => (
+                                                <BoxtForm
+                                                    key={form.uuid}
+                                                    styleCalss={"greendot"}
+                                                    title="Accident Form"
+                                                    openForm={openFormHandler}
+                                                    des={form.descriptions}
+                                                    setMainTitle={setMainTitle}
+                                                    setMainDes={setMainDes}
+                                                    setuuid={setUuuid}
+                                                    setMainFields={setMainFields}
+                                                    titleForm={form.title}
+                                                    uuid={form.uuid}
+                                                    fields={form.fields}
+                                                />
+                                            ))
+                                        ) :
+                                        (
+                                            <>
+                                                <div className='mt-1' style={{ width: "95%", margin: "0 auto" }}>
+                                                    <div className="noform">There is no accident form</div>
+                                                </div>
+                                            </>
+                                        )
                                 }
 
                             </div>

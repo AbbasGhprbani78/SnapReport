@@ -149,7 +149,8 @@ export default function FormSignIn({ handleTabChange }) {
                     </p>
                     <div className='btn-signIn-wrapper'>
                         <Button
-                            btnCalss={"button-component"}
+
+                            btnCalss={"button-component only"}
                             type={"submit"}
                             content={"Sign In"}
                         /></div>

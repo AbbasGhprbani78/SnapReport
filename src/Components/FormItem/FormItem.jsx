@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'react'
 import './FormItem.css'
+import TextField from '@mui/material/TextField';
 export default function FormItem({ content, selectElement, ishover, disable }) {
 
     const formEndRef = useRef(null);
@@ -22,7 +23,7 @@ export default function FormItem({ content, selectElement, ishover, disable }) {
                         >
                             <select
                                 className=' dropDwon-option'
-                                disabled={disable}
+                                disabled={true}
                             >
                                 {content.options && content.options.map((option, i) => (
                                     <option key={i}>{option.choice}</option>
@@ -33,11 +34,10 @@ export default function FormItem({ content, selectElement, ishover, disable }) {
                         : content.fields_type === "shortanswer" ?
                             content &&
                             <div className="option-wrapper">
-                                <input
+                                <TextField
                                     placeholder='Short Answer'
-                                    className='input-answer'
                                     type="text"
-                                    disabled={disable}
+                                    disabled={true}
                                 />
                             </div>
 
@@ -47,29 +47,27 @@ export default function FormItem({ content, selectElement, ishover, disable }) {
                                     <textarea className='textarea-option'
                                         style={{ minWidth: "250px", maxWidth: "250px", outline: "none", padding: "10px" }}
                                         placeholder='Write Your Text ...'
-                                        disabled={disable}
+                                        disabled={true}
                                     />
                                 </div>
                                 :
                                 content.fields_type === "date" ?
                                     content &&
                                     <div class="option-wrapper">
-                                        <input
-                                            placeholder='Short Answer date-option'
-                                            className='input-answer'
-                                            type="date"
-                                            disabled={disable}
+                                        <TextField
+                                            id="date"
+                                            type='date'
+                                            disabled={true}
                                         />
                                     </div>
                                     :
                                     content.fields_type === "time" ?
                                         content &&
                                         <div className="option-wrapper" >
-                                            <input
-                                                placeholder='Short Answer'
-                                                className='input-answer'
+                                            <TextField
+                                                id="time"
                                                 type="time"
-                                                disabled={disable}
+                                                disabled={true}
                                             />
                                         </div>
 
@@ -77,7 +75,7 @@ export default function FormItem({ content, selectElement, ishover, disable }) {
 
                                             <div className='option-wrapper' key={i}>
                                                 <input
-                                                    disabled={disable}
+                                                    disabled={true}
                                                     type={content.fields_type} />
                                                 <label className='lable-option multiyop'>{option.choice}</label>
                                             </div>

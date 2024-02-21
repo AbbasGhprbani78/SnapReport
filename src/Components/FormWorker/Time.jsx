@@ -1,19 +1,27 @@
 import React from 'react'
 import { useContext } from 'react'
 import { FormContext } from './FormContext'
+import TextField from '@mui/material/TextField';
 
 export default function Time({ uuid, value }) {
 
     const { handleChange } = useContext(FormContext)
     return (
         <div class="option-wrapper">
-            <input
+            <TextField
+                id={uuid}
+                value={value}
+                type="time"
+                onChange={e => handleChange(uuid, e)}
+
+            />
+            {/* <input
                 className='input-answer'
                 id={uuid}
                 value={value}
                 type="time"
                 onChange={e => handleChange(uuid, e)}
-            />
+            /> */}
         </div>
     )
 }

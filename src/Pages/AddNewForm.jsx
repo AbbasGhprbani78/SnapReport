@@ -377,6 +377,10 @@ export default function AddNewForm({ showForm, back, mainForm, isDelete, getAllF
                     creator: localStorage.getItem("uuid"),
                 };
 
+                console.log(body)
+                // const jsonString = JSON.stringify(body);
+                // console.log(jsonString);
+
                 const access = localStorage.getItem("access")
 
                 const headers = {
@@ -388,7 +392,7 @@ export default function AddNewForm({ showForm, back, mainForm, isDelete, getAllF
                     });
 
                     if (response.status === 201) {
-                        console.log(response)
+
                         setLoading(false)
                         toast.success(`The form was created successfully`, {
                             position: "top-right",

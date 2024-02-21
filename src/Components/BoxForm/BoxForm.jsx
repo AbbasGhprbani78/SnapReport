@@ -18,7 +18,7 @@ export default function BoxtForm({
                 <div className="BoxForm-top">
                     <div className="BoxForm-content">
                         <div className={`BoxForm ${styleCalss}`}></div>
-                        <p className='boxForm-text text-muted'>{title}</p>
+                        <p className='boxForm-text'>{title}</p>
                     </div>
                     <div className='BoxForm-Link'>
                         <div

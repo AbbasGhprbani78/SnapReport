@@ -11,7 +11,7 @@ export default function Radio({ uuid, field_options, value }
         <div class="option-wrapper">
             {
                 field_options.map((option, i) => (
-                    <div key={i}>
+                    <div key={i} className='option-wrapper'>
                         <input
                             type="radio"
                             id={uuid}

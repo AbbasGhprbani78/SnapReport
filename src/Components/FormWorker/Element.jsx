@@ -40,7 +40,7 @@ export default function Element({ field }) {
                 </>
             )
                 ;
-        case "date":
+        case "time":
             return (
                 <>
                     <div className='question-wrapper'>
@@ -53,7 +53,7 @@ export default function Element({ field }) {
                 </>
             )
                 ;
-        case "time":
+        case "date":
             return (
                 <>
                     <div className='question-wrapper'>

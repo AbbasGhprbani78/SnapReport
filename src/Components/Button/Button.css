@@ -14,8 +14,13 @@
     cursor: not-allowed;
 }
 
+
 @media (max-width:576px) {
     .button-component {
-        padding: 6% 0;
+        padding: 4% 0;
+    }
+
+    .only {
+        padding: 6% 0 !important;
     }
 }

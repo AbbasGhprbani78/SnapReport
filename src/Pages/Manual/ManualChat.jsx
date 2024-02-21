@@ -66,6 +66,7 @@ export default function ManualChat() {
 
             if (response.status === 200) {
                 setAllMessage(response.data)
+                setUserInfo(response.data[0].sender)
             }
             else {
                 setAllMessage([])

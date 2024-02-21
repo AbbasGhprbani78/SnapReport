@@ -10,6 +10,9 @@ export default function AccidentForm() {
 
     const [accidentFroms, setAccidentForms] = useState([])
     const [showForm, setShowForm] = useState(false)
+    const [title, setTitle] = useState('')
+    const [description, setDescription] = useState('')
+    const [fields, setFields] = useState([])
 
 
     const getAllAccidentForm = async () => {
@@ -19,28 +22,27 @@ export default function AccidentForm() {
         };
 
         try {
-            const response = await axios.get(`${IP}//`, {
+            const response = await axios.get(`${IP}/form/all-accident-form/`, {
                 headers,
             })
 
             if (response.status === 200) {
-                console.log(response)
-                // setAccidentForms(response.data)
+                setAccidentForms(response.data.forms)
             }
 
         } catch (e) {
             console.log(e)
             if (e.response.status === 401) {
-                //     localStorage.clear()
-                //     navigate("/login")
-                // }
+                localStorage.clear()
+                navigate("/login")
+
             }
         }
     }
 
-    // useEffect(() => {
-    //     getAllAccidentForm()
-    // }, [])
+    useEffect(() => {
+        getAllAccidentForm()
+    }, [])
 
 
     const openFormHandler = () => {
@@ -53,35 +55,6 @@ export default function AccidentForm() {
 
 
 
-    const getFormsCompleted = async () => {
-        const access = localStorage.getItem("access")
-        const headers = {
-            Authorization: `Bearer ${access}`
-        };
-
-        try {
-            const response = await axios.get(`${IP}//`, {
-                headers,
-            })
-
-            if (response.status === 200) {
-                console.log(response)
-                setFormData(response.data)
-            }
-
-        } catch (e) {
-            console.log(e)
-            // if (e.response.status === 401) {
-            //     localStorage.clear()
-            //     navigate("/login")
-            // }
-        }
-    }
-
-    // useEffect(() => {
-    //     getFormsCompleted()
-    // }, [])
-
     return (
         <>
             {
@@ -89,6 +62,10 @@ export default function AccidentForm() {
                     <>
                         <PlaceForm
                             back={backHandler}
+                            title={title}
+                            description={description}
+                            fields={fields}
+
                         />
                     </>) : (
                     <>
@@ -98,26 +75,22 @@ export default function AccidentForm() {
                                 text="Accident Form"
                             />
                             <div className="accidentForm-container">
-                                < ConditionFormBox
-                                    styleCalss={"greendot"}
-                                    title={"Accident Form"}
-                                    openFormHandler={openFormHandler}
-                                />
-                                < ConditionFormBox
-                                    styleCalss={"greendot"}
-                                    title={"Accident Form"}
-                                    openFormHandler={openFormHandler}
-                                />
-                                < ConditionFormBox
-                                    styleCalss={"greendot"}
-                                    title={"Accident Form"}
-                                    openFormHandler={openFormHandler}
-                                />
-                                < ConditionFormBox
-                                    styleCalss={"greendot"}
-                                    title={"Accident Form"}
-                                    openFormHandler={openFormHandler}
-                                />
+                                {
+                                    accidentFroms.map((form) => (
+                                        < ConditionFormBox
+                                            key={form.uuid}
+                                            dec={form.descriptions}
+                                            styleCalss={"greendot"}
+                                            title={"Accident Form"}
+                                            openFormHandler={openFormHandler}
+                                            setTitle={setTitle}
+                                            setDescription={setDescription}
+                                            setFields={setFields}
+                                            form={form}
+
+                                        />
+                                    ))
+                                }
                             </div>
                         </div>
                     </>)

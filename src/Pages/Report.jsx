@@ -14,11 +14,7 @@ import { IP } from '../App';
 
 
 function CustomTabPanel(props) {
-
-
     const { children, value, index, ...other } = props;
-
-
 
     return (
         <>
@@ -54,6 +50,7 @@ function a11yProps(index) {
     };
 }
 
+
 export default function BasicTabs() {
     const [value, setValue] = React.useState(0);
     const [showForm, setShowForm] = useState(false)
@@ -61,17 +58,20 @@ export default function BasicTabs() {
     const [title, setTitle] = useState('')
     const [description, setDescription] = useState('')
     const [fields, setFields] = useState([])
+    const [formUuid, setFormUuid] = useState('')
     const openFormHandler = () => {
         setShowForm(true)
     }
 
     const backHandler = () => {
         setShowForm(false)
+        setFormUuid('')
     }
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
+
 
 
     const getAllFillForms = async () => {
@@ -85,17 +85,15 @@ export default function BasicTabs() {
             })
 
             if (response.status === 200) {
-                console.log(response)
                 setAllForms(response.data.forms)
-                console.log(allforms)
 
             }
 
         } catch (e) {
             console.log(e)
             if (e.response.status === 401) {
-                // localStorage.clear()
-                // navigate("/login")
+                localStorage.clear()
+                navigate("/login")
             }
         }
     }
@@ -105,6 +103,8 @@ export default function BasicTabs() {
     }, [])
 
 
+    const permitForm = allforms.filter(form => form.type === "permit")
+    const accidentForm = allforms.filter(form => form.type === "accident")
 
 
     return (
@@ -117,6 +117,8 @@ export default function BasicTabs() {
                             title={title}
                             description={description}
                             fields={fields}
+                            formUuid={formUuid}
+                            getAllFillForms={getAllFillForms}
                         />
                     </>) : (
 
@@ -125,34 +127,68 @@ export default function BasicTabs() {
                         <Box sx={{ width: '100%' }}>
                             <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                                 <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
+
                                     <Tab style={{ color: "#45ABE5" }} label="Permit Form" {...a11yProps(0)} />
                                     <Tab style={{ color: "#45ABE5" }} label="Accident Form" {...a11yProps(1)} />
                                 </Tabs>
                             </Box>
                             <CustomTabPanel value={value} index={0}>
                                 {
-                                    allforms.length &&
-                                    allforms.map((form, i) => (
-                                        <ConditionFormBox
-                                            key={i}
-                                            title={"PermitForm"}
-                                            openFormHandler={openFormHandler}
-                                            dec={form.descriptions}
-                                            setTitle={setTitle}
-                                            setDescription={setDescription}
-                                            form={form}
-                                            setFields={setFields}
-                                        />
-                                    ))
-                                }
+                                    permitForm.length ?
+                                        (
 
+                                            permitForm.map((form, i) => (
+                                                <ConditionFormBox
+                                                    key={i}
+                                                    title={"Permit Form"}
+                                                    openFormHandler={openFormHandler}
+                                                    dec={form.descriptions}
+                                                    setTitle={setTitle}
+                                                    setDescription={setDescription}
+                                                    form={form}
+                                                    setFields={setFields}
+                                                    setFormUuid={setFormUuid}
+                                                    accept={form.accept}
+                                                    styleCalss={'bluedot'}
+                                                />
+                                            ))
+
+                                        ) :
+                                        (
+                                            <>
+                                                <div className='noform'>There is no permit form</div>
+                                            </>
+                                        )
+
+                                }
                             </CustomTabPanel>
+
                             <CustomTabPanel value={value} index={1}>
-                                <ConditionFormBox
-                                    title={"AccidentForm"}
-                                    openFormHandler={openFormHandler}
-                                />
+                                {
+
+                                    accidentForm.length ?
+                                        (
+                                            accidentForm.filter(form => form.type === "accident").map((form, i) => (
+                                                <ConditionFormBox
+                                                    key={i}
+                                                    title={"Accident Form"}
+                                                    openFormHandler={openFormHandler}
+                                                    dec={form.descriptions}
+                                                    setTitle={setTitle}
+                                                    setDescription={setDescription}
+                                                    form={form}
+                                                    setFields={setFields}
+                                                    styleCalss={'greendot'}
+                                                />
+                                            ))
+                                        ) :
+                                        <>
+                                            <div className='noform'>There is no accident form</div>
+                                        </>
+
+                                }
                             </CustomTabPanel>
+
                         </Box>
                     </>)
             }

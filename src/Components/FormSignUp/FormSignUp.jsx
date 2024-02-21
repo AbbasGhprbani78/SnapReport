@@ -251,7 +251,7 @@ export default function FormSignUp({ handleTabChange }) {
                     </p>
                     <div className='btn-signIn-wrapper'>
                         <Button
-                            btnCalss={"button-component"}
+                            btnCalss={"button-component only"}
                             type={"submit"}
                             content={"Sign Up"}
                         /></div>
@@ -261,107 +261,3 @@ export default function FormSignUp({ handleTabChange }) {
     )
 }
 
-
-
-// send vlaue of form to server
-// async function submit(e) {
-//     e.preventDefault();
-
-//     // do check  value of input
-//     for (const key in signInUpInfo) {
-//         if (signInUpInfo[key].trim() === "") {
-//             toast.warning(`${key.charAt(0).toUpperCase() + key.slice(1)} cannot be empty.`, {
-//                 position: "top-right",
-//                 autoClose: 5000,
-//                 hideProgressBar: false,
-//                 closeOnClick: true,
-//                 pauseOnHover: true,
-//                 draggable: true,
-//                 progress: undefined,
-//                 theme: "colored",
-//             });
-//             return;
-//         }
-//     }
-
-//     // reg ex for Validations of inputs
-//     const inputValidations = [
-//         { name: 'first_name', regex: /^[a-zA-Z]+$/ },
-//         { name: 'lastName', regex: /^[a-zA-Z]+$/ },
-//         { name: 'email', regex: /^[^\s@]+@[^\s@]+\.[^\s@]+$/ },
-//
-//     ];
-
-//     // check Validations of inputs
-//     for (const validation of inputValidations) {
-//         const { name, regex } = validation;
-//         if (!regex.test(signInUpInfo[name])) {
-//             toast.error(`${name.charAt(0).toUpperCase() + name.slice(1)} is not valid.`, {
-//                 position: "top-right",
-//                 autoClose: 5000,
-//                 hideProgressBar: false,
-//                 closeOnClick: true,
-//                 pauseOnHover: true,
-//                 draggable: true,
-//                 progress: undefined,
-//                 theme: "colored",
-//             });
-//             return;
-//         }
-//     }
-
-//     // it check that the value of password input and confirmpass input is the same
-//     if (signInUpInfo.password !== signInUpInfo.confirmPass) {
-//         toast.error("Confirmation password does not match the password", {
-//             position: "top-right",
-//             autoClose: 5000,
-//             hideProgressBar: false,
-//             closeOnClick: true,
-//             pauseOnHover: true,
-//             draggable: true,
-//             progress: undefined,
-//             theme: "colored",
-//         });
-//         return false;
-//     }
-
-//     try {
-//         const response = await fetch(`${IP}/signup/`, {
-//             method: 'POST',
-//             headers: {
-//                 'Content-Type': 'application/json',
-//             },
-//             body: JSON.stringify(signInUpInfo),
-//         });
-
-//         if (response.status === 200) {
-//             const responseData = await response.json();
-//             toast.success("Successfull", {
-//                 position: "top-right",
-//                 autoClose: 5000,
-//                 hideProgressBar: false,
-//                 closeOnClick: true,
-//                 pauseOnHover: true,
-//                 draggable: true,
-//                 progress: undefined,
-//                 theme: "colored",
-//             });
-//             console.log(responseData)
-
-//             // navigate('/login')
-
-//         }
-//     } catch (e) {
-//         console.log(e)
-//         toast.error(`${e.response.data.message}`, {
-//             position: "top-right",
-//             autoClose: 5000,
-//             hideProgressBar: false,
-//             closeOnClick: true,
-//             pauseOnHover: true,
-//             draggable: true,
-//             progress: undefined,
-//             theme: "colored",
-//         });
-//     }
-// }

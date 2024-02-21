@@ -1,11 +1,75 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './PlaceForm.css'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import FillItem from '../FillItem/FillItem';
-export default function PlaceForm({ back, title, description, fields }) {
+import axios from 'axios';
+import swal from "sweetalert";
+import { IP } from '../../App';
+import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
+
+
+export default function PlaceForm({ back, title, description, fields, formUuid, getAllFillForms }) {
+    const [accept, setAccept] = useState(null);
+
+    const sendCondition = async (e, accept) => {
+        e.preventDefault();
+        const access = localStorage.getItem("access");
+        const headers = {
+            Authorization: `Bearer ${access}`
+        };
+
+        const body = {
+            uuid: formUuid,
+            accept: accept
+        };
+        console.log(body)
+
+        swal({
+            title: "Are you Sure ?",
+            icon: "warning",
+            buttons: ["No", "Yes"],
+        }).then(async (result) => {
+
+            if (result) {
+                try {
+                    const response = await axios.post(`${IP}/form/get-form-data/`, body, {
+                        headers,
+                    });
+
+                    if (response.status === 200) {
+                        toast.success(`Done successfully`, {
+                            position: "top-right",
+                            autoClose: 5000,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                            theme: "colored",
+                        });
+                        setTimeout(() => {
+                            getAllFillForms()
+                            back()
+                        }, 2000)
+                    }
+                } catch (e) {
+
+                    console.error("Error:", e);
+                    if (e.response.status === 401) {
+                        localStorage.clear();
+                        navigate("/login");
+                    }
+                }
+            }
+        });
+    };
+
 
     return (
         <>
+
             <div style={{ width: "95%", margin: "0 auto" }}>
                 <div className='my-3'>
                     <div
@@ -30,7 +94,23 @@ export default function PlaceForm({ back, title, description, fields }) {
                     }
 
                 </div>
+                {
+                    formUuid &&
+                    <div className=' btn-ar-wrapper'>
+                        <button className='btn-ar acceptBtn' onClick={(e) => {
+                            setAccept("accept")
+                            sendCondition(e, "accept")
+
+                        }}>Accept</button>
+                        <button className='btn-ar rejecttBtn' onClick={(e) => {
+                            setAccept('reject')
+                            sendCondition(e, "reject")
+                        }}>Reject</button>
+                    </div>
+                }
+
             </div>
+            <ToastContainer />
         </>
 
     )

@@ -8,7 +8,7 @@ export default function CheckBox({ uuid, field_options, value }) {
         <div class="option-wrapper">
             {
                 field_options.map((option, i) => (
-                    <div key={i}>
+                    <div key={i} className='option-wrapper'>
                         <input
                             type="checkbox"
                             id={uuid}

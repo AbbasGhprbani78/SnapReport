@@ -134,7 +134,7 @@
     min-height: 450px;
     max-height: 550px;
     margin-top: 4%;
-    border-radius: var(--border-radius-2);
+    border-radius: var(--border-radius-1);
     overflow-y: scroll;
     margin: 2% auto;
 }

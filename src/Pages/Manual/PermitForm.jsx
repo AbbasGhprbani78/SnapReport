@@ -10,7 +10,9 @@ export default function PermitForm() {
 
     const [permitForms, setPermitForms] = useState([])
     const [showForm, setShowForm] = useState(false)
-
+    const [title, setTitle] = useState('')
+    const [description, setDescription] = useState('')
+    const [fields, setFields] = useState([])
 
     const getAllPermitForm = async () => {
         const access = localStorage.getItem("access")
@@ -19,28 +21,29 @@ export default function PermitForm() {
         };
 
         try {
-            const response = await axios.get(`${IP}//`, {
+            const response = await axios.get(`${IP}/form/all-permit-form/`, {
                 headers,
             })
 
             if (response.status === 200) {
-                console.log(response)
-                // setPermitForms(response.data)
+
+                console.log(response.data.forms)
+                setPermitForms(response.data.forms)
             }
 
         } catch (e) {
             console.log(e)
             if (e.response.status === 401) {
-                //     localStorage.clear()
-                //     navigate("/login")
-                // }
+                localStorage.clear()
+                navigate("/login")
+
             }
         }
     }
 
-    // useEffect(() => {
-    //     getAllPermitForm()
-    // }, [])
+    useEffect(() => {
+        getAllPermitForm()
+    }, [])
 
     const openFormHandler = () => {
         setShowForm(true)
@@ -57,35 +60,36 @@ export default function PermitForm() {
                     <>
                         <PlaceForm
                             back={backHandler}
+                            title={title}
+                            description={description}
+                            fields={fields}
                         />
                     </>) : (
                     <>
                         <div className='permitForm-page'>
                             <Header />
                             <TopSection
-                                text="Permit Form"
+                                text="Permit forms"
                             />
+
                             <div className="permitForm-container">
-                                < ConditionFormBox
-                                    styleCalss={"bluedot"}
-                                    title={"PermitForm"}
-                                    openFormHandler={openFormHandler}
-                                />
-                                < ConditionFormBox
-                                    styleCalss={"bluedot"}
-                                    title={"PermitForm"}
-                                    openFormHandler={openFormHandler}
-                                />
-                                < ConditionFormBox
-                                    styleCalss={"bluedot"}
-                                    title={"PermitForm"}
-                                    openFormHandler={openFormHandler}
-                                />
-                                < ConditionFormBox
-                                    styleCalss={"bluedot"}
-                                    title={"PermitForm"}
-                                    openFormHandler={openFormHandler}
-                                />
+                                {
+                                    permitForms.map((form) => (
+                                        < ConditionFormBox
+                                            key={form.uuid}
+                                            dec={form.descriptions}
+                                            styleCalss={"bluedot"}
+                                            title={"Permit Form"}
+                                            openFormHandler={openFormHandler}
+                                            setTitle={setTitle}
+                                            setDescription={setDescription}
+                                            setFields={setFields}
+                                            form={form}
+                                            accept={form.accept}
+                                        />
+                                    ))
+                                }
+
                             </div>
                         </div>
                     </>)

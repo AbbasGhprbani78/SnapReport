@@ -3,7 +3,7 @@
 
 .question-wrapper {
     padding: 10px 15px;
-    border-radius: var(--border-radius-2);
+    border-radius: var();
     margin: 2% 0;
 }
 
@@ -19,6 +19,7 @@
 .qusetion-form,
 .lable-option {
     color: var(--color-9);
+    font-size: var(--fontsize-text1);
 }
 
 .qusetion-form {
@@ -35,7 +36,7 @@
 
 .input-answer {
     border: 1px solid var(--color-9);
-    border-radius: var(--border-radius-1);
+    border-radius: var(--border-radius-2);
     padding: 0 10px;
     margin-left: 2%;
     height: 30px;
@@ -47,13 +48,13 @@
 
 .textarea-option {
     border: 1px solid var(--color-9);
-    border-radius: var(--border-radius-1);
+    border-radius: var(--border-radius-2);
     padding: 0 10px;
     margin-left: 2%;
 }
 
 .dropDwon-option {
-    border-radius: var(--border-radius-1);
+    border-radius: var(--border-radius-2);
     outline: none;
     border: 1px solid var(--color-9);
     width: 250px;
@@ -63,4 +64,18 @@
 
 .date-option {
     font-size: var(--fontsize-text1);
+}
+
+.css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root {
+    border: 1px solid var(--color-9) !important;
+}
+
+.css-1d3z3hw-MuiOutlinedInput-notchedOutline {
+    border-width: 0 !important;
+}
+
+@media (max-width:576px) {
+    .option-wrapper {
+        margin: 4% 0;
+    }
 }

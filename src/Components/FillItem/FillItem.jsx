@@ -1,7 +1,6 @@
-import React, { useState } from 'react'
-
+import React from 'react'
+import TextField from '@mui/material/TextField';
 export default function FillItem({ field }) {
-
 
     return (
         <div>
@@ -27,9 +26,8 @@ export default function FillItem({ field }) {
                         : field.fields_type === "shortanswer" ?
                             field &&
                             <div className="option-wrapper">
-                                <input
+                                <TextField
                                     placeholder='Short Answer'
-                                    className='input-answer'
                                     type="text"
                                     value={field.checks[0].value}
                                     disabled
@@ -50,10 +48,9 @@ export default function FillItem({ field }) {
                                 :
                                 field.fields_type === "date" ?
                                     field &&
-                                    <div class="option-wrapper">
-                                        <input
-                                            placeholder='Short Answer date-option'
-                                            className='input-answer'
+                                    <div className="option-wrapper">
+                                        <TextField
+                                            id="date"
                                             type="date"
                                             value={field.checks[0].value}
                                         />
@@ -62,9 +59,8 @@ export default function FillItem({ field }) {
                                     field.fields_type === "time" ?
                                         field &&
                                         <div className="option-wrapper" >
-                                            <input
+                                            <TextField
                                                 placeholder='Short Answer'
-                                                className='input-answer'
                                                 type="time"
                                                 value={field.checks[0].value}
                                             />
@@ -100,3 +96,7 @@ export default function FillItem({ field }) {
         </div>
     )
 }
+
+
+
+

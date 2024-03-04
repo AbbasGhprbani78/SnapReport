@@ -5,7 +5,7 @@ export default function Texteara({ uuid, value }) {
 
     const { handleChange } = useContext(FormContext)
     return (
-        <div class="option-wrapper">
+        <div className="option-wrapper">
             <textarea
                 className='textarea-option'
                 id={uuid}

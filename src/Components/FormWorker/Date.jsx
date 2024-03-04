@@ -6,7 +6,7 @@ export default function Time({ uuid, value }) {
 
     const { handleChange } = useContext(FormContext)
     return (
-        <div class="option-wrapper">
+        <div className="option-wrapper">
             <TextField
                 id={uuid}
                 value={value}

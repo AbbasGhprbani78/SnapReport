@@ -12,8 +12,8 @@ export default function SeniorRoute({ children }) {
     const { type, updateType } = useMyContext()
     const navigate = useNavigate()
     const validateUser = async () => {
-        const refresh = localStorage.getItem('refresh');
 
+        const refresh = localStorage.getItem('refresh');
         const body = {
             refresh: refresh,
         };

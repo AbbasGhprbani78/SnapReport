@@ -7,7 +7,7 @@ import OrdinarySideBars from './Components/SideBars/OrdinarySideBars'
 import ManualSideBar from './Components/SideBars/ManualSideBar'
 import SignIn from './Pages/Sign';
 import { useMyContext } from './Components/RoleContext';
-import Form from './Form/ComponentForm/Form';
+
 
 export const IP = "https://snapreport.ariisco.com"
 // export const IP = "http://185.79.156.226:9500"

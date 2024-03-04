@@ -4,7 +4,7 @@ import { FormContext } from './FormContext'
 export default function Select({ uuid, field_options }) {
     const { handleChange } = useContext(FormContext)
     return (
-        <div class="option-wrapper"
+        <div className="option-wrapper"
             style={{ fontSize: "13px", height: "45px", lineHeight: "37px" }}
         >
             <select

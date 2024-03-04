@@ -3,7 +3,7 @@ import Offcanvas from 'react-bootstrap/Offcanvas';
 import './OffCanvas.css'
 import logoColor from '../../Images/logoColor.svg'
 import user from '../../Images/user.jpg'
-import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
+import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import Drawer from '@mui/material/Drawer';
 import CssBaseline from '@mui/material/CssBaseline';;
 import List from '@mui/material/List';
@@ -22,6 +22,7 @@ import { styled } from '@mui/material/styles';
 import FormatListNumberedIcon from '@mui/icons-material/FormatListNumbered';
 import ContentPasteIcon from '@mui/icons-material/ContentPaste';
 import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { IP } from '../../App';
 
@@ -85,6 +86,35 @@ export default function SeniorOffCanvas({ show, onHide }) {
         setSelectedRoute(route);
     };
 
+    const [numberNotif, setNumberNotif] = useState('')
+
+    const numberChat = async () => {
+        const access = localStorage.getItem("access")
+        const headers = {
+            Authorization: `Bearer ${access}`
+        };
+        try {
+            const response = await axios.get(`${IP}/chat/get-unread-chat/`, {
+                headers,
+            })
+
+            if (response.status === 200) {
+                setNumberNotif(response.data.unread_chats_count)
+            }
+
+        } catch (e) {
+            console.log(e)
+            if (e.response.status === 401) {
+                localStorage.clear()
+                navigate("/login")
+            }
+        }
+    }
+
+    useEffect(() => {
+        numberChat()
+    }, [])
+
 
 
     return (
@@ -130,8 +160,8 @@ export default function SeniorOffCanvas({ show, onHide }) {
                                     <span></span>
                                 </div>
                                 <div className="sideBar-notif-wrapper">
-                                    <span className="notif-number">1</span>
-                                    <NotificationsNoneIcon />
+                                    <span className="notif-number">{numberNotif ? numberNotif : 0}</span>
+                                    <MailOutlineIcon />
                                 </div>
                             </div>
                         </DrawerHeader>

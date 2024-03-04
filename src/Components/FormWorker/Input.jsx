@@ -15,13 +15,6 @@ export default function Input({ uuid, value }) {
                 onChange={e => handleChange(uuid, e)}
                 placeholder='Short Answer'
             />
-            {/* <input
-                id={uuid}
-                value={value}
-                type="text"
-                onChange={e => handleChange(uuid, e)}
-                class="input-answer"
-            /> */}
         </div>
     )
 }

@@ -47,7 +47,6 @@ export default function Chat() {
 
             if (response.status === 200) {
                 setUser(response.data)
-
             }
 
         } catch (e) {

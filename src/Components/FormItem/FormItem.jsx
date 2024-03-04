@@ -18,7 +18,7 @@ export default function FormItem({ content, selectElement, ishover, disable }) {
                 {
                     content.fields_type === "dropdown" ?
                         <div
-                            class="option-wrapper"
+                            className="option-wrapper"
                             style={{ fontSize: "13px", height: "45px", lineHeight: "37px" }}
                         >
                             <select
@@ -53,7 +53,7 @@ export default function FormItem({ content, selectElement, ishover, disable }) {
                                 :
                                 content.fields_type === "date" ?
                                     content &&
-                                    <div class="option-wrapper">
+                                    <div className="option-wrapper">
                                         <TextField
                                             id="date"
                                             type='date'

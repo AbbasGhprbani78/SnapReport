@@ -18,7 +18,7 @@ import Checkbox from '@mui/material/Checkbox';
 import { IP } from '../App'
 import { v4 as uuidv4 } from 'uuid';
 import axios from 'axios'
-import { useNavigate } from 'react-router-dom'
+import { json, useNavigate } from 'react-router-dom'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import Loading from '../Components/Loading/Loading'
 import Header from '../Components/Header/Header'
@@ -43,7 +43,6 @@ const names = [
 
 export default function AddNewForm({ showForm, back, mainForm, isDelete, getAllForm }) {
 
-    console.log(mainForm)
     const [personName, setPersonName] = React.useState(mainForm ? mainForm.person_type : []);
 
 
@@ -377,7 +376,7 @@ export default function AddNewForm({ showForm, back, mainForm, isDelete, getAllF
                     creator: localStorage.getItem("uuid"),
                 };
 
-                console.log(body)
+                // console.log(body)
                 // const jsonString = JSON.stringify(body);
                 // console.log(jsonString);
 
@@ -429,6 +428,7 @@ export default function AddNewForm({ showForm, back, mainForm, isDelete, getAllF
         }
 
     }
+
 
 
     const selectElement = (question, content) => {
@@ -770,17 +770,13 @@ export default function AddNewForm({ showForm, back, mainForm, isDelete, getAllF
 }
 
 // fetch('https://api.example.com/data')
-//   .then(response => {
-//     if (!response.ok) {
-//       throw new Error('Network response was not ok');
-//     }
-//     return response.json();
-//   })
-//   .then(data => {
-//     // Handle successful response here
-//     console.log(data);
-//   })
-//   .catch(error => {
-//     // Handle error here
-//     alert('Error fetching data: ' + error.message);
-//   });
+//     .then(response => {
+//         if (!response.ok) {
+//             throw new Error('Network response was not ok');
+//         }
+//         return response.json();
+//     })
+//     .catch(error => {
+//         // Handle error here
+//         alert('Error fetching data: ' + error.message);
+//     });

@@ -8,7 +8,7 @@ export default function Radio({ uuid, field_options, value }
     const { handleChange } = useContext(FormContext)
 
     return (
-        <div class="option-wrapper">
+        <div className="option-wrapper">
             {
                 field_options.map((option, i) => (
                     <div key={i} className='option-wrapper'>

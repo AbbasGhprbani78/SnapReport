@@ -11,7 +11,7 @@ export default function FillItem({ field, setChecks }) {
                 {
                     field.fields_type === "dropdown" ?
                         <div
-                            class="option-wrapper"
+                            className="option-wrapper"
                             style={{ fontSize: "13px", height: "45px", lineHeight: "37px" }}
                         >
                             <select

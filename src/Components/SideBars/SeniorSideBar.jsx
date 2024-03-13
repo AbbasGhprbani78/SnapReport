@@ -37,7 +37,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
     justifyContent: 'flex-end',
 }));
 
-export default function SeniorsideBar() {
+export default function SeniorsideBar({ toggleTheme }) {
 
     const [open, setOpen] = React.useState(true);
     const location = useLocation();

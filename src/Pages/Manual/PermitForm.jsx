@@ -66,7 +66,7 @@ export default function PermitForm() {
                         />
                     </>) : (
                     <>
-                        <div className='permitForm-page'>
+                        <div className='permitForm-page '>
                             <Header />
                             <TopSection
                                 text="Permit forms"

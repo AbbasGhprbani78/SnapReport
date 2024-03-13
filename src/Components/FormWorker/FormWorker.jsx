@@ -136,7 +136,6 @@ export default function FormWorker({
                     <div className="formWorker form-display">
                         <h3 className='from-title'>{mainTitle}</h3>
                         <p className='from-description'>{mianDes}</p>
-                        {console.log(allfields)}
                         {
                             allfields.map((field) => (
                                 <Element

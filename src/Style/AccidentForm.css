@@ -4,3 +4,7 @@
     max-height: 95vh;
     overflow-y: scroll;
 }
+
+.accident-page {
+    width: 100%;
+}

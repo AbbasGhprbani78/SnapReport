@@ -27,6 +27,7 @@ function App() {
           :
           <>
             <div className="d-flex w-100">
+              <ManualSideBar />
               {
                 (sharedData || type) === "S" ?
                   <SeniorsideBar /> :

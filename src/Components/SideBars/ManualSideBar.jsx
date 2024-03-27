@@ -52,7 +52,8 @@ export default function ManualSideBar() {
     const logOutHandler = async () => {
         const access = localStorage.getItem('access')
         const refresh = localStorage.getItem('refresh')
-
+        localStorage.clear()
+        navigate('/login')
         const headers = {
             Authorization: `Bearer ${access}`,
 
@@ -66,7 +67,6 @@ export default function ManualSideBar() {
             })
 
             if (response.status === 200) {
-                console.log(response)
                 localStorage.clear()
                 navigate('/login')
             }
@@ -78,7 +78,16 @@ export default function ManualSideBar() {
     //change route
     const handleItemClick = (route) => {
         if (route === '/logout') {
-            logOutHandler()
+            swal({
+                title: "Are you sure you want to exit?",
+                icon: "warning",
+                buttons: ["No", "Yes"]
+            }).then(result => {
+                if (result) {
+                    logOutHandler()
+                }
+            })
+
         } else {
             navigate(route);
         }

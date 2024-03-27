@@ -77,7 +77,7 @@ export default function AccidentForm() {
                             />
                             <div className="accidentForm-container">
                                 {
-                                    sortForm.length > 0 && sortForm.slice().reverse().map((form) => (
+                                    sortForm.length > 0 ? sortForm.slice().reverse().map((form) => (
                                         < ConditionFormBox
                                             key={form.uuid}
                                             dec={form.descriptions}
@@ -91,7 +91,11 @@ export default function AccidentForm() {
                                             paddingStyle={"padding-style"}
 
                                         />
-                                    ))
+                                    )) :
+                                        <>
+                                            <div className='empty_form'>
+                                            </div>
+                                        </>
                                 }
                             </div>
                         </div>

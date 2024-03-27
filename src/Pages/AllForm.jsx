@@ -27,8 +27,6 @@ export default function AllForm() {
             });
             if (response.status === 200) {
                 setAllForm(response.data)
-                console.log(response)
-
             }
 
 
@@ -44,7 +42,6 @@ export default function AllForm() {
             }
         }
     }
-    console.log(allform)
 
     useEffect(() => {
         getAllForm()

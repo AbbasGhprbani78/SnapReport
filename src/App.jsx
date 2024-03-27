@@ -26,8 +26,7 @@ function App() {
           </Routes>
           :
           <>
-            <div className="d-flex w-100">
-              <ManualSideBar />
+            <div className="d-flex w-100 main-container">
               {
                 (sharedData || type) === "S" ?
                   <SeniorsideBar /> :

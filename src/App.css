@@ -4,8 +4,6 @@
   box-sizing: border-box;
 }
 
-
-
 .fade-enter {
   opacity: 0.01;
 }
@@ -23,3 +21,8 @@
   opacity: 0.01;
   transition: opacity 300ms ease-in;
 }
+
+/* .main-container {
+  margin: 0 auto;
+  max-width: 1676px;
+} */

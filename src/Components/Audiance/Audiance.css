@@ -3,15 +3,20 @@
 .audiance-container {
     width: 25%;
     position: fixed;
-    opacity: 0;
-    visibility: hidden;
     bottom: 0;
     top: 0;
-    right: 0;
+    right: -100%;
     min-height: 100vh;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
     overflow-y: scroll;
     transition: all .5s;
+    z-index: 9999;
+    background-color: #ffff;
+}
+
+.audiance-container-header {
+    padding-left: 10px;
+    padding-top: 10px;
 }
 
 .audiance-item {
@@ -41,10 +46,7 @@
 
 .activeAudiance {
     right: 0;
-    opacity: 5;
-    visibility: visible;
-    background-color: #ffff;
-    z-index: 9999;
+    transition: all .5s;
 }
 
 @media (max-width:992px) {

@@ -1,0 +1,10 @@
+@import url("../../Style/Main.css");
+
+.audiance-item {
+    transition: all .4s;
+}
+
+
+.audiance-item:hover {
+    background-color: #c9cdd4;
+}

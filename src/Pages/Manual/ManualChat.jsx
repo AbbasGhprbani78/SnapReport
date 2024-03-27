@@ -32,6 +32,7 @@ export default function ManualChat() {
     const [showfile, setShowFile] = useState(false)
     const [uploadPercentage, setUploadPercentage] = useState(0);
     const [userInfo, setUserInfo] = useState('')
+    const prevLengthRef = useRef(0);
 
     const handleToggleOffCanvas = () => {
         setShowOffCanvas(!showOffCanvas);
@@ -81,7 +82,6 @@ export default function ManualChat() {
         }
     }
 
-
     const sendText = async () => {
         const access = localStorage.getItem("access")
         const trimmedText = text.trim();
@@ -100,9 +100,7 @@ export default function ManualChat() {
                 })
 
                 if (response.status === 200) {
-                    console.log(response)
                     setText('')
-
                 }
 
             }
@@ -195,16 +193,20 @@ export default function ManualChat() {
 
     useEffect(() => {
 
-        if (allMessage.length > 5) {
+        if (allMessage.length <= 3) {
+            return
+        }
+        if (allMessage.length > prevLengthRef.current) {
             messageEndRef.current?.scrollIntoView();
+            prevLengthRef.current = allMessage.length;
         }
     }, [allMessage]);
+
 
     const handleKeyDown = (event) => {
         if (event.key === "Enter" && !event.shiftkey) {
             event.preventDefault()
             sendText()
-
         }
     }
 
@@ -320,7 +322,7 @@ export default function ManualChat() {
                                             placeholder='Text Message...' />
                                         <SendSharpIcon
                                             className='send-icon2'
-                                            onClick={() => sendText(selectedUser)} />
+                                            onClick={() => sendText()} />
                                         <div className={text ? "plus-actions2 hiddenActions" : "plus-actions2"}>
                                             <span className='voice-wrapper2'>
                                                 <ReactMic className='Voice-wave'
@@ -355,9 +357,10 @@ export default function ManualChat() {
                             </div>
                         </>
 
-                    </> : <div style={{ width: "100%" }}>
-                        <Header />
+                    </> :
 
+                    <div style={{ width: "100%" }}>
+                        <Header />
                         <div className="chat-container">
                             <div className="chat-body">
                                 <div className="chat-header">
@@ -419,7 +422,7 @@ export default function ManualChat() {
                                         placeholder='Text Message...' />
                                     <SendSharpIcon
                                         className='send-icon'
-                                        onClick={() => sendText(selectedUser)}
+                                        onClick={() => sendText()}
                                     />
                                 </div>
                                 <div className="plus-actions">

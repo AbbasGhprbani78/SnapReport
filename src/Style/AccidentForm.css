@@ -8,3 +8,26 @@
 .accident-page {
     width: 100%;
 }
+
+.empty_form {
+    position: absolute;
+    left: 55%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    min-height: 400px;
+    width: 50%;
+    background-image: url("../../src/Images/fomImg.svg");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+@media (max-width:992px) {
+    .empty_form {
+        left: 50%;
+        width: 90%;
+        height: 30vh;
+        background-size: 70%;
+    }
+
+}

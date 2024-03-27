@@ -48,7 +48,6 @@ export default function ManualHome() {
         getFormData()
     }, [])
 
-
     const openFormHandler = () => {
         setShowForm(true)
     }
@@ -108,7 +107,6 @@ export default function ManualHome() {
                                             </div>
                                         </>)
                                 }
-
                             </div>
                             <TopSection
                                 text="Accident forms"

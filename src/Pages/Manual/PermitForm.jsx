@@ -74,7 +74,7 @@ export default function PermitForm() {
 
                             <div className="permitForm-container">
                                 {
-                                    sortForm.length > 0 && sortForm.slice().reverse().map((form) => (
+                                    sortForm.length > 0 ? sortForm.slice().reverse().map((form) => (
                                         < ConditionFormBox
                                             key={form.uuid}
                                             dec={form.descriptions}
@@ -89,6 +89,11 @@ export default function PermitForm() {
                                             paddingStyle={"padding-style"}
                                         />
                                     ))
+                                        :
+                                        <>
+                                            <div className='empty_form'>
+                                            </div>
+                                        </>
                                 }
 
                             </div>

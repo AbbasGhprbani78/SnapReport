@@ -1,7 +1,7 @@
 @import url(../../Style/Main.css);
 
 .button-component {
-    padding: 4% 0;
+    padding: 12px 0;
 }
 
 .button-component:hover {
@@ -17,7 +17,7 @@
 
 @media (max-width:576px) {
     .button-component {
-        padding: 4% 0;
+        padding: 3% 0;
     }
 
     .only {

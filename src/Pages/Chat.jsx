@@ -34,6 +34,7 @@ export default function Chat() {
     const navigate = useNavigate()
     const [uploadPercentage, setUploadPercentage] = useState(0);
     const [showfile, setShowFile] = useState(false)
+    const prevLengthRef = useRef(0);
 
     const getAllUser = async () => {
         const access = localStorage.getItem("access")
@@ -61,20 +62,6 @@ export default function Chat() {
     useEffect(() => {
         getAllUser()
     }, [])
-
-
-    const selectUser = (employeeId) => {
-        localStorage.removeItem('userUuid')
-        window.localStorage.setItem("userUuid", employeeId)
-        const mainUser = user.find(employee => employee.uuid == employeeId)
-        setAudiuanceInfo(mainUser)
-        setActiveUser(employeeId);
-        setSelectedUser(employeeId)
-        if (activeEmployee) {
-            setShowChat(true)
-        }
-    }
-
 
     useEffect(() => {
 
@@ -145,17 +132,13 @@ export default function Chat() {
                 receiver: employeeId
             }
 
-            console.log(body)
-
             try {
                 const response = await axios.post(`${IP}/chat/send-message/`, body, {
                     headers,
                 })
 
                 if (response.status === 200) {
-                    console.log(response)
                     setText('')
-
                 }
 
             }
@@ -169,6 +152,7 @@ export default function Chat() {
 
         }
     }
+
 
     const sendFile = async (e, employeeId) => {
         setShowFile(true)
@@ -237,7 +221,6 @@ export default function Chat() {
 
     }
 
-
     useEffect(() => {
         const interval = setInterval(() => {
             getMessages(selectedUser)
@@ -246,25 +229,42 @@ export default function Chat() {
         return () => clearInterval(interval);
     }, [selectedUser]);
 
-
     useEffect(() => {
 
-        if (allMessage.length > 5) {
+        if (allMessage.length <= 3) {
+            return
+        }
+        if (allMessage.length > prevLengthRef.current) {
             messageEndRef.current?.scrollIntoView();
+            prevLengthRef.current = allMessage.length;
         }
     }, [allMessage]);
+
 
     const handleKeyDown = (event) => {
         if (event.key === "Enter" && !event.shiftkey) {
             event.preventDefault()
             sendText(selectedUser)
-
         }
     }
 
     const toggleAudianceActive = () => {
         setIsAudianceActive(prevState => !prevState);
     };
+
+    const selectUser = (employeeId) => {
+        localStorage.removeItem('userUuid')
+        window.localStorage.setItem("userUuid", employeeId)
+        const mainUser = user.find(employee => employee.uuid == employeeId)
+        setAudiuanceInfo(mainUser)
+        setActiveUser(employeeId);
+        setSelectedUser(employeeId)
+        if (activeEmployee) {
+            setShowChat(true)
+            toggleAudianceActive()
+            prevLengthRef.current = 0
+        }
+    }
 
     useEffect(() => {
 
@@ -406,7 +406,6 @@ export default function Chat() {
 
                     </> : <div style={{ width: "100%" }}>
                         <Header />
-
                         <Audiance
                             selectUser={selectUser}
                             isActive={isAudianceActive}

@@ -1,5 +1,6 @@
 import React from 'react'
 import avatar from '../../Images/avatar.png'
+import './UserInfo.css'
 export default function UserInfo({ selectUser, user }) {
     return (
         <div

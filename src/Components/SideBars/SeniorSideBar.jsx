@@ -37,7 +37,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
     justifyContent: 'flex-end',
 }));
 
-export default function SeniorsideBar({ toggleTheme }) {
+export default function SeniorsideBar() {
 
     const [open, setOpen] = React.useState(true);
     const location = useLocation();
@@ -63,13 +63,15 @@ export default function SeniorsideBar({ toggleTheme }) {
             refresh: refresh
         }
         try {
+            localStorage.clear()
+            navigate('/login')
             const response = await axios.post(`${IP}/user/logout/`, body, {
                 headers
             })
 
             if (response.status === 200) {
-                localStorage.clear()
-                navigate('/login')
+                // localStorage.clear()
+                // navigate('/login')
             }
         } catch (e) {
             console.log(e)
@@ -80,7 +82,15 @@ export default function SeniorsideBar({ toggleTheme }) {
     //change route
     const handleItemClick = (route) => {
         if (route === '/logout') {
-            logOutHandler()
+            swal({
+                title: "Are you sure you want to exit?",
+                icon: "warning",
+                buttons: ["No", "Yes"]
+            }).then(result => {
+                if (result) {
+                    logOutHandler()
+                }
+            })
         } else {
             navigate(route);
         }
@@ -100,6 +110,7 @@ export default function SeniorsideBar({ toggleTheme }) {
             })
 
             if (response.status === 200) {
+                console.log(response.data)
                 setNumberNotif(response.data.unread_chats_count)
             }
 

@@ -18,7 +18,7 @@ import Checkbox from '@mui/material/Checkbox';
 import { IP } from '../App'
 import { v4 as uuidv4 } from 'uuid';
 import axios from 'axios'
-import { json, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import Loading from '../Components/Loading/Loading'
 import Header from '../Components/Header/Header'
@@ -64,7 +64,6 @@ export default function AddNewForm({ showForm, back, mainForm, isDelete, getAllF
     const [loading, setLoading] = useState(false)
     const [questionUuid, setQuestionUuid] = useState()
     const [fromInfom, setFormInfom] = useState(
-
         {
             person_type: [...personName],
             type: mainForm ? mainForm.type : "",
@@ -376,10 +375,6 @@ export default function AddNewForm({ showForm, back, mainForm, isDelete, getAllF
                     creator: localStorage.getItem("uuid"),
                 };
 
-                // console.log(body)
-                // const jsonString = JSON.stringify(body);
-                // console.log(jsonString);
-
                 const access = localStorage.getItem("access")
 
                 const headers = {
@@ -409,7 +404,7 @@ export default function AddNewForm({ showForm, back, mainForm, isDelete, getAllF
                     }
 
                 } catch (error) {
-
+                    console.log(error)
                     toast.error(`${error.response.data.message}`, {
                         position: "top-right",
                         autoClose: 5000,
@@ -428,8 +423,6 @@ export default function AddNewForm({ showForm, back, mainForm, isDelete, getAllF
         }
 
     }
-
-
 
     const selectElement = (question, content) => {
 
@@ -561,7 +554,6 @@ export default function AddNewForm({ showForm, back, mainForm, isDelete, getAllF
 
     return (
         <>
-
             {
                 loading ?
                     <Loading />
@@ -588,10 +580,8 @@ export default function AddNewForm({ showForm, back, mainForm, isDelete, getAllF
                                         <FormDisplay
                                             selectElement={selectElement}
                                             fromInfom={fromInfom}
-
                                         />
                                     }
-
                                 </div>
                             </Col>
                             <Col md={3} className='form-create-option-container'>
@@ -620,8 +610,6 @@ export default function AddNewForm({ showForm, back, mainForm, isDelete, getAllF
                                                 ))}
                                             </Select>
                                         </FormControl>
-
-
                                     </div>
 
                                     <InputCreateForm
@@ -757,26 +745,12 @@ export default function AddNewForm({ showForm, back, mainForm, isDelete, getAllF
                                                 />
                                             </>
                                     }
-
                                 </div>
                             </Col>
                         </Row>
                     </div>
             }
-
             <ToastContainer />
         </>
     )
 }
-
-// fetch('https://api.example.com/data')
-//     .then(response => {
-//         if (!response.ok) {
-//             throw new Error('Network response was not ok');
-//         }
-//         return response.json();
-//     })
-//     .catch(error => {
-//         // Handle error here
-//         alert('Error fetching data: ' + error.message);
-//     });

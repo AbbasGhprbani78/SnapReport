@@ -17,7 +17,8 @@ export default function Audiance({ isActive, toggleAudianceActive, selectUser, u
                         <UserInfo
                             key={user.uuid}
                             user={user}
-                            selectUser={() => selectUser(user.uuid)} />
+                            selectUser={() => selectUser(user.uuid)}
+                        />
                     ))
                 }
 

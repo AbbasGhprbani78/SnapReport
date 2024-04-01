@@ -74,7 +74,7 @@ export default function ManualChat() {
             }
 
         } catch (e) {
-            console.log(e)
+            (e)
             if (e.response.status === 401) {
                 localStorage.clear()
                 navigate("/login")
@@ -105,7 +105,7 @@ export default function ManualChat() {
 
             }
             catch (e) {
-                console.log(e)
+                (e)
                 if (e.response.status === 401) {
                     localStorage.clear()
 
@@ -137,12 +137,12 @@ export default function ManualChat() {
             })
 
             if (response.status === 200) {
-                console.log(response)
+                (response)
                 setShowFile(false)
             }
 
         } catch (e) {
-            console.log(e)
+            (e)
             if (e.response.status === 401) {
                 localStorage.clear()
                 navigate("/login")
@@ -169,11 +169,11 @@ export default function ManualChat() {
                 })
 
                 if (response.status === 200) {
-                    console.log(response)
+                    (response)
                 }
 
             } catch (e) {
-                console.log(e)
+                (e)
                 if (e.response.status === 401) {
                     localStorage.clear()
                     navigate("/login")

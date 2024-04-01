@@ -30,7 +30,7 @@ export default function PermitForm() {
             }
 
         } catch (e) {
-            console.log(e)
+            (e)
             if (e.response.status === 401) {
                 localStorage.clear()
                 navigate("/login")

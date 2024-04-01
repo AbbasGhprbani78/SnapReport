@@ -85,7 +85,7 @@ export default function FormSignIn({ handleTabChange }) {
 
         } catch (error) {
 
-            toast.error(`${error.response.data.message}`, {
+            toast.error(`${error.response.data.type[0]}`, {
                 position: "top-right",
                 autoClose: 5000,
                 hideProgressBar: false,

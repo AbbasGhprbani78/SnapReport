@@ -142,7 +142,7 @@ export default function Form2() {
         });
 
         // Log the FormData object to the console (you can replace this with your logic)
-        console.log('Form Data:', formData);
+        ('Form Data:', formData);
         // You can also submit the form data to a server or perform other actions here
     };
 
@@ -218,7 +218,7 @@ export default function Form2() {
 
 // const submit = (e) => {
 //     e.preventDefault();
-//     console.log(inputFields);
+//     (inputFields);
 // };
 
 

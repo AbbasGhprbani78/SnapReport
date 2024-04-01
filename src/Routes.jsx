@@ -2,7 +2,7 @@ import Home from "./Pages/Home";
 import PageNotFound from "./Pages/PageNotFound";
 import AddNewForm from "./Pages/AddNewForm";
 import AllForm from "./Pages/AllForm";
-import Report from './Pages/Report'
+import FilledForms from './Pages/FlledForms'
 import Chat from './Pages/Chat'
 import SeniorRoutes from "./Components/SeniorRoutes/SeniorRoutes";
 import ManualChat from "./Pages/Manual/ManualChat";
@@ -13,6 +13,7 @@ import OrdinaryRoutes from "./Components/OrdinaryRoutes/OrdinaryRoutes";
 import ManualRoutes from "./Components/ManualRoutes.jsx/ManualRoutes";
 import PermitForm from "./Pages/Manual/PermitForm";
 import AccidentForm from "./Pages/Manual/AccidentForm";
+import Report from "./Pages/Report";
 
 let routes = [
 
@@ -27,6 +28,7 @@ let routes = [
     { path: "/", element: <SeniorRoutes><Home /></SeniorRoutes> },
     { path: "/addnewform", element: <SeniorRoutes><AddNewForm /></SeniorRoutes> },
     { path: "/allform", element: <SeniorRoutes><AllForm /></SeniorRoutes> },
+    { path: "/filledforms", element: <SeniorRoutes><FilledForms /></SeniorRoutes> },
     { path: "/reports", element: <SeniorRoutes><Report /></SeniorRoutes> },
     { path: "/chat", element: <SeniorRoutes><Chat /></SeniorRoutes> },
     { path: "*", element: <PageNotFound /> },

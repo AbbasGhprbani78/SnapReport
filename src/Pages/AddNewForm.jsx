@@ -275,6 +275,8 @@ export default function AddNewForm({ showForm, back, mainForm, isDelete, getAllF
         }
 
 
+
+
         setFields({
             uuid: uuidv4(),
             fields_type: fields.fields_type,
@@ -318,10 +320,6 @@ export default function AddNewForm({ showForm, back, mainForm, isDelete, getAllF
                     fields: updatedFields
                 };
 
-
-                const jsonString = JSON.stringify(updatedBody)
-                console.log(jsonString)
-
                 const access = localStorage.getItem("access")
 
                 const headers = {
@@ -333,7 +331,6 @@ export default function AddNewForm({ showForm, back, mainForm, isDelete, getAllF
                     });
 
                     if (response.status === 200) {
-                        console.log(response)
                         setLoading(false)
                         toast.success(`The form was edited successfully`, {
                             position: "top-right",
@@ -353,7 +350,7 @@ export default function AddNewForm({ showForm, back, mainForm, isDelete, getAllF
 
                 } catch (error) {
 
-                    toast.error(`${error.response.data.message}`, {
+                    toast.error(`${error.response.data.type[0]}`, {
                         position: "top-right",
                         autoClose: 5000,
                         hideProgressBar: false,
@@ -404,8 +401,8 @@ export default function AddNewForm({ showForm, back, mainForm, isDelete, getAllF
                     }
 
                 } catch (error) {
-                    console.log(error)
-                    toast.error(`${error.response.data.message}`, {
+                    (error)
+                    toast.error(`${error.response.data.type[0]}`, {
                         position: "top-right",
                         autoClose: 5000,
                         hideProgressBar: false,
@@ -476,7 +473,7 @@ export default function AddNewForm({ showForm, back, mainForm, isDelete, getAllF
                 options: updatedOptions
             };
         });
-        console.log(i)
+        (i)
 
     };
 
@@ -517,7 +514,7 @@ export default function AddNewForm({ showForm, back, mainForm, isDelete, getAllF
             });
 
             if (response.status === 200) {
-                console.log(response);
+                (response);
                 setLoading(false);
                 toast.success(`The form was deleted successfully`, {
                     position: "top-right",
@@ -582,6 +579,7 @@ export default function AddNewForm({ showForm, back, mainForm, isDelete, getAllF
                                             fromInfom={fromInfom}
                                         />
                                     }
+
                                 </div>
                             </Col>
                             <Col md={3} className='form-create-option-container'>
@@ -719,7 +717,6 @@ export default function AddNewForm({ showForm, back, mainForm, isDelete, getAllF
                                                     uuid={input.uuid}
                                                     name='choice'
                                                     onChange={handleChangeContent}
-
                                                 />
                                             )
                                         ))

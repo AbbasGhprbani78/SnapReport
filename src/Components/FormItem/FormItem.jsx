@@ -14,7 +14,6 @@ export default function FormItem({ content, selectElement, ishover, disable }) {
         <>
             <div className={`question-wrapper ${!ishover && "option-item-form"}`} onClick={() => selectElement(content.questions, content)}>
                 <p className='qusetion-form'>{content.questions}</p>
-
                 {
                     content.fields_type === "dropdown" ?
                         <div

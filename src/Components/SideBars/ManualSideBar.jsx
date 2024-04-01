@@ -71,7 +71,7 @@ export default function ManualSideBar() {
                 navigate('/login')
             }
         } catch (e) {
-            console.log(e)
+            (e)
         }
     }
 
@@ -112,7 +112,7 @@ export default function ManualSideBar() {
             }
 
         } catch (e) {
-            console.log(e)
+            (e)
             if (e.response.status === 401) {
                 localStorage.clear()
                 navigate("/login")

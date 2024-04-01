@@ -88,7 +88,7 @@ export default function Form() {
 
     const submit = (e) => {
         e.preventDefault()
-        console.log(fields)
+            (fields)
 
     }
     return (

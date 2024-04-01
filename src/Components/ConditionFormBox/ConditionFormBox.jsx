@@ -67,14 +67,14 @@ export default function ConditionFormBox({
 
                                     </div>
                                     <p className='ConditionFormBox-dec'>{dec}</p>
-                                    <div className='viewmore mt-3' onClick={() => {
+                                    <p className='viewmore my-2' onClick={() => {
                                         openFormHandler()
                                         setTitle(form.title)
                                         setDescription(form.descriptions)
                                         setFields(form.fields)
                                         setFormUuid(form.uuid)
                                     }
-                                    }>view More</div>
+                                    }>view More</p>
                                 </div>
                             </>) : (
                             <>
@@ -84,7 +84,7 @@ export default function ConditionFormBox({
                                             <div className={`BoxForm ${styleCalss}`}></div>
                                             <p className='ConditionFormBox-permit'>{title}</p>
                                         </div>
-                                        <div className='viewmore'
+                                        <p className='viewmore'
                                             onClick={() => {
                                                 openFormHandler()
                                                 setTitle(form.title)
@@ -92,7 +92,7 @@ export default function ConditionFormBox({
                                                 setFields(form.fields)
                                                 setFormUuid(form.uuid)
                                             }}>view More
-                                        </div>
+                                        </p>
                                     </div>
                                     <div>
                                         <p className='ConditionFormBox-dec'>{dec}</p>
@@ -114,14 +114,14 @@ export default function ConditionFormBox({
                                                 <div className={`BoxForm ${styleCalss}`}></div>
                                                 <p className='ConditionFormBox-permit'>{title}</p>
                                             </div>
-                                            <div className='viewmore'
+                                            <p className='viewmore'
                                                 onClick={() => {
                                                     openFormHandler()
                                                     setTitle(form.title)
                                                     setDescription(form.descriptions)
                                                     setFields(form.fields)
                                                     setFormUuid(form.uuid)
-                                                }}>view More</div>
+                                                }}>view More</p>
                                         </div>
                                         <p className='ConditionFormBox-dec'>{dec}</p>
                                     </div>
@@ -148,7 +148,7 @@ export default function ConditionFormBox({
                                                 <div className={`BoxForm ${styleCalss}`}></div>
                                                 <p className='ConditionFormBox-permit'>{title}</p>
                                             </div>
-                                            <div className='viewmore'
+                                            <p className='viewmore'
                                                 onClick={() => {
                                                     openFormHandler()
                                                     setTitle(form.title)
@@ -156,7 +156,7 @@ export default function ConditionFormBox({
                                                     setFields(form.fields)
                                                     setFormUuid(form.uuid)
                                                 }}>view More
-                                            </div>
+                                            </p>
                                         </div>
                                         <div>
                                             <p className='ConditionFormBox-dec'>{dec}</p>

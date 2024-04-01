@@ -22,6 +22,7 @@ import { styled } from '@mui/material/styles';
 import FormatListNumberedIcon from '@mui/icons-material/FormatListNumbered';
 import ContentPasteIcon from '@mui/icons-material/ContentPaste';
 import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
+import ChecklistIcon from '@mui/icons-material/Checklist';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { IP } from '../../App';
@@ -41,7 +42,15 @@ export default function SeniorOffCanvas({ show, onHide }) {
     const currentRoute = location.pathname;
 
     //all icons in side bar
-    const drawerIcons = [<CottageIcon />, <AddIcon />, <FormatListNumberedIcon />, <ChatBubbleOutlineIcon />, <ContentPasteIcon />, <LogoutIcon />,];
+    const drawerIcons = [
+        <CottageIcon />,
+        <AddIcon />,
+        <FormatListNumberedIcon />,
+        <ChecklistIcon />,
+        <ContentPasteIcon />,
+        <ChatBubbleOutlineIcon />,
+        <LogoutIcon />
+    ];
     //slelect route
     const [selectedRoute, setSelectedRoute] = React.useState('/');
     const navigate = useNavigate();
@@ -72,7 +81,7 @@ export default function SeniorOffCanvas({ show, onHide }) {
                 navigate('/login')
             }
         } catch (e) {
-            console.log(e)
+            (e)
         }
     }
 
@@ -113,7 +122,7 @@ export default function SeniorOffCanvas({ show, onHide }) {
             }
 
         } catch (e) {
-            console.log(e)
+            (e)
             if (e.response.status === 401) {
                 localStorage.clear()
                 navigate("/login")
@@ -177,7 +186,7 @@ export default function SeniorOffCanvas({ show, onHide }) {
                         </DrawerHeader>
 
                         <List>
-                            {['Home', 'Add New Form', 'All form', "chat", "Reports", "Log out"].map((text, index) => (
+                            {['Home', 'Add New Form', 'All form', "Filled Forms", "Reports", "chat", "Log out"].map((text, index) => (
                                 <CSSTransition key={text} timeout={300} classNames="fade">
                                     <ListItem key={text} disablePadding>
                                         <ListItemButton

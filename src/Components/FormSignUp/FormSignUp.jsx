@@ -41,7 +41,7 @@ export default function FormSignUp({ handleTabChange }) {
 
     //change type of user in drop down
     const changeTypeUser = (value) => {
-        console.log(value)
+        (value)
         signInUpInfo.user_type = value
     }
 
@@ -114,13 +114,13 @@ export default function FormSignUp({ handleTabChange }) {
             });
 
             if (response.status === 201) {
-                console.log(response)
+                (response)
                 handleTabChange(1)
             }
 
         } catch (error) {
 
-            toast.error(`${error.response.data.message}`, {
+            toast.error(`${error.response.data.type[0]}`, {
                 position: "top-right",
                 autoClose: 5000,
                 hideProgressBar: false,

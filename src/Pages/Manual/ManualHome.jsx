@@ -31,12 +31,12 @@ export default function ManualHome() {
             })
 
             if (response.status === 200) {
-                console.log(response)
+                (response)
                 setFormData(response.data)
             }
 
         } catch (e) {
-            console.log(e)
+            (e)
             if (e.response.status === 401) {
                 localStorage.clear()
                 navigate("/login")

@@ -68,7 +68,7 @@ export default function ManualOffcanvas({ show, onHide }) {
                 navigate('/login')
             }
         } catch (e) {
-            console.log(e)
+            (e)
         }
     }
 
@@ -108,7 +108,7 @@ export default function ManualOffcanvas({ show, onHide }) {
             }
 
         } catch (e) {
-            console.log(e)
+            (e)
             if (e.response.status === 401) {
                 localStorage.clear()
                 navigate("/login")

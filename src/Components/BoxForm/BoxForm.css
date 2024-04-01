@@ -8,7 +8,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 3%;
+    margin-bottom: 15px;
 }
 
 .BoxForm-content {
@@ -43,6 +43,7 @@
 @media (max-width:576px) {
 
     .BoxForm-des {
-        width: 100%
+        width: 100%;
+        padding: 0 10px;
     }
 }

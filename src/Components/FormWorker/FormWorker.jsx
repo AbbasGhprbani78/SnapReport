@@ -86,7 +86,7 @@ export default function FormWorker({
             })
 
             if (response.status === 201) {
-                console.log(response)
+                (response)
                 toast.success(`The form was completed successfully`, {
                     position: "top-right",
                     autoClose: 5000,
@@ -107,7 +107,7 @@ export default function FormWorker({
             }
 
         } catch (e) {
-            console.log(e)
+            (e)
             if (e.response.status === 401) {
                 localStorage.clear()
                 navigate("/login")

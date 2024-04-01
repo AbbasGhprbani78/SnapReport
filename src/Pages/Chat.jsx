@@ -51,7 +51,7 @@ export default function Chat() {
             }
 
         } catch (e) {
-            console.log(e)
+            (e)
             if (e.response.status === 401) {
                 localStorage.clear()
                 navigate("/login")
@@ -109,7 +109,7 @@ export default function Chat() {
             }
 
         } catch (e) {
-            console.log(e)
+            (e)
             if (e.response.status === 401) {
                 localStorage.clear()
                 navigate("/login")
@@ -176,12 +176,12 @@ export default function Chat() {
             })
 
             if (response.status === 200) {
-                console.log(response)
+                (response)
                 setShowFile(false)
             }
 
         } catch (e) {
-            console.log(e)
+            (e)
             if (e.response.status === 401) {
                 localStorage.clear()
                 navigate("/login")
@@ -207,11 +207,11 @@ export default function Chat() {
                 })
 
                 if (response.status === 200) {
-                    console.log(response)
+                    (response)
                 }
 
             } catch (e) {
-                console.log(e)
+                (e)
                 if (e.response.status === 401) {
                     localStorage.clear()
                     navigate("/login")
@@ -536,7 +536,7 @@ export default function Chat() {
 //         });
 
 //         if (response.status === 200) {
-//             console.log(response)
+//             (response)
 //             // setAllMessage(prevState => {
 //             //     return [...prevState, ...response.data.Messages]
 //             // })
@@ -544,7 +544,7 @@ export default function Chat() {
 //         }
 
 //     } catch (e) {
-//         console.log(e)
+//         (e)
 //         if (e.response.status === 401) {
 //             localStorage.removeItem('access')
 //             localStorage.removeItem('uuid')

@@ -1,5 +1,59 @@
 @import url('./Main.css');
 
-.css-1aquho2-MuiTabs-indicator {
-    background-color: var(--color-9) !important;
+
+.reportContainer {
+    padding: 15px 20px;
+}
+
+.reportTitle {
+    color: #979797;
+    font-size: .9rem;
+}
+
+.charts-content {
+    margin-top: 25px;
+}
+
+.charts-top {
+    display: flex;
+    margin-top: 25px;
+    flex-wrap: wrap;
+}
+
+.text-chart-top {
+    font-weight: bold;
+}
+
+.chart-left {
+    border-right: 1px solid lightgray;
+}
+
+.chart-section-wrappeer {
+    margin-top: 60px;
+}
+
+
+
+.chart-bottom {
+    border-top: 1px solid lightgray;
+}
+
+@media (max-width:992px) {
+    .reportTitle {
+        width: 100%;
+    }
+
+    .chart-bottom {
+        margin-top: 40px;
+    }
+
+    .chart-left {
+        border-right: none;
+    }
+
+    .chart-right {
+        display: flex;
+        flex-wrap: wrap;
+        margin-top: 30px;
+    }
 }

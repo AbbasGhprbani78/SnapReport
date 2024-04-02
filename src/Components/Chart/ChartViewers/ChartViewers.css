@@ -1,0 +1,32 @@
+@import url('../../../Style/Main.css');
+
+.ChartViewers {
+    width: 90%;
+    margin: 0 auto;
+    padding: 10px;
+    border-radius: var(--border-radius-2);
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+
+.PieChart-wrapper {
+    width: 270px;
+    height: 270px;
+    margin: 0 auto;
+}
+
+.viewer-title {
+    font-weight: bold;
+}
+
+
+@media (max-width:992px) {
+    .ChartViewers {
+        width: 50%;
+    }
+}
+
+@media (max-width:768px) {
+    .ChartViewers {
+        width: 100%;
+    }
+}

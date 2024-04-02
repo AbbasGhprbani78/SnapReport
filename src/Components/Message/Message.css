@@ -50,6 +50,7 @@ audio::-webkit-media-controls-play-button {
     box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
     position: relative;
     border-radius: 8px 8px 0 8px;
+    word-wrap: break-word;
 }
 
 .content-left {

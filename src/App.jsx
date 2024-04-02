@@ -36,7 +36,6 @@ function App() {
                       <ManualSideBar /> : null
               }
               {router}
-
             </div>
 
           </>

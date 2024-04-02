@@ -1,0 +1,58 @@
+@import url('../../../Style/Main.css');
+
+.ChartSection-container {
+    display: flex;
+    margin-top: 20px;
+    flex-wrap: wrap;
+}
+
+.header-table {
+    color: #797979 !important;
+}
+
+.table-chart-container tbody {
+    overflow-y: scroll;
+}
+
+.table-chart-container {
+    overflow-y: scroll;
+    max-height: 350px;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    width: 50%;
+    margin: 0 auto;
+}
+
+
+.table-chart-container::-webkit-scrollbar {
+    display: none;
+}
+
+.table-chart-container thead th {
+    position: sticky;
+    top: 0px;
+}
+
+.recharts-wrapper {
+    margin: 0 auto;
+}
+
+.chart-secion-content {
+    height: 300px;
+    width: 50%;
+}
+
+@media (max-width:992px) {
+    .table-chart-container {
+        width: 100%;
+    }
+
+    .ChartSection-container {
+        margin: 0 auto;
+    }
+
+    .chart-secion-content {
+        width: 100%;
+    }
+
+}

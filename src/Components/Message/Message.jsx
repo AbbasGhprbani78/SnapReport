@@ -23,7 +23,6 @@ export default function Message(props) {
                                                 <div className='d-flex align-items-end  col-sm-12' style={{ direction: "rtl" }}>
                                                         {props.message &&
                                                                 <div className="message-wrapper mt-2">
-
                                                                         <div className="message-content content-right">
                                                                                 <p className="message-text">
                                                                                         {props.message}

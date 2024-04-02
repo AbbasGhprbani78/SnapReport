@@ -1,6 +1,5 @@
 @import url('../../../Style/Main.css');
 
-/* .lineChart {
-    width: 100% !important;
-    height: 400px !important;
-} */
+.linechart-wrapper {
+    padding-top: 20px;
+}

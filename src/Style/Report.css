@@ -38,6 +38,13 @@
     border-top: 1px solid lightgray;
 }
 
+@media (max-width:1221px) {
+
+    .chart-bottom {
+        margin-top: 15px;
+    }
+}
+
 @media (max-width:992px) {
     .reportTitle {
         width: 100%;

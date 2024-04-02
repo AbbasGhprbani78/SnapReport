@@ -1,47 +1,48 @@
 import React, { useState, useEffect } from 'react'
 import './LineCharts.css'
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+
 const data = [
     {
         name: 'Page A',
-        uv: 4000,
-        pv: 2400,
+        uv: 47,
+        pv: 38,
         amt: 2400,
     },
     {
         name: 'Page B',
-        uv: 3000,
-        pv: 1398,
+        uv: 23,
+        pv: 12,
         amt: 2210,
     },
     {
         name: 'Page C',
-        uv: 2000,
-        pv: 9800,
+        uv: 65,
+        pv: 35,
         amt: 2290,
     },
     {
         name: 'Page D',
-        uv: 2780,
-        pv: 3908,
+        uv: 41,
+        pv: 19,
         amt: 2000,
     },
     {
         name: 'Page E',
-        uv: 1890,
-        pv: 4800,
+        uv: 60,
+        pv: 59,
         amt: 2181,
     },
     {
         name: 'Page F',
-        uv: 2390,
-        pv: 3800,
+        uv: 52,
+        pv: 44,
         amt: 2500,
     },
     {
         name: 'Page G',
-        uv: 3490,
-        pv: 4300,
+        uv: 78,
+        pv: 27,
         amt: 2100,
     },
 ];
@@ -49,9 +50,8 @@ const data = [
 
 export default function LineCharts() {
 
-
     return (
-        <div style={{ width: '100%', height: 300 }}>
+        <div className='linechart-wrapper' style={{ width: '98%', height: 300 }}>
             <ResponsiveContainer>
                 <LineChart
                     data={data}

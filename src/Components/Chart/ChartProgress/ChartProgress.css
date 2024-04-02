@@ -4,78 +4,18 @@
     text-align: center;
 }
 
-.progress-pie-chart {
-    width: 200px;
-    height: 200px;
-    border-radius: 50%;
-    background-color: #e5e5e5;
-    position: relative;
+.CircularProgressbar-path {
+    stroke: linear-gradient(281deg, rgba(110, 109, 247, 1) 35%, rgba(161, 88, 247, 1) 99%);
 }
 
-.progress-pie-chart.gt-50 {
-    background-color: #81ce97;
+.progress-title {
+    margin-bottom: 10px;
 }
 
-.ppc-progress {
-    content: "";
-    position: absolute;
-    border-radius: 50%;
-    left: calc(50% - 100px);
-    top: calc(50% - 100px);
-    width: 200px;
-    height: 200px;
-    clip: rect(0, 200px, 200px, 100px);
-}
-
-.ppc-progress .ppc-progress-fill {
-    content: "";
-    position: absolute;
-    border-radius: 50%;
-    left: calc(50% - 100px);
-    top: calc(50% - 100px);
-    width: 200px;
-    height: 200px;
-    clip: rect(0, 100px, 200px, 0);
-    background: linear-gradient(281deg, rgba(110, 109, 247, 1) 35%, rgba(161, 88, 247, 1) 99%);
-    transform: rotate(60deg);
-}
-
-.gt-50 .ppc-progress {
-    clip: rect(0, 100px, 200px, 0);
-}
-
-.gt-50 .ppc-progress .ppc-progress-fill {
-    clip: rect(0, 200px, 200px, 100px);
-    background: #e5e5e5;
-}
-
-.ppc-percents {
-    content: "";
-    position: absolute;
-    border-radius: 50%;
-    left: calc(50% - 173.9130434783px/2);
-    top: calc(50% - 173.9130434783px/2);
-    width: 173.9130434783px;
-    height: 173.9130434783px;
-    background: #fff;
-    text-align: center;
-    display: table;
-}
-
-.ppc-percents span {
-    display: block;
-    font-size: 2rem;
-    font-weight: bold;
-    color: #000;
-}
-
-.pcc-percents-wrapper {
-    display: table-cell;
-    vertical-align: middle;
-}
+@media (max-width:768px) {
+    .chartProgress-content {
+        margin-bottom: 10px;
+    }
 
 
-
-.progress-pie-chart {
-    margin: 20px auto
 }

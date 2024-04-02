@@ -7,7 +7,6 @@ import ChartViewers from '../Components/Chart/ChartViewers/ChartViewers'
 import Header from '../Components/Header/Header'
 import { Col } from 'react-bootstrap'
 
-
 export default function Report() {
     return (
         <>
@@ -24,10 +23,10 @@ export default function Report() {
                                     <ChartProgress percent={10} />
                                 </Col>
                                 <Col xs={12} md={6} xl={4}>
-                                    <ChartProgress percent={10} />
+                                    <ChartProgress percent={75} />
                                 </Col>
                                 <Col xs={12} md={6} xl={4}>
-                                    <ChartProgress percent={10} />
+                                    <ChartProgress percent={50} />
                                 </Col>
                             </div>
 

@@ -66,11 +66,11 @@ export default function ChartSection() {
     return (
         <>
             <div className='ChartSection-container'>
-                <PieChart width={300} height={400}>
+                <PieChart width={300} height={200}>
                     <Pie
                         data={data}
-                        cx={120}
-                        cy={120}
+                        cx={140}
+                        cy={90}
                         innerRadius={60}
                         outerRadius={80}
                         fill="#8884d8"

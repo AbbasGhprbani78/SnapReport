@@ -14,6 +14,8 @@ import ManualRoutes from "./Components/ManualRoutes.jsx/ManualRoutes";
 import PermitForm from "./Pages/Manual/PermitForm";
 import AccidentForm from "./Pages/Manual/AccidentForm";
 import Report from "./Pages/Report";
+import Infractions from './Pages/Manual/Infractions';
+import Inspections from './Pages/Manual/Inspections';
 
 let routes = [
 
@@ -21,6 +23,9 @@ let routes = [
     { path: "/manualchat", element: <ManualRoutes><ManualChat /></ManualRoutes> },
     { path: "/permitform", element: <ManualRoutes><PermitForm /></ManualRoutes> },
     { path: "/accidentform", element: <ManualRoutes> <AccidentForm /></ManualRoutes> },
+    { path: "/violationsform", element: <ManualRoutes> <Infractions /></ManualRoutes> },
+    { path: "/inspectionsform", element: <ManualRoutes> <Inspections /></ManualRoutes> },
+
 
     { path: "/ordinaryhome", element: <OrdinaryRoutes><OrdinaryHome /></OrdinaryRoutes> },
     { path: "/ordinarychat", element: <OrdinaryRoutes><OrdinaryChat /></OrdinaryRoutes> },

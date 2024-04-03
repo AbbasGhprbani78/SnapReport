@@ -13,8 +13,8 @@ export default function ChartProgress({ percent }) {
     const diameter = Math.PI * 2 * radius;
 
     const gradientId = "progressGradient";
-    const gradientColorStart = "#4f7af6";
-    const gradientColorEnd = "#a357f7";
+    const gradientColorStart = "#a357f7";
+    const gradientColorEnd = "#4f7af6";
 
     return (
         <div className="chartProgress-content">

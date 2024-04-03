@@ -10,20 +10,12 @@
 }
 
 .allFormText,
-.defaultFormText {
-    color: rgb(154, 146, 146);
-}
-
-.defaultFormText {
-    margin-left: 2%;
-}
 
 .linkAll-form {
     all: unset;
     cursor: pointer;
+    color: #979797;
 }
-
-
 
 .grid-form-recentItem {
     flex-wrap: nowrap;
@@ -31,6 +23,13 @@
     padding: 5px 0 10px 0;
     width: 95%;
     border-bottom: 1px solid lightgray
+}
+
+.grid-form {
+    flex-wrap: nowrap;
+    overflow-x: scroll;
+    padding: 5px 0 10px 0;
+    width: 100%;
 }
 
 .item-recent {
@@ -100,14 +99,42 @@
     background-color: #2fcd96;
 }
 
+.redDot {
+    background-color: var(--color-8);
+}
+
+.orangeDot {
+    background-color: orange;
+}
+
+.oliveForm {
+    background-color: olivedrab;
+}
+
 .topHome-worker {
-    max-height: 50vh;
+    max-height: 25vh;
     overflow-y: scroll;
 }
 
 .bottomHome-worker {
-    max-height: 50vh;
+    max-height: 25vh;
     overflow-y: scroll;
+}
+
+.bottomHome {
+    display: flex;
+    align-items: center;
+    padding: 0 2%;
+}
+
+.form-section {
+    margin-bottom: 30px;
+}
+
+.link-form-section {
+    text-decoration: none;
+    color: #797979;
+    font-size: .8rem;
 }
 
 

@@ -104,6 +104,9 @@ export default function FilledForms() {
 
     const permitForm = [...allforms].filter(form => form.type === "permit")
     const accidentForm = [...allforms].filter(form => form.type === "accident")
+    const violationForm = [...allforms].filter(form => form.type === "violation")
+    const inspectionsForm = [...allforms].filter(form => form.type === "inspections")
+
 
     return (
         <>
@@ -125,9 +128,10 @@ export default function FilledForms() {
                         <Box sx={{ width: '100%' }}>
                             <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                                 <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
-
                                     <Tab style={{ color: "#45ABE5" }} label="Permit Form" {...a11yProps(0)} />
                                     <Tab style={{ color: "#45ABE5" }} label="Accident Form" {...a11yProps(1)} />
+                                    <Tab style={{ color: "#45ABE5" }} label="Violation From" {...a11yProps(2)} />
+                                    <Tab style={{ color: "#45ABE5" }} label="Inspections Form" {...a11yProps(3)} />
                                 </Tabs>
                             </Box>
                             <CustomTabPanel value={value} index={0}>
@@ -159,7 +163,6 @@ export default function FilledForms() {
                                         )
                                 }
                             </CustomTabPanel>
-
                             <CustomTabPanel value={value} index={1}>
                                 {
 
@@ -184,7 +187,54 @@ export default function FilledForms() {
                                         </>
                                 }
                             </CustomTabPanel>
+                            <CustomTabPanel value={value} index={2}>
+                                {
 
+                                    violationForm.length ?
+                                        (
+                                            violationForm.slice().reverse().filter(form => form.type === "violation").map((form, i) => (
+                                                <ConditionFormBox
+                                                    key={i}
+                                                    title={"Violation Form"}
+                                                    openFormHandler={openFormHandler}
+                                                    dec={form.descriptions}
+                                                    setTitle={setTitle}
+                                                    setDescription={setDescription}
+                                                    form={form}
+                                                    setFields={setFields}
+                                                    styleCalss={'redDot'}
+                                                />
+                                            ))
+                                        ) :
+                                        <>
+                                            <div className='noform'>There is no violation form</div>
+                                        </>
+                                }
+                            </CustomTabPanel>
+                            <CustomTabPanel value={value} index={3}>
+                                {
+
+                                    inspectionsForm.length ?
+                                        (
+                                            inspectionsForm.slice().reverse().filter(form => form.type === "inspections").map((form, i) => (
+                                                <ConditionFormBox
+                                                    key={i}
+                                                    title={"Inspections Form"}
+                                                    openFormHandler={openFormHandler}
+                                                    dec={form.descriptions}
+                                                    setTitle={setTitle}
+                                                    setDescription={setDescription}
+                                                    form={form}
+                                                    setFields={setFields}
+                                                    styleCalss={'oliveForm'}
+                                                />
+                                            ))
+                                        ) :
+                                        <>
+                                            <div className='noform'>There is no inspections form</div>
+                                        </>
+                                }
+                            </CustomTabPanel>
                         </Box>
                     </>)
             }

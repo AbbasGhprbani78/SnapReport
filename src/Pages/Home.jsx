@@ -126,12 +126,242 @@ export default function Home() {
                                                     </div>
                                                 </div>
                                             </Col>
-                                        )) : <div className='noform'>There is no form</div>}
+                                        )) : <div className='noform'>There is no form</div>
+
+                                    }
                                 </div>
                             </div>
                         </div>
-                        <div className="defaultFormText">
-                            <span className='linkAll-form'>Default Forms</span>
+                        <div className="bottomHome">
+                            <Col md={8}>
+                                <div className="form-section">
+                                    <p className='form-section-title'>Permit</p>
+                                    <Link to={'#'} className='link-form-section'>all permit forms</Link>
+                                    <div className='grid-form d-flex '>
+                                        {
+                                            allform.length > 0 ? allform.map(form => (
+                                                <Col
+                                                    style={{ position: "relative" }}
+                                                    key={form.uuid}
+                                                    className='item-recent'
+                                                    xs={12} md={4}
+                                                >
+                                                    <div className="col-container">
+                                                        <FormOverView formData={form} />
+                                                    </div>
+                                                    <div>
+                                                        <div
+                                                            className='actions-form'
+                                                        >
+                                                            <div
+                                                                onClick={() => {
+
+                                                                    openFormHandler();
+                                                                    setMainForm(form);
+                                                                }}
+                                                                style={{ cursor: "pointer" }}
+
+                                                            >
+                                                                <EditCalendarIcon
+                                                                    className='editFormIcom'
+                                                                />
+                                                            </div>
+
+                                                            <div
+                                                                onClick={() => {
+
+                                                                    openFormHandler()
+                                                                    setMainForm(form)
+                                                                    setIsDelete(true)
+                                                                }}
+                                                                style={{ cursor: "pointer" }}
+
+                                                            >
+                                                                <DeleteForeverIcon
+                                                                    className='deleteFormIcon'
+
+                                                                />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </Col>
+                                            )) : <div className='noform'>There is no form</div>
+
+                                        }
+                                    </div>
+                                </div>
+                                <div className="form-section">
+                                    <p className='form-section-title'>Accident</p>
+                                    <Link to={'#'} className='link-form-section'>all accident forms</Link>
+                                    <div className='grid-form d-flex '>
+                                        {
+                                            allform.length > 0 ? allform.map(form => (
+                                                <Col
+                                                    style={{ position: "relative" }}
+                                                    key={form.uuid}
+                                                    className='item-recent'
+                                                    xs={12} md={4}
+                                                >
+                                                    <div className="col-container">
+                                                        <FormOverView formData={form} />
+                                                    </div>
+                                                    <div>
+                                                        <div
+                                                            className='actions-form'
+                                                        >
+                                                            <div
+                                                                onClick={() => {
+
+                                                                    openFormHandler();
+                                                                    setMainForm(form);
+                                                                }}
+                                                                style={{ cursor: "pointer" }}
+
+                                                            >
+                                                                <EditCalendarIcon
+                                                                    className='editFormIcom'
+                                                                />
+                                                            </div>
+
+                                                            <div
+                                                                onClick={() => {
+
+                                                                    openFormHandler()
+                                                                    setMainForm(form)
+                                                                    setIsDelete(true)
+                                                                }}
+                                                                style={{ cursor: "pointer" }}
+
+                                                            >
+                                                                <DeleteForeverIcon
+                                                                    className='deleteFormIcon'
+
+                                                                />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </Col>
+                                            )) : <div className='noform'>There is no form</div>
+
+                                        }
+                                    </div>
+                                </div>
+                                <div className="form-section">
+                                    <p className='form-section-title'>Inspections</p>
+                                    <Link to={'#'} className='link-form-section'>all inspections forms</Link>
+                                    <div className='grid-form d-flex '>
+                                        {
+                                            allform.length > 0 ? allform.map(form => (
+                                                <Col
+                                                    style={{ position: "relative" }}
+                                                    key={form.uuid}
+                                                    className='item-recent'
+                                                    xs={12} md={4}
+                                                >
+                                                    <div className="col-container">
+                                                        <FormOverView formData={form} />
+                                                    </div>
+                                                    <div>
+                                                        <div
+                                                            className='actions-form'
+                                                        >
+                                                            <div
+                                                                onClick={() => {
+
+                                                                    openFormHandler();
+                                                                    setMainForm(form);
+                                                                }}
+                                                                style={{ cursor: "pointer" }}
+
+                                                            >
+                                                                <EditCalendarIcon
+                                                                    className='editFormIcom'
+                                                                />
+                                                            </div>
+
+                                                            <div
+                                                                onClick={() => {
+
+                                                                    openFormHandler()
+                                                                    setMainForm(form)
+                                                                    setIsDelete(true)
+                                                                }}
+                                                                style={{ cursor: "pointer" }}
+
+                                                            >
+                                                                <DeleteForeverIcon
+                                                                    className='deleteFormIcon'
+
+                                                                />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </Col>
+                                            )) : <div className='noform'>There is no form</div>
+
+                                        }
+                                    </div>
+                                </div>
+                                <div className="form-section">
+                                    <p className='form-section-title'>Violation</p>
+                                    <Link to={'#'} className='link-form-section'>all violation forms</Link>
+                                    <div className='grid-form d-flex '>
+                                        {
+                                            allform.length > 0 ? allform.map(form => (
+                                                <Col
+                                                    style={{ position: "relative" }}
+                                                    key={form.uuid}
+                                                    className='item-recent'
+                                                    xs={12} md={4}
+                                                >
+                                                    <div className="col-container">
+                                                        <FormOverView formData={form} />
+                                                    </div>
+                                                    <div>
+                                                        <div
+                                                            className='actions-form'
+                                                        >
+                                                            <div
+                                                                onClick={() => {
+
+                                                                    openFormHandler();
+                                                                    setMainForm(form);
+                                                                }}
+                                                                style={{ cursor: "pointer" }}
+
+                                                            >
+                                                                <EditCalendarIcon
+                                                                    className='editFormIcom'
+                                                                />
+                                                            </div>
+
+                                                            <div
+                                                                onClick={() => {
+
+                                                                    openFormHandler()
+                                                                    setMainForm(form)
+                                                                    setIsDelete(true)
+                                                                }}
+                                                                style={{ cursor: "pointer" }}
+
+                                                            >
+                                                                <DeleteForeverIcon
+                                                                    className='deleteFormIcon'
+
+                                                                />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </Col>
+                                            )) : <div className='noform'>There is no form</div>
+
+                                        }
+                                    </div>
+                                </div>
+                            </Col>
+                            <Col md={4}>
+
+                            </Col>
                         </div>
                     </div>
             }

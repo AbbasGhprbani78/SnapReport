@@ -30,7 +30,7 @@ export default function BoxtForm({
                                 openForm()
                             }}
                             style={{ all: "unset", color: "#45ABE5", fontWeight: "bold", cursor: "pointer" }}
-                        >completion form</div>
+                        >Fill form</div>
                     </div>
                 </div>
                 <div className='BoxForm-des'>{des}</div>

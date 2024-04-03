@@ -32,11 +32,30 @@
     margin-top: 60px;
 }
 
-
-
 .chart-bottom {
     border-top: 1px solid lightgray;
 }
+
+.accident-notif-title {
+    margin: 20px 0;
+}
+
+.MuiPaper-root {
+    margin-bottom: 20px;
+    box-shadow: var(--boxShadow-1) !important;
+    border: none !important;
+    border-radius: 3px;
+}
+
+.noti-report-wrapper {
+    border-top: 1px solid lightgray;
+}
+
+.accrdion-weapper {
+    max-height: 400px;
+    overflow-y: scroll;
+}
+
 
 @media (max-width:1221px) {
 

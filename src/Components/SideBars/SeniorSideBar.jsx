@@ -136,9 +136,6 @@ export default function SeniorsideBar() {
         numberChat()
     }, [])
 
-
-
-
     return (
         <>
             <div className='sidebarContainer'>

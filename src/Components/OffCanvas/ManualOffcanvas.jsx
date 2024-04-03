@@ -21,7 +21,9 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import { styled } from '@mui/material/styles';
 import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
 import ContentPasteGoIcon from '@mui/icons-material/ContentPasteGo';
+import GppBadOutlinedIcon from '@mui/icons-material/GppBadOutlined';
 import { useState, useEffect } from 'react';
+import ContentPasteSearchOutlinedIcon from '@mui/icons-material/ContentPasteSearchOutlined';
 import axios from 'axios';
 import { IP } from '../../App';
 
@@ -39,7 +41,14 @@ export default function ManualOffcanvas({ show, onHide }) {
     const currentRoute = location.pathname;
 
     //all icons in side bar
-    const drawerIcons = [<CottageIcon />, <ChatBubbleOutlineIcon />, <ContentPasteGoIcon />, <ContentPasteIcon />, <LogoutIcon />,];
+    const drawerIcons = [
+        <CottageIcon />,
+        <ChatBubbleOutlineIcon />,
+        <ContentPasteGoIcon />,
+        <ContentPasteIcon />,
+        <GppBadOutlinedIcon />,
+        <ContentPasteSearchOutlinedIcon />,
+        <LogoutIcon />,];
     //slelect route
     const [selectedRoute, setSelectedRoute] = React.useState('/');
     const navigate = useNavigate();
@@ -170,7 +179,7 @@ export default function ManualOffcanvas({ show, onHide }) {
                     </DrawerHeader>
 
                     <List>
-                        {['Home', "chat", "Permit form", "Accident form", "Log out"].map((text, index) => (
+                        {['Home', "chat", "Permit form", "Accident form", "Violations form", "Inspections form", "Log out"].map((text, index) => (
                             <CSSTransition key={text} timeout={300} classNames="fade">
                                 <ListItem key={text} disablePadding>
                                     <ListItemButton

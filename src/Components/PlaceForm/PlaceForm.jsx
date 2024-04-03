@@ -27,10 +27,6 @@ export default function PlaceForm({ back, title, description, fields, formUuid, 
             accept: accept,
             group: checks
         };
-        // (body)
-
-        // const upd = JSON.stringify(body)
-        // (upd)
 
         swal({
             title: "Are you Sure ?",

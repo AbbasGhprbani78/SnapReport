@@ -67,7 +67,7 @@ export default function ManualChat() {
 
             if (response.status === 200) {
                 setAllMessage(response.data)
-                setUserInfo(response.data[0].sender)
+                setUserInfo(response.data[0].receiver)
             }
             else {
                 setAllMessage([])
@@ -189,7 +189,6 @@ export default function ManualChat() {
         }, 1000);
         return () => clearInterval(interval);
     }, []);
-
 
     useEffect(() => {
 

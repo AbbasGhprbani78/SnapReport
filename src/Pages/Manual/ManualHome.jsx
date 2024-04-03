@@ -58,12 +58,16 @@ export default function ManualHome() {
 
     const PermitForms = formData.filter(form => form.type === "permit")
     const accidentForms = formData.filter(form => form.type === "accident")
+    const infractions = formData.filter(form => form.type === "violation")
+    const inspections = formData.filter(form => form.type === "inspections")
+
 
     return (
 
         <>
             {
                 showForm ? (
+
                     <>
                         <FormWorker
                             back={backHandler}
@@ -77,6 +81,7 @@ export default function ManualHome() {
                     <>
                         <div div className="home-container" >
                             <Header />
+
                             <TopSection
                                 text="Permit forms"
                             />
@@ -110,7 +115,6 @@ export default function ManualHome() {
                             </div>
                             <TopSection
                                 text="Accident forms"
-
                             />
                             <div className='bottomHome-worker'>
                                 {
@@ -143,9 +147,75 @@ export default function ManualHome() {
                                 }
 
                             </div>
+                            <TopSection
+                                text="Infractions Forms"
+                            />
+                            <div className='bottomHome-worker'>
+                                {
+                                    infractions.length > 0 ?
+                                        (
+                                            infractions.map((form) => (
+                                                <BoxtForm
+                                                    key={form.uuid}
+                                                    styleCalss={"redDot"}
+                                                    title="Violation forms"
+                                                    openForm={openFormHandler}
+                                                    des={form.descriptions}
+                                                    setMainTitle={setMainTitle}
+                                                    setMainDes={setMainDes}
+                                                    setuuid={setUuuid}
+                                                    setMainFields={setMainFields}
+                                                    titleForm={form.title}
+                                                    uuid={form.uuid}
+                                                    fields={form.fields}
+                                                />
+                                            ))
+                                        ) :
+                                        (
+                                            <>
+                                                <div className='mt-1' style={{ width: "95%", margin: "0 auto" }}>
+                                                    <div className="noform">There is no infractions</div>
+                                                </div>
+                                            </>
+                                        )
+                                }
 
+                            </div>
+                            <TopSection
+                                text="Inspections forms"
+                            />
+                            <div className='bottomHome-worker'>
+                                {
+                                    inspections.length > 0 ?
+                                        (
+                                            inspections.map((form) => (
+                                                <BoxtForm
+                                                    key={form.uuid}
+                                                    styleCalss={"oliveForm"}
+                                                    title="Inspections Form"
+                                                    openForm={openFormHandler}
+                                                    des={form.descriptions}
+                                                    setMainTitle={setMainTitle}
+                                                    setMainDes={setMainDes}
+                                                    setuuid={setUuuid}
+                                                    setMainFields={setMainFields}
+                                                    titleForm={form.title}
+                                                    uuid={form.uuid}
+                                                    fields={form.fields}
+                                                />
+                                            ))
+                                        ) :
+                                        (
+                                            <>
+                                                <div className='mt-1' style={{ width: "95%", margin: "0 auto" }}>
+                                                    <div className="noform">There is no inspections form</div>
+                                                </div>
+                                            </>
+                                        )
+                                }
+
+                            </div>
                         </div>
-
                     </>)
             }
         </>

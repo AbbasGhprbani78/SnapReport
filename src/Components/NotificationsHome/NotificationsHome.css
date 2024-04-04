@@ -1,0 +1,21 @@
+@import url('../../Style/Main.css');
+
+.NotificationsHome-container {
+    border-radius: var(--border-radius-2);
+    box-shadow: 0px 1px 4px 0px #D9D9D9;
+    padding: 20px 15px 10px 15px;
+    width: 95%;
+    margin: 0 auto;
+
+}
+
+.notif-home-title {
+    color: #9a9a9a;
+    margin-bottom: 40px;
+}
+
+
+.notif-home-wrapper {
+    max-height: 600px;
+    overflow-y: scroll;
+}

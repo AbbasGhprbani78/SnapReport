@@ -1,0 +1,15 @@
+@import url('../../Style/Main.css');
+
+
+.kind-form {}
+
+.FailHomeItem {
+    padding: 10px;
+    height: 100%;
+    overflow-y: scroll;
+}
+
+.FailHomeItem-dec {
+    font-size: .8rem;
+    margin-top: 20px;
+}

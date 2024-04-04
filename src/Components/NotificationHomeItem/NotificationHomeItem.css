@@ -1,0 +1,36 @@
+@import url('../../Style/Main.css');
+
+.NotificationHomeItem-container {
+    display: flex;
+    align-items: start;
+    border-bottom: 1px solid lightgray;
+    padding-top: 15px;
+    cursor: pointer;
+}
+
+.user-notif {
+    display: flex;
+    align-items: center;
+}
+
+.user-notif-name {}
+
+.notif-user-content {
+    color: #6d6d6d;
+    font-size: .8rem;
+    margin: 15px 0 10px 0;
+}
+
+.notif-user-content {
+    max-height: 115px;
+    overflow-y: scroll;
+}
+
+.content-disable {
+    color: #c5c5c5;
+}
+
+.notif-date {
+    font-size: .8rem;
+    color: #6d6d6d;
+}

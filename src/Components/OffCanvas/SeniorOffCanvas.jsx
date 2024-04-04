@@ -190,7 +190,7 @@ export default function SeniorOffCanvas({ show, onHide }) {
                                 <CSSTransition key={text} timeout={300} classNames="fade">
                                     <ListItem key={text} disablePadding>
                                         <ListItemButton
-                                            onClick={() => handleItemClick(text === 'Home' ? '/' : `/${text.toLowerCase().replace(/\s/g, '')}`)}
+                                            onClick={() => handleItemClick(text === 'Home' ? '/' : text === "Filled Forms" ? "/filledforms/0" : `/${text.toLowerCase().replace(/\s/g, '')}`)}
                                             sx={{
                                                 '&:hover': { backgroundColor: '#DDF0FA' },
                                                 backgroundColor: currentRoute === (text === 'Home' ? '/' : `/${text.toLowerCase().replace(/\s/g, '')}`) ? '#DDF0FA' : 'inherit',

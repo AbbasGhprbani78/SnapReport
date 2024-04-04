@@ -11,6 +11,7 @@ import PlaceForm from '../Components/PlaceForm/PlaceForm';
 import ConditionFormBox from '../Components/ConditionFormBox/ConditionFormBox';
 import axios from 'axios';
 import { IP } from '../App';
+import { useParams } from 'react-router-dom';
 
 
 function CustomTabPanel(props) {
@@ -52,6 +53,8 @@ function a11yProps(index) {
 
 
 export default function FilledForms() {
+
+    const { todoid } = useParams()
     const [value, setValue] = React.useState(0);
     const [showForm, setShowForm] = useState(false)
     const [allforms, setAllForms] = useState([])
@@ -85,7 +88,6 @@ export default function FilledForms() {
 
             if (response.status === 200) {
                 setAllForms(response.data.forms)
-                    (response.data.forms)
             }
 
         } catch (e) {
@@ -101,12 +103,15 @@ export default function FilledForms() {
         getAllFillForms()
     }, [])
 
+    useEffect(() => {
+        setValue(+todoid)
+    }, [todoid])
+
 
     const permitForm = [...allforms].filter(form => form.type === "permit")
     const accidentForm = [...allforms].filter(form => form.type === "accident")
     const violationForm = [...allforms].filter(form => form.type === "violation")
     const inspectionsForm = [...allforms].filter(form => form.type === "inspections")
-
 
     return (
         <>

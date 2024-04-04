@@ -12,8 +12,8 @@ import { ToastContainer } from "react-toastify";
 
 export default function PlaceForm({ back, title, description, fields, formUuid, getAllFillForms }) {
     const [accept, setAccept] = useState(null);
-    const [checks, setChecks] = useState('')
-
+    const [checks, setChecks] = useState(null)
+    console.log(checks)
 
     const sendCondition = async (e, accept) => {
         e.preventDefault();
@@ -22,11 +22,14 @@ export default function PlaceForm({ back, title, description, fields, formUuid, 
             Authorization: `Bearer ${access}`
         };
 
+
         const body = {
             uuid: formUuid,
             accept: accept,
             group: checks
         };
+
+        console.log(body)
 
         swal({
             title: "Are you Sure ?",
@@ -55,13 +58,14 @@ export default function PlaceForm({ back, title, description, fields, formUuid, 
                             getAllFillForms()
                             back()
                         }, 2000)
+                        console.log(response)
                     }
                 } catch (e) {
 
                     console.error("Error:", e);
                     if (e.response.status === 401) {
-                        // localStorage.clear();
-                        // navigate("/login");
+                        localStorage.clear();
+                        navigate("/login");
                     }
                 }
             }

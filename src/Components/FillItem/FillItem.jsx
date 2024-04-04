@@ -1,8 +1,9 @@
 import React from 'react'
 import TextField from '@mui/material/TextField';
 export default function FillItem({ field, setChecks }) {
+    console.log(field.checks[0]?.group)
+    setChecks(field.checks[0] && field.checks[0].group)
 
-    setChecks(field.checks[0].group)
     return (
         <div>
             <div className={`question-wrapper`}>
@@ -30,7 +31,7 @@ export default function FillItem({ field, setChecks }) {
                                 <TextField
                                     placeholder='Short Answer'
                                     type="text"
-                                    value={field.checks[0].value}
+                                    value={field.checks[0]?.value}
                                     disabled
                                 />
                             </div>
@@ -41,7 +42,7 @@ export default function FillItem({ field, setChecks }) {
                                     <textarea className='textarea-option'
                                         style={{ outline: "none", padding: "10px" }}
                                         placeholder='Write Your Text ...'
-                                        value={field.checks[0].value}
+                                        value={field.checks[0]?.value}
                                         disabled
                                     />
                                 </div>
@@ -52,7 +53,7 @@ export default function FillItem({ field, setChecks }) {
                                         <TextField
                                             id="date"
                                             type="date"
-                                            value={field.checks[0].value}
+                                            value={field.checks[0]?.value}
                                         />
                                     </div>
                                     :
@@ -62,7 +63,7 @@ export default function FillItem({ field, setChecks }) {
                                             <TextField
                                                 placeholder='Short Answer'
                                                 type="time"
-                                                value={field.checks[0].value}
+                                                value={field.checks[0]?.value}
                                             />
                                         </div>
 
@@ -85,7 +86,7 @@ export default function FillItem({ field, setChecks }) {
 
                                                 <div className='option-wrapper' key={i}>
                                                     <input
-                                                        checked={option.choice === field.checks[0].value}
+                                                        checked={option.choice === field.checks[0]?.value}
                                                         type="checkbox" />
                                                     <label className='lable-option multiyop'>{option.choice}</label>
                                                 </div>

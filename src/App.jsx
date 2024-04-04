@@ -26,6 +26,7 @@ function App() {
   const hideModal = () => {
     setShowModalAccident(false)
   }
+
   useEffect(() => {
     function handleClickOutside(event) {
       if (subUserRef.current && !subUserRef.current.contains(event.target)) {
@@ -84,11 +85,12 @@ function App() {
                             < WarningAmberIcon style={{ fontSize: "2rem", cursor: "pointer" }} onClick={() => setShowModalAccident(true)} />
                           </Alert> :
                           <div className='noAccident'>
-                            <div className='d-flex justify-content-end'>
-                              <div className='verified-wrapper'>
-                                <VerifiedUserOutlinedIcon style={{ fontSize: "2rem", cursor: "pointer", color: "#2fcd96" }} />
-                                <span className='toltip'>Thers is no accident</span>
-                              </div>
+                            <div className='chevorn'></div>
+                            <div className='Verifiedwrapper'>
+                              <p className='noaccident-text'>No Accident</p>
+                              <span className='span-Verified'>
+                                <VerifiedUserOutlinedIcon style={{ color: "#ffffff" }} />
+                              </span>
                             </div>
                           </div>
                       }

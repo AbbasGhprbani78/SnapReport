@@ -115,7 +115,7 @@ export default function OrdinaryOffcanvas({ show, onHide }) {
 
     useEffect(() => {
         numberChat()
-    }, [])
+    }, [currentRoute])
 
     return (
         <Offcanvas

@@ -132,8 +132,7 @@ export default function SeniorOffCanvas({ show, onHide }) {
 
     useEffect(() => {
         numberChat()
-    }, [])
-
+    }, [currentRoute])
 
 
     return (

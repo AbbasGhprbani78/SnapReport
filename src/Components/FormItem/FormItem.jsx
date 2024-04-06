@@ -10,9 +10,12 @@ export default function FormItem({ content, selectElement, ishover, disable }) {
             formEndRef.current?.scrollIntoView({ behavior: 'smooth', block: 'end', inline: 'nearest' });
         }
     }, [content])
+
     return (
         <>
-            <div className={`question-wrapper ${!ishover && "option-item-form"}`} onClick={() => selectElement(content.questions, content)}>
+            <div
+                className={`question-wrapper ${!ishover && "option-item-form"}`}
+                onClick={() => selectElement(content.questions, content)}>
                 <p className='qusetion-form'>{content.questions}</p>
                 {
                     content.fields_type === "dropdown" ?

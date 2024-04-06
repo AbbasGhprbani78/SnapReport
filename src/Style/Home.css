@@ -112,18 +112,19 @@
 }
 
 .topHome-worker {
-    max-height: 25vh;
+    min-height: 25vh;
     overflow-y: scroll;
 }
 
 .bottomHome-worker {
-    max-height: 25vh;
+    min-height: 25vh;
     overflow-y: scroll;
 }
 
 .bottomHome {
     display: flex;
     padding: 0 2%;
+    flex-wrap: wrap;
 }
 
 .form-section {
@@ -141,6 +142,10 @@
     margin: 0 auto;
 }
 
+.form-section-title {
+    margin-bottom: 15px;
+    font-weight: bold;
+}
 
 @media (max-width:576px) {
     .BoxForm-top {

@@ -62,6 +62,9 @@ export default function ManualHome() {
     const inspections = formData.filter(form => form.type === "inspections")
 
 
+
+
+
     return (
 
         <>
@@ -82,44 +85,45 @@ export default function ManualHome() {
                         <div div className="home-container" >
                             <Header />
 
-                            <TopSection
-                                text="Permit forms"
-                            />
-                            <div className='topHome-worker'>
-                                {
-                                    PermitForms.length > 0 ? (
-                                        PermitForms.map((form) => (
-                                            <BoxtForm
-                                                key={form.uuid}
-                                                styleCalss={"bluedot"}
-                                                title="Permit Form"
-                                                openForm={openFormHandler}
-                                                des={form.descriptions}
-                                                setMainTitle={setMainTitle}
-                                                setMainDes={setMainDes}
-                                                setuuid={setUuuid}
-                                                setMainFields={setMainFields}
-                                                titleForm={form.title}
-                                                uuid={form.uuid}
-                                                fields={form.fields}
-                                            />
-                                        ))
+                            {
+                                PermitForms.length > 0 &&
+                                <>
+                                    <TopSection
+                                        text="Permit forms"
+                                    />
+                                    <div className='topHome-worker'>
+                                        {
+                                            PermitForms.map((form) => (
+                                                <BoxtForm
+                                                    key={form.uuid}
+                                                    styleCalss={"bluedot"}
+                                                    title="Permit Form"
+                                                    openForm={openFormHandler}
+                                                    des={form.descriptions}
+                                                    setMainTitle={setMainTitle}
+                                                    setMainDes={setMainDes}
+                                                    setuuid={setUuuid}
+                                                    setMainFields={setMainFields}
+                                                    titleForm={form.title}
+                                                    uuid={form.uuid}
+                                                    fields={form.fields}
+                                                />
+                                            ))
+                                        }
 
-                                    ) : (
-                                        <>
-                                            <div className='mt-1' style={{ width: "95%", margin: "0 auto" }}>
-                                                <div className="noform">There is no permit form</div>
-                                            </div>
-                                        </>)
-                                }
-                            </div>
-                            <TopSection
-                                text="Accident forms"
-                            />
-                            <div className='bottomHome-worker'>
-                                {
-                                    accidentForms.length > 0 ?
-                                        (
+                                    </div>
+                                </>
+
+                            }
+
+                            {
+                                accidentForms.length > 0 &&
+                                <>
+                                    <TopSection
+                                        text="Accident forms"
+                                    />
+                                    <div className='bottomHome-worker'>
+                                        {
                                             accidentForms.map((form) => (
                                                 <BoxtForm
                                                     key={form.uuid}
@@ -136,24 +140,21 @@ export default function ManualHome() {
                                                     fields={form.fields}
                                                 />
                                             ))
-                                        ) :
-                                        (
-                                            <>
-                                                <div className='mt-1' style={{ width: "95%", margin: "0 auto" }}>
-                                                    <div className="noform">There is no accident form</div>
-                                                </div>
-                                            </>
-                                        )
-                                }
+                                        }
 
-                            </div>
-                            <TopSection
-                                text="Infractions Forms"
-                            />
-                            <div className='bottomHome-worker'>
-                                {
-                                    infractions.length > 0 ?
-                                        (
+                                    </div>
+                                </>
+
+                            }
+
+                            {
+                                infractions.length > 0 &&
+                                <>
+                                    <TopSection
+                                        text="Infractions Forms"
+                                    />
+                                    <div className='bottomHome-worker'>
+                                        {
                                             infractions.map((form) => (
                                                 <BoxtForm
                                                     key={form.uuid}
@@ -170,24 +171,20 @@ export default function ManualHome() {
                                                     fields={form.fields}
                                                 />
                                             ))
-                                        ) :
-                                        (
-                                            <>
-                                                <div className='mt-1' style={{ width: "95%", margin: "0 auto" }}>
-                                                    <div className="noform">There is no infractions</div>
-                                                </div>
-                                            </>
-                                        )
-                                }
+                                        }
 
-                            </div>
-                            <TopSection
-                                text="Inspections forms"
-                            />
-                            <div className='bottomHome-worker'>
-                                {
-                                    inspections.length > 0 ?
-                                        (
+                                    </div>
+                                </>
+                            }
+
+                            {
+                                inspections.length > 0 &&
+                                <>
+                                    <TopSection
+                                        text="Inspections forms"
+                                    />
+                                    <div className='bottomHome-worker'>
+                                        {
                                             inspections.map((form) => (
                                                 <BoxtForm
                                                     key={form.uuid}
@@ -202,19 +199,14 @@ export default function ManualHome() {
                                                     titleForm={form.title}
                                                     uuid={form.uuid}
                                                     fields={form.fields}
-                                                />
-                                            ))
-                                        ) :
-                                        (
-                                            <>
-                                                <div className='mt-1' style={{ width: "95%", margin: "0 auto" }}>
-                                                    <div className="noform">There is no inspections form</div>
-                                                </div>
-                                            </>
-                                        )
-                                }
+                                                />))
+                                        }
 
-                            </div>
+                                    </div>
+                                </>
+
+                            }
+
                         </div>
                     </>)
             }

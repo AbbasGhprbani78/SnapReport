@@ -3,9 +3,11 @@ import './NotificationsHome.css'
 import NotificationHomeItem from '../NotificationHomeItem/NotificationHomeItem'
 import axios from 'axios'
 import { IP } from '../../App'
+import { useNavigate } from 'react-router-dom';
 
 export default function NotificationsHome() {
     const [notifs, setNotifs] = useState(null)
+    const navigate = useNavigate()
 
     const getAllNotifications = async () => {
 
@@ -45,7 +47,7 @@ export default function NotificationsHome() {
                             notifs.length > 0 ?
                             <>
                                 {
-                                    notifs?.map(notif => (
+                                    notifs?.slice().reverse().map(notif => (
                                         <NotificationHomeItem
                                             id={notif.id}
                                             key={notif.id}

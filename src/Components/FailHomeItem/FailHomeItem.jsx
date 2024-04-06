@@ -38,7 +38,7 @@ export default function FailHomeItem({
                     >view More</p>
                     {
                         accept &&
-                        <p className='condition-request-text'>{acceptForm === "2" ?
+                        <p className='condition-request-text home-condition-text'>{acceptForm === "2" ?
                             (<>
                                 Accepted <span style={{ marginLeft: "7px" }} ><DoneIcon className='condition-request-done icon-condition' /></span>
                             </>) :

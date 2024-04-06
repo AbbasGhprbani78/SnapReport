@@ -114,13 +114,11 @@ export default function FormSignUp({ handleTabChange }) {
             });
 
             if (response.status === 201) {
-                (response)
                 handleTabChange(1)
             }
-
         } catch (error) {
-
-            toast.error(`${error.response.data.type[0]}`, {
+            console.log(error)
+            toast.error(`${error.response.data.username[0]}`, {
                 position: "top-right",
                 autoClose: 5000,
                 hideProgressBar: false,
@@ -133,7 +131,6 @@ export default function FormSignUp({ handleTabChange }) {
 
         }
     }
-
 
     return (
         <>

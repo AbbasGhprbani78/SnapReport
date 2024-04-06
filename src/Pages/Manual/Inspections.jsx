@@ -71,7 +71,7 @@ export default function Inspections() {
                         <div className='accident-page'>
                             <Header />
                             <TopSection
-                                text="Item4 Form"
+                                text="Inspections Form"
                             />
                             <div className="accidentForm-container">
                                 {
@@ -80,7 +80,7 @@ export default function Inspections() {
                                             key={form.uuid}
                                             dec={form.descriptions}
                                             styleCalss={"orangeDot"}
-                                            title={"Item4 Form"}
+                                            title={"Inspections Form"}
                                             openFormHandler={openFormHandler}
                                             setTitle={setTitle}
                                             setDescription={setDescription}

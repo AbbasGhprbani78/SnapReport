@@ -3,7 +3,6 @@ import './FormDisplay.css'
 import FormItem from '../FormItem/FormItem'
 export default function FormDisplay({ fromInfom, selectElement, ishover, disable }) {
 
-
     return (
         <>
             <h3 className='from-title'>{fromInfom.title}</h3>

@@ -6,6 +6,7 @@ import { IP } from '../../App'
 import axios from 'axios';
 import dayjs from 'dayjs';
 import { useNavigate } from 'react-router-dom';
+
 export default function NotificationHomeItem({
     id,
     isRead,
@@ -15,25 +16,25 @@ export default function NotificationHomeItem({
 
     const [read, setRead] = useState(isRead)
     const navigate = useNavigate()
+
     const showNotifDetail = async () => {
         const access = localStorage.getItem("access")
-
         const headers = {
             Authorization: `Bearer ${access}`
         };
 
-        const response = await axios.post(`${IP}/chat/get-notif/${id}`, {
+        const response = await axios.get(`${IP}/chat/get-notif/${id}`, {
             headers,
         })
         try {
             if (response.status === 200) {
-                console.log(response.data)
-                // swal({
-                //     title: `${message}`,
-                //     button: "OK"
-                // })
+                console.log(response)
+                swal({
+                    title: `${message}`,
+                    button: "OK"
+                })
             } if (response.status === 200) {
-                console.log(response.data);
+                setRead(1)
 
             } else if (response.status === 401) {
                 localStorage.clear();
@@ -46,15 +47,23 @@ export default function NotificationHomeItem({
             console.log("Error:", error);
         }
     }
+
     const dateObject = dayjs(date).format('YYYY/MM/DD HH:mm');
+
+    console.log(read)
     return (
         <>
             <div className='NotificationHomeItem-container' onClick={showNotifDetail}>
                 <div className="user-notif">
-                    <PersonOutlineOutlinedIcon style={{ color: "#49454f" }} />
-                    {/* <div className='BoxForm' style={{ marginTop: "5px", backgroundColor: "#2fcd96" }}></div> */}
+                    {
+                        read == 1 ?
+                            <PersonOutlineOutlinedIcon style={{ color: "#49454f" }} />
+                            :
+                            <div className='BoxForm' style={{ marginTop: "5px", backgroundColor: "#2fcd96" }}></div>
+                    }
+
                 </div>
-                <div className={`d-flex flex-column`} style={{ marginLeft: "20px", width: "100%" }}>
+                <div className={`d-flex flex-column ${read == 1 ? "content-disable" : ""}`} style={{ marginLeft: "20px", width: "100%" }}>
                     <p className="user-notif-name d-flex justify-content-between">
                         List item
                         <span className='notif-date'>{dateObject}</span>

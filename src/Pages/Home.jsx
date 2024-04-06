@@ -125,13 +125,14 @@ export default function Home() {
                     </> :
                     <>
                         {
-                            showForm ? <AddNewForm
-                                showForm={showForm}
-                                back={backHandler}
-                                mainForm={mainForm}
-                                isDelete={isDelete}
-                                getAllForm={getAllForm}
-                            /> :
+                            showForm ?
+                                <AddNewForm
+                                    showForm={showForm}
+                                    back={backHandler}
+                                    mainForm={mainForm}
+                                    isDelete={isDelete}
+                                    getAllForm={getAllForm}
+                                /> :
                                 <div className="home-container">
                                     <Header />
                                     <div className='recentForm-conteiner'>
@@ -146,7 +147,7 @@ export default function Home() {
                                                             style={{ position: "relative" }}
                                                             key={form.uuid}
                                                             className='item-recent'
-                                                            xs={12} md={4}
+                                                            xs={12} md={6} xl={4}
                                                         >
                                                             <div className="col-container">
                                                                 <FormOverView formData={form} />
@@ -192,7 +193,7 @@ export default function Home() {
                                         </div>
                                     </div>
                                     <div className="bottomHome">
-                                        <Col md={8} >
+                                        <Col xs={12} md={8}>
                                             <div className='form-sections'>
                                                 <div className="form-section">
                                                     <p className='form-section-title'>Permit</p>
@@ -206,7 +207,7 @@ export default function Home() {
                                                                             key={form.id}
                                                                             style={{ position: "relative" }}
                                                                             className='item-recent'
-                                                                            xs={12} md={4}
+                                                                            xs={12} md={6} xl={4}
                                                                         >
                                                                             <FailHomeItem
                                                                                 id={form.id}
@@ -242,7 +243,7 @@ export default function Home() {
                                                                             key={form.id}
                                                                             style={{ position: "relative" }}
                                                                             className='item-recent'
-                                                                            xs={12} md={4}
+                                                                            xs={12} md={6} xl={4}
                                                                         >
                                                                             <FailHomeItem
                                                                                 id={form.id}
@@ -276,7 +277,7 @@ export default function Home() {
                                                                             key={form.id}
                                                                             style={{ position: "relative" }}
                                                                             className='item-recent'
-                                                                            xs={12} md={4}
+                                                                            xs={12} md={6} xl={4}
                                                                         >
                                                                             <FailHomeItem
                                                                                 id={form.id}
@@ -310,7 +311,7 @@ export default function Home() {
                                                                             key={form.id}
                                                                             style={{ position: "relative" }}
                                                                             className='item-recent'
-                                                                            xs={12} md={4}
+                                                                            xs={12} md={6} xl={4}
                                                                         >
                                                                             <FailHomeItem
                                                                                 id={form.id}
@@ -334,13 +335,12 @@ export default function Home() {
                                                 </div>
                                             </div>
                                         </Col>
-                                        <Col md={4}>
+                                        <Col xs={12} md={4}>
                                             <NotificationsHome />
                                         </Col>
                                     </div>
                                 </div>
                         }
-
                     </>
             }
 

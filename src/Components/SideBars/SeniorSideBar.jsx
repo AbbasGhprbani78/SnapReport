@@ -72,15 +72,15 @@ export default function SeniorsideBar() {
             refresh: refresh
         }
         try {
-            localStorage.clear()
-            navigate('/login')
+            // localStorage.clear()
+            // navigate('/login')
             const response = await axios.post(`${IP}/user/logout/`, body, {
                 headers
             })
 
             if (response.status === 200) {
-                // localStorage.clear()
-                // navigate('/login')
+                localStorage.clear()
+                navigate('/login')
             }
         } catch (e) {
             (e)

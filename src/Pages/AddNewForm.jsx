@@ -81,11 +81,10 @@ export default function AddNewForm({ showForm, back, mainForm, isDelete, getAllF
                 ...prevInfo,
                 fields: [...mainForm.fields],
             }));
-
         }
     }, [mainForm]);
-    useEffect(() => {
 
+    useEffect(() => {
         setFormInfom((prevInfo) => ({
             ...prevInfo,
             person_type: personName,
@@ -427,8 +426,8 @@ export default function AddNewForm({ showForm, back, mainForm, isDelete, getAllF
 
         if (isDelete) {
             return false
-
         }
+
         setMainDeleteQuestion(question);
 
         const copiedOptions = content.options.map(option => ({ ...option }));
@@ -456,6 +455,7 @@ export default function AddNewForm({ showForm, back, mainForm, isDelete, getAllF
             });
         }
     };
+
 
     const deleteMainBox = (i) => {
         const NewNumberTypeInput = numberTypeInput.filter((input, index) => {

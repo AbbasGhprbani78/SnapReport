@@ -26,6 +26,7 @@ export default function Infractions() {
             })
 
             if (response.status === 200) {
+                console.log(response.data)
                 setInfractions(response.data.forms)
             }
 
@@ -69,7 +70,7 @@ export default function Infractions() {
                         <div className='accident-page'>
                             <Header />
                             <TopSection
-                                text="Infractions Form"
+                                text="Violations Form"
                             />
                             <div className="accidentForm-container">
                                 {

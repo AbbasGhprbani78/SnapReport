@@ -17,8 +17,12 @@ import { useNavigate } from 'react-router-dom';
 import { CSSTransition } from 'react-transition-group';
 import { useLocation } from 'react-router-dom';
 import LogoutIcon from '@mui/icons-material/Logout';
+import ContentPasteIcon from '@mui/icons-material/ContentPaste';
 import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
+import ContentPasteGoIcon from '@mui/icons-material/ContentPasteGo';
 import { useState, useEffect } from 'react';
+import GppBadOutlinedIcon from '@mui/icons-material/GppBadOutlined';
+import ContentPasteSearchOutlinedIcon from '@mui/icons-material/ContentPasteSearchOutlined';
 import axios from 'axios';
 import { IP } from '../../App'
 import '../../Style/Main.css'
@@ -34,13 +38,20 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 }));
 
 
-export default function OrdinarySideBars() {
+export default function ManualSideBar() {
     const [open, setOpen] = React.useState(true);
     const location = useLocation();
     const currentRoute = location.pathname;
 
     //all icons in side bar
-    const drawerIcons = [<CottageIcon />, <ChatBubbleOutlineIcon />, <LogoutIcon />,];
+    const drawerIcons = [
+        <CottageIcon />,
+        <ChatBubbleOutlineIcon />,
+        <ContentPasteGoIcon />,
+        <ContentPasteIcon />,
+        <GppBadOutlinedIcon />,
+        <ContentPasteSearchOutlinedIcon />,
+        <LogoutIcon />,];
     //slelect route
     const [selectedRoute, setSelectedRoute] = React.useState('/');
     const navigate = useNavigate();
@@ -48,14 +59,10 @@ export default function OrdinarySideBars() {
 
 
     const logOutHandler = async () => {
-
-
         const access = localStorage.getItem('access')
         const refresh = localStorage.getItem('refresh')
-
         localStorage.clear()
         navigate('/login')
-
         const headers = {
             Authorization: `Bearer ${access}`,
 
@@ -77,7 +84,6 @@ export default function OrdinarySideBars() {
         }
     }
 
-
     //change route
     const handleItemClick = (route) => {
         if (route === '/logout') {
@@ -96,6 +102,7 @@ export default function OrdinarySideBars() {
         }
         setSelectedRoute(route);
     };
+
 
     const [numberNotif, setNumberNotif] = useState('')
 
@@ -174,15 +181,14 @@ export default function OrdinarySideBars() {
                         </DrawerHeader>
 
                         <List>
-                            {['Home', "chat", "Log out"].map((text, index) => (
+                            {['Home', "chat", "Permit form", "Accident form", "Violations form", "Inspections form", "Log out"].map((text, index) => (
                                 <CSSTransition key={text} timeout={300} classNames="fade">
                                     <ListItem key={text} disablePadding>
                                         <ListItemButton
-                                            onClick={() => handleItemClick(text === 'Home' ? '/ordinaryhome' : text === "chat" ? '/ordinarychat' : `/${text.toLowerCase().replace(/\s/g, '')}`)}
+                                            onClick={() => handleItemClick(text === 'Home' ? '/manualhome' : text === "chat" ? '/manualchat' : `/${text.toLowerCase().replace(/\s/g, '')}`)}
                                             sx={{
                                                 '&:hover': { backgroundColor: '#DDF0FA' },
-                                                backgroundColor: currentRoute === (text === 'Home' ? '/ordinaryhome' : text === "chat" ? '/ordinarychat' : `/${text.toLowerCase().replace(/\s/g, '')}`) ? '#DDF0FA' : 'inherit',
-
+                                                backgroundColor: currentRoute === (text === 'Home' ? '/manualhome' : text === "chat" ? '/manualchat' : `/${text.toLowerCase().replace(/\s/g, '')}`) ? '#DDF0FA' : 'inherit',
                                             }}
                                         >
                                             <ListItemIcon style={{ color: "#000" }}>
@@ -202,3 +208,4 @@ export default function OrdinarySideBars() {
         </>
     );
 }
+

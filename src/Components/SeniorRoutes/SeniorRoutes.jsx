@@ -32,7 +32,6 @@ export default function SeniorRoute({ children }) {
             }
 
         } catch (e) {
-            (e);
             if (e.response.status === 401) {
                 localStorage.clear()
                 navigate("/login")
@@ -57,9 +56,13 @@ export default function SeniorRoute({ children }) {
         <div style={{ width: "100%" }}>
             {(seniorTrue || typeUser === "S") ? (
                 children
-            ) : (
-                navigate("/login")
-            )}
+            ) : (seniorTrue || typeUser === "M") ?
+                navigate("/manualhome") :
+                (seniorTrue || typeUser === "M") ?
+                    navigate('/ordinaryhome') :
+                    (
+                        navigate("/login")
+                    )}
         </div>
     );
 }

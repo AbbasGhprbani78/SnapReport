@@ -59,10 +59,9 @@ export default function ManualSideBar() {
 
 
     const logOutHandler = async () => {
+
         const access = localStorage.getItem('access')
         const refresh = localStorage.getItem('refresh')
-        localStorage.clear()
-        navigate('/login')
         const headers = {
             Authorization: `Bearer ${access}`,
 
@@ -70,6 +69,7 @@ export default function ManualSideBar() {
         const body = {
             refresh: refresh
         }
+
         try {
             const response = await axios.post(`${IP}/user/logout/`, body, {
                 headers
@@ -118,6 +118,7 @@ export default function ManualSideBar() {
 
             if (response.status === 200) {
                 setNumberNotif(response.data.unread_chats_count)
+                console.log(response.data)
             }
 
         } catch (e) {

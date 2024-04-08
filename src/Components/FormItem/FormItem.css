@@ -75,6 +75,10 @@
     border-width: 0 !important;
 }
 
+.file-form {
+    display: block !important;
+}
+
 @media (max-width:576px) {
     .option-wrapper {
         margin: 4% 0;

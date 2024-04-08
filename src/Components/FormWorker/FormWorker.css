@@ -20,10 +20,12 @@
 .view-btn {
     border: none;
     outline: none;
-    padding: 6px;
+    padding: 10px 20px;
     border-radius: var(--border-radius-1);
     background-color: var(--color-9);
     color: #ffffff;
+    width: max-content;
+
 }
 
 .formWorker {
@@ -34,11 +36,28 @@
 }
 
 .send-worker {
-    width: 12%;
+    width: 130px;
 }
 
-@media (max-width:992px) {
-    .send-worker {
-        width: 150px;
-    }
+.button-fill-form-wrapper {
+    display: flex;
+    align-items: center;
+    margin-top: 30px;
+    gap: 20px;
 }
+
+.upload-file {
+    margin-left: 20px;
+    cursor: pointer;
+    color: var(--color-9);
+}
+
+.image-file {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    overflow: hidden;
+    box-shadow: 0px 1px 4px 0px #D9D9D9;
+}
+
+@media (max-width:992px) {}

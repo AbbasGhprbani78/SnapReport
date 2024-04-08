@@ -55,6 +55,7 @@ export default function ManualChat() {
     };
 
     const getMessages = async () => {
+
         const access = localStorage.getItem("access")
         const headers = {
             Authorization: `Bearer ${access}`
@@ -74,7 +75,6 @@ export default function ManualChat() {
             }
 
         } catch (e) {
-            (e)
             if (e.response.status === 401) {
                 localStorage.clear()
                 navigate("/login")
@@ -121,7 +121,6 @@ export default function ManualChat() {
         const access = localStorage.getItem("access")
         const formData = new FormData()
         formData.append('file', e.target.files[0])
-
         const headers = {
             Authorization: `Bearer ${access}`
         };
@@ -221,6 +220,8 @@ export default function ManualChat() {
             window.removeEventListener('resize', handleWindowResize);
         };
     }, []);
+
+
     return (
         <>
             {

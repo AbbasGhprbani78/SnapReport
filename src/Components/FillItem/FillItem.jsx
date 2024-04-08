@@ -1,7 +1,9 @@
 import React from 'react'
 import TextField from '@mui/material/TextField';
+import { BsFillFileEarmarkArrowDownFill } from 'react-icons/bs'
+import { IP } from '../../App'
 export default function FillItem({ field, setChecks }) {
-    console.log(field.checks[0]?.group)
+    console.log(field.checks[0]?.file)
     setChecks(field.checks[0] && field.checks[0].group)
 
     return (
@@ -35,62 +37,71 @@ export default function FillItem({ field, setChecks }) {
                                     disabled
                                 />
                             </div>
-
-                            : field.fields_type === "textarea" ?
+                            : field.fields_type === "file" ?
                                 field &&
-                                <div className='d-flex align-items-center option-wrapper'>
-                                    <textarea className='textarea-option'
-                                        style={{ outline: "none", padding: "10px" }}
-                                        placeholder='Write Your Text ...'
-                                        value={field.checks[0]?.value}
-                                        disabled
-                                    />
+                                <div className="option-wrapper">
+                                    <div style={{ marginLeft: "10px" }}>
+                                        <a href={`${IP}${field.checks[0]?.file}`} className='place' target='blank' download>
+                                            <BsFillFileEarmarkArrowDownFill className='fileIcon file-left' />
+                                        </a>
+                                    </div>
                                 </div>
-                                :
-                                field.fields_type === "date" ?
+
+                                : field.fields_type === "textarea" ?
                                     field &&
-                                    <div className="option-wrapper">
-                                        <TextField
-                                            id="date"
-                                            type="date"
+                                    <div className='d-flex align-items-center option-wrapper'>
+                                        <textarea className='textarea-option'
+                                            style={{ outline: "none", padding: "10px" }}
+                                            placeholder='Write Your Text ...'
                                             value={field.checks[0]?.value}
+                                            disabled
                                         />
                                     </div>
                                     :
-                                    field.fields_type === "time" ?
+                                    field.fields_type === "date" ?
                                         field &&
-                                        <div className="option-wrapper" >
+                                        <div className="option-wrapper">
                                             <TextField
-                                                placeholder='Short Answer'
-                                                type="time"
+                                                id="date"
+                                                type="date"
                                                 value={field.checks[0]?.value}
                                             />
                                         </div>
+                                        :
+                                        field.fields_type === "time" ?
+                                            field &&
+                                            <div className="option-wrapper" >
+                                                <TextField
+                                                    placeholder='Short Answer'
+                                                    type="time"
+                                                    value={field.checks[0]?.value}
+                                                />
+                                            </div>
 
-                                        : field && field.fields_type === "radio" ?
+                                            : field && field.fields_type === "radio" ?
 
-                                            field.choices.map((option, i) => (
+                                                field.choices.map((option, i) => (
 
-                                                <div className='option-wrapper' key={i}>
-                                                    <input
-                                                        type="radio"
-                                                        checked={option.choice === field.checks[0].value}
-                                                    />
-                                                    <label className='lable-option multiyop'>{option.choice}</label>
-                                                </div>
-                                            )) :
+                                                    <div className='option-wrapper' key={i}>
+                                                        <input
+                                                            type="radio"
+                                                            checked={option.choice === field.checks[0].value}
+                                                        />
+                                                        <label className='lable-option multiyop'>{option.choice}</label>
+                                                    </div>
+                                                )) :
 
-                                            field && field.fields_type === "checkbox" &&
+                                                field && field.fields_type === "checkbox" &&
 
-                                            field.choices.map((option, i) => (
+                                                field.choices.map((option, i) => (
 
-                                                <div className='option-wrapper' key={i}>
-                                                    <input
-                                                        checked={option.choice === field.checks[0]?.value}
-                                                        type="checkbox" />
-                                                    <label className='lable-option multiyop'>{option.choice}</label>
-                                                </div>
-                                            ))
+                                                    <div className='option-wrapper' key={i}>
+                                                        <input
+                                                            checked={option.choice === field.checks[0]?.value}
+                                                            type="checkbox" />
+                                                        <label className='lable-option multiyop'>{option.choice}</label>
+                                                    </div>
+                                                ))
                 }
 
             </div>

@@ -6,11 +6,11 @@ import Radio from './Radio'
 import Time from './Time'
 import Date from './Date'
 import Texteara from './Texteara'
+import File from './File'
 
-export default function Element({ field }) {
+export default function Element({ field, onInputChange }) {
 
     const type = field.fields_type
-
 
     switch (type) {
 
@@ -22,6 +22,7 @@ export default function Element({ field }) {
                         <Input
                             uuid={field.uuid}
                             value={field.value}
+                            onChange={onInputChange}
                         />
                     </div>
                 </>
@@ -35,6 +36,7 @@ export default function Element({ field }) {
                         <Texteara
                             uuid={field.uuid}
                             value={field.value}
+                            onChange={onInputChange}
                         />
                     </div>
                 </>
@@ -48,6 +50,7 @@ export default function Element({ field }) {
                         <Time
                             uuid={field.uuid}
                             value={field.value}
+                            onChange={onInputChange}
                         />
                     </div>
                 </>
@@ -61,6 +64,7 @@ export default function Element({ field }) {
                         <Date
                             uuid={field.uuid}
                             value={field.value}
+                            onChange={onInputChange}
                         />
                     </div>
 
@@ -76,6 +80,7 @@ export default function Element({ field }) {
                             uuid={field.uuid}
                             field_options={field.options}
                             value={field.value}
+                            onChange={onInputChange}
                         />
                     </div>
 
@@ -91,6 +96,7 @@ export default function Element({ field }) {
                             uuid={field.uuid}
                             field_options={field.options}
                             value={field.value}
+                            onChange={onInputChange}
                         />
                     </div>
                 </>
@@ -104,6 +110,21 @@ export default function Element({ field }) {
                             uuid={field.uuid}
                             field_options={field.options}
                             value={field.value}
+                            onChange={onInputChange}
+                        />
+                    </div>
+                </>
+
+            )
+        case "file":
+            return (
+                <>
+                    <div className='question-wrapper'>
+                        <p className='qusetion-form'>{field.questions}</p>
+                        <File
+                            uuid={field.uuid}
+                            value={field.value}
+                            onChange={onInputChange}
                         />
                     </div>
                 </>

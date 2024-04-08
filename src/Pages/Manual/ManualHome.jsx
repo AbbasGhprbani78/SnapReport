@@ -62,9 +62,6 @@ export default function ManualHome() {
     const inspections = formData.filter(form => form.type === "inspections")
 
 
-
-
-
     return (
 
         <>
@@ -84,126 +81,149 @@ export default function ManualHome() {
                     <>
                         <div div className="home-container" >
                             <Header />
-
                             {
-                                PermitForms.length > 0 &&
-                                <>
-                                    <TopSection
-                                        text="Permit forms"
-                                    />
-                                    <div className='topHome-worker'>
-                                        {
-                                            PermitForms.map((form) => (
-                                                <BoxtForm
-                                                    key={form.uuid}
-                                                    styleCalss={"bluedot"}
-                                                    title="Permit Form"
-                                                    openForm={openFormHandler}
-                                                    des={form.descriptions}
-                                                    setMainTitle={setMainTitle}
-                                                    setMainDes={setMainDes}
-                                                    setuuid={setUuuid}
-                                                    setMainFields={setMainFields}
-                                                    titleForm={form.title}
-                                                    uuid={form.uuid}
-                                                    fields={form.fields}
-                                                />
-                                            ))
-                                        }
+                                PermitForms.length > 0 ?
+                                    <>
+                                        <TopSection
+                                            text="Permit forms"
+                                        />
+                                        <div className='topHome-worker'>
+                                            {
+                                                PermitForms.map((form) => (
+                                                    <BoxtForm
+                                                        key={form.uuid}
+                                                        styleCalss={"bluedot"}
+                                                        title="Permit Form"
+                                                        openForm={openFormHandler}
+                                                        des={form.descriptions}
+                                                        setMainTitle={setMainTitle}
+                                                        setMainDes={setMainDes}
+                                                        setuuid={setUuuid}
+                                                        setMainFields={setMainFields}
+                                                        titleForm={form.title}
+                                                        uuid={form.uuid}
+                                                        fields={form.fields}
+                                                    />
+                                                ))
+                                            }
 
-                                    </div>
-                                </>
+                                        </div>
+                                    </> :
+                                    <>
+                                        <TopSection
+                                            text="Permit forms"
+                                        />
+                                        <div className='noform formhome-worker'>There is no form</div>
+                                    </>
 
                             }
 
                             {
-                                accidentForms.length > 0 &&
-                                <>
-                                    <TopSection
-                                        text="Accident forms"
-                                    />
-                                    <div className='bottomHome-worker'>
-                                        {
-                                            accidentForms.map((form) => (
-                                                <BoxtForm
-                                                    key={form.uuid}
-                                                    styleCalss={"greendot"}
-                                                    title="Accident Form"
-                                                    openForm={openFormHandler}
-                                                    des={form.descriptions}
-                                                    setMainTitle={setMainTitle}
-                                                    setMainDes={setMainDes}
-                                                    setuuid={setUuuid}
-                                                    setMainFields={setMainFields}
-                                                    titleForm={form.title}
-                                                    uuid={form.uuid}
-                                                    fields={form.fields}
-                                                />
-                                            ))
-                                        }
+                                accidentForms.length > 0 ?
+                                    <>
+                                        <TopSection
+                                            text="Accident forms"
+                                        />
+                                        <div className='bottomHome-worker'>
+                                            {
+                                                accidentForms.map((form) => (
+                                                    <BoxtForm
+                                                        key={form.uuid}
+                                                        styleCalss={"greendot"}
+                                                        title="Accident Form"
+                                                        openForm={openFormHandler}
+                                                        des={form.descriptions}
+                                                        setMainTitle={setMainTitle}
+                                                        setMainDes={setMainDes}
+                                                        setuuid={setUuuid}
+                                                        setMainFields={setMainFields}
+                                                        titleForm={form.title}
+                                                        uuid={form.uuid}
+                                                        fields={form.fields}
+                                                    />
+                                                ))
+                                            }
 
-                                    </div>
-                                </>
+                                        </div>
+                                    </> :
+                                    <>
+                                        <TopSection
+                                            text="Accident forms"
+                                        />
+                                        <div className='noform formhome-worker'>There is no form</div>
+                                    </>
 
                             }
 
                             {
-                                infractions.length > 0 &&
-                                <>
-                                    <TopSection
-                                        text="Infractions Forms"
-                                    />
-                                    <div className='bottomHome-worker'>
-                                        {
-                                            infractions.map((form) => (
-                                                <BoxtForm
-                                                    key={form.uuid}
-                                                    styleCalss={"redDot"}
-                                                    title="Violation forms"
-                                                    openForm={openFormHandler}
-                                                    des={form.descriptions}
-                                                    setMainTitle={setMainTitle}
-                                                    setMainDes={setMainDes}
-                                                    setuuid={setUuuid}
-                                                    setMainFields={setMainFields}
-                                                    titleForm={form.title}
-                                                    uuid={form.uuid}
-                                                    fields={form.fields}
-                                                />
-                                            ))
-                                        }
+                                infractions.length > 0 ?
+                                    <>
+                                        <TopSection
+                                            text="Infractions Forms"
+                                        />
+                                        <div className='bottomHome-worker'>
+                                            {
+                                                infractions.map((form) => (
+                                                    <BoxtForm
+                                                        key={form.uuid}
+                                                        styleCalss={"redDot"}
+                                                        title="Violation forms"
+                                                        openForm={openFormHandler}
+                                                        des={form.descriptions}
+                                                        setMainTitle={setMainTitle}
+                                                        setMainDes={setMainDes}
+                                                        setuuid={setUuuid}
+                                                        setMainFields={setMainFields}
+                                                        titleForm={form.title}
+                                                        uuid={form.uuid}
+                                                        fields={form.fields}
+                                                    />
+                                                ))
+                                            }
 
-                                    </div>
-                                </>
+                                        </div>
+                                    </> :
+                                    <>
+                                        <TopSection
+                                            text="Infractions Forms"
+                                        />
+                                        <div className='noform formhome-worker'>There is no form</div>
+                                    </>
                             }
 
                             {
-                                inspections.length > 0 &&
-                                <>
-                                    <TopSection
-                                        text="Inspections forms"
-                                    />
-                                    <div className='bottomHome-worker'>
-                                        {
-                                            inspections.map((form) => (
-                                                <BoxtForm
-                                                    key={form.uuid}
-                                                    styleCalss={"oliveForm"}
-                                                    title="Inspections Form"
-                                                    openForm={openFormHandler}
-                                                    des={form.descriptions}
-                                                    setMainTitle={setMainTitle}
-                                                    setMainDes={setMainDes}
-                                                    setuuid={setUuuid}
-                                                    setMainFields={setMainFields}
-                                                    titleForm={form.title}
-                                                    uuid={form.uuid}
-                                                    fields={form.fields}
-                                                />))
-                                        }
+                                inspections.length > 0 ?
+                                    <>
+                                        <TopSection
+                                            text="Inspections forms"
+                                        />
+                                        <div className='bottomHome-worker'>
+                                            {
+                                                inspections.map((form) => (
+                                                    <BoxtForm
+                                                        key={form.uuid}
+                                                        styleCalss={"oliveForm"}
+                                                        title="Inspections Form"
+                                                        openForm={openFormHandler}
+                                                        des={form.descriptions}
+                                                        setMainTitle={setMainTitle}
+                                                        setMainDes={setMainDes}
+                                                        setuuid={setUuuid}
+                                                        setMainFields={setMainFields}
+                                                        titleForm={form.title}
+                                                        uuid={form.uuid}
+                                                        fields={form.fields}
+                                                    />))
+                                            }
 
-                                    </div>
-                                </>
+                                        </div>
+                                    </> :
+                                    <>
+                                        <TopSection
+                                            text="Inspections forms"
+                                        />
+                                        <div className='noform formhome-worker'>There is no form</div>
+                                    </>
 
                             }
 

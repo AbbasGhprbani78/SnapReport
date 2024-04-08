@@ -147,6 +147,11 @@
     font-weight: bold;
 }
 
+.formhome-worker {
+    width: 95%;
+    margin: 20px auto;
+}
+
 @media (max-width:576px) {
     .BoxForm-top {
         margin-top: 3%;

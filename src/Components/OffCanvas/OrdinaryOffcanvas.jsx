@@ -12,6 +12,7 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';;
 import CottageIcon from '@mui/icons-material/Cottage';
+import ContentPasteIcon from '@mui/icons-material/ContentPaste';
 import { useNavigate } from 'react-router-dom';
 import { CSSTransition } from 'react-transition-group';
 import { useLocation } from 'react-router-dom';
@@ -19,7 +20,10 @@ import Box from '@mui/material/Box';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { styled } from '@mui/material/styles';
 import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
+import ContentPasteGoIcon from '@mui/icons-material/ContentPasteGo';
+import GppBadOutlinedIcon from '@mui/icons-material/GppBadOutlined';
 import { useState, useEffect } from 'react';
+import ContentPasteSearchOutlinedIcon from '@mui/icons-material/ContentPasteSearchOutlined';
 import axios from 'axios';
 import { IP } from '../../App';
 
@@ -31,13 +35,20 @@ const DrawerHeader = styled('div')(({ theme }) => ({
     ...theme.mixins.toolbar,
     justifyContent: 'flex-end',
 }));
-export default function OrdinaryOffcanvas({ show, onHide }) {
+export default function ManualOffcanvas({ show, onHide }) {
     const [open, setOpen] = React.useState(true);
     const location = useLocation();
     const currentRoute = location.pathname;
 
     //all icons in side bar
-    const drawerIcons = [<CottageIcon />, <ChatBubbleOutlineIcon />, <LogoutIcon />,];
+    const drawerIcons = [
+        <CottageIcon />,
+        <ChatBubbleOutlineIcon />,
+        <ContentPasteGoIcon />,
+        <ContentPasteIcon />,
+        <GppBadOutlinedIcon />,
+        <ContentPasteSearchOutlinedIcon />,
+        <LogoutIcon />,];
     //slelect route
     const [selectedRoute, setSelectedRoute] = React.useState('/');
     const navigate = useNavigate();
@@ -72,6 +83,7 @@ export default function OrdinaryOffcanvas({ show, onHide }) {
 
     //change route
     const handleItemClick = (route) => {
+
         if (route === '/logout') {
             swal({
                 title: "Are you sure you want to exit?",
@@ -166,14 +178,14 @@ export default function OrdinaryOffcanvas({ show, onHide }) {
                     </DrawerHeader>
 
                     <List>
-                        {['Home', "chat", "Log out"].map((text, index) => (
+                        {['Home', "chat", "Permit form", "Accident form", "Violations form", "Inspections form", "Log out"].map((text, index) => (
                             <CSSTransition key={text} timeout={300} classNames="fade">
                                 <ListItem key={text} disablePadding>
                                     <ListItemButton
-                                        onClick={() => handleItemClick(text === 'Home' ? '/ordinaryhome' : text === "chat" ? '/ordinarychat' : `/${text.toLowerCase().replace(/\s/g, '')}`)}
+                                        onClick={() => handleItemClick(text === 'Home' ? '/manualhome' : text === "chat" ? '/manualchat' : `/${text.toLowerCase().replace(/\s/g, '')}`)}
                                         sx={{
                                             '&:hover': { backgroundColor: '#DDF0FA' },
-                                            backgroundColor: currentRoute === (text === 'Home' ? '/ordinaryhome' : text === "chat" ? '/ordinarychat' : `/${text.toLowerCase().replace(/\s/g, '')}`) ? '#DDF0FA' : 'inherit',
+                                            backgroundColor: currentRoute === (text === 'Home' ? '/manualhome' : text === "chat" ? '/manualchat' : `/${text.toLowerCase().replace(/\s/g, '')}`) ? '#DDF0FA' : 'inherit',
 
                                         }}
                                     >

@@ -688,6 +688,7 @@ export default function AddNewForm({ showForm, back, mainForm, isDelete, getAllF
                                                 <option value="textarea" >Text Area</option>
                                                 <option value="date">Date</option>
                                                 <option value="time">Time</option>
+                                                <option value="file">File</option>
                                             </select>
                                         </div>
                                     </div>

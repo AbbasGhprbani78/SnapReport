@@ -42,46 +42,56 @@ export default function FormItem({ content, selectElement, ishover, disable }) {
                                     disabled={true}
                                 />
                             </div>
-
-                            : content.fields_type === "textarea" ?
+                            : content.fields_type === "file" ?
                                 content &&
-                                <div className='d-flex align-items-center option-wrapper'>
-                                    <textarea className='textarea-option'
-                                        style={{ outline: "none", padding: "10px" }}
-                                        placeholder='Write Your Text ...'
+                                <div className="option-wrapper">
+                                    <input
+                                        className='file-form'
+                                        type="file"
+                                        id="file"
                                         disabled={true}
                                     />
                                 </div>
-                                :
-                                content.fields_type === "date" ?
+
+                                : content.fields_type === "textarea" ?
                                     content &&
-                                    <div className="option-wrapper">
-                                        <TextField
-                                            id="date"
-                                            type='date'
+                                    <div className='d-flex align-items-center option-wrapper'>
+                                        <textarea className='textarea-option'
+                                            style={{ outline: "none", padding: "10px" }}
+                                            placeholder='Write Your Text ...'
                                             disabled={true}
                                         />
                                     </div>
                                     :
-                                    content.fields_type === "time" ?
+                                    content.fields_type === "date" ?
                                         content &&
-                                        <div className="option-wrapper" >
+                                        <div className="option-wrapper">
                                             <TextField
-                                                id="time"
-                                                type="time"
+                                                id="date"
+                                                type='date'
                                                 disabled={true}
                                             />
                                         </div>
-
-                                        : content.options && content.options.map((option, i) => (
-
-                                            <div className='option-wrapper' key={i}>
-                                                <input
+                                        :
+                                        content.fields_type === "time" ?
+                                            content &&
+                                            <div className="option-wrapper" >
+                                                <TextField
+                                                    id="time"
+                                                    type="time"
                                                     disabled={true}
-                                                    type={content.fields_type} />
-                                                <label className='lable-option multiyop'>{option.choice}</label>
+                                                />
                                             </div>
-                                        ))
+
+                                            : content.options && content.options.map((option, i) => (
+
+                                                <div className='option-wrapper' key={i}>
+                                                    <input
+                                                        disabled={true}
+                                                        type={content.fields_type} />
+                                                    <label className='lable-option multiyop'>{option.choice}</label>
+                                                </div>
+                                            ))
                 }
 
             </div>

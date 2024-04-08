@@ -1,9 +1,7 @@
 import React from 'react'
-import { useContext } from 'react'
-import { FormContext } from './FormContext'
 import TextField from '@mui/material/TextField';
-export default function Input({ uuid, value }) {
-    const { handleChange } = useContext(FormContext)
+export default function Input({ uuid, value, onChange }) {
+
 
     return (
 
@@ -12,7 +10,7 @@ export default function Input({ uuid, value }) {
                 id={uuid}
                 value={value}
                 type="text"
-                onChange={e => handleChange(uuid, e)}
+                onChange={e => onChange(uuid, e)}
                 placeholder='Short Answer'
             />
         </div>

@@ -1,9 +1,6 @@
 import React from 'react'
-import { useContext } from 'react'
-import { FormContext } from './FormContext'
+export default function CheckBox({ uuid, field_options, value, onChange }) {
 
-export default function CheckBox({ uuid, field_options, value }) {
-    const { handleChange } = useContext(FormContext)
     return (
         <div className="option-wrapper">
             {
@@ -15,7 +12,7 @@ export default function CheckBox({ uuid, field_options, value }) {
                             name={`checkbox_${uuid}`}
                             value={option.choice}
                             checked={value === option.choice}
-                            onChange={e => handleChange(uuid, e)}
+                            onChange={e => onChange(uuid, e)}
                         />
                         <label className='lable-option multiyop' htmlFor={`${uuid}_${option.choice}`}>
                             {option.choice}

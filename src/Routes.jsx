@@ -16,6 +16,10 @@ import AccidentForm from "./Pages/Manual/AccidentForm";
 import Report from "./Pages/Report";
 import Infractions from './Pages/Manual/Infractions';
 import Inspections from './Pages/Manual/Inspections';
+import OrdinaryAccidentForm from './Pages/Ordinary/OrdinaryAccidentForm';
+import OrdinaryInfractions from './Pages/Ordinary/OrdinaryInfractions';
+import OrdinaryInpections from "./Pages/Ordinary/OrdinaryInpections";
+import OrdinaryPermitForm from "./Pages/Ordinary/OrdinaryPermitForm";
 
 let routes = [
 
@@ -29,6 +33,10 @@ let routes = [
 
     { path: "/ordinaryhome", element: <OrdinaryRoutes><OrdinaryHome /></OrdinaryRoutes> },
     { path: "/ordinarychat", element: <OrdinaryRoutes><OrdinaryChat /></OrdinaryRoutes> },
+    // { path: "/ordinaryaccidentform", element: <OrdinaryRoutes><Ordinary /></OrdinaryRoutes> },
+    // { path: "/ordinaryviolationsform", element: <OrdinaryRoutes><Ordinary /></OrdinaryRoutes> },
+    // { path: "/ordinaryinpections", element: <OrdinaryRoutes><Ordinary /></OrdinaryRoutes> },
+    // { path: "/ordinarypermitform", element: <OrdinaryRoutes><Ordinary /></OrdinaryRoutes> },
 
     { path: "/", element: <SeniorRoutes><Home /></SeniorRoutes> },
     { path: "/addnewform", element: <SeniorRoutes><AddNewForm /></SeniorRoutes> },
@@ -36,6 +44,7 @@ let routes = [
     { path: "/filledforms/:todoid", element: <SeniorRoutes><FilledForms /></SeniorRoutes> },
     { path: "/reports", element: <SeniorRoutes><Report /></SeniorRoutes> },
     { path: "/chat", element: <SeniorRoutes><Chat /></SeniorRoutes> },
+
     { path: "*", element: <PageNotFound /> },
 
 ]

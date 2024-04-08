@@ -179,7 +179,6 @@ export default function ManualSideBar() {
                                 </div>
                             </div>
                         </DrawerHeader>
-
                         <List>
                             {['Home', "chat", "Permit form", "Accident form", "Violations form", "Inspections form", "Log out"].map((text, index) => (
                                 <CSSTransition key={text} timeout={300} classNames="fade">
@@ -200,7 +199,6 @@ export default function ManualSideBar() {
                                 </CSSTransition>
                             ))}
                         </List>
-
                     </Drawer>
                 </Box>
             </div>

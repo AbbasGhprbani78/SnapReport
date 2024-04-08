@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react'
-import '../Style/AddNewForm.css'
+import '../../Style/AddNewForm.css'
 import { Row, Col } from 'react-bootstrap'
-import InputCreateForm from '../Components/InputCreateForm/InputCreateForm'
-import Button from '../Components/Button/Button'
-import AddInput from '../Components/AddInput/AddInput'
-import BoxInput from '../Components/BoxInput/BoxInput'
+import InputCreateForm from '../../Components/InputCreateForm/InputCreateForm'
+import Button from '../../Components/Button/Button'
+import AddInput from '../../Components/AddInput/AddInput'
+import BoxInput from '../../Components/BoxInput/BoxInput'
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import FormDisplay from '../Components/FormDisplay/FormDisplay'
+import FormDisplay from '../../Components/FormDisplay/FormDisplay'
 import DeleteIcon from '@mui/icons-material/Delete';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import MenuItem from '@mui/material/MenuItem';
@@ -15,13 +15,13 @@ import FormControl from '@mui/material/FormControl';
 import ListItemText from '@mui/material/ListItemText';
 import Select from '@mui/material/Select';
 import Checkbox from '@mui/material/Checkbox';
-import { IP } from '../App'
+import { IP } from '../../App'
 import { v4 as uuidv4 } from 'uuid';
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import Loading from '../Components/Loading/Loading'
-import Header from '../Components/Header/Header'
+import Loading from '../../Components/Loading/Loading'
+import Header from '../../Components/Header/Header'
 
 
 const ITEM_HEIGHT = 48;
@@ -570,7 +570,7 @@ export default function AddNewForm({ showForm, back, mainForm, isDelete, getAllF
                                     </div>
                                 </div>
                             }
-                            <Col md={9} className='form-display-container'>
+                            <Col md={8} xl={9} className='form-display-container'>
                                 <div className={`form-display ${fromInfom.title ? '' : "fomImg"}`}>
                                     {
                                         fromInfom.title &&
@@ -582,7 +582,7 @@ export default function AddNewForm({ showForm, back, mainForm, isDelete, getAllF
 
                                 </div>
                             </Col>
-                            <Col md={3} className='form-create-option-container'>
+                            <Col md={4} xl={3} className='form-create-option-container'>
                                 <div className="form-create-option">
                                     <div className='inputWrapper'>
                                         <span className='input-title'>

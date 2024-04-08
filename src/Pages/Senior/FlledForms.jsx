@@ -5,12 +5,12 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
-import Header from '../Components/Header/Header'
-import '../Style/FaildForm.css'
-import PlaceForm from '../Components/PlaceForm/PlaceForm';
-import ConditionFormBox from '../Components/ConditionFormBox/ConditionFormBox';
+import Header from '../../Components/Header/Header'
+import '../../Style/FaildForm.css'
+import PlaceForm from '../../Components/PlaceForm/PlaceForm';
+import ConditionFormBox from '../../Components/ConditionFormBox/ConditionFormBox';
 import axios from 'axios';
-import { IP } from '../App';
+import { IP } from '../../App';
 import { useParams } from 'react-router-dom';
 
 

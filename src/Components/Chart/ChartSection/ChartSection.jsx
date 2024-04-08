@@ -74,7 +74,7 @@ export default function ChartSection() {
                         innerRadius={60}
                         outerRadius={80}
                         fill="#8884d8"
-                        paddingAngle={5}
+                        paddingAngle={2}
                         dataKey="value"
                     >
                         {data.map((entry, index) => (

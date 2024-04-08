@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react'
-import '../Style/Report.css'
-import ChartProgress from '../Components/Chart/ChartProgress/ChartProgress'
-import ChartSection from '../Components/Chart/ChartSection/ChartSection'
-import LineCharts from '../Components/Chart/LineCharts/LineCharts'
-import ChartViewers from '../Components/Chart/ChartViewers/ChartViewers'
-import Header from '../Components/Header/Header'
+import '../../Style/Report.css'
+import ChartProgress from '../../Components/Chart/ChartProgress/ChartProgress'
+import ChartSection from '../../Components/Chart/ChartSection/ChartSection'
+import LineCharts from '../../Components/Chart/LineCharts/LineCharts'
+import ChartViewers from '../../Components/Chart/ChartViewers/ChartViewers'
+import Header from '../../Components/Header/Header'
 import { Col } from 'react-bootstrap'
 import Accordion from '@mui/material/Accordion';
 import AccordionDetails from '@mui/material/AccordionDetails';

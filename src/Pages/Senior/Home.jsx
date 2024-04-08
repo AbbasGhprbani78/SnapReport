@@ -1,19 +1,19 @@
 import React, { useState, useEffect } from 'react'
-import '../Style/Home.css'
+import '../../Style/Home.css'
 import { Link } from 'react-router-dom'
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';;
 import { Col } from 'react-bootstrap';
 import AddNewForm from './AddNewForm';
-import { IP } from '../App';
+import { IP } from '../../App';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import FormOverView from '../Components/FormOverView/FormOverView';
+import FormOverView from '../../Components/FormOverView/FormOverView';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import EditCalendarIcon from '@mui/icons-material/EditCalendar';
-import Header from '../Components/Header/Header'
-import NotificationsHome from '../Components/NotificationsHome/NotificationsHome'
-import FailHomeItem from '../Components/FailHomeItem/FailHomeItem';
-import PlaceForm from '../Components/PlaceForm/PlaceForm';
+import Header from '../../Components/Header/Header'
+import NotificationsHome from '../../Components/NotificationsHome/NotificationsHome'
+import FailHomeItem from '../../Components/FailHomeItem/FailHomeItem';
+import PlaceForm from '../../Components/PlaceForm/PlaceForm';
 
 export default function Home() {
 

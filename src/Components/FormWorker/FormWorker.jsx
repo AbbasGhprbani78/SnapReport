@@ -143,6 +143,7 @@ export default function FormWorker({
             }
         }
     }
+
     const sendFormHandlerContinue = async () => {
         const updatedFields = sendFileds.map(obj => {
             return { ...obj, field_uuid: obj.uuid, uuid: undefined };
@@ -219,7 +220,6 @@ export default function FormWorker({
             }
         }
     }
-
 
     return (
         <>

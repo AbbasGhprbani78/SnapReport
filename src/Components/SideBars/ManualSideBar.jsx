@@ -201,7 +201,6 @@ export default function ManualSideBar() {
                                 </CSSTransition>
                             ))}
                         </List>
-
                     </Drawer>
                 </Box>
             </div>

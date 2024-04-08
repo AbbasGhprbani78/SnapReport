@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react'
-import '../Style/AllForm.css'
+import '../../Style/AllForm.css'
 import AddNewForm from './AddNewForm';
-import FormOverView from '../Components/FormOverView/FormOverView';
+import FormOverView from '../../Components/FormOverView/FormOverView';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import EditCalendarIcon from '@mui/icons-material/EditCalendar';
 import axios from 'axios';
-import { IP } from '../App';
-import Header from '../Components/Header/Header';;
+import { IP } from '../../App';
+import Header from '../../Components/Header/Header';;
 
 export default function AllForm() {
 

@@ -7,3 +7,22 @@
 .checkBoxText {
     font-size: var(--fontsize-3);
 }
+
+.icon-wrapper {
+    transition: background-color 0.3s ease;
+}
+
+.rotate-animation {
+    animation: rotate 1s ease;
+    border-radius: 50%;
+}
+
+@keyframes rotate {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}

@@ -1,20 +1,20 @@
 import React, { useEffect, useRef, useState } from 'react'
-import '../Style/Chat.css'
-import avatar from '../Images/avatar.png'
+import '../../Style/Chat.css'
+import avatar from '../../Images/avatar.png'
 import SendSharpIcon from '@mui/icons-material/SendSharp';
 import AttachmentSharpIcon from '@mui/icons-material/AttachmentSharp';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
-import Audiance from '../Components/Audiance/Audiance';
-import UserInfo from '../Components/UserInfo/UserInfo';
-import { IP } from '../App'
+import Audiance from '../../Components/Audiance/Audiance';
+import UserInfo from '../../Components/UserInfo/UserInfo';
+import { IP } from '../../App'
 import axios from 'axios';
-import Message from '../Components/Message/Message'
+import Message from '../../Components/Message/Message'
 import { ReactMic } from 'react-mic';
 import { useNavigate } from 'react-router-dom';
 import MicOffIcon from '@mui/icons-material/MicOff';
 import KeyboardVoiceIcon from '@mui/icons-material/KeyboardVoice';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-import Header from '../Components/Header/Header';
+import Header from '../../Components/Header/Header';
 import { CircularProgressbar } from "react-circular-progressbar";
 import { BsFillFileEarmarkArrowDownFill } from 'react-icons/bs'
 export default function Chat() {

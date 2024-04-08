@@ -20,7 +20,6 @@ export default function NotificationsHome() {
                 headers,
             });
             if (response.status === 200) {
-                console.log(response.data)
                 setNotifs(response.data)
             }
 

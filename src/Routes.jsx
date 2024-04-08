@@ -1,9 +1,9 @@
-import Home from "./Pages/Home";
+import Home from "./Pages/Senior/Home";
 import PageNotFound from "./Pages/PageNotFound";
-import AddNewForm from "./Pages/AddNewForm";
-import AllForm from "./Pages/AllForm";
-import FilledForms from './Pages/FlledForms'
-import Chat from './Pages/Chat'
+import AddNewForm from "./Pages/Senior/AddNewForm";
+import AllForm from "./Pages/Senior/AllForm";
+import FilledForms from './Pages/Senior/FlledForms'
+import Chat from './Pages/Senior/Chat'
 import SeniorRoutes from "./Components/SeniorRoutes/SeniorRoutes";
 import ManualChat from "./Pages/Manual/ManualChat";
 import ManualHome from "./Pages/Manual/ManualHome";
@@ -13,7 +13,7 @@ import OrdinaryRoutes from "./Components/OrdinaryRoutes/OrdinaryRoutes";
 import ManualRoutes from "./Components/ManualRoutes.jsx/ManualRoutes";
 import PermitForm from "./Pages/Manual/PermitForm";
 import AccidentForm from "./Pages/Manual/AccidentForm";
-import Report from "./Pages/Report";
+import Report from "./Pages/Senior/Report";
 import Infractions from './Pages/Manual/Infractions';
 import Inspections from './Pages/Manual/Inspections';
 import OrdinaryAccidentForm from './Pages/Ordinary/OrdinaryAccidentForm';
@@ -33,10 +33,11 @@ let routes = [
 
     { path: "/ordinaryhome", element: <OrdinaryRoutes><OrdinaryHome /></OrdinaryRoutes> },
     { path: "/ordinarychat", element: <OrdinaryRoutes><OrdinaryChat /></OrdinaryRoutes> },
-    // { path: "/ordinaryaccidentform", element: <OrdinaryRoutes><Ordinary /></OrdinaryRoutes> },
-    // { path: "/ordinaryviolationsform", element: <OrdinaryRoutes><Ordinary /></OrdinaryRoutes> },
-    // { path: "/ordinaryinpections", element: <OrdinaryRoutes><Ordinary /></OrdinaryRoutes> },
-    // { path: "/ordinarypermitform", element: <OrdinaryRoutes><Ordinary /></OrdinaryRoutes> },
+    { path: "/ordinaryaccidentform", element: <OrdinaryRoutes><OrdinaryAccidentForm /></OrdinaryRoutes> },
+    { path: "/ordinaryviolationsform", element: <OrdinaryRoutes><OrdinaryInfractions /></OrdinaryRoutes> },
+    { path: "/ordinaryinpections", element: <OrdinaryRoutes><OrdinaryInpections /></OrdinaryRoutes> },
+    { path: "/ordinarypermitform", element: <OrdinaryRoutes><OrdinaryPermitForm /></OrdinaryRoutes> },
+
 
     { path: "/", element: <SeniorRoutes><Home /></SeniorRoutes> },
     { path: "/addnewform", element: <SeniorRoutes><AddNewForm /></SeniorRoutes> },

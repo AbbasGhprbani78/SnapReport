@@ -234,8 +234,8 @@ export default function FormWorker({
                     </div>
                 </div>
 
-                <div className="formWorker-top my-4">
-                    <span style={{ color: "#bdb5b5" }}>Permit Forms</span>
+                <div className="formWorker-top my-3">
+                    <span style={{ color: "#bdb5b5" }}></span>
                 </div>
                 <div className="formWorker form-display">
                     <h3 className='from-title'>{mainTitle}</h3>

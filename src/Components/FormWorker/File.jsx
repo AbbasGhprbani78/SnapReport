@@ -13,7 +13,7 @@ export default function File({ uuid, onChange, value }) {
                             :
                             <CloudUploadOutlinedIcon style={{ fontSize: "2rem" }} />
                     }
-                    <p className='upload-file'> Upload file</p>
+                    <p className='upload-file'> Upload image</p>
                 </label>
                 <input
                     style={{ display: "none" }}

@@ -51,7 +51,6 @@ export default function Chat() {
             }
 
         } catch (e) {
-            (e)
             if (e.response.status === 401) {
                 localStorage.clear()
                 navigate("/login")

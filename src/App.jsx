@@ -1,6 +1,6 @@
 import './App.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Route, Routes, useRoutes } from 'react-router-dom';
+import { Route, Routes, useRoutes, useLocation } from 'react-router-dom';
 import routes from './Routes';
 import SeniorsideBar from './Components/SideBars/SeniorSideBar';
 import OrdinarySideBars from './Components/SideBars/OrdinarySideBars'
@@ -12,6 +12,8 @@ import { useState, useEffect, useRef } from 'react';
 import { Alert } from 'react-bootstrap';
 import WarningAmberIcon from '@mui/icons-material/WarningAmber';
 import VerifiedUserOutlinedIcon from '@mui/icons-material/VerifiedUserOutlined';
+import GppMaybeOutlinedIcon from '@mui/icons-material/GppMaybeOutlined';
+import axios from 'axios';
 export const IP = "https://snapreport.ariisco.com"
 // export const IP = "http://185.79.156.226:9500"
 function App() {
@@ -20,8 +22,9 @@ function App() {
   const subUserRef = useRef(null);
   const { sharedData } = useMyContext();
   const [showModalAccident, setShowModalAccident] = useState(false)
-  const [isAccident, setIsAccident] = useState(false)
+  const [isAccident, setIsAccident] = useState(0)
   const { type } = useMyContext()
+  const location = useLocation()
 
   const hideModal = () => {
     setShowModalAccident(false)
@@ -33,12 +36,41 @@ function App() {
         setShowModalAccident(false);
       }
     }
-
     document.addEventListener('mousedown', handleClickOutside);
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, []);
+
+  const lastDataLable = async () => {
+
+    const access = localStorage.getItem("access")
+    const headers = {
+      Authorization: `Bearer ${access}`
+    };
+    try {
+      const response = await axios.get(`${IP}/form/last-data-label/`, {
+        headers,
+      })
+
+      if (response.status === 200) {
+        setIsAccident(response.data.label)
+
+      }
+
+    } catch (e) {
+      console.log(e)
+      if (e.response.status === 401) {
+        localStorage.clear()
+        navigate("/login")
+      }
+    }
+
+  }
+
+  useEffect(() => {
+    lastDataLable()
+  }, [location])
 
 
   return (
@@ -76,23 +108,39 @@ function App() {
                   ((sharedData === "S" || type === "S") || (sharedData === "O" || type === "O")) ?
                     <>
                       {
-                        isAccident ?
+                        isAccident === 2 ?
                           <Alert className='d-flex align-items-center justify-content-between alert-accident'>
                             <div className='content-alert '>
                               <h4>Warning</h4>
                               <p className='alert-text'>Lorem ipsum dolor sit amet consectetur adipisicing elit...</p>
                             </div>
-                            < WarningAmberIcon style={{ fontSize: "2rem", cursor: "pointer" }} onClick={() => setShowModalAccident(true)} />
+                            < WarningAmberIcon
+                              style={{ fontSize: "2rem", cursor: "pointer" }}
+                              onClick={() => setShowModalAccident(true)}
+                            />
                           </Alert> :
-                          <div className='noAccident'>
-                            <div className='chevorn'></div>
-                            <div className='Verifiedwrapper'>
-                              <p className='noaccident-text'>No Accident</p>
-                              <span className='span-Verified'>
-                                <VerifiedUserOutlinedIcon style={{ color: "#ffffff" }} />
-                              </span>
+                          isAccident === 1 ?
+                            <div className='warningAccident'>
+                              <div className='Verifiedwrapper'>
+                                <p className='noaccident-text'>No Accident</p>
+                                <span className='span-warning'>
+                                  <GppMaybeOutlinedIcon
+                                    style={{ color: "#ffffff" }}
+                                  />
+                                </span>
+                              </div>
+                            </div> :
+                            <div className='noAccident'>
+                              <div className='chevorn'></div>
+                              <div className='Verifiedwrapper'>
+                                <p className='noaccident-text'>No Accident</p>
+                                <span className='span-Verified'>
+                                  <VerifiedUserOutlinedIcon
+                                    style={{ color: "#ffffff" }}
+                                  />
+                                </span>
+                              </div>
                             </div>
-                          </div>
                       }
                     </> : null
                 }

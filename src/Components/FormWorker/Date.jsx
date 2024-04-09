@@ -10,6 +10,7 @@ export default function Time({ uuid, value, onChange }) {
                 value={value}
                 type="date"
                 onChange={e => onChange(uuid, e)}
+                className={"TextField"}
             />
         </div>
     )

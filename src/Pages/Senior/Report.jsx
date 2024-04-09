@@ -3,7 +3,7 @@ import '../../Style/Report.css'
 import ChartProgress from '../../Components/Chart/ChartProgress/ChartProgress'
 import ChartSection from '../../Components/Chart/ChartSection/ChartSection'
 import LineCharts from '../../Components/Chart/LineCharts/LineCharts'
-import ChartViewers from '../../Components/Chart/ChartViewers/ChartViewers'
+import PermitViewers from '../../Components/Chart/PermitViewers/PermitViewers'
 import Header from '../../Components/Header/Header'
 import { Col } from 'react-bootstrap'
 import Accordion from '@mui/material/Accordion';
@@ -11,15 +11,98 @@ import AccordionDetails from '@mui/material/AccordionDetails';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import Viewers1 from '../../Components/Chart/Viewers1/Viewers1'
+import Viewers2 from '../../Components/Chart/Viewers2/Viewers2'
+import axios from 'axios'
+import { IP } from '../../App'
 
 export default function Report() {
 
     const [expanded, setExpanded] = React.useState(false);
+    const [progressData, setProgressData] = useState("");
+    const [permitState, setPermitState] = useState("");
+    const [kindForm, setKindForm] = useState("")
 
     const handleChange = (panel) => (event, isExpanded) => {
         setExpanded(isExpanded ? panel : false);
     };
 
+    const getProgressData = async () => {
+        const access = localStorage.getItem("access")
+        const headers = {
+            Authorization: `Bearer ${access}`
+        };
+        try {
+            const response = await axios.get(`${IP}/form/equipment-stats/`, {
+                headers,
+            })
+
+            if (response.status === 200) {
+                setProgressData(response.data)
+            }
+
+        } catch (e) {
+            console.log(e)
+            if (e.response.status === 401) {
+                localStorage.clear()
+                navigate("/login")
+            }
+        }
+    }
+
+    const getPermitState = async () => {
+        const access = localStorage.getItem("access")
+        const headers = {
+            Authorization: `Bearer ${access}`
+        };
+        try {
+            const response = await axios.get(`${IP}/form/permit-form-state/`, {
+                headers,
+            })
+
+            if (response.status === 200) {
+                console.log(response.data)
+                setPermitState(response.data)
+            }
+
+        } catch (e) {
+            console.log(e)
+            if (e.response.status === 401) {
+                localStorage.clear()
+                navigate("/login")
+            }
+        }
+    }
+
+    const getKindForm = async () => {
+        const access = localStorage.getItem("access")
+        const headers = {
+            Authorization: `Bearer ${access}`
+        };
+        try {
+            const response = await axios.get(`${IP}/form/form-state/`, {
+                headers,
+            })
+
+            if (response.status === 200) {
+                console.log(response.data)
+                setKindForm(response.data)
+            }
+
+        } catch (e) {
+            console.log(e)
+            if (e.response.status === 401) {
+                localStorage.clear()
+                navigate("/login")
+            }
+        }
+    }
+
+    useEffect(() => {
+        getProgressData()
+        getPermitState()
+        getKindForm()
+    }, [])
     return (
         <>
             <Header />
@@ -32,13 +115,19 @@ export default function Report() {
                         <Col xs={12} lg={8} className="chart-left">
                             <div className='d-flex justify-content-around flex-wrap'>
                                 <Col xs={12} md={6} xl={4}>
-                                    <ChartProgress percent={25} />
+                                    <ChartProgress
+                                        percent={progressData.percentage_age_equipment?.toFixed(2)}
+                                        title={"age equipment"}
+                                    />
                                 </Col>
-                                <Col xs={12} md={6} xl={4}>
+                                {/* <Col xs={12} md={6} xl={4}>
                                     <ChartProgress percent={50} />
-                                </Col>
+                                </Col> */}
                                 <Col xs={12} md={6} xl={4}>
-                                    <ChartProgress percent={75} />
+                                    <ChartProgress
+                                        percent={progressData.percentage_failure_rate?.toFixed(2)}
+                                        title={"failure rate"}
+                                    />
                                 </Col>
                             </div>
 
@@ -51,9 +140,9 @@ export default function Report() {
                             </div>
                         </Col>
                         <Col xs={12} lg={4} className="chart-right">
-                            <ChartViewers />
-                            <ChartViewers />
-                            <ChartViewers />
+                            <PermitViewers valueViewers={permitState} />
+                            <Viewers1 kindForm={kindForm} />
+                            <Viewers2 />
                         </Col>
                     </div>
                 </div>

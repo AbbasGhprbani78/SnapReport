@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom";
 import { useMyContext } from '../RoleContext';
 import logo from '../../Images/logo.svg'
 import axios from 'axios';
+import { TfiTumblr } from 'react-icons/tfi';
 
 
 export default function FormSignIn({ handleTabChange }) {
@@ -57,6 +58,28 @@ export default function FormSignIn({ handleTabChange }) {
         return result;
     };
 
+    const randomData = async () => {
+        const access = localStorage.getItem("access")
+        const headers = {
+            Authorization: `Bearer${access}`
+        }
+        try {
+            const response = await axios.get(`${IP}/form/random-data/`, {
+                headers
+            })
+
+            if (response.status === 200) {
+                console.log(response.data)
+            }
+        } catch (error) {
+
+            if (e.response.status === 401) {
+                localStorage.clear()
+                navigate("/login")
+            }
+        }
+    }
+
     // send value of form to server
     async function submit(e) {
         e.preventDefault();
@@ -76,6 +99,7 @@ export default function FormSignIn({ handleTabChange }) {
                 updateSharedData(response.data.user_type)
                 if (response.data.user_type === "S") {
                     navigate("/")
+                    randomData()
                 } if (response.data.user_type === "O") {
                     navigate("/ordinaryhome")
                 } if (response.data.user_type === "M") {
@@ -110,6 +134,8 @@ export default function FormSignIn({ handleTabChange }) {
 
         }
     }
+
+
 
     return (
         <>

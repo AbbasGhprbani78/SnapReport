@@ -1,7 +1,7 @@
 import React from "react";
 import "./ChartProgress.css";
 
-export default function ChartProgress({ percent }) {
+export default function ChartProgress({ percent, title }) {
     const strokeWidth = 8
     const radius = 50 - strokeWidth / 2;
     const pathDescription = `
@@ -18,7 +18,7 @@ export default function ChartProgress({ percent }) {
 
     return (
         <div className="chartProgress-content">
-            <p className='progress-title'>Division 1</p>
+            <p className='progress-title'>{title}</p>
             <div className="chart-progress-main">
                 <svg
                     className={"CircularProgressbar"}

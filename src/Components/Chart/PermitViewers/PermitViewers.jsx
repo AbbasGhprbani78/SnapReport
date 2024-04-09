@@ -2,18 +2,20 @@ import React from 'react'
 import './ChartViewers.css'
 import { PieChart, Pie, Legend, Tooltip, ResponsiveContainer } from 'recharts';
 
-const data01 = [
-    { name: 'Group A', value: 400, fill: '#a6b7d4' },
-    { name: 'Group B', value: 300, fill: '#ff92ae' },
-    { name: 'Group C', value: 300, fill: '#4c6fff' },
-];
 
 
-export default function ChartViewers() {
+export default function PermitViewers({ valueViewers }) {
+    console.log(valueViewers)
+    const data01 = [
+        { name: "Reject", value: valueViewers?.reject_count, fill: '#ff92ae' },
+        { name: "Accept", value: valueViewers?.accept_count, fill: '#4c6fff' },
+        { name: "Pending", value: valueViewers?.none_count, fill: '#a6b7d4' },
+    ];
+
     return (
         <>
             <div className='ChartViewers mb-3'>
-                <p className="viewer-title">Viewers</p>
+                <p className="viewer-title">Permit Form</p>
                 <div className='PieChart-wrapper' style={{ width: "100%", height: 300 }}>
                     <ResponsiveContainer>
                         <PieChart>

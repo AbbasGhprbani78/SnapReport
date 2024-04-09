@@ -142,7 +142,7 @@ export default function Report() {
                         <Col xs={12} lg={4} className="chart-right">
                             <PermitViewers valueViewers={permitState} />
                             <Viewers1 kindForm={kindForm} />
-                            <Viewers2 />
+                            {/* <Viewers2 /> */}
                         </Col>
                     </div>
                 </div>

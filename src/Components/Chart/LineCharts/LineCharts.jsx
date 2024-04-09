@@ -1,68 +1,63 @@
 import React, { useState, useEffect } from 'react'
 import './LineCharts.css'
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
-
-const data = [
-    {
-        name: 'Page A',
-        uv: 47,
-        pv: 38,
-        amt: 2400,
-    },
-    {
-        name: 'Page B',
-        uv: 23,
-        pv: 12,
-        amt: 2210,
-    },
-    {
-        name: 'Page C',
-        uv: 65,
-        pv: 35,
-        amt: 2290,
-    },
-    {
-        name: 'Page D',
-        uv: 41,
-        pv: 19,
-        amt: 2000,
-    },
-    {
-        name: 'Page E',
-        uv: 60,
-        pv: 59,
-        amt: 2181,
-    },
-    {
-        name: 'Page F',
-        uv: 52,
-        pv: 44,
-        amt: 2500,
-    },
-    {
-        name: 'Page G',
-        uv: 78,
-        pv: 27,
-        amt: 2100,
-    },
-];
-
+import axios from 'axios'
+import { IP } from '../../../App'
 
 export default function LineCharts() {
+
+    const [lineData, setLineData] = useState("")
+
+    const getlineChart = async () => {
+        const access = localStorage.getItem("access")
+        const headers = {
+            Authorization: `Bearer ${access}`
+        };
+        try {
+            const response = await axios.get(`${IP}/form/label-count/`, {
+                headers,
+            })
+
+            if (response.status === 200) {
+                const processedData = response.data.map(item => {
+                    const [year, month, day] = item.date.split('-');
+                    return {
+                        ...item,
+                        date: `${month}-${day}`,
+                        low: item.label_1_count,
+                        high: item.label_2_count
+                    };
+                });
+                setLineData(processedData);
+            }
+
+        } catch (e) {
+            console.log(e)
+            if (e.response.status === 401) {
+                localStorage.clear()
+                navigate("/login")
+            }
+        }
+    }
+    useEffect(() => {
+        getlineChart()
+    }, [])
+
+
 
     return (
         <div className='linechart-wrapper' style={{ width: '98%', height: 300 }}>
             <ResponsiveContainer>
                 <LineChart
-                    data={data}
+                    data={lineData ? lineData : ""}
                     margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
                 >
-                    <XAxis dataKey="name" />
+                    <XAxis dataKey="date" />
                     <YAxis />
                     <Tooltip />
                     <Legend />
-                    <Line type="monotone" dataKey="pv" stroke="#8884d8" activeDot={{ r: 8 }} />
-                    <Line type="monotone" dataKey="uv" stroke="#82ca9d" />
+                    <Line type="monotone" dataKey="low" stroke="#8884d8" activeDot={{ r: 8 }} />
+                    <Line type="monotone" dataKey="high" stroke="#82ca9d" />
                 </LineChart>
             </ResponsiveContainer>
         </div>

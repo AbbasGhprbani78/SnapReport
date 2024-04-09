@@ -1,72 +1,74 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import './ChartSection.css'
-import { PieChart, Pie, Sector, Cell, Tooltip, ResponsiveContainer } from 'recharts';
+import { PieChart, Pie, Sector, Cell, Tooltip } from 'recharts';
 import Table from 'react-bootstrap/Table'
-const data = [
-    { name: 'Group A', value: 400 },
-    { name: 'Group B', value: 300 },
-    { name: 'Group C', value: 300 },
-    { name: 'Group D', value: 200 },
-];
-const data2 = [
-    {
-        labale: "lable1",
-        value: 12,
-        precentage: 40
-    },
-    {
-        labale: "lable1",
-        value: 45,
-        precentage: 17
-    },
-    {
-        labale: "lable1",
-        value: 22,
-        precentage: 65
-    },
-    {
-        labale: "lable1",
-        value: 30,
-        precentage: 67
-    },
-    {
-        labale: "lable1",
-        value: 45,
-        precentage: 17
-    },
-    {
-        labale: "lable1",
-        value: 22,
-        precentage: 65
-    },
-    {
-        labale: "lable1",
-        value: 30,
-        precentage: 67
-    },
-    {
-        labale: "lable1",
-        value: 45,
-        precentage: 17
-    },
-    {
-        labale: "lable1",
-        value: 22,
-        precentage: 65
-    },
-    {
-        labale: "lable1",
-        value: 30,
-        precentage: 67
-    },
-]
+import axios from 'axios'
+import { IP } from '../../../App'
 
-const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
+
+
+const COLORS = ["#ff5c5c", '#FFBB28'];
 export default function ChartSection() {
+
+    const [chart, setChart] = useState("")
+
+    const getChartData = async () => {
+        const access = localStorage.getItem("access")
+        const headers = {
+            Authorization: `Bearer ${access}`
+        };
+        try {
+            const response = await axios.get(`${IP}/form/data-label-count/`, {
+                headers,
+            })
+
+            if (response.status === 200) {
+                console.log(response.data)
+                setChart(response.data)
+            }
+
+        } catch (e) {
+            console.log(e)
+            if (e.response.status === 401) {
+                localStorage.clear()
+                navigate("/login")
+            }
+        }
+    }
+
+    useEffect(() => {
+        getChartData()
+    }, [])
+
+    const data = [
+        { name: 'High', value: chart?.two },
+        { name: 'Low', value: chart?.one },
+    ];
+
+    const precantageLow = (chart?.one * 100) / (chart?.one + chart?.two)
+    const precantageHight = (chart?.two * 100) / (chart?.one + chart?.two)
+
+    const data2 = [
+        {
+            labale: "High",
+            value: chart?.two,
+            precentage: precantageHight && precantageHight.toFixed(2)
+        },
+        {
+            labale: "Low",
+            value: chart?.one,
+            precentage: precantageLow && precantageLow.toFixed(2)
+        },
+
+    ]
+
+
+
     return (
         <>
             <div className='ChartSection-container'>
                 <PieChart width={300} height={200}>
+                    <text x="48%" y="50%" textAnchor="middle" dominantBaseline="middle" fontSize="24" fill="#333">{chart?.one + chart?.two}</text>
                     <Pie
                         data={data}
                         cx={140}

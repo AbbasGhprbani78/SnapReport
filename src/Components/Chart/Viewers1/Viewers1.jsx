@@ -3,14 +3,17 @@ import '../PermitViewers/ChartViewers.css'
 import { PieChart, Pie, Legend, Tooltip, ResponsiveContainer } from 'recharts';
 
 export default function Viewers1({ kindForm }) {
-
-    const data01 = [
-
-        { name: 'Permit', value: kindForm.permit_count, fill: '#a6b7d4' },
-        { name: 'Accident', value: kindForm.permit_accident, fill: '#ff92ae' },
-        { name: 'Violations', value: kindForm.permit_violation, fill: '#4c6fff' },
-        { name: 'Inpections', value: kindForm.inspections_count, fill: '#4c6fff' },
+    const data1 = [
+        { name: "There is no form", value: 100, fill: '#808080' },
     ];
+
+    const data2 = [
+        { name: 'Permit', value: kindForm.permit_count, fill: '#9747ff' },
+        { name: 'Accident', value: kindForm.accident_count, fill: '#2fcd96' },
+        { name: 'Violations', value: kindForm.violation_count, fill: '#CC3366' },
+        { name: 'Inpections', value: kindForm.inspections_count, fill: '#ffa500' },
+    ];
+
     return (
         <div className='ChartViewers mb-3'>
             <p className="viewer-title">All Form</p>
@@ -20,7 +23,14 @@ export default function Viewers1({ kindForm }) {
                         <Pie
                             dataKey="value"
                             isAnimationActive={false}
-                            data={data01}
+                            data={
+                                kindForm.permit_count &&
+                                    kindForm.accident_count &&
+                                    kindForm.violation_count &&
+                                    kindForm.inspections_count ?
+                                    data1 :
+                                    data2
+                            }
                             cx="50%"
                             cy="50%"
                             outerRadius={80}

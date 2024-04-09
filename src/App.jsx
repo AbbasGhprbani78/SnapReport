@@ -54,8 +54,8 @@ function App() {
       })
 
       if (response.status === 200) {
-        setIsAccident(response.data.label)
-
+        setIsAccident(response.data)
+        console.log(response.data)
       }
 
     } catch (e) {
@@ -90,7 +90,13 @@ function App() {
                   <div style={{ textAlign: "right", padding: "15px" }}>
                     <CloseIcon style={{ cursor: "pointer" }} onClick={hideModal} />
                   </div>
-                  <h3 className='title-wraning'>Warning</h3>
+                  <h3
+                    className={`title-wraning ${isAccident?.label === 0 ?
+                      "safe" : isAccident?.label === 1 ?
+                        "warning" : isAccident?.label === 2 ?
+                          "danger" : ""}`}>
+                    {isAccident?.label === 0 ? "No Accident" : isAccident?.label === 1 ? "Warinig" : "Danger"}
+                  </h3>
                   <p className='text-warnings'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo, sed, ut placeat ex ad deleniti expedita id quisquam non tenetur error esse dolor dolorem hic laborum impedit odit rem inventore?
                   </p>
                 </div>
@@ -108,10 +114,10 @@ function App() {
                   ((sharedData === "S" || type === "S") || (sharedData === "O" || type === "O")) ?
                     <>
                       {
-                        isAccident === 2 ?
+                        isAccident.label === 2 ?
                           <Alert className='d-flex align-items-center justify-content-between alert-accident'>
                             <div className='content-alert '>
-                              <h4>Warning</h4>
+                              <h4>Danger</h4>
                               <p className='alert-text'>Lorem ipsum dolor sit amet consectetur adipisicing elit...</p>
                             </div>
                             < WarningAmberIcon
@@ -119,13 +125,14 @@ function App() {
                               onClick={() => setShowModalAccident(true)}
                             />
                           </Alert> :
-                          isAccident === 1 ?
+                          isAccident.label === 1 ?
                             <div className='warningAccident'>
                               <div className='Verifiedwrapper'>
-                                <p className='noaccident-text'>No Accident</p>
+                                <p className='noaccident-text'>{isAccident?.risk_level}</p>
                                 <span className='span-warning'>
                                   <GppMaybeOutlinedIcon
-                                    style={{ color: "#ffffff" }}
+                                    onClick={() => setShowModalAccident(true)}
+                                    style={{ color: "#ffffff", cursor: "pointer" }}
                                   />
                                 </span>
                               </div>
@@ -133,10 +140,11 @@ function App() {
                             <div className='noAccident'>
                               <div className='chevorn'></div>
                               <div className='Verifiedwrapper'>
-                                <p className='noaccident-text'>No Accident</p>
+                                <p className='noaccident-text'>{isAccident?.risk_level}</p>
                                 <span className='span-Verified'>
                                   <VerifiedUserOutlinedIcon
-                                    style={{ color: "#ffffff" }}
+                                    onClick={() => setShowModalAccident(true)}
+                                    style={{ color: "#ffffff", cursor: "pointer" }}
                                   />
                                 </span>
                               </div>

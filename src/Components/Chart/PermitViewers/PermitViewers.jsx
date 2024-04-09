@@ -1,15 +1,18 @@
 import React from 'react'
 import './ChartViewers.css'
-import { PieChart, Pie, Legend, Tooltip, ResponsiveContainer } from 'recharts';
-
-
+import { PieChart, Pie, Tooltip, ResponsiveContainer } from 'recharts';
 
 export default function PermitViewers({ valueViewers }) {
-    console.log(valueViewers)
-    const data01 = [
-        { name: "Reject", value: valueViewers?.reject_count, fill: '#ff92ae' },
+
+
+    const data1 = [
+        { name: "There is no permit from", value: 100, fill: '#d3d3d3' },
+    ];
+
+    const data2 = [
+        { name: "Reject", value: valueViewers?.reject_count, fill: '#ff5c5c' },
         { name: "Accept", value: valueViewers?.accept_count, fill: '#4c6fff' },
-        { name: "Pending", value: valueViewers?.none_count, fill: '#a6b7d4' },
+        { name: "Pending", value: valueViewers?.none_count, fill: '#ffae42' },
     ];
 
     return (
@@ -22,7 +25,13 @@ export default function PermitViewers({ valueViewers }) {
                             <Pie
                                 dataKey="value"
                                 isAnimationActive={false}
-                                data={data01}
+                                data={
+                                    valueViewers.reject_count === 0 &&
+                                        valueViewers.reject_count === 0 &&
+                                        valueViewers.reject_count === 0 ?
+                                        data1 :
+                                        data2
+                                }
                                 cx="50%"
                                 cy="50%"
                                 outerRadius={80}

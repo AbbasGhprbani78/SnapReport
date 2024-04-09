@@ -67,7 +67,7 @@ export default function ChartProgress({ percent, title }) {
                             textAnchor: "middle"
                         }}
                     >
-                        {`${percent}%`}
+                        {`${percent ? percent : ""}%`}
                     </text>
                 </svg>
             </div>

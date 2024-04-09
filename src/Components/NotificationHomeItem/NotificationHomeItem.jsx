@@ -50,7 +50,6 @@ export default function NotificationHomeItem({
 
     const dateObject = dayjs(date).format('YYYY/MM/DD HH:mm');
 
-    console.log(read)
     return (
         <>
             <div className='NotificationHomeItem-container' onClick={showNotifDetail}>

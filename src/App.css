@@ -54,9 +54,21 @@
 }
 
 .title-wraning {
-  color: #CC3366;
+
   text-align: center;
   margin-bottom: 25px;
+}
+
+.safe {
+  color: #64bbe5;
+}
+
+.warning {
+  color: orange;
+}
+
+.danger {
+  color: #CC3366;
 }
 
 .text-warnings {

@@ -13,7 +13,7 @@ import { ToastContainer } from "react-toastify";
 export default function PlaceForm({ back, title, description, fields, formUuid, getAllFillForms }) {
     const [accept, setAccept] = useState(null);
     const [checks, setChecks] = useState(null)
-    console.log(checks)
+        (checks)
 
     const sendCondition = async (e, accept) => {
         e.preventDefault();
@@ -29,7 +29,7 @@ export default function PlaceForm({ back, title, description, fields, formUuid, 
             group: checks
         };
 
-        console.log(body)
+        (body)
 
         swal({
             title: "Are you Sure ?",
@@ -58,7 +58,7 @@ export default function PlaceForm({ back, title, description, fields, formUuid, 
                             getAllFillForms()
                             back()
                         }, 2000)
-                        console.log(response)
+                            (response)
                     }
                 } catch (e) {
 

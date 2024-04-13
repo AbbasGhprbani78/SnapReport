@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import Accordion from 'react-bootstrap/Accordion';
 import '../../Style/Report.css'
 import ChartProgress from '../../Components/Chart/ChartProgress/ChartProgress'
 import ChartSection from '../../Components/Chart/ChartSection/ChartSection'
@@ -6,13 +7,13 @@ import LineCharts from '../../Components/Chart/LineCharts/LineCharts'
 import PermitViewers from '../../Components/Chart/PermitViewers/PermitViewers'
 import Header from '../../Components/Header/Header'
 import { Col } from 'react-bootstrap'
-import Accordion from '@mui/material/Accordion';
-import AccordionDetails from '@mui/material/AccordionDetails';
-import AccordionSummary from '@mui/material/AccordionSummary';
-import Typography from '@mui/material/Typography';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+// import Accordion from '@mui/material/Accordion';
+// import AccordionDetails from '@mui/material/AccordionDetails';
+// import AccordionSummary from '@mui/material/AccordionSummary';
+// import Typography from '@mui/material/Typography';
+// import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Viewers1 from '../../Components/Chart/Viewers1/Viewers1'
-import Viewers2 from '../../Components/Chart/Viewers2/Viewers2'
+// import Viewers2 from '../../Components/Chart/Viewers2/Viewers2'
 import axios from 'axios'
 import { IP } from '../../App'
 
@@ -42,7 +43,7 @@ export default function Report() {
             }
 
         } catch (e) {
-            console.log(e)
+            (e)
             if (e.response.status === 401) {
                 localStorage.clear()
                 navigate("/login")
@@ -61,12 +62,12 @@ export default function Report() {
             })
 
             if (response.status === 200) {
-                console.log(response.data)
+                (response.data)
                 setPermitState(response.data)
             }
 
         } catch (e) {
-            console.log(e)
+            (e)
             if (e.response.status === 401) {
                 localStorage.clear()
                 navigate("/login")
@@ -85,12 +86,12 @@ export default function Report() {
             })
 
             if (response.status === 200) {
-                console.log(response.data)
+                (response.data)
                 setKindForm(response.data)
             }
 
         } catch (e) {
-            console.log(e)
+            (e)
             if (e.response.status === 401) {
                 localStorage.clear()
                 navigate("/login")
@@ -149,7 +150,42 @@ export default function Report() {
                 <div className="noti-report-wrapper my-3">
                     <p className='accident-notif-title'>Notifications Accident</p>
                     <div className='accrdion-weapper'>
-                        <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
+                        <Accordion defaultActiveKey="0">
+                            <Accordion.Item eventKey="0" className='mb-3'>
+                                <Accordion.Header>Accordion Item #1</Accordion.Header>
+                                <Accordion.Body>
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                                    eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+                                    minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+                                    aliquip ex ea commodo consequat. Duis aute irure dolor in
+                                    reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+                                    pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+                                    culpa qui officia deserunt mollit anim id est laborum.
+                                </Accordion.Body>
+                            </Accordion.Item>
+                            <Accordion.Item eventKey="1">
+                                <Accordion.Header>Accordion Item #2</Accordion.Header>
+                                <Accordion.Body>
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                                    eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+                                    minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+                                    aliquip ex ea commodo consequat. Duis aute irure dolor in
+                                    reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+                                    pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+                                    culpa qui officia deserunt mollit anim id est laborum.
+                                </Accordion.Body>
+                            </Accordion.Item>
+                        </Accordion>
+
+                    </div>
+                </div>
+            </div>
+        </>
+    )
+}
+
+
+{/* <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
                             <AccordionSummary
                                 expandIcon={<ExpandMoreIcon />}
                                 aria-controls="panel1bh-content"
@@ -218,10 +254,4 @@ export default function Report() {
                                     amet egestas eros, vitae egestas augue. Duis vel est augue.
                                 </Typography>
                             </AccordionDetails>
-                        </Accordion>
-                    </div>
-                </div>
-            </div>
-        </>
-    )
-}
+                        </Accordion> */}

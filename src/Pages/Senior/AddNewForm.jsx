@@ -421,7 +421,6 @@ export default function AddNewForm({ showForm, back, mainForm, isDelete, getAllF
     }
 
     const selectElement = (question, content) => {
-
         setQuestionUuid(content.uuid)
 
         if (isDelete) {

@@ -42,6 +42,22 @@
     width: 50%;
 }
 
+.highDot,
+.lowDot {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.highDot {
+    background-color: #ff5c5c;
+}
+
+.lowDot {
+    background-color: #ffbb28;
+}
+
 @media (max-width:992px) {
     .table-chart-container {
         width: 100%;

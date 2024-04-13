@@ -118,7 +118,7 @@ export default function ManualSideBar() {
 
             if (response.status === 200) {
                 setNumberNotif(response.data.unread_chats_count)
-                console.log(response.data)
+                    (response.data)
             }
 
         } catch (e) {

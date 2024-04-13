@@ -3,8 +3,9 @@ import '../PermitViewers/ChartViewers.css'
 import { PieChart, Pie, Legend, Tooltip, ResponsiveContainer } from 'recharts';
 
 export default function Viewers1({ kindForm }) {
+
     const data1 = [
-        { name: "There is no form", value: 100, fill: '#808080' },
+        { name: "There is no form", value: 100, fill: '#d3d3d3' },
     ];
 
     const data2 = [
@@ -24,10 +25,10 @@ export default function Viewers1({ kindForm }) {
                             dataKey="value"
                             isAnimationActive={false}
                             data={
-                                kindForm.permit_count &&
-                                    kindForm.accident_count &&
-                                    kindForm.violation_count &&
-                                    kindForm.inspections_count ?
+                                kindForm.permit_count === 0 &&
+                                    kindForm.accident_count === 0 &&
+                                    kindForm.violation_count === 0 &&
+                                    kindForm.inspections_count === 0 ?
                                     data1 :
                                     data2
                             }

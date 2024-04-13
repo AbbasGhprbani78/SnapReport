@@ -26,7 +26,7 @@ export default function Infractions() {
             })
 
             if (response.status === 200) {
-                console.log(response.data)
+                (response.data)
                 setInfractions(response.data.forms)
             }
 

@@ -11,7 +11,7 @@ import File from './File'
 export default function Element({ field, onInputChange }) {
 
     const type = field.fields_type
-    console.log(field)
+        (field)
 
     switch (type) {
 

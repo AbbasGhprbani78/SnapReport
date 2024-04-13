@@ -50,6 +50,7 @@ export default function FormItem({ content, selectElement, ishover, disable }) {
                                         type="file"
                                         id="file"
                                         disabled={true}
+                                        placeholder='choose image'
                                     />
                                 </div>
 

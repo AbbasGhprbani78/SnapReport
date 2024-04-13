@@ -3,7 +3,7 @@ import TextField from '@mui/material/TextField';
 import { BsFillFileEarmarkArrowDownFill } from 'react-icons/bs'
 import { IP } from '../../App'
 export default function FillItem({ field, setChecks }) {
-    console.log(field.checks[0]?.file)
+    (field.checks[0]?.file)
     setChecks(field.checks[0] && field.checks[0].group)
 
     return (

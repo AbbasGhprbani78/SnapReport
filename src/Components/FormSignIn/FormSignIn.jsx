@@ -69,7 +69,7 @@ export default function FormSignIn({ handleTabChange }) {
             })
 
             if (response.status === 200) {
-                console.log(response.data)
+                (response.data)
             }
         } catch (error) {
 
@@ -109,6 +109,7 @@ export default function FormSignIn({ handleTabChange }) {
 
 
         } catch (error) {
+            (error)
             toast.error(`${error.message}`, {
                 position: "top-right",
                 autoClose: 5000,
@@ -134,8 +135,6 @@ export default function FormSignIn({ handleTabChange }) {
 
         }
     }
-
-
 
     return (
         <>

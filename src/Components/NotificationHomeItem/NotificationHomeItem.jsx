@@ -28,7 +28,7 @@ export default function NotificationHomeItem({
         })
         try {
             if (response.status === 200) {
-                console.log(response)
+                (response)
                 swal({
                     title: `${message}`,
                     button: "OK"
@@ -44,7 +44,7 @@ export default function NotificationHomeItem({
 
         } catch (error) {
 
-            console.log("Error:", error);
+            ("Error:", error);
         }
     }
 

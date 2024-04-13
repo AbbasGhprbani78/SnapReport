@@ -233,7 +233,7 @@ export default function Home() {
                                                 </div>
                                                 <div className="form-section">
                                                     <p className='form-section-title'>Accident</p>
-                                                    <Link to={'/filledforms/1'} className='link-form-section'>All accident forms</Link>
+                                                    <Link to={'/filledforms/1'} className='link-form-section'> All accident forms</Link>
                                                     <div className='grid-form d-flex '>
                                                         {
                                                             accidentForm.length ?
@@ -266,8 +266,8 @@ export default function Home() {
                                                     </div>
                                                 </div>
                                                 <div className="form-section">
-                                                    <p className='form-section-title'>Inspections</p>
-                                                    <Link to={'/filledforms/2'} className='link-form-section'>All inspections forms</Link>
+                                                    <p className='form-section-title'>Violation</p>
+                                                    <Link to={'/filledforms/2'} className='link-form-section'>All violation forms</Link>
                                                     <div className='grid-form d-flex '>
                                                         {
                                                             violationForm.length ?
@@ -294,14 +294,14 @@ export default function Home() {
                                                                     ))}
                                                                 </> :
                                                                 <>
-                                                                    <div className='noform'>There is no violationForm form</div>
+                                                                    <div className='noform'>There is no violation form</div>
                                                                 </>
                                                         }
                                                     </div>
                                                 </div>
                                                 <div className="form-section">
-                                                    <p className='form-section-title'>Violation</p>
-                                                    <Link to={'/filledforms/3'} className='link-form-section'>All violation forms</Link>
+                                                    <p className='form-section-title'>Inspections</p>
+                                                    <Link to={'/filledforms/3'} className='link-form-section'> All inspections forms</Link>
                                                     <div className='grid-form d-flex '>
                                                         {
                                                             inspectionsForm.length ?

@@ -159,7 +159,7 @@ export default function ManualHome() {
                                 infractions.length > 0 ?
                                     <>
                                         <TopSection
-                                            text="Infractions Forms"
+                                            text="violation Forms"
                                         />
                                         <div className='bottomHome-worker'>
                                             {
@@ -185,7 +185,7 @@ export default function ManualHome() {
                                     </> :
                                     <>
                                         <TopSection
-                                            text="Infractions Forms"
+                                            text="violation Forms"
                                         />
                                         <div className='noform formhome-worker'>There is no form</div>
                                     </>

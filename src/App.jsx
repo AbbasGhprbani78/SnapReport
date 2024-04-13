@@ -14,6 +14,7 @@ import WarningAmberIcon from '@mui/icons-material/WarningAmber';
 import VerifiedUserOutlinedIcon from '@mui/icons-material/VerifiedUserOutlined';
 import GppMaybeOutlinedIcon from '@mui/icons-material/GppMaybeOutlined';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 export const IP = "https://snapreport.ariisco.com"
 // export const IP = "http://185.79.156.226:9500"
 function App() {
@@ -25,6 +26,7 @@ function App() {
   const [isAccident, setIsAccident] = useState(0)
   const { type } = useMyContext()
   const location = useLocation()
+  const navigate = useNavigate()
 
   const hideModal = () => {
     setShowModalAccident(false)
@@ -55,11 +57,11 @@ function App() {
 
       if (response.status === 200) {
         setIsAccident(response.data)
-        console.log(response.data)
+          (response.data)
       }
 
     } catch (e) {
-      console.log(e)
+      (e)
       if (e.response.status === 401) {
         localStorage.clear()
         navigate("/login")

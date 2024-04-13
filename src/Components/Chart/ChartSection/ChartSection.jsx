@@ -8,27 +8,29 @@ import { IP } from '../../../App'
 
 
 const COLORS = ["#ff5c5c", '#FFBB28'];
+
 export default function ChartSection() {
 
     const [chart, setChart] = useState("")
 
     const getChartData = async () => {
+
         const access = localStorage.getItem("access")
         const headers = {
             Authorization: `Bearer ${access}`
         };
+
         try {
             const response = await axios.get(`${IP}/form/data-label-count/`, {
                 headers,
             })
 
             if (response.status === 200) {
-                console.log(response.data)
                 setChart(response.data)
             }
 
         } catch (e) {
-            console.log(e)
+            (e)
             if (e.response.status === 401) {
                 localStorage.clear()
                 navigate("/login")
@@ -41,6 +43,7 @@ export default function ChartSection() {
     }, [])
 
     const data = [
+
         { name: 'High', value: chart?.two },
         { name: 'Low', value: chart?.one },
     ];
@@ -61,8 +64,6 @@ export default function ChartSection() {
         },
 
     ]
-
-
 
     return (
         <>
@@ -100,8 +101,11 @@ export default function ChartSection() {
                             {
                                 data2.map(item => (
                                     <tr className='tr-chart'>
-                                        <td>{item.labale}</td>
-                                        <td >{item.value}</td>
+                                        <td className='d-flex align-items-center justify-content-center'>
+                                            <div className={`${item.labale === "High" ? "highDot" : "lowDot"}`}></div>
+                                            {item.labale}
+                                        </td>
+                                        <td>{item.value}</td>
                                         <td>{item.precentage}%</td>
                                     </tr>
                                 ))

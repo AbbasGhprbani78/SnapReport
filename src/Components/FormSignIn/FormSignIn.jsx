@@ -6,11 +6,12 @@ import { FaEyeSlash } from "react-icons/fa";
 import { IP } from '../../App'
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useNavigate } from "react-router-dom";
+import { json, useNavigate } from "react-router-dom";
 import { useMyContext } from '../RoleContext';
 import logo from '../../Images/logo.svg'
 import axios from 'axios';
-import { TfiTumblr } from 'react-icons/tfi';
+
+
 
 
 export default function FormSignIn({ handleTabChange }) {
@@ -20,9 +21,35 @@ export default function FormSignIn({ handleTabChange }) {
     const [password, setPassword] = useState(null)
     const { sharedData, updateSharedData } = useMyContext();
 
+
+
     // for change of situation of eye
     const handleToggle = () => {
         setIsPerivate((e) => !e);
+    }
+
+    const getLable = async () => {
+
+        const access = localStorage.getItem("access")
+        const headers = {
+            Authorization: `Bearer${access}`
+        }
+        try {
+            const response = await axios.post(`${IP}/form/send-data-to-api/`, {
+                headers
+            })
+
+            if (response.status === 200) {
+                console.log(response.data.risk_level)
+                localStorage.setItem('levelrick', response.data.risk_level);
+            }
+        } catch (error) {
+
+            if (error.response.status === 401) {
+                localStorage.clear()
+                navigate("/login")
+            }
+        }
     }
 
     // check vlaue of input
@@ -59,21 +86,22 @@ export default function FormSignIn({ handleTabChange }) {
     };
 
     const randomData = async () => {
+
         const access = localStorage.getItem("access")
         const headers = {
             Authorization: `Bearer${access}`
         }
         try {
-            const response = await axios.get(`${IP}/form/random-data/`, {
+            const response = await axios.post(`${IP}/form/random-data/`, {
                 headers
             })
 
-            if (response.status === 200) {
-                (response.data)
+            if (response.status === 201) {
+                getLable()
             }
         } catch (error) {
 
-            if (e.response.status === 401) {
+            if (error.response.status === 401) {
                 localStorage.clear()
                 navigate("/login")
             }
@@ -98,8 +126,8 @@ export default function FormSignIn({ handleTabChange }) {
                 window.localStorage.setItem("refresh", response.data.refresh);
                 updateSharedData(response.data.user_type)
                 if (response.data.user_type === "S") {
-                    navigate("/")
                     randomData()
+                    navigate("/")
                 } if (response.data.user_type === "O") {
                     navigate("/ordinaryhome")
                 } if (response.data.user_type === "M") {
@@ -109,7 +137,7 @@ export default function FormSignIn({ handleTabChange }) {
 
 
         } catch (error) {
-            (error)
+            console.log(error)
             toast.error(`${error.message}`, {
                 position: "top-right",
                 autoClose: 5000,
@@ -135,6 +163,9 @@ export default function FormSignIn({ handleTabChange }) {
 
         }
     }
+
+
+
 
     return (
         <>

@@ -117,7 +117,6 @@ export default function FormSignUp({ handleTabChange }) {
                 handleTabChange(1)
             }
         } catch (error) {
-            (error)
             toast.error(`${error.response.data.username[0]}`, {
                 position: "top-right",
                 autoClose: 5000,

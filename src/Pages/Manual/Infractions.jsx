@@ -26,12 +26,11 @@ export default function Infractions() {
             })
 
             if (response.status === 200) {
-                (response.data)
                 setInfractions(response.data.forms)
             }
 
         } catch (e) {
-            (e)
+
             if (e.response.status === 401) {
                 localStorage.clear()
                 navigate("/login")

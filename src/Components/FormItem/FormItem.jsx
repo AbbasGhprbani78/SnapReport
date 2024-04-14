@@ -4,7 +4,6 @@ import TextField from '@mui/material/TextField';
 export default function FormItem({ content, selectElement, ishover, disable }) {
 
     const formEndRef = useRef(null);
-
     useEffect(() => {
         if (!ishover) {
             formEndRef.current?.scrollIntoView({ behavior: 'smooth', block: 'end', inline: 'nearest' });

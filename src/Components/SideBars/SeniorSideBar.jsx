@@ -83,7 +83,7 @@ export default function SeniorsideBar() {
                 navigate('/login')
             }
         } catch (e) {
-            (e)
+
         }
     }
 
@@ -119,12 +119,11 @@ export default function SeniorsideBar() {
             })
 
             if (response.status === 200) {
-                (response.data)
                 setNumberNotif(response.data.unread_chats_count)
             }
 
         } catch (e) {
-            (e)
+
             if (e.response.status === 401) {
                 localStorage.clear()
                 navigate("/login")

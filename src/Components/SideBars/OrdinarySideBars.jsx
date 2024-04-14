@@ -80,7 +80,7 @@ export default function ManualSideBar() {
                 navigate('/login')
             }
         } catch (e) {
-            (e)
+
         }
     }
 
@@ -121,7 +121,7 @@ export default function ManualSideBar() {
             }
 
         } catch (e) {
-            (e)
+
             if (e.response.status === 401) {
                 localStorage.clear()
                 navigate("/login")

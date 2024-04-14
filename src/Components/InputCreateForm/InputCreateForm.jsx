@@ -17,6 +17,8 @@ export default function InputCreateForm({ lable, title, onChange, value, name, d
                     onChange={onChange}
                     name={name}
                     disabled={disabled}
+                    spellCheck={false}
+                    autoComplete='false'
                 />
             </div>
 

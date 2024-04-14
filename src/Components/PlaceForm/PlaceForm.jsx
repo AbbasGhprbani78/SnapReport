@@ -13,7 +13,7 @@ import { ToastContainer } from "react-toastify";
 export default function PlaceForm({ back, title, description, fields, formUuid, getAllFillForms }) {
     const [accept, setAccept] = useState(null);
     const [checks, setChecks] = useState(null)
-        (checks)
+
 
     const sendCondition = async (e, accept) => {
         e.preventDefault();
@@ -22,19 +22,18 @@ export default function PlaceForm({ back, title, description, fields, formUuid, 
             Authorization: `Bearer ${access}`
         };
 
-
         const body = {
             uuid: formUuid,
             accept: accept,
             group: checks
         };
 
-        (body)
 
         swal({
             title: "Are you Sure ?",
             icon: "warning",
             buttons: ["No", "Yes"],
+
         }).then(async (result) => {
 
             if (result) {
@@ -53,16 +52,19 @@ export default function PlaceForm({ back, title, description, fields, formUuid, 
                             draggable: true,
                             progress: undefined,
                             theme: "colored",
+                            style: {
+                                backgroundColor: '#64bbe5'
+                            }
                         });
                         setTimeout(() => {
                             getAllFillForms()
                             back()
                         }, 2000)
-                            (response)
+
                     }
                 } catch (e) {
 
-                    console.error("Error:", e);
+                    console.log("Error:", e);
                     if (e.response.status === 401) {
                         localStorage.clear();
                         navigate("/login");

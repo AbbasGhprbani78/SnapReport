@@ -31,7 +31,7 @@ export default function AllForm() {
 
 
         } catch (e) {
-            (e)
+
             if (e.response.status === 401) {
                 localStorage.removeItem('access')
                 localStorage.removeItem('uuid')

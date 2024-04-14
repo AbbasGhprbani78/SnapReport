@@ -1,6 +1,6 @@
 import './App.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Route, Routes, useRoutes, useLocation } from 'react-router-dom';
+import { Route, Routes, json, useRoutes } from 'react-router-dom';
 import routes from './Routes';
 import SeniorsideBar from './Components/SideBars/SeniorSideBar';
 import OrdinarySideBars from './Components/SideBars/OrdinarySideBars'
@@ -13,8 +13,7 @@ import { Alert } from 'react-bootstrap';
 import WarningAmberIcon from '@mui/icons-material/WarningAmber';
 import VerifiedUserOutlinedIcon from '@mui/icons-material/VerifiedUserOutlined';
 import GppMaybeOutlinedIcon from '@mui/icons-material/GppMaybeOutlined';
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+
 export const IP = "https://snapreport.ariisco.com"
 // export const IP = "http://185.79.156.226:9500"
 function App() {
@@ -23,10 +22,9 @@ function App() {
   const subUserRef = useRef(null);
   const { sharedData } = useMyContext();
   const [showModalAccident, setShowModalAccident] = useState(false)
-  const [isAccident, setIsAccident] = useState(0)
+  const [isAccident, setIsAccident] = useState(localStorage.getItem("levelrick"))
   const { type } = useMyContext()
-  const location = useLocation()
-  const navigate = useNavigate()
+
 
   const hideModal = () => {
     setShowModalAccident(false)
@@ -43,36 +41,6 @@ function App() {
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, []);
-
-  const lastDataLable = async () => {
-
-    const access = localStorage.getItem("access")
-    const headers = {
-      Authorization: `Bearer ${access}`
-    };
-    try {
-      const response = await axios.get(`${IP}/form/last-data-label/`, {
-        headers,
-      })
-
-      if (response.status === 200) {
-        setIsAccident(response.data)
-          (response.data)
-      }
-
-    } catch (e) {
-      (e)
-      if (e.response.status === 401) {
-        localStorage.clear()
-        navigate("/login")
-      }
-    }
-
-  }
-
-  useEffect(() => {
-    lastDataLable()
-  }, [location])
 
 
   return (
@@ -93,11 +61,12 @@ function App() {
                     <CloseIcon style={{ cursor: "pointer" }} onClick={hideModal} />
                   </div>
                   <h3
-                    className={`title-wraning ${isAccident?.label === 0 ?
-                      "safe" : isAccident?.label === 1 ?
-                        "warning" : isAccident?.label === 2 ?
+                    className={`title-wraning ${isAccident == 0 ?
+                      "safe" : isAccident == 1 ?
+                        "warning" : isAccident == 2 ?
                           "danger" : ""}`}>
-                    {isAccident?.label === 0 ? "No Accident" : isAccident?.label === 1 ? "Warinig" : "Danger"}
+
+                    {isAccident == 0 ? "No Accident" : isAccident == 1 ? "Warinig" : "Danger"}
                   </h3>
                   <p className='text-warnings'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo, sed, ut placeat ex ad deleniti expedita id quisquam non tenetur error esse dolor dolorem hic laborum impedit odit rem inventore?
                   </p>
@@ -116,7 +85,7 @@ function App() {
                   ((sharedData === "S" || type === "S") || (sharedData === "O" || type === "O")) ?
                     <>
                       {
-                        isAccident.label === 2 ?
+                        isAccident == 2 ?
                           <Alert className='d-flex align-items-center justify-content-between alert-accident'>
                             <div className='content-alert '>
                               <h4>Danger</h4>
@@ -127,10 +96,10 @@ function App() {
                               onClick={() => setShowModalAccident(true)}
                             />
                           </Alert> :
-                          isAccident.label === 1 ?
+                          isAccident == 1 ?
                             <div className='warningAccident'>
                               <div className='Verifiedwrapper'>
-                                <p className='noaccident-text'>{isAccident?.risk_level}</p>
+                                <p className='noaccident-text'>Low Rick</p>
                                 <span className='span-warning'>
                                   <GppMaybeOutlinedIcon
                                     onClick={() => setShowModalAccident(true)}
@@ -142,7 +111,7 @@ function App() {
                             <div className='noAccident'>
                               <div className='chevorn'></div>
                               <div className='Verifiedwrapper'>
-                                <p className='noaccident-text'>{isAccident?.risk_level}</p>
+                                <p className='noaccident-text'>Safe</p>
                                 <span className='span-Verified'>
                                   <VerifiedUserOutlinedIcon
                                     onClick={() => setShowModalAccident(true)}

@@ -103,7 +103,8 @@
 }
 
 .warningAccident {
-  background: linear-gradient(to left, #FF8845 100%, #FF8845 76%);
+  background: rgb(252, 176, 69);
+  background: linear-gradient(90deg, rgba(252, 176, 69, 1) 0%, rgba(253, 70, 29, 1) 94%);
   height: 50px;
   position: relative;
 }
@@ -126,7 +127,7 @@
 }
 
 .span-warning {
-  background-color: #e66720;
+  background-color: #fcab43;
   border-radius: 50%;
   padding: 5px;
 }

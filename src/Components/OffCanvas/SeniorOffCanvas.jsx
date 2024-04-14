@@ -81,7 +81,7 @@ export default function SeniorOffCanvas({ show, onHide }) {
                 navigate('/login')
             }
         } catch (e) {
-            (e)
+            console.log(e)
         }
     }
 
@@ -122,7 +122,7 @@ export default function SeniorOffCanvas({ show, onHide }) {
             }
 
         } catch (e) {
-            (e)
+
             if (e.response.status === 401) {
                 localStorage.clear()
                 navigate("/login")

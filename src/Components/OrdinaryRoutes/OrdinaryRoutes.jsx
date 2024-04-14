@@ -35,7 +35,7 @@ export default function OrdinaryRoutes({ children }) {
             }
 
         } catch (e) {
-            (e);
+
             if (e.response.status === 401) {
                 localStorage.clear()
                 navigate("/login")

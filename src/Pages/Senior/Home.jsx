@@ -14,6 +14,7 @@ import Header from '../../Components/Header/Header'
 import NotificationsHome from '../../Components/NotificationsHome/NotificationsHome'
 import FailHomeItem from '../../Components/FailHomeItem/FailHomeItem';
 import PlaceForm from '../../Components/PlaceForm/PlaceForm';
+import FindInPageIcon from '@mui/icons-material/FindInPage';
 
 export default function Home() {
 
@@ -28,19 +29,20 @@ export default function Home() {
     const [title, setTitle] = useState('')
     const [description, setDescription] = useState('')
     const [showFailForm, setShowFailForm] = useState(false)
+    const [isDefault, setIsDefault] = useState("")
 
     const openFormFailHandler = () => {
         setShowFailForm(true)
     }
 
-    const getAllForm = async () => {
+    const getDefaultForm = async () => {
         const access = localStorage.getItem("access")
 
         const headers = {
             Authorization: `Bearer ${access}`
         };
         try {
-            const response = await axios.get(`${IP}/form/get-user-form`, {
+            const response = await axios.get(`${IP}/form/get-default-form`, {
                 headers,
             });
             if (response.status === 200) {
@@ -48,7 +50,7 @@ export default function Home() {
             }
 
         } catch (e) {
-            (e)
+
             if (e.response.status === 401) {
                 localStorage.clear()
                 navigate("/login")
@@ -57,7 +59,7 @@ export default function Home() {
     }
 
     useEffect(() => {
-        getAllForm()
+        getDefaultForm()
     }, [])
 
 
@@ -91,7 +93,7 @@ export default function Home() {
             }
 
         } catch (e) {
-            (e)
+
             if (e.response.status === 401) {
                 localStorage.clear()
                 navigate("/login")
@@ -102,6 +104,8 @@ export default function Home() {
     useEffect(() => {
         getAllFillForms()
     }, [])
+
+
 
     const permitForm = [...failForms].filter(form => form.type === "permit")
     const accidentForm = [...failForms].filter(form => form.type === "accident")
@@ -121,6 +125,7 @@ export default function Home() {
                             fields={fields}
                             formUuid={formUuid}
                             getAllFillForms={getAllFillForms}
+
                         />
                     </> :
                     <>
@@ -131,16 +136,17 @@ export default function Home() {
                                     back={backHandler}
                                     mainForm={mainForm}
                                     isDelete={isDelete}
-                                    getAllForm={getAllForm}
+                                    getAllForm={getDefaultForm}
+                                    isDefault={isDefault}
                                 /> :
                                 <div className="home-container">
                                     <Header />
                                     <div className='recentForm-conteiner'>
                                         <div className="allFormText">
-                                            <Link className='linkAll-form' to={'/allform'}>All Form <ChevronRightIcon /></Link>
+                                            <Link className='linkAll-form' to={''}>Default Forms <ChevronRightIcon /></Link>
                                         </div>
                                         <div className='recentForm '>
-                                            <div className='grid-form-recentItem d-flex '>
+                                            <Col className='grid-form-recentItem d-flex '>
                                                 {
                                                     allform.length > 0 ? allform.map(form => (
                                                         <Col
@@ -158,19 +164,17 @@ export default function Home() {
                                                                 >
                                                                     <div
                                                                         onClick={() => {
-
                                                                             openFormHandler();
                                                                             setMainForm(form);
+                                                                            setIsDefault(form.default)
                                                                         }}
                                                                         style={{ cursor: "pointer" }}
-
                                                                     >
                                                                         <EditCalendarIcon
                                                                             className='editFormIcom'
                                                                         />
                                                                     </div>
-
-                                                                    <div
+                                                                    {/* <div
                                                                         onClick={() => {
                                                                             openFormHandler()
                                                                             setMainForm(form)
@@ -183,17 +187,17 @@ export default function Home() {
                                                                             className='deleteFormIcon'
 
                                                                         />
-                                                                    </div>
+                                                                    </div> */}
                                                                 </div>
                                                             </div>
                                                         </Col>
                                                     )) : <div className='noform'>There is no form</div>
                                                 }
-                                            </div>
+                                            </Col>
                                         </div>
                                     </div>
                                     <div className="bottomHome">
-                                        <Col xs={12} md={8}>
+                                        <Col xs={12} md={7} lg={8}>
                                             <div className='form-sections'>
                                                 <div className="form-section">
                                                     <p className='form-section-title'>Permit</p>
@@ -335,7 +339,7 @@ export default function Home() {
                                                 </div>
                                             </div>
                                         </Col>
-                                        <Col xs={12} md={4}>
+                                        <Col xs={12} md={5} lg={4} className='mb-4 mb-md-0'>
                                             <NotificationsHome />
                                         </Col>
                                     </div>

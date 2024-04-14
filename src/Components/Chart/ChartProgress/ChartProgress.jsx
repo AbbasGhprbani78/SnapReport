@@ -18,7 +18,7 @@ export default function ChartProgress({ percent, title }) {
 
     return (
         <div className="chartProgress-content">
-            <p className='progress-title'>{title}</p>
+            <p className='progress- fw-bold mb-3'>{title}</p>
             <div className="chart-progress-main">
                 <svg
                     className={"CircularProgressbar"}

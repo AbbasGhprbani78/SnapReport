@@ -28,7 +28,6 @@ export default function NotificationHomeItem({
         })
         try {
             if (response.status === 200) {
-                (response)
                 swal({
                     title: `${message}`,
                     button: "OK"

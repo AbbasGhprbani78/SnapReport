@@ -42,6 +42,7 @@ export default function ManualSideBar() {
     const [open, setOpen] = React.useState(true);
     const location = useLocation();
     const currentRoute = location.pathname;
+    const [numberNotif, setNumberNotif] = useState('')
 
     //all icons in side bar
     const drawerIcons = [
@@ -80,7 +81,7 @@ export default function ManualSideBar() {
                 navigate('/login')
             }
         } catch (e) {
-            (e)
+
         }
     }
 
@@ -104,7 +105,6 @@ export default function ManualSideBar() {
     };
 
 
-    const [numberNotif, setNumberNotif] = useState('')
 
     const numberChat = async () => {
         const access = localStorage.getItem("access")
@@ -118,12 +118,12 @@ export default function ManualSideBar() {
 
             if (response.status === 200) {
                 setNumberNotif(response.data.unread_chats_count)
-                    (response.data)
             }
 
         } catch (e) {
-            (e)
+            console.log(e)
             if (e.response.status === 401) {
+                E
                 localStorage.clear()
                 navigate("/login")
             }

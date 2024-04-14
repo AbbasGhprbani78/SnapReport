@@ -118,7 +118,6 @@ export default function FormWorker({
             })
 
             if (response.status === 201) {
-                (response)
                 toast.success(`The form was completed successfully`, {
                     position: "top-right",
                     autoClose: 5000,
@@ -127,7 +126,10 @@ export default function FormWorker({
                     pauseOnHover: true,
                     draggable: true,
                     progress: undefined,
-                    theme: "colored",
+                    theme: 'colored',
+                    style: {
+                        backgroundColor: '#64bbe5'
+                    }
                 });
 
                 setTimeout(() => {
@@ -198,7 +200,6 @@ export default function FormWorker({
             })
 
             if (response.status === 201) {
-                (response)
                 toast.success(`The form was completed successfully`, {
                     position: "top-right",
                     autoClose: 5000,
@@ -208,6 +209,9 @@ export default function FormWorker({
                     draggable: true,
                     progress: undefined,
                     theme: "colored",
+                    style: {
+                        backgroundColor: '#64bbe5'
+                    }
                 });
                 setAllFields(newData)
                 setSendFields([])

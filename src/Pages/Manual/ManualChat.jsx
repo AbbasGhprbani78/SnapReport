@@ -105,7 +105,7 @@ export default function ManualChat() {
 
             }
             catch (e) {
-                (e)
+
                 if (e.response.status === 401) {
                     localStorage.clear()
 
@@ -136,12 +136,12 @@ export default function ManualChat() {
             })
 
             if (response.status === 200) {
-                (response)
+
                 setShowFile(false)
             }
 
         } catch (e) {
-            (e)
+
             if (e.response.status === 401) {
                 localStorage.clear()
                 navigate("/login")
@@ -168,11 +168,11 @@ export default function ManualChat() {
                 })
 
                 if (response.status === 200) {
-                    (response)
+
                 }
 
             } catch (e) {
-                (e)
+
                 if (e.response.status === 401) {
                     localStorage.clear()
                     navigate("/login")

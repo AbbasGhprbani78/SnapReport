@@ -21,7 +21,6 @@
     flex-wrap: nowrap;
     overflow-x: scroll;
     padding: 5px 0 10px 0;
-    width: 95%;
     border-bottom: 1px solid lightgray
 }
 
@@ -150,6 +149,18 @@
 .formhome-worker {
     width: 95%;
     margin: 20px auto;
+}
+
+@media (min-width:1200px) {
+    .grid-form-recentItem {
+        width: 1200px;
+    }
+}
+
+@media (max-width:992px) {
+    .grid-form-recentItem {
+        width: 95%;
+    }
 }
 
 @media (max-width:576px) {

@@ -108,7 +108,7 @@ export default function Chat() {
             }
 
         } catch (e) {
-            (e)
+
             if (e.response.status === 401) {
                 localStorage.clear()
                 navigate("/login")
@@ -175,12 +175,12 @@ export default function Chat() {
             })
 
             if (response.status === 200) {
-                (response)
+
                 setShowFile(false)
             }
 
         } catch (e) {
-            (e)
+
             if (e.response.status === 401) {
                 localStorage.clear()
                 navigate("/login")
@@ -206,11 +206,10 @@ export default function Chat() {
                 })
 
                 if (response.status === 200) {
-                    (response)
                 }
 
             } catch (e) {
-                (e)
+
                 if (e.response.status === 401) {
                     localStorage.clear()
                     navigate("/login")
@@ -524,36 +523,3 @@ export default function Chat() {
     )
 }
 
-// const getUnreadMessages = async () => {
-//     const access = localStorage.getItem("access")
-//     const headers = {
-//         Authorization: `Bearer ${access}`
-//     };
-//     try {
-//         const response = await axios.get(`${IP}/chat/get-unread-chat/`, {
-//             headers,
-//         });
-
-//         if (response.status === 200) {
-//             (response)
-//             // setAllMessage(prevState => {
-//             //     return [...prevState, ...response.data.Messages]
-//             // })
-
-//         }
-
-//     } catch (e) {
-//         (e)
-//         if (e.response.status === 401) {
-//             localStorage.removeItem('access')
-//             localStorage.removeItem('uuid')
-//             localStorage.removeItem('refresh')
-//             localStorage.removeItem("type")
-//             navigate("/login")
-//         }
-//     }
-// }
-
-
-
-// 

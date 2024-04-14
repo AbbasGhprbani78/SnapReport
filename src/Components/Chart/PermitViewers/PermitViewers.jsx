@@ -18,7 +18,7 @@ export default function PermitViewers({ valueViewers }) {
     return (
         <>
             <div className='ChartViewers mb-3'>
-                <p className="viewer-title">Permit Form</p>
+                <p className="viewer-title">Status of permit forms</p>
                 <div className='PieChart-wrapper' style={{ width: "100%", height: 300 }}>
                     <ResponsiveContainer>
                         <PieChart>

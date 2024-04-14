@@ -43,7 +43,6 @@ export default function Report() {
             }
 
         } catch (e) {
-            (e)
             if (e.response.status === 401) {
                 localStorage.clear()
                 navigate("/login")
@@ -62,12 +61,11 @@ export default function Report() {
             })
 
             if (response.status === 200) {
-                (response.data)
                 setPermitState(response.data)
             }
 
         } catch (e) {
-            (e)
+
             if (e.response.status === 401) {
                 localStorage.clear()
                 navigate("/login")
@@ -86,12 +84,10 @@ export default function Report() {
             })
 
             if (response.status === 200) {
-                (response.data)
                 setKindForm(response.data)
             }
 
         } catch (e) {
-            (e)
             if (e.response.status === 401) {
                 localStorage.clear()
                 navigate("/login")
@@ -111,20 +107,20 @@ export default function Report() {
                 <p className="reportTitle">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptatibus, sint. Error delectus qui laudantium aut alias animi mollitia obcaecati asperiores. Accusamus natus dicta eius distinctio cupiditate quia obcaecati est nostrum.
                 </p>
                 <div className="charts-content">
-                    <p className="text-chart-top">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+                    {/* <p className="text-chart-top">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p> */}
                     <div className="charts-top">
                         <Col xs={12} lg={8} className="chart-left">
                             <div className='d-flex justify-content-around flex-wrap'>
                                 <Col xs={12} md={6} xl={4}>
                                     <ChartProgress
                                         percent={progressData.percentage_age_equipment?.toFixed(2)}
-                                        title={"age equipment"}
+                                        title={"Age of equipment"}
                                     />
                                 </Col>
                                 {/* <Col xs={12} md={6} xl={4}>
                                     <ChartProgress percent={50} />
                                 </Col> */}
-                                <Col xs={12} md={6} xl={4}>
+                                <Col xs={12} md={6} xl={4} className='mt-4 mt-md-0'>
                                     <ChartProgress
                                         percent={progressData.percentage_failure_rate?.toFixed(2)}
                                         title={"failure rate"}
@@ -133,7 +129,7 @@ export default function Report() {
                             </div>
 
                             <div className='chart-section-wrappeer'>
-                                <p className='text-chart-top mt-4'>Lorem ipsum dolor sit amet.</p>
+                                <p className='text-chart-top mt-4'>Number of Accident</p>
                                 <ChartSection />
                             </div>
                             <div className="chart-bottom">
@@ -148,7 +144,7 @@ export default function Report() {
                     </div>
                 </div>
                 <div className="noti-report-wrapper my-3">
-                    <p className='accident-notif-title'>Notifications Accident</p>
+                    <p className='accident-notif-title font-bold fw-bold'>Notifications</p>
                     <div className='accrdion-weapper'>
                         <Accordion defaultActiveKey="0">
                             <Accordion.Item eventKey="0" className='mb-3'>

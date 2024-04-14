@@ -41,7 +41,7 @@ const names = [
     "Manual Worker"
 ];
 
-export default function AddNewForm({ showForm, back, mainForm, isDelete, getAllForm }) {
+export default function AddNewForm({ showForm, back, mainForm, isDelete, getAllForm, isDefault }) {
 
     const [personName, setPersonName] = React.useState(mainForm ? mainForm.person_type : []);
 
@@ -64,11 +64,13 @@ export default function AddNewForm({ showForm, back, mainForm, isDelete, getAllF
     const [loading, setLoading] = useState(false)
     const [questionUuid, setQuestionUuid] = useState()
     const [fromInfom, setFormInfom] = useState(
+
         {
             person_type: [...personName],
             type: mainForm ? mainForm.type : "",
             title: mainForm ? mainForm.title : "",
             descriptions: mainForm ? mainForm.descriptions : "",
+            default: isDefault ? true : false,
             fields: []
         }
     )
@@ -319,6 +321,8 @@ export default function AddNewForm({ showForm, back, mainForm, isDelete, getAllF
                     fields: updatedFields
                 };
 
+                console.log(updatedBody)
+
                 const access = localStorage.getItem("access")
 
                 const headers = {
@@ -340,6 +344,9 @@ export default function AddNewForm({ showForm, back, mainForm, isDelete, getAllF
                             draggable: true,
                             progress: undefined,
                             theme: "colored",
+                            style: {
+                                backgroundColor: '#64bbe5'
+                            }
                         });
                         setTimeout(() => {
                             getAllForm()
@@ -393,6 +400,9 @@ export default function AddNewForm({ showForm, back, mainForm, isDelete, getAllF
                             draggable: true,
                             progress: undefined,
                             theme: "colored",
+                            style: {
+                                backgroundColor: '#64bbe5'
+                            }
                         });
                         setTimeout(() => {
                             navigate('/')
@@ -400,7 +410,7 @@ export default function AddNewForm({ showForm, back, mainForm, isDelete, getAllF
                     }
 
                 } catch (error) {
-                    (error)
+
                     toast.error(`${error.response.data.type[0]}`, {
                         position: "top-right",
                         autoClose: 5000,
@@ -513,7 +523,7 @@ export default function AddNewForm({ showForm, back, mainForm, isDelete, getAllF
             });
 
             if (response.status === 200) {
-                (response);
+
                 setLoading(false);
                 toast.success(`The form was deleted successfully`, {
                     position: "top-right",
@@ -524,6 +534,9 @@ export default function AddNewForm({ showForm, back, mainForm, isDelete, getAllF
                     draggable: true,
                     progress: undefined,
                     theme: "colored",
+                    style: {
+                        backgroundColor: '#64bbe5'
+                    }
                 });
                 setTimeout(() => {
                     back()
@@ -648,6 +661,8 @@ export default function AddNewForm({ showForm, back, mainForm, isDelete, getAllF
                                                 onChange={handleChangeQuetion}
                                                 name={"questions"}
                                                 disabled={isDelete}
+                                                spellCheck={false}
+                                                autoComplete='false'
                                             />
                                         </div>
                                         {

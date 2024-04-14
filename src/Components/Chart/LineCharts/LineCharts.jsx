@@ -35,7 +35,6 @@ export default function LineCharts() {
                 setLineData(processedData);
             }
         } catch (e) {
-            (e);
             if (e.response.status === 401) {
                 localStorage.clear();
                 navigate("/login");

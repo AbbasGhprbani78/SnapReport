@@ -55,6 +55,7 @@ export default function AddNewForm({ showForm, back, mainForm, isDelete, getAllF
             typeof value === 'string' ? value.split(',') : value,
         );
     };
+
     const navigate = useNavigate()
     const [typeInput, setTypeInput] = useState("radio")
     const [numberTypeInput, setNumberTypeInput] = useState([])
@@ -67,13 +68,20 @@ export default function AddNewForm({ showForm, back, mainForm, isDelete, getAllF
 
         {
             person_type: [...personName],
-            type: mainForm ? mainForm.type : "",
+            type: mainForm ? mainForm.type : "permit",
             title: mainForm ? mainForm.title : "",
             descriptions: mainForm ? mainForm.descriptions : "",
             default: isDefault ? true : false,
             fields: []
         }
     )
+    const handleSelectChange = (newValue) => {
+
+        setFormInfom(prevState => ({
+            ...prevState,
+            type: newValue
+        }));
+    };
 
     useEffect(() => {
 
@@ -275,9 +283,6 @@ export default function AddNewForm({ showForm, back, mainForm, isDelete, getAllF
             }));
         }
 
-
-
-
         setFields({
             uuid: uuidv4(),
             fields_type: fields.fields_type,
@@ -288,6 +293,7 @@ export default function AddNewForm({ showForm, back, mainForm, isDelete, getAllF
         setNumberTypeInput([])
         setIsCreate(true)
         setShowDeleteIcon(false)
+
     }
 
     const sendFormHandler = async () => {
@@ -320,8 +326,6 @@ export default function AddNewForm({ showForm, back, mainForm, isDelete, getAllF
                     ...body,
                     fields: updatedFields
                 };
-
-                console.log(updatedBody)
 
                 const access = localStorage.getItem("access")
 
@@ -405,7 +409,7 @@ export default function AddNewForm({ showForm, back, mainForm, isDelete, getAllF
                             }
                         });
                         setTimeout(() => {
-                            navigate('/')
+                            navigate('/allform')
                         }, 2000)
                     }
 
@@ -561,6 +565,7 @@ export default function AddNewForm({ showForm, back, mainForm, isDelete, getAllF
         }
     }
 
+
     return (
         <>
             {
@@ -589,6 +594,7 @@ export default function AddNewForm({ showForm, back, mainForm, isDelete, getAllF
                                         <FormDisplay
                                             selectElement={selectElement}
                                             fromInfom={fromInfom}
+
                                         />
                                     }
 
@@ -622,14 +628,27 @@ export default function AddNewForm({ showForm, back, mainForm, isDelete, getAllF
                                         </FormControl>
                                     </div>
 
-                                    <InputCreateForm
-                                        lable={"Type of Form"}
-                                        title={"Form Type"}
-                                        value={fromInfom.type}
-                                        onChange={handleChange}
-                                        name="type"
-                                        disabled={isDelete}
-                                    />
+                                    <div style={{ marginBottom: "5%" }}>
+                                        <span className='input-title'>
+                                            Type Of Form
+                                        </span>
+                                        <div className='dropDwonForm'
+                                            style={{ fontSize: "13px", height: "45px", lineHeight: "37px" }}>
+                                            <select
+                                                className='dropDwon'
+                                                disabled={isDelete}
+                                                value={fromInfom.type}
+                                                onChange={(e) => handleSelectChange(e.target.value)}
+                                                defaultValue={"permit"}
+                                            >
+                                                <option value="permit">permit</option>
+                                                <option value="accident">accident</option>
+                                                <option value="violation">violation</option>
+                                                <option value="inspections">inspections</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
                                     <InputCreateForm
                                         lable={"Title"}
                                         title={"Header"}

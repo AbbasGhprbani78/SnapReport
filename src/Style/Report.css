@@ -56,6 +56,11 @@
     overflow-y: scroll;
 }
 
+.accordion-button {
+    display: flex !important;
+    justify-content: space-between !important;
+}
+
 
 @media (max-width:1221px) {
 

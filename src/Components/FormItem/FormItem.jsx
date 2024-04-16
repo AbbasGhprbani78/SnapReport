@@ -1,14 +1,7 @@
-import React, { useEffect, useRef } from 'react'
+import React from 'react'
 import './FormItem.css'
 import TextField from '@mui/material/TextField';
-export default function FormItem({ content, selectElement, ishover, disable }) {
-
-    const formEndRef = useRef(null);
-    useEffect(() => {
-        if (!ishover) {
-            formEndRef.current?.scrollIntoView({ behavior: 'smooth', block: 'end', inline: 'nearest' });
-        }
-    }, [content])
+export default function FormItem({ content, selectElement, ishover }) {
 
     return (
         <>
@@ -95,7 +88,7 @@ export default function FormItem({ content, selectElement, ishover, disable }) {
                 }
 
             </div>
-            <div ref={formEndRef} />
+            <div />
         </>
 
     )

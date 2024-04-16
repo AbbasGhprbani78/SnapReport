@@ -5,7 +5,7 @@ export default function FormDisplay({ fromInfom, selectElement, ishover, disable
 
     return (
         <>
-            <h3 className='from-title'>{fromInfom.title}</h3>
+            <h4 className='from-title'>{fromInfom.title}</h4>
             <p className='from-description'>{fromInfom.descriptions}</p>
             {fromInfom && fromInfom.fields.length > 0 && fromInfom.fields.map((content, i) => (
                 <FormItem key={i}
@@ -13,6 +13,7 @@ export default function FormDisplay({ fromInfom, selectElement, ishover, disable
                     selectElement={selectElement}
                     ishover={ishover}
                     disable={disable}
+
                 />
             ))}
 

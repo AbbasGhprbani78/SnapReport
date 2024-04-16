@@ -8,13 +8,13 @@
 }
 
 .option-item-form:hover {
-    border: 1px solid var(--color-9);
+    box-shadow: 0px 1px 4px 0px #D9D9D9;
     cursor: pointer;
     z-index: 9999;
 }
 
 .borderActive {
-    border: 1px solid var(--color-9);
+    box-shadow: 0px 1px 4px 0px #D9D9D9;
 }
 
 .qusetion-form,

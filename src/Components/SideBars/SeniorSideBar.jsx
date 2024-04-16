@@ -14,7 +14,7 @@ import FormatListNumberedIcon from '@mui/icons-material/FormatListNumbered';
 import AddIcon from '@mui/icons-material/Add';
 import './SideBar.css'
 import logoColor from '../../Images/logoColor.svg'
-import user from '../../Images/user.jpg'
+import avatar from '../../Images/avatar.png'
 import { useNavigate } from 'react-router-dom';
 import { CSSTransition } from 'react-transition-group';
 import { useLocation } from 'react-router-dom';
@@ -25,7 +25,10 @@ import ChecklistIcon from '@mui/icons-material/Checklist';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { IP } from '../../App'
+import PermIdentityIcon from '@mui/icons-material/PermIdentity';
 import '../../Style/Main.css'
+import swal from 'sweetalert';
+import { Link } from 'react-router-dom';
 
 
 const drawerWidth = 280;
@@ -40,9 +43,17 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 
 export default function SeniorsideBar() {
 
+
     const [open, setOpen] = React.useState(true);
     const location = useLocation();
     const currentRoute = location.pathname;
+    const [numberNotif, setNumberNotif] = useState('')
+    const [showEditModal, setShowEditModal] = useState(false)
+    const [fname, setFname] = useState("")
+    const [lname, setLname] = useState("")
+    const [userInfo, setUserInfo] = useState("")
+    const [imgSrc, setImgSrc] = useState()
+    const [defaultImg, setDefaultImg] = useState()
 
     //all icons in side bar
     const drawerIcons = [
@@ -106,7 +117,7 @@ export default function SeniorsideBar() {
         setSelectedRoute(route);
     };
 
-    const [numberNotif, setNumberNotif] = useState('')
+
 
     const numberChat = async () => {
         const access = localStorage.getItem("access")
@@ -131,14 +142,143 @@ export default function SeniorsideBar() {
         }
     }
 
-
-
     useEffect(() => {
         numberChat()
     }, [currentRoute])
 
+
+    const showInfoHnadler = async () => {
+        const access = localStorage.getItem("access")
+        const headers = {
+            Authorization: `Bearer ${access}`
+        };
+        try {
+            const response = await axios.get(`${IP}/user/user-profile//`, {
+                headers,
+            })
+
+            if (response.status === 200) {
+                setUserInfo(response.data)
+                setFname(response.data[0].first_name)
+                setLname(response.data[0].last_name)
+            }
+
+        } catch (e) {
+            if (e.response.status === 401) {
+                localStorage.clear()
+                navigate("/login")
+            }
+        }
+    }
+
+    useEffect(() => {
+        showInfoHnadler()
+    }, [])
+
+
+    const sendEditProfile = async (e) => {
+        e.preventDefault()
+        const formData = new FormData();
+        if (imgSrc) {
+            formData.append("avatar", imgSrc);
+        }
+        formData.append("first_name", fname)
+        formData.append("last_name", lname)
+        const access = localStorage.getItem("access")
+        const headers = {
+            Authorization: `Bearer ${access}`
+        };
+
+        if (fname.trim() && lname.trim()) {
+            try {
+                const response = await axios.put(`${IP}/user/edit-user-profile/`, formData, {
+                    headers,
+                })
+
+                if (response.status === 200) {
+                    setShowEditModal(false)
+                    swal({
+                        title: "Changes applied successfully",
+                        icon: "success",
+                        button: "Ok"
+                    })
+
+                    showInfoHnadler()
+                }
+
+            } catch (e) {
+                console.log(e)
+                if (e.response.status === 401) {
+                    localStorage.clear()
+                    navigate("/login")
+                }
+            }
+        }
+    }
+
     return (
         <>
+
+            {
+                showEditModal
+                &&
+                <div className={`showEditModal-container ${setShowEditModal ? "showEditModal-container-active" : ""}`}>
+                    <div className="closeform" onClick={() => setShowEditModal(false)}></div>
+                    <div className="editModal">
+                        <p className="title-prof">
+                            Personal Info
+                        </p>
+                        <form className="editUserInfo">
+                            <div className="img-profile-wrapper">
+                                <label htmlFor="aaa" className='lable-img-p'>
+                                    <img
+                                        src={defaultImg ? defaultImg : (userInfo[0]?.avatar ? `${IP}${userInfo[0]?.avatar}` : avatar)}
+                                        className='img-profile'
+                                    />
+                                </label>
+                                <input
+                                    type="file"
+                                    className='img-info'
+                                    id="aaa"
+                                    onChange={(e) => {
+                                        setImgSrc(e.target.files[0]);
+                                        setDefaultImg(URL.createObjectURL(e.target.files[0]))
+                                    }}
+                                />
+                            </div>
+                            <p className="prof-job-position">
+                                {userInfo && userInfo[0]?.user_type === "S" ? "Senior Officer" : ""}
+                            </p>
+                            <div className='inputs-prof-wrapper'>
+                                <div className='input-wrapper-prof fname-prof-wrapper'>
+                                    <input
+                                        type="text"
+                                        className='input-prof fname-prof'
+                                        placeholder='First Name'
+                                        value={fname}
+                                        onChange={e => setFname(e.target.value)}
+                                    />
+                                    <PermIdentityIcon style={{ color: "#15616d" }} />
+                                </div>
+                                <div className='input-wrapper-prof lname-prof-wrapper'>
+                                    <input
+                                        type="text"
+                                        className='input-prof lname-prof'
+                                        placeholder='Last Name'
+                                        value={lname}
+                                        onChange={e => setLname(e.target.value)}
+                                    />
+                                    <PermIdentityIcon style={{ color: "#15616d" }} />
+                                </div>
+                            </div>
+                            <div className='btns-actions'>
+                                <button className='btn-prof save-pro' onClick={sendEditProfile}>save</button>
+                                <button className='btn-prof cansle-pro' onClick={() => setShowEditModal(false)}>cancel</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            }
             <div className='sidebarContainer'>
                 <Box sx={{ display: 'flex' }}>
                     <CssBaseline />
@@ -168,17 +308,18 @@ export default function SeniorsideBar() {
                                 <img className='sideBar-img' src={logoColor} alt="logo" />
                             </div>
                             <div className="sideBar-userInfo-wrapper">
-                                <div className="sideBar-imgUser-wrapper">
-                                    <img className='sideBar-imgUser' src={user} />
+                                <div className="sideBar-imgUser-wrapper" onClick={() => setShowEditModal(true)}>
+                                    <img className='sideBar-imgUser' src={(userInfo && userInfo[0]?.avatar ? `${IP}${userInfo[0]?.avatar}` : avatar)} />
                                 </div>
                                 <div className="sideBar-userInfo">
-                                    <span className='sideBar-user-text' >Abbas Ghorbani</span>
-                                    <span className='sideBar-user-job'>Front End Developer</span>
-                                    <span></span>
+                                    <span className='sideBar-user-text' >
+                                        {userInfo && userInfo[0]?.first_name}  {userInfo && userInfo[0]?.last_name}
+                                    </span>
+                                    <span className='sideBar-user-job'>{userInfo && userInfo[0]?.user_type === "S" ? "Senior Officer" : ""}</span>
                                 </div>
                                 <div className="sideBar-notif-wrapper">
                                     <span className="notif-number">{numberNotif ? numberNotif : 0}</span>
-                                    <MailOutlineIcon />
+                                    <Link style={{ all: "unset", cursor: "pointer" }} to={'/chat'}> <MailOutlineIcon /></Link>
                                 </div>
                             </div>
                         </DrawerHeader>
@@ -190,6 +331,7 @@ export default function SeniorsideBar() {
                                         <ListItemButton
                                             onClick={() => handleItemClick(text === 'Home' ? '/' : text === "Filled Forms" ? "/filledforms/0" : `/${text.toLowerCase().replace(/\s/g, '')}`)}
                                             sx={{
+                                                mt: text === "Log out" ? 10 : 0,
                                                 '&:hover': { backgroundColor: '#DDF0FA' },
                                                 backgroundColor: currentRoute === (text === 'Home' ? '/' : `/${text.toLowerCase().replace(/\s/g, '')}`) ? '#DDF0FA' : 'inherit',
 

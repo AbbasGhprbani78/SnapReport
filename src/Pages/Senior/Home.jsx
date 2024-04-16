@@ -8,13 +8,12 @@ import { IP } from '../../App';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import FormOverView from '../../Components/FormOverView/FormOverView';
-import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import EditCalendarIcon from '@mui/icons-material/EditCalendar';
 import Header from '../../Components/Header/Header'
 import NotificationsHome from '../../Components/NotificationsHome/NotificationsHome'
 import FailHomeItem from '../../Components/FailHomeItem/FailHomeItem';
 import PlaceForm from '../../Components/PlaceForm/PlaceForm';
-import FindInPageIcon from '@mui/icons-material/FindInPage';
+
 
 export default function Home() {
 
@@ -106,7 +105,6 @@ export default function Home() {
     }, [])
 
 
-
     const permitForm = [...failForms].filter(form => form.type === "permit")
     const accidentForm = [...failForms].filter(form => form.type === "accident")
     const violationForm = [...failForms].filter(form => form.type === "violation")
@@ -143,10 +141,10 @@ export default function Home() {
                                     <Header />
                                     <div className='recentForm-conteiner'>
                                         <div className="allFormText">
-                                            <Link className='linkAll-form' to={''}>Default Forms <ChevronRightIcon /></Link>
+                                            <Link className='linkAll-form' to={''}>Default Forms</Link>
                                         </div>
                                         <div className='recentForm '>
-                                            <Col className='grid-form-recentItem d-flex '>
+                                            <div className='grid-form-recentItem d-flex '>
                                                 {
                                                     allform.length > 0 ? allform.map(form => (
                                                         <Col
@@ -174,26 +172,12 @@ export default function Home() {
                                                                             className='editFormIcom'
                                                                         />
                                                                     </div>
-                                                                    {/* <div
-                                                                        onClick={() => {
-                                                                            openFormHandler()
-                                                                            setMainForm(form)
-                                                                            setIsDelete(true)
-                                                                        }}
-                                                                        style={{ cursor: "pointer" }}
-
-                                                                    >
-                                                                        <DeleteForeverIcon
-                                                                            className='deleteFormIcon'
-
-                                                                        />
-                                                                    </div> */}
                                                                 </div>
                                                             </div>
                                                         </Col>
                                                     )) : <div className='noform'>There is no form</div>
                                                 }
-                                            </Col>
+                                            </div>
                                         </div>
                                     </div>
                                     <div className="bottomHome">
@@ -201,7 +185,7 @@ export default function Home() {
                                             <div className='form-sections'>
                                                 <div className="form-section">
                                                     <p className='form-section-title'>Permit</p>
-                                                    <Link to={'/filledforms/0'} className='link-form-section'>All permit forms</Link>
+                                                    <Link to={'/filledforms/0'} className='link-form-section'>see more < ChevronRightIcon /></Link>
                                                     <div className='grid-form d-flex '>
                                                         {
                                                             permitForm.length ?
@@ -237,7 +221,7 @@ export default function Home() {
                                                 </div>
                                                 <div className="form-section">
                                                     <p className='form-section-title'>Accident</p>
-                                                    <Link to={'/filledforms/1'} className='link-form-section'> All accident forms</Link>
+                                                    <Link to={'/filledforms/1'} className='link-form-section'> see more < ChevronRightIcon /></Link>
                                                     <div className='grid-form d-flex '>
                                                         {
                                                             accidentForm.length ?
@@ -271,7 +255,7 @@ export default function Home() {
                                                 </div>
                                                 <div className="form-section">
                                                     <p className='form-section-title'>Violation</p>
-                                                    <Link to={'/filledforms/2'} className='link-form-section'>All violation forms</Link>
+                                                    <Link to={'/filledforms/2'} className='link-form-section'>see more < ChevronRightIcon /></Link>
                                                     <div className='grid-form d-flex '>
                                                         {
                                                             violationForm.length ?
@@ -305,7 +289,7 @@ export default function Home() {
                                                 </div>
                                                 <div className="form-section">
                                                     <p className='form-section-title'>Inspections</p>
-                                                    <Link to={'/filledforms/3'} className='link-form-section'> All inspections forms</Link>
+                                                    <Link to={'/filledforms/3'} className='link-form-section'>see more < ChevronRightIcon /></Link>
                                                     <div className='grid-form d-flex '>
                                                         {
                                                             inspectionsForm.length ?
@@ -355,3 +339,19 @@ export default function Home() {
 
 
 
+// for delete default form
+
+{/* <div
+                                                                        onClick={() => {
+                                                                            openFormHandler()
+                                                                            setMainForm(form)
+                                                                            setIsDelete(true)
+                                                                        }}
+                                                                        style={{ cursor: "pointer" }}
+
+                                                                    >
+                                                                        <DeleteForeverIcon
+                                                                            className='deleteFormIcon'
+
+                                                                        />
+                                                                    </div> */}

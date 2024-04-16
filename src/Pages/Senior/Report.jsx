@@ -7,13 +7,8 @@ import LineCharts from '../../Components/Chart/LineCharts/LineCharts'
 import PermitViewers from '../../Components/Chart/PermitViewers/PermitViewers'
 import Header from '../../Components/Header/Header'
 import { Col } from 'react-bootstrap'
-// import Accordion from '@mui/material/Accordion';
-// import AccordionDetails from '@mui/material/AccordionDetails';
-// import AccordionSummary from '@mui/material/AccordionSummary';
-// import Typography from '@mui/material/Typography';
-// import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import Viewers1 from '../../Components/Chart/Viewers1/Viewers1'
-// import Viewers2 from '../../Components/Chart/Viewers2/Viewers2'
+import Viewers1 from '../../Components/Chart/Viewers1/Viewers1';
+import dayjs from 'dayjs';
 import axios from 'axios'
 import { IP } from '../../App'
 
@@ -23,6 +18,7 @@ export default function Report() {
     const [progressData, setProgressData] = useState("");
     const [permitState, setPermitState] = useState("");
     const [kindForm, setKindForm] = useState("")
+    const [notifs, setNotif] = useState("")
 
     const handleChange = (panel) => (event, isExpanded) => {
         setExpanded(isExpanded ? panel : false);
@@ -95,11 +91,61 @@ export default function Report() {
         }
     }
 
+
+    const getNotif = async () => {
+        const access = localStorage.getItem("access")
+        const headers = {
+            Authorization: `Bearer ${access}`
+        };
+        try {
+            const response = await axios.get(`${IP}/form/get-report-notif/`, {
+                headers,
+            })
+
+            if (response.status === 200) {
+                console.log(response.data)
+                setNotif(response.data)
+            }
+
+        } catch (e) {
+            if (e.response.status === 401) {
+                localStorage.clear()
+                navigate("/login")
+            }
+        }
+    }
+
+    const notifReadHandler = async (id) => {
+        const access = localStorage.getItem("access")
+        const headers = {
+            Authorization: `Bearer ${access}`
+        };
+        try {
+
+            const response = await axios.get(`${IP}/form/seen-notif-report/${id}`, {
+                headers,
+            })
+
+            if (response.status === 200) {
+                console.log(response.data)
+            }
+
+        } catch (e) {
+            if (e.response.status === 401) {
+                localStorage.clear()
+                navigate("/login")
+            }
+        }
+    }
+
     useEffect(() => {
         getProgressData()
         getPermitState()
         getKindForm()
+        getNotif()
     }, [])
+
+
     return (
         <>
             <Header />
@@ -109,7 +155,7 @@ export default function Report() {
                 <div className="charts-content">
                     {/* <p className="text-chart-top">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p> */}
                     <div className="charts-top">
-                        <Col xs={12} lg={8} className="chart-left">
+                        <Col xs={12} lg={7} xl={8} className="chart-left">
                             <div className='d-flex justify-content-around flex-wrap'>
                                 <Col xs={12} md={6} xl={4}>
                                     <ChartProgress
@@ -136,7 +182,7 @@ export default function Report() {
                                 <LineCharts />
                             </div>
                         </Col>
-                        <Col xs={12} lg={4} className="chart-right">
+                        <Col xs={12} lg={5} xl={4} className="chart-right">
                             <PermitViewers valueViewers={permitState} />
                             <Viewers1 kindForm={kindForm} />
                             {/* <Viewers2 /> */}
@@ -146,108 +192,33 @@ export default function Report() {
                 <div className="noti-report-wrapper my-3">
                     <p className='accident-notif-title font-bold fw-bold'>Notifications</p>
                     <div className='accrdion-weapper'>
-                        <Accordion defaultActiveKey="0">
-                            <Accordion.Item eventKey="0" className='mb-3'>
-                                <Accordion.Header>Accordion Item #1</Accordion.Header>
-                                <Accordion.Body>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                                    eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-                                    minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-                                    aliquip ex ea commodo consequat. Duis aute irure dolor in
-                                    reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-                                    pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-                                    culpa qui officia deserunt mollit anim id est laborum.
-                                </Accordion.Body>
-                            </Accordion.Item>
-                            <Accordion.Item eventKey="1">
-                                <Accordion.Header>Accordion Item #2</Accordion.Header>
-                                <Accordion.Body>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                                    eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-                                    minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-                                    aliquip ex ea commodo consequat. Duis aute irure dolor in
-                                    reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-                                    pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-                                    culpa qui officia deserunt mollit anim id est laborum.
-                                </Accordion.Body>
-                            </Accordion.Item>
-                        </Accordion>
+                        {
+                            notifs.length ?
+                                <Accordion defaultActiveKey="0">
+                                    {
+                                        notifs.slice().reverse().map(notif => (
+                                            <Accordion.Item eventKey={notif.id} className='mb-3' onClick={() => notifReadHandler(notif.id)}>
+                                                <Accordion.Header>
+                                                    {dayjs(notif.created_at).format('YYYY-MM-DD HH:mm')}
+                                                </Accordion.Header>
+                                                <Accordion.Body>
+                                                    {notif.message}
+                                                </Accordion.Body>
+                                            </Accordion.Item>
+                                        ))
+                                    }
+                                </Accordion>
+                                : null
+                        }
 
                     </div>
                 </div>
+
             </div>
         </>
     )
 }
 
 
-{/* <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
-                            <AccordionSummary
-                                expandIcon={<ExpandMoreIcon />}
-                                aria-controls="panel1bh-content"
-                                id="panel1bh-header"
-                            >
-                                <Typography sx={{ width: '33%', flexShrink: 0, color: "red" }}>
-                                    Warning name 1
-                                </Typography>
-                                <Typography sx={{ color: 'text.secondary' }}>I am an accordion</Typography>
-                            </AccordionSummary>
-                            <AccordionDetails>
-                                <Typography>
-                                    Nulla facilisi. Phasellus sollicitudin nulla et quam mattis feugiat.
-                                    Aliquam eget maximus est, id dignissim quam.
-                                </Typography>
-                            </AccordionDetails>
-                        </Accordion>
-                        <Accordion expanded={expanded === 'panel2'} onChange={handleChange('panel2')}>
-                            <AccordionSummary
-                                expandIcon={<ExpandMoreIcon />}
-                                aria-controls="panel2bh-content"
-                                id="panel2bh-header"
-                            >
-                                <Typography sx={{ width: '33%', flexShrink: 0, color: "red" }}> Warning name 2</Typography>
-                                <Typography sx={{ color: 'text.secondary' }}>
-                                    Warning name 2
-                                </Typography>
-                            </AccordionSummary>
-                            <AccordionDetails>
-                                <Typography>
-                                    Filtering has been entirely disabled for whole web server
-                                </Typography>
-                            </AccordionDetails>
-                        </Accordion>
-                        <Accordion expanded={expanded === 'panel3'} onChange={handleChange('panel3')}>
-                            <AccordionSummary
-                                expandIcon={<ExpandMoreIcon />}
-                                aria-controls="panel3bh-content"
-                                id="panel3bh-header"
-                            >
-                                <Typography sx={{ width: '33%', flexShrink: 0, color: "red" }}>
-                                    Warning name 3
-                                </Typography>
-                                <Typography sx={{ color: 'text.secondary' }}>
-                                    Filtering has been entirely disabled for whole web server
-                                </Typography>
-                            </AccordionSummary>
-                            <AccordionDetails>
-                                <Typography>
-                                    Nunc vitae orci ultricies, auctor nunc in, volutpat nisl. Integer sit
-                                    amet egestas eros, vitae egestas augue. Duis vel est augue.
-                                </Typography>
-                            </AccordionDetails>
-                        </Accordion>
-                        <Accordion expanded={expanded === 'panel4'} onChange={handleChange('panel4')}>
-                            <AccordionSummary
-                                expandIcon={<ExpandMoreIcon />}
-                                aria-controls="panel4bh-content"
-                                id="panel4bh-header"
-                            >
-                                <Typography sx={{ width: '33%', flexShrink: 0, color: "red" }}> Warning name 4</Typography>
-                            </AccordionSummary>
-                            <AccordionDetails>
-                                <Typography>
-                                    Nunc vitae orci ultricies, auctor nunc in, volutpat nisl. Integer sit
-                                    amet egestas eros, vitae egestas augue. Duis vel est augue.
-                                </Typography>
-                            </AccordionDetails>
-                        </Accordion> */}
+
+

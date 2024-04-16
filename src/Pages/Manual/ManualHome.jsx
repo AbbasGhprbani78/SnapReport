@@ -9,6 +9,7 @@ import FormWorker from '../../Components/FormWorker/FormWorker';
 import { useMyContext } from '../../Components/RoleContext';
 
 export default function ManualHome() {
+
     const [formData, setFormData] = useState([])
     const [showForm, setShowForm] = useState(false)
     const [mainTitle, setMainTitle] = useState('')
@@ -88,7 +89,7 @@ export default function ManualHome() {
                                         />
                                         <div className='topHome-worker'>
                                             {
-                                                PermitForms.map((form) => (
+                                                PermitForms.slice().reverse().map((form) => (
                                                     <BoxtForm
                                                         key={form.uuid}
                                                         styleCalss={"bluedot"}
@@ -125,7 +126,7 @@ export default function ManualHome() {
                                         />
                                         <div className='bottomHome-worker'>
                                             {
-                                                accidentForms.map((form) => (
+                                                accidentForms.slice().reverse().map((form) => (
                                                     <BoxtForm
                                                         key={form.uuid}
                                                         styleCalss={"greendot"}
@@ -151,7 +152,6 @@ export default function ManualHome() {
                                         />
                                         <div className='noform formhome-worker'>There is no form</div>
                                     </>
-
                             }
 
                             {
@@ -162,7 +162,7 @@ export default function ManualHome() {
                                         />
                                         <div className='bottomHome-worker'>
                                             {
-                                                infractions.map((form) => (
+                                                infractions.slice().reverse().map((form) => (
                                                     <BoxtForm
                                                         key={form.uuid}
                                                         styleCalss={"redDot"}
@@ -198,7 +198,7 @@ export default function ManualHome() {
                                         />
                                         <div className='bottomHome-worker'>
                                             {
-                                                inspections.map((form) => (
+                                                inspections.slice().reverse().map((form) => (
                                                     <BoxtForm
                                                         key={form.uuid}
                                                         styleCalss={"oliveForm"}

@@ -6,7 +6,7 @@ import { FaEyeSlash } from "react-icons/fa";
 import { IP } from '../../App'
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { json, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useMyContext } from '../RoleContext';
 import logo from '../../Images/logo.svg'
 import axios from 'axios';
@@ -20,8 +20,6 @@ export default function FormSignIn({ handleTabChange }) {
     const [userName, setUserName] = useState(null)
     const [password, setPassword] = useState(null)
     const { sharedData, updateSharedData } = useMyContext();
-
-
 
     // for change of situation of eye
     const handleToggle = () => {
@@ -40,11 +38,10 @@ export default function FormSignIn({ handleTabChange }) {
             })
 
             if (response.status === 200) {
-                console.log(response.data.risk_level)
-                localStorage.setItem('levelrick', response.data.risk_level);
+                localStorage.setItem('levelrick', response.data.label);
+                localStorage.setItem("message", response.data.message);
             }
         } catch (error) {
-
             if (error.response.status === 401) {
                 localStorage.clear()
                 navigate("/login")
@@ -112,7 +109,7 @@ export default function FormSignIn({ handleTabChange }) {
     async function submit(e) {
         e.preventDefault();
         if (!validate()) return;
-        const post = { username: userName, password: password };
+        const post = { username: userName.toLowerCase(), password: password };
 
         try {
             const response = await axios.post(`${IP}/user/login/`, post, {
@@ -129,6 +126,7 @@ export default function FormSignIn({ handleTabChange }) {
                     randomData()
                     navigate("/")
                 } if (response.data.user_type === "O") {
+                    randomData()
                     navigate("/ordinaryhome")
                 } if (response.data.user_type === "M") {
                     navigate("/manualhome")

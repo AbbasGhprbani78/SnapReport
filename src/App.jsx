@@ -22,15 +22,15 @@ function App() {
   const subUserRef = useRef(null);
   const { sharedData } = useMyContext();
   const [showModalAccident, setShowModalAccident] = useState(false)
-  const [isAccident, setIsAccident] = useState(localStorage.getItem("levelrick"))
+  const [isAccident, setIsAccident] = useState()
+  const [meesageRick, setMessageRisk] = useState()
   const { type } = useMyContext()
-
-
   const hideModal = () => {
     setShowModalAccident(false)
   }
 
   useEffect(() => {
+
     function handleClickOutside(event) {
       if (subUserRef.current && !subUserRef.current.contains(event.target)) {
         setShowModalAccident(false);
@@ -42,6 +42,13 @@ function App() {
     };
   }, []);
 
+
+  // useEffect(() => {
+  //   setIsAccident(localStorage.getItem("levelrick"))
+  //   setMessageRisk(localStorage.getItem("message"))
+  // }, [])
+
+  // console.log(isAccident)
 
   return (
     <>
@@ -66,9 +73,10 @@ function App() {
                         "warning" : isAccident == 2 ?
                           "danger" : ""}`}>
 
-                    {isAccident == 0 ? "No Accident" : isAccident == 1 ? "Warinig" : "Danger"}
+                    {isAccident == 0 ? "No Accident" : isAccident == 1 ? "Warinig" : isAccident == 2 ? "Danger" : ""}
                   </h3>
-                  <p className='text-warnings'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo, sed, ut placeat ex ad deleniti expedita id quisquam non tenetur error esse dolor dolorem hic laborum impedit odit rem inventore?
+                  <p className='text-warnings text-center'>
+                    {meesageRick && meesageRick}
                   </p>
                 </div>
               </div>
@@ -80,7 +88,7 @@ function App() {
                     (sharedData || type) === "M" ?
                       <ManualSideBar /> : null
               }
-              <div className='w-100'>
+              <div className='w-100' style={{ overflowX: "hidden" }}>
                 {
                   ((sharedData === "S" || type === "S") || (sharedData === "O" || type === "O")) ?
                     <>
@@ -88,13 +96,15 @@ function App() {
                         isAccident == 2 ?
                           <Alert className='d-flex align-items-center justify-content-between alert-accident'>
                             <div className='content-alert '>
-                              <h4>Danger</h4>
-                              <p className='alert-text'>Lorem ipsum dolor sit amet consectetur adipisicing elit...</p>
+                              <h4 className='danger-title'>Danger</h4>
+                              <p className='alert-text'></p>
                             </div>
-                            < WarningAmberIcon
-                              style={{ fontSize: "2rem", cursor: "pointer" }}
-                              onClick={() => setShowModalAccident(true)}
-                            />
+                            <div className='warning-icon-wrapper'>
+                              < WarningAmberIcon
+                                style={{ cursor: "pointer" }}
+                                onClick={() => setShowModalAccident(true)}
+                              />
+                            </div>
                           </Alert> :
                           isAccident == 1 ?
                             <div className='warningAccident'>
@@ -108,18 +118,20 @@ function App() {
                                 </span>
                               </div>
                             </div> :
-                            <div className='noAccident'>
-                              <div className='chevorn'></div>
-                              <div className='Verifiedwrapper'>
-                                <p className='noaccident-text'>Safe</p>
-                                <span className='span-Verified'>
-                                  <VerifiedUserOutlinedIcon
-                                    onClick={() => setShowModalAccident(true)}
-                                    style={{ color: "#ffffff", cursor: "pointer" }}
-                                  />
-                                </span>
+                            isAccident == 0 ?
+                              <div className='noAccident'>
+                                <div className='chevorn'></div>
+                                <div className='Verifiedwrapper'>
+                                  <p className='noaccident-text'>No accident</p>
+                                  <span className='span-Verified'>
+                                    <VerifiedUserOutlinedIcon
+                                      onClick={() => setShowModalAccident(true)}
+                                      style={{ color: "#ffffff", cursor: "pointer" }}
+                                    />
+                                  </span>
+                                </div>
                               </div>
-                            </div>
+                              : ""
                       }
                     </> : null
                 }

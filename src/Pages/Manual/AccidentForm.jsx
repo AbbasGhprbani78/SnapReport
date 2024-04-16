@@ -66,7 +66,6 @@ export default function AccidentForm() {
                             title={title}
                             description={description}
                             fields={fields}
-
                         />
                     </>) : (
                     <>
@@ -89,7 +88,6 @@ export default function AccidentForm() {
                                             setFields={setFields}
                                             form={form}
                                             paddingStyle={"padding-style"}
-
                                         />
                                     )) :
                                         <>

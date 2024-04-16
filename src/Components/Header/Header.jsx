@@ -19,7 +19,7 @@ export default function Header() {
 
 
     return (
-        <div className="d-lg-none mb-2 headerContainer">
+        <div className="d-lg-none mb-4 mb-md-2 headerContainer">
             {
                 (sharedData || type) === "S" ?
                     <SeniorOffCanvas

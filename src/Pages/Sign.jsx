@@ -81,7 +81,6 @@ export default function SignIn() {
                                             : ""
                                 }
 
-
                             </Col>
                             <Col className='signIn-right' xs={12} md={6} lg={7}>
                                 <div className="logo-text-wrapper">

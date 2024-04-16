@@ -132,7 +132,7 @@
 
 .link-form-section {
     text-decoration: none;
-    color: #797979;
+    color: var(--color-9);
     font-size: .8rem;
 }
 
@@ -151,11 +151,19 @@
     margin: 20px auto;
 }
 
-@media (min-width:1200px) {
+/* @media (min-width:1095px) {
     .grid-form-recentItem {
-        width: 1200px;
+        width: 890px;
     }
 }
+
+@media (min-width: 992px) and (max-width: 1095px) {
+    .grid-form-recentItem {
+        width: 700px;
+    }
+} */
+
+
 
 @media (max-width:992px) {
     .grid-form-recentItem {

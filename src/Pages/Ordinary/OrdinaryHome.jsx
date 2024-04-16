@@ -1,7 +1,10 @@
 import React from 'react'
+import Header from '../../Components/Header/Header'
 
 export default function OrdinaryHome() {
     return (
-        <div>OrdinaryHome</div>
+        <div className='home-container'>
+            <Header />
+        </div>
     )
 }

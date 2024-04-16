@@ -58,7 +58,7 @@ export default function SeniorRoute({ children }) {
                 children
             ) : (seniorTrue || typeUser === "M") ?
                 navigate("/manualhome") :
-                (seniorTrue || typeUser === "M") ?
+                (seniorTrue || typeUser === "O") ?
                     navigate('/ordinaryhome') :
                     (
                         navigate("/login")

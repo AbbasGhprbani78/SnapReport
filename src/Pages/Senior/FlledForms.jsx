@@ -132,7 +132,12 @@ export default function FilledForms() {
                         <Header />
                         <Box sx={{ width: '100%' }}>
                             <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-                                <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
+                                <Tabs
+                                    value={value}
+                                    onChange={handleChange}
+                                    aria-label="basic tabs example"
+                                    variant="scrollable"
+                                >
                                     <Tab style={{ color: "#45ABE5" }} label="Permit Form" {...a11yProps(0)} />
                                     <Tab style={{ color: "#45ABE5" }} label="Accident Form" {...a11yProps(1)} />
                                     <Tab style={{ color: "#45ABE5" }} label="Violation From" {...a11yProps(2)} />

@@ -13,3 +13,9 @@
 .logoHeader_wrapper {
     margin: 0 auto;
 }
+
+@media (max-width:576px) {
+    .logoHeader_wrapper>img {
+        margin-right: 20px;
+    }
+}

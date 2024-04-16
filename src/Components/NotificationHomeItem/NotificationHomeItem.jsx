@@ -61,9 +61,9 @@ export default function NotificationHomeItem({
                     }
 
                 </div>
-                <div className={`d-flex flex-column ${read == 1 ? "content-disable" : ""}`} style={{ marginLeft: "20px", width: "100%" }}>
+                <div className={`d-flex flex-column ${read == 1 ? "content-disable" : ""}`} style={{ marginLeft: "10px", width: "100%" }}>
                     <p className="user-notif-name d-flex justify-content-between">
-                        List item
+                        Notif item
                         <span className='notif-date'>{dateObject}</span>
                     </p>
                     <p className="notif-user-content">

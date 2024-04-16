@@ -6,6 +6,7 @@ import { IP } from '../../App'
 import { useNavigate } from 'react-router-dom';
 
 export default function NotificationsHome() {
+
     const [notifs, setNotifs] = useState(null)
     const navigate = useNavigate()
 

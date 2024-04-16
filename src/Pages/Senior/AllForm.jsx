@@ -74,7 +74,7 @@ export default function AllForm() {
                         <div className={`${allform.length === 0 ? "emptyForm" : ""} allForm-container`} >
 
                             {
-                                allform && allform.length > 0 && allform.map(form => (
+                                allform && allform.length > 0 && allform.slice().reverse().map(form => (
                                     <div
                                         className='item-recent'
                                         key={form.uuid}

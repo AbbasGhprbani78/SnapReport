@@ -6,6 +6,20 @@
     justify-content: space-between;
     align-items: flex-start;
     border-bottom: 1px solid lightgray;
+
+}
+
+.about-user-fill-wrapper {
+    padding: 0 2%;
+}
+
+.lname-fill-form {
+    margin-left: 1rem;
+}
+
+.job-cond-fill-form {
+    font-weight: bold;
+    margin-top: .5rem
 }
 
 .ConditionFormBox-left {

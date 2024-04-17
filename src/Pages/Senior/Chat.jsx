@@ -36,6 +36,7 @@ export default function Chat() {
     const [showfile, setShowFile] = useState(false)
     const prevLengthRef = useRef(0);
 
+
     const getAllUser = async () => {
         const access = localStorage.getItem("access")
         const headers = {
@@ -47,6 +48,7 @@ export default function Chat() {
             })
 
             if (response.status === 200) {
+                console.log(response.data)
                 setUser(response.data)
             }
 
@@ -227,6 +229,7 @@ export default function Chat() {
         return () => clearInterval(interval);
     }, [selectedUser]);
 
+
     useEffect(() => {
 
         if (allMessage.length <= 3) {
@@ -276,6 +279,10 @@ export default function Chat() {
             window.removeEventListener('resize', handleWindowResize);
         };
     }, []);
+
+    const ordinaryAudiance = [...user].filter(item => item.user_type === "O")
+    const manualAudiance = [...user].filter(item => item.user_type === "M")
+
 
     return (
         <>
@@ -388,15 +395,41 @@ export default function Chat() {
                                 <div style={{ width: "100%" }}>
                                     <Header />
                                     <div className="list-users">
-                                        {
-                                            user && user.length > 0 && user.map((user) => (
-                                                <UserInfo
-                                                    key={user.uuid}
-                                                    user={user}
-                                                    selectUser={() => selectUser(user.uuid)}
-                                                />
-                                            ))
-                                        }
+                                        <p className='ordinaryAudianc-title'>Ordinary Officer</p>
+                                        <div className='ordinaryAudiance-content'>
+
+                                            {ordinaryAudiance.length > 0 ?
+                                                ordinaryAudiance.map((user) => (
+                                                    <UserInfo
+                                                        key={user.uuid}
+                                                        user={user}
+                                                        selectUser={() => selectUser(user.uuid)}
+                                                    />
+                                                ))
+                                                :
+                                                <p className='nothing-user'>
+                                                    there is no user !
+                                                </p>
+                                            }
+                                        </div>
+                                        <p className='manualAudianc-title'>Manual Worker</p>
+                                        <div className='manualAudiance-content'>
+                                            {
+                                                manualAudiance.length > 0 ?
+                                                    manualAudiance.map((user) => (
+                                                        <UserInfo
+                                                            key={user.uuid}
+                                                            user={user}
+                                                            selectUser={() => selectUser(user.uuid)}
+
+                                                        />
+                                                    ))
+                                                    :
+                                                    <p className='nothing-user'>
+                                                        there is no user !
+                                                    </p>
+                                            }
+                                        </div>
                                     </div>
                                 </div>
                             </>
@@ -409,6 +442,7 @@ export default function Chat() {
                             isActive={isAudianceActive}
                             toggleAudianceActive={toggleAudianceActive}
                             user={user}
+
                         />
                         <div className="chat-container">
                             <div className="chat-header">

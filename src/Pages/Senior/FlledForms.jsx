@@ -62,6 +62,7 @@ export default function FilledForms() {
     const [description, setDescription] = useState('')
     const [fields, setFields] = useState([])
     const [formUuid, setFormUuid] = useState('')
+
     const openFormHandler = () => {
         setShowForm(true)
     }
@@ -236,7 +237,7 @@ export default function FilledForms() {
                                                     setDescription={setDescription}
                                                     form={form}
                                                     setFields={setFields}
-                                                    styleCalss={'oliveForm'}
+                                                    styleCalss={'orangeDot'}
                                                 />
                                             ))
                                         ) :

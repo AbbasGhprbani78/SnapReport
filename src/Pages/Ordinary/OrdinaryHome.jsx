@@ -200,7 +200,7 @@ export default function OrdinaryHome() {
                                                 inspections.slice().reverse().map((form) => (
                                                     <BoxtForm
                                                         key={form.uuid}
-                                                        styleCalss={"oliveForm"}
+                                                        styleCalss={"orangeDot"}
                                                         title="Inspections Form"
                                                         openForm={openFormHandler}
                                                         des={form.descriptions}

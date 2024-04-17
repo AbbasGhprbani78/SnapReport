@@ -11,6 +11,7 @@ import { ToastContainer } from "react-toastify";
 
 
 export default function PlaceForm({ back, title, description, fields, formUuid, getAllFillForms }) {
+
     const [accept, setAccept] = useState(null);
     const [checks, setChecks] = useState(null)
 
@@ -88,6 +89,22 @@ export default function PlaceForm({ back, title, description, fields, formUuid, 
                             style={{ fontSize: "1rem", cursor: "pointer" }} />back
                     </div>
                 </div>
+                <div className='about-user-fill-wrapper my-2 d-flex justify-content-between align-items-center flex-wrap'>
+                    <div>
+                        <span className='about-user-fill-form fname-fill-form'>
+                            {fields[0]?.checks[0]?.user.first_name}
+                        </span>
+                        <span className='about-user-fill-form lname-fill-form'>
+                            {fields[0]?.checks[0]?.user?.last_name}
+                        </span>
+                    </div>
+                    <p className='job-cond-fill-form'>
+                        {fields[0]?.checks[0]?.user?.user_type === "O" ? "Ordinary Officer" :
+                            fields[0]?.checks[0]?.user?.user_type === "M" ? "Manual Worker" :
+                                fields[0]?.checks[0]?.user?.user_type === "S" ? "Senior Officer" : ""
+                        }
+                    </p>
+                </div>
                 <div className='placeForm'>
                     <h3 className='from-title'>{title}</h3>
                     <p className='from-description'>{description}</p>
@@ -105,7 +122,7 @@ export default function PlaceForm({ back, title, description, fields, formUuid, 
                 </div>
                 {
                     formUuid &&
-                    <div className=' btn-ar-wrapper'>
+                    <div className=' btn-ar-wrapper mb-3'>
                         <button className='btn-ar acceptBtn' onClick={(e) => {
                             setAccept("2")
                             sendCondition(e, "2")

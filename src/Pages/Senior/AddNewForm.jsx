@@ -656,7 +656,7 @@ export default function AddNewForm({ showForm, back, mainForm, isDelete, getAllF
                                                 <option value="permit">permit</option>
                                                 <option value="accident">accident</option>
                                                 <option value="violation">violation</option>
-                                                <option value="inspections">inspections</option>
+                                                <option disabled={fromInfom.person_type.includes("M") ? true : false} value="inspections">inspections</option>
                                             </select>
                                         </div>
                                     </div>

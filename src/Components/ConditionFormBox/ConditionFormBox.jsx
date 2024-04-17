@@ -24,6 +24,7 @@ export default function ConditionFormBox({
 
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
+
     useEffect(() => {
 
         const handleWindowResize = () => {
@@ -66,6 +67,12 @@ export default function ConditionFormBox({
                                         }
 
                                     </div>
+                                    <p className='job-cond-fill-form mb-2'>
+                                        {form?.fields[0]?.checks[0]?.user?.user_type === "O" ? "Ordinary Officer" :
+                                            form?.fields[0]?.checks[0]?.user?.user_type === "M" ? "Manual Worker" :
+                                                form?.fields[0]?.checks[0]?.user?.user_type === "S" ? "Senior Officer" : ""
+                                        }
+                                    </p>
                                     <p className='ConditionFormBox-dec'>{dec}</p>
                                     <p className='viewmore my-2' onClick={() => {
                                         openFormHandler()
@@ -94,6 +101,12 @@ export default function ConditionFormBox({
                                             }}>view More
                                         </p>
                                     </div>
+                                    <p className='job-cond-fill-form mb-2'>
+                                        {form?.fields[0]?.checks[0]?.user?.user_type === "O" ? "Ordinary Officer" :
+                                            form?.fields[0]?.checks[0]?.user?.user_type === "M" ? "Manual Worker" :
+                                                form?.fields[0]?.checks[0]?.user?.user_type === "S" ? "Senior Officer" : ""
+                                        }
+                                    </p>
                                     <div>
                                         <p className='ConditionFormBox-dec'>{dec}</p>
                                     </div>
@@ -123,6 +136,13 @@ export default function ConditionFormBox({
                                                     setFormUuid(form.uuid)
                                                 }}>view More</p>
                                         </div>
+                                        <p className='job-cond-fill-form mb-2'>
+                                            {form?.fields[0]?.checks[0]?.user?.user_type === "O" ? "Ordinary Officer" :
+                                                form?.fields[0]?.checks[0]?.user?.user_type === "M" ? "Manual Worker" :
+                                                    form?.fields[0]?.checks[0]?.user?.user_type === "S" ? "Senior Officer" : ""
+                                            }
+                                        </p>
+
                                         <p className='ConditionFormBox-dec'>{dec}</p>
                                     </div>
                                     <div className="permkitFormBox-right">
@@ -158,6 +178,12 @@ export default function ConditionFormBox({
                                                 }}>view More
                                             </p>
                                         </div>
+                                        <p className='job-cond-fill-form mb-2'>
+                                            {form?.fields[0]?.checks[0]?.user?.user_type === "O" ? "Ordinary Officer" :
+                                                form?.fields[0]?.checks[0]?.user?.user_type === "M" ? "Manual Worker" :
+                                                    form?.fields[0]?.checks[0]?.user?.user_type === "S" ? "Senior Officer" : ""
+                                            }
+                                        </p>
                                         <div>
                                             <p className='ConditionFormBox-dec'>{dec}</p>
                                         </div>
@@ -173,3 +199,11 @@ export default function ConditionFormBox({
 
     )
 }
+
+
+{/* <span className='about-user-fill-form fname-fill-form'>
+                                                    {form?.fields[0]?.checks[0]?.user.first_name}
+                                                </span>
+                                                <span className='about-user-fill-form lname-fill-form'>
+                                                    {form?.fields[0]?.checks[0]?.user?.last_name}
+                                                </span> */}

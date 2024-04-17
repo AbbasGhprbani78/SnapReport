@@ -188,6 +188,7 @@
 
     .chat-body {
         height: 93%;
+        padding-top: 50px;
     }
 
     .chat-actions {

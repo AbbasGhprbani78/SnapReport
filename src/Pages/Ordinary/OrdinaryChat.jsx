@@ -69,8 +69,7 @@ export default function OrdinaryChat() {
 
             if (response.status === 200) {
                 setAllMessage(response.data)
-                setUserInfo(response.data[0].receiver)
-                console.log(response.data)
+                setUserInfo(response.data[0].sender)
             }
 
             else {
@@ -366,7 +365,6 @@ export default function OrdinaryChat() {
                                 </div>
                             </div>
                         </>
-
                     </> :
 
                     <div style={{ width: "100%" }}>

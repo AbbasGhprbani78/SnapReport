@@ -1,14 +1,31 @@
 import React from 'react'
 import './FormItem.css'
 import TextField from '@mui/material/TextField';
+import EditCalendarIcon from '@mui/icons-material/EditCalendar';
 export default function FormItem({ content, selectElement, ishover }) {
-
     return (
         <>
-            <div
-                className={`question-wrapper ${!ishover && "option-item-form"}`}
-                onClick={() => selectElement(content.questions, content)}>
+            <div className={`question-wrapper ${!ishover && "option-item-form"}`}>
+                {
+                    ishover ?
+                        null
+                        :
+                        <div>
+                            < div className='actions-forms'>
+                                <div
+                                    onClick={() => selectElement(content.questions, content)}
+                                    style={{ cursor: "pointer" }}
+                                >
+                                    <EditCalendarIcon
+                                        className='editFormIcom'
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                }
+
                 <p className='qusetion-form'>{content.questions}</p>
+
                 {
                     content.fields_type === "dropdown" ?
                         <div
@@ -88,7 +105,6 @@ export default function FormItem({ content, selectElement, ishover }) {
                 }
 
             </div>
-            <div />
         </>
 
     )
@@ -97,3 +113,4 @@ export default function FormItem({ content, selectElement, ishover }) {
 
 
 
+// onClick = {() => selectElement(content.questions, content)}

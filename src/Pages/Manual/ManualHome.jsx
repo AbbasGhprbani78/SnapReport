@@ -59,7 +59,7 @@ export default function ManualHome() {
     const PermitForms = formData.filter(form => form.type === "permit")
     const accidentForms = formData.filter(form => form.type === "accident")
     const infractions = formData.filter(form => form.type === "violation")
-    const inspections = formData.filter(form => form.type === "inspections")
+    // const inspections = formData.filter(form => form.type === "inspections")
 
 
     return (
@@ -189,43 +189,6 @@ export default function ManualHome() {
                                         <div className='noform formhome-worker'>There is no form</div>
                                     </>
                             }
-
-                            {
-                                inspections.length > 0 ?
-                                    <>
-                                        <TopSection
-                                            text="Inspections forms"
-                                        />
-                                        <div className='bottomHome-worker'>
-                                            {
-                                                inspections.slice().reverse().map((form) => (
-                                                    <BoxtForm
-                                                        key={form.uuid}
-                                                        styleCalss={"oliveForm"}
-                                                        title="Inspections Form"
-                                                        openForm={openFormHandler}
-                                                        des={form.descriptions}
-                                                        setMainTitle={setMainTitle}
-                                                        setMainDes={setMainDes}
-                                                        setuuid={setUuuid}
-                                                        setMainFields={setMainFields}
-                                                        titleForm={form.title}
-                                                        uuid={form.uuid}
-                                                        fields={form.fields}
-                                                    />))
-                                            }
-
-                                        </div>
-                                    </> :
-                                    <>
-                                        <TopSection
-                                            text="Inspections forms"
-                                        />
-                                        <div className='noform formhome-worker'>There is no form</div>
-                                    </>
-
-                            }
-
                         </div>
                     </>)
             }
@@ -235,3 +198,40 @@ export default function ManualHome() {
     )
 }
 
+
+
+// {
+//     inspections.length > 0 ?
+//         <>
+//             <TopSection
+//                 text="Inspections forms"
+//             />
+//             <div className='bottomHome-worker'>
+//                 {
+//                     inspections.slice().reverse().map((form) => (
+//                         <BoxtForm
+//                             key={form.uuid}
+//                             styleCalss={"oliveForm"}
+//                             title="Inspections Form"
+//                             openForm={openFormHandler}
+//                             des={form.descriptions}
+//                             setMainTitle={setMainTitle}
+//                             setMainDes={setMainDes}
+//                             setuuid={setUuuid}
+//                             setMainFields={setMainFields}
+//                             titleForm={form.title}
+//                             uuid={form.uuid}
+//                             fields={form.fields}
+//                         />))
+//                 }
+
+//             </div>
+//         </> :
+//         <>
+//             <TopSection
+//                 text="Inspections forms"
+//             />
+//             <div className='noform formhome-worker'>There is no form</div>
+//         </>
+
+// }

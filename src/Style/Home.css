@@ -111,12 +111,12 @@
 }
 
 .topHome-worker {
-    min-height: 25vh;
+    min-height: 33vh;
     overflow-y: scroll;
 }
 
 .bottomHome-worker {
-    min-height: 25vh;
+    min-height: 33vh;
     overflow-y: scroll;
 }
 

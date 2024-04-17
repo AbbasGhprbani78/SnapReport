@@ -25,10 +25,10 @@ let routes = [
 
     { path: "/manualhome", element: <ManualRoutes><ManualHome /></ManualRoutes> },
     { path: "/manualchat", element: <ManualRoutes><ManualChat /></ManualRoutes> },
-    { path: "/permitform", element: <ManualRoutes><PermitForm /></ManualRoutes> },
-    { path: "/accidentform", element: <ManualRoutes> <AccidentForm /></ManualRoutes> },
-    { path: "/violationsform", element: <ManualRoutes> <Infractions /></ManualRoutes> },
-    { path: "/inspectionsform", element: <ManualRoutes> <Inspections /></ManualRoutes> },
+    { path: "/permitforms", element: <ManualRoutes><PermitForm /></ManualRoutes> },
+    { path: "/accidentforms", element: <ManualRoutes> <AccidentForm /></ManualRoutes> },
+    { path: "/violationsforms", element: <ManualRoutes> <Infractions /></ManualRoutes> },
+    // { path: "/inspectionsform", element: <ManualRoutes> <Inspections /></ManualRoutes> },
 
 
     { path: "/ordinaryhome", element: <OrdinaryRoutes><OrdinaryHome /></OrdinaryRoutes> },
@@ -41,7 +41,7 @@ let routes = [
 
     { path: "/", element: <SeniorRoutes><Home /></SeniorRoutes> },
     { path: "/addnewform", element: <SeniorRoutes><AddNewForm /></SeniorRoutes> },
-    { path: "/allform", element: <SeniorRoutes><AllForm /></SeniorRoutes> },
+    { path: "/allforms", element: <SeniorRoutes><AllForm /></SeniorRoutes> },
     { path: "/filledforms/:todoid", element: <SeniorRoutes><FilledForms /></SeniorRoutes> },
     { path: "/reports", element: <SeniorRoutes><Report /></SeniorRoutes> },
     { path: "/chat", element: <SeniorRoutes><Chat /></SeniorRoutes> },

@@ -151,6 +151,7 @@ export default function ManualSideBar() {
             })
 
             if (response.status === 200) {
+                console.log(response.data)
                 setUserInfo(response.data)
                 setFname(response.data[0].first_name)
                 setLname(response.data[0].last_name)
@@ -214,7 +215,7 @@ export default function ManualSideBar() {
             {
                 showEditModal
                 &&
-                <div className={`showEditModal-container ${setShowEditModal ? "showEditModal-container-active" : ""}`}>
+                <div className={`showEditModal-container ${showEditModal ? "showEditModal-container-active" : ""}`}>
                     <div className="closeform" onClick={() => setShowEditModal(false)}></div>
                     <div className="editModal">
                         <p className="title-prof">
@@ -307,7 +308,7 @@ export default function ManualSideBar() {
                                     <span className='sideBar-user-text' >
                                         {userInfo && userInfo[0]?.first_name}  {userInfo && userInfo[0]?.last_name}
                                     </span>
-                                    <span className='sideBar-user-job'>{userInfo && userInfo[0]?.user_type === "O" ? "Ordinery Officer" : ""}</span>
+                                    <span className='sideBar-user-job'>{userInfo && userInfo[0]?.user_type === "O" ? "Ordinary Officer" : ""}</span>
                                 </div>
                                 <div className="sideBar-notif-wrapper">
                                     <span className="notif-number">{numberNotif ? numberNotif : 0}</span>
@@ -316,21 +317,21 @@ export default function ManualSideBar() {
                             </div>
                         </DrawerHeader>
                         <List>
-                            {['Home', "chat", "Permit form", "Accident form", "Violations form", "Inspections form", "Log out"].map((text, index) => (
+                            {['Home', "Chat", "Permit Forms", "Accident Forms", "Violations Forms", "Inspections Forms", "Log out"].map((text, index) => (
                                 <CSSTransition key={text} timeout={300} classNames="fade">
                                     <ListItem key={text} disablePadding>
                                         <ListItemButton
-                                            onClick={() => handleItemClick(text === 'Home' ? '/ordinaryhome' : text === "chat" ? '/ordinarychat' :
-                                                text === 'Permit form' ? '/ordinarypermitform' : text === "Accident form" ? '/ordinaryaccidentform' :
-                                                    text === 'Violations form' ? '/ordinaryviolationsform' : text === "Inspections form" ? '/ordinaryinpections' :
+                                            onClick={() => handleItemClick(text === 'Home' ? '/ordinaryhome' : text === "Chat" ? '/ordinarychat' :
+                                                text === 'Permit Forms' ? '/ordinarypermitform' : text === "Accident Forms" ? '/ordinaryaccidentform' :
+                                                    text === 'Violations Forms' ? '/ordinaryviolationsform' : text === "Inspections Forms" ? '/ordinaryinpections' :
                                                         `/${text.toLowerCase().replace(/\s/g, '')}`
                                             )}
                                             sx={{
                                                 mt: text === "Log out" ? 10 : 0,
                                                 '&:hover': { backgroundColor: '#DDF0FA' },
-                                                backgroundColor: currentRoute === (text === 'Home' ? '/ordinaryhome' : text === "chat" ? '/ordinarychat' :
-                                                    text === 'Permit form' ? '/ordinarypermitform' : text === "Accident form" ? '/ordinaryaccidentform' :
-                                                        text === 'Violations form' ? '/ordinaryviolationsform' : text === "Inspections form" ? '/ordinaryinpections' :
+                                                backgroundColor: currentRoute === (text === 'Home' ? '/ordinaryhome' : text === "Chat" ? '/ordinarychat' :
+                                                    text === 'Permit Forms' ? '/ordinarypermitform' : text === "Accident Forms" ? '/ordinaryaccidentform' :
+                                                        text === 'Violations Forms' ? '/ordinaryviolationsform' : text === "Inspections Forms" ? '/ordinaryinpections' :
                                                             `/${text.toLowerCase().replace(/\s/g, '')}`
                                                 ) ? '#DDF0FA' : 'inherit',
                                             }}

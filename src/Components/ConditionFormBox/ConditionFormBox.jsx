@@ -61,7 +61,7 @@ export default function ConditionFormBox({
                                                     (<>
                                                         Reject <span style={{ marginLeft: "15px" }} ><CloseIcon className='condition-request-reject icon-condition' /></span>
                                                     </>) :
-                                                    <>pending <span style={{ marginLeft: "15px" }}><ReportGmailerrorredIcon className='condition-request-pending icon-condition' /></span></>}
+                                                    <>Pending <span style={{ marginLeft: "15px" }}><ReportGmailerrorredIcon className='condition-request-pending icon-condition' /></span></>}
                                             </p>
                                         }
 
@@ -136,7 +136,7 @@ export default function ConditionFormBox({
                                                     (<>
                                                         Reject <span style={{ marginLeft: "15px" }} ><CloseIcon className='condition-request-reject icon-condition' /></span>
                                                     </>) :
-                                                    <>pending <span style={{ marginLeft: "15px" }}><ReportGmailerrorredIcon className='condition-request-pending icon-condition' /></span></>}
+                                                    <>Pending <span style={{ marginLeft: "15px" }}><ReportGmailerrorredIcon className='condition-request-pending icon-condition' /></span></>}
                                             </p>
                                         }
                                     </div>

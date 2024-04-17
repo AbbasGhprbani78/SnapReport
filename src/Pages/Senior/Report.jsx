@@ -163,9 +163,6 @@ export default function Report() {
                                         title={"Age of equipment"}
                                     />
                                 </Col>
-                                {/* <Col xs={12} md={6} xl={4}>
-                                    <ChartProgress percent={50} />
-                                </Col> */}
                                 <Col xs={12} md={6} xl={4} className='mt-4 mt-md-0'>
                                     <ChartProgress
                                         percent={progressData.percentage_failure_rate?.toFixed(2)}
@@ -218,6 +215,10 @@ export default function Report() {
         </>
     )
 }
+
+{/* <Col xs={12} md={6} xl={4}>
+                                    <ChartProgress percent={50} />
+                                </Col> */}
 
 
 

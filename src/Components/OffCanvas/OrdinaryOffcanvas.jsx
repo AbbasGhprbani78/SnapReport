@@ -28,6 +28,7 @@ import axios from 'axios';
 import { IP } from '../../App';
 import PermIdentityIcon from '@mui/icons-material/PermIdentity';
 import { Link } from 'react-router-dom';
+import Modal from 'react-bootstrap/Modal';
 
 const drawerWidth = 280;
 const DrawerHeader = styled('div')(({ theme }) => ({
@@ -46,8 +47,8 @@ export default function ManualOffcanvas({ show, onHide }) {
     const [userInfo, setUserInfo] = useState("")
     const [imgSrc, setImgSrc] = useState();
     const [defaultImg, setDefaultImg] = useState();
-    const [showEditModal, setShowEditModal] = useState(false)
     const [numberNotif, setNumberNotif] = useState('')
+    const [showm, setShow] = useState(false);
 
     //all icons in side bar
     const drawerIcons = [
@@ -59,6 +60,7 @@ export default function ManualOffcanvas({ show, onHide }) {
         <ContentPasteSearchOutlinedIcon />,
         <LogoutIcon />,];
     //slelect route
+
     const [selectedRoute, setSelectedRoute] = React.useState('/');
     const navigate = useNavigate();
 
@@ -132,6 +134,19 @@ export default function ManualOffcanvas({ show, onHide }) {
         }
     }
 
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+
+    const closehandler = (event) => {
+        event.preventDefault()
+        handleClose()
+    }
+
+    const setShowEditModalHandler = () => {
+        onHide()
+        handleShow()
+    }
+
     useEffect(() => {
         numberChat()
     }, [currentRoute])
@@ -185,7 +200,7 @@ export default function ManualOffcanvas({ show, onHide }) {
                 })
 
                 if (response.status === 200) {
-                    setShowEditModal(false)
+                    handleClose()
                     swal({
                         title: "Changes applied successfully",
                         icon: "success",
@@ -208,69 +223,72 @@ export default function ManualOffcanvas({ show, onHide }) {
     return (
 
         <>
-            {
-                showEditModal
-                &&
-                <div className={`showEditModal-container ${setShowEditModal ? "showEditModal-container-active" : ""}`}>
-                    <div className="closeform" onClick={() => setShowEditModal(false)}></div>
-                    <div className="editModal">
-                        <p className="title-prof">
-                            Personal Info
-                        </p>
-                        <form className="editUserInfo">
-                            <div className="img-profile-wrapper">
-                                <label htmlFor="aaa" className='lable-img-p'>
-                                    <img
-                                        src={defaultImg ? defaultImg : (userInfo[0]?.avatar ? `${IP}${userInfo[0]?.avatar}` : avatar)}
-                                        className='img-profile'
-                                    />
-                                </label>
-                                <input
-                                    type="file"
-                                    className='img-info'
-                                    id="aaa"
-                                    onChange={(e) => {
-                                        setImgSrc(e.target.files[0]);
-                                        setDefaultImg(URL.createObjectURL(e.target.files[0]))
-                                    }}
+
+            <Modal
+                centered
+                show={showm}
+                onHide={handleClose}
+            >
+                <div className="editModal-off">
+                    <p className="title-prof">
+                        Personal Info
+                    </p>
+                    <form className="editUserInfo">
+                        <div className="img-profile-wrapper">
+                            <label htmlFor="aaa" className='lable-img-p'>
+                                <img
+                                    src={defaultImg ? defaultImg : (userInfo[0]?.avatar ? `${IP}${userInfo[0]?.avatar}` : avatar)}
+                                    className='img-profile'
                                 />
-                            </div>
+                            </label>
+                            <input
+                                type="file"
+                                className='img-info'
+                                id="aaa"
+                                onChange={(e) => {
+                                    setImgSrc(e.target.files[0]);
+                                    setDefaultImg(URL.createObjectURL(e.target.files[0]))
+                                }}
+                            />
+                        </div>
+                        <p className="prof-job-position">
                             <p className="prof-job-position">
-                                {userInfo && userInfo[0]?.user_type === "O" ? "Ordinery Officer" : ""}
+                                {userInfo && userInfo[0]?.user_type === "S" ? "Senior Officer" : ""}
                             </p>
-                            <div className='inputs-prof-wrapper'>
-                                <div className='input-wrapper-prof fname-prof-wrapper'>
-                                    <input
-                                        type="text"
-                                        className='input-prof fname-prof'
-                                        placeholder='First Name'
-                                        value={fname}
-                                        onChange={e => setFname(e.target.value)}
-                                    />
-                                    <PermIdentityIcon style={{ color: "#15616d" }} />
-                                </div>
-                                <div className='input-wrapper-prof lname-prof-wrapper'>
-                                    <input
-                                        type="text"
-                                        className='input-prof lname-prof'
-                                        placeholder='Last Name'
-                                        value={lname}
-                                        onChange={e => setLname(e.target.value)}
-                                    />
-                                    <PermIdentityIcon style={{ color: "#15616d" }} />
-                                </div>
+                        </p>
+                        <div className='inputs-prof-wrapper'>
+                            <div className='input-wrapper-prof fname-prof-wrapper'>
+                                <input
+                                    type="text"
+                                    className='input-prof fname-prof'
+                                    placeholder='First Name'
+                                    value={fname}
+                                    onChange={e => setFname(e.target.value)}
+                                />
+                                <PermIdentityIcon style={{ color: "#15616d" }} />
                             </div>
-                            <div className='btns-actions'>
-                                <button className='btn-prof save-pro' onClick={sendEditProfile}>save</button>
-                                <button className='btn-prof cansle-pro' onClick={() => setShowEditModal(false)}>cancel</button>
+                            <div className='input-wrapper-prof lname-prof-wrapper'>
+                                <input
+                                    type="text"
+                                    className='input-prof lname-prof'
+                                    placeholder='Last Name'
+                                    value={lname}
+                                    onChange={e => setLname(e.target.value)}
+                                />
+                                <PermIdentityIcon style={{ color: "#15616d" }} />
                             </div>
-                        </form>
-                    </div>
+                        </div>
+                        <div className='btns-actions'>
+                            <button className='btn-prof save-pro' onClick={sendEditProfile}>save</button>
+                            <button className='btn-prof cansle-pro' onClick={closehandler}>cancel</button>
+                        </div>
+                    </form>
                 </div>
-            }
+
+            </Modal>
             <Offcanvas
                 className="custom-offcanvas "
-                show={show && !showEditModal}
+                show={show}
                 onHide={onHide}>
                 <Box sx={{ display: 'flex' }}>
                     <CssBaseline />
@@ -300,7 +318,7 @@ export default function ManualOffcanvas({ show, onHide }) {
                                 <img className='sideBar-img' src={logoColor} alt="logo" />
                             </div>
                             <div className="sideBar-userInfo-wrapper">
-                                <div className="sideBar-imgUser-wrapper" onClick={() => setShowEditModal(true)}>
+                                <div className="sideBar-imgUser-wrapper" onClick={setShowEditModalHandler}>
                                     <img className='sideBar-imgUser' src={(userInfo && userInfo[0]?.avatar ? `${IP}${userInfo[0]?.avatar}` : avatar)} />
                                 </div>
                                 <div className="sideBar-userInfo">
@@ -317,21 +335,21 @@ export default function ManualOffcanvas({ show, onHide }) {
                         </DrawerHeader>
 
                         <List>
-                            {['Home', "chat", "Permit form", "Accident form", "Violations form", "Inspections form", "Log out"].map((text, index) => (
+                            {['Home', "Chat", "Permit Forms", "Accident Forms", "Violations Forms", "Inspections Forms", "Log out"].map((text, index) => (
                                 <CSSTransition key={text} timeout={300} classNames="fade">
                                     <ListItem key={text} disablePadding>
                                         <ListItemButton
-                                            onClick={() => handleItemClick(text === 'Home' ? '/ordinaryhome' : text === "chat" ? '/ordinarychat' :
-                                                text === 'Permit form' ? '/ordinarypermitform' : text === "Accident form" ? '/ordinaryaccidentform' :
-                                                    text === 'Violations form' ? '/ordinaryviolationsform' : text === "Inspections form" ? '/ordinaryinpections' :
+                                            onClick={() => handleItemClick(text === 'Home' ? '/ordinaryhome' : text === "Chat" ? '/ordinarychat' :
+                                                text === 'Permit Forms' ? '/ordinarypermitform' : text === "Accident Forms" ? '/ordinaryaccidentform' :
+                                                    text === 'Violations Forms' ? '/ordinaryviolationsform' : text === "Inspections Forms" ? '/ordinaryinpections' :
                                                         `/${text.toLowerCase().replace(/\s/g, '')}`
                                             )}
                                             sx={{
                                                 mt: text === "Log out" ? 10 : 0,
                                                 '&:hover': { backgroundColor: '#DDF0FA' },
-                                                backgroundColor: currentRoute === (text === 'Home' ? '/ordinaryhome' : text === "chat" ? '/ordinarychat' :
-                                                    text === 'Permit form' ? '/ordinarypermitform' : text === "Accident form" ? '/ordinaryaccidentform' :
-                                                        text === 'Violations form' ? '/ordinaryviolationsform' : text === "Inspections form" ? '/ordinaryinpections' :
+                                                backgroundColor: currentRoute === (text === 'Home' ? '/ordinaryhome' : text === "Chat" ? '/ordinarychat' :
+                                                    text === 'Permit Forms' ? '/ordinarypermitform' : text === "Accident Forms" ? '/ordinaryaccidentform' :
+                                                        text === 'Violations Forms' ? '/ordinaryviolationsform' : text === "Inspections Forms" ? '/ordinaryinpections' :
                                                             `/${text.toLowerCase().replace(/\s/g, '')}`
                                                 ) ? '#DDF0FA' : 'inherit',
                                             }}

@@ -1,25 +1,40 @@
-import React, { useState } from 'react'
-import "./Header.css"
+import React, { useState, useEffect } from 'react';
+import "./Header.css";
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
-import logoColor from '../../Images/logoColor.svg'
+import logoColor from '../../Images/logoColor.svg';
 import SeniorOffCanvas from '../OffCanvas/SeniorOffCanvas';
+import ManualOffcanvas from '../OffCanvas/ManualOffcanvas';
+import OrdinaryOffcanvs from '../OffCanvas/OrdinaryOffcanvas';
 import { useMyContext } from '../RoleContext';
-import ManualOffcanvas from '../OffCanvas/ManualOffcanvas'
-import OrdinaryOffcanvs from '../OffCanvas/OrdinaryOffcanvas'
-export default function Header() {
 
+export default function Header() {
     const [showOffCanvas, setShowOffCanvas] = useState(false);
+    const [isFixed, setIsFixed] = useState(false);
 
     const handleToggleOffCanvas = () => {
         setShowOffCanvas(!showOffCanvas);
     };
+
+    const handleScroll = () => {
+        const offset = window.scrollY;
+        if (offset > 70) {
+            setIsFixed(true);
+        } else {
+            setIsFixed(false);
+        }
+    };
+
+    useEffect(() => {
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
+
     const { sharedData } = useMyContext();
     const { type } = useMyContext()
 
-
     return (
-        <div className="d-lg-none mb-4 mb-md-2 headerContainer">
+        <div className={`d-lg-none mb-4 mb-md-2 headerContainer ${isFixed ? 'fixedHeader' : ''}`}>
             {
                 (sharedData || type) === "S" ?
                     <SeniorOffCanvas
@@ -37,10 +52,10 @@ export default function Header() {
                             <OrdinaryOffcanvs
                                 show={showOffCanvas}
                                 onHide={() => setShowOffCanvas(false)}
+                                handleToggleOffCanvas={handleToggleOffCanvas}
                             /> :
                             null
             }
-
 
             <div className="header-wrapper d-flex">
                 <IconButton
@@ -56,5 +71,5 @@ export default function Header() {
                 </div>
             </div>
         </div>
-    )
+    );
 }

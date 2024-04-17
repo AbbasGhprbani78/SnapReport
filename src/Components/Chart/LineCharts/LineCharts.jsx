@@ -70,9 +70,9 @@ const CustomTooltip = ({ active, payload }) => {
     if (active) {
         return (
             <div className="custom-tooltip">
-                <p>{`Date: ${payload[0].payload.year}-${payload[0].payload.month}`}</p>
-                <p style={{ color: "#8884d8" }}>{`${payload[0].name}: ${payload[0].value}`}</p>
-                <p style={{ color: "#82ca9d" }}>{`${payload[1].name}: ${payload[1].value}`}</p>
+                <p>{`Date: ${payload[0]?.payload.year}-${payload[0]?.payload.month}`}</p>
+                <p style={{ color: "#8884d8" }}>{`${payload[0]?.name}: ${payload[0]?.value}`}</p>
+                <p style={{ color: "#82ca9d" }}>{`${payload[1]?.name}: ${payload[1]?.value}`}</p>
             </div>
         );
     }

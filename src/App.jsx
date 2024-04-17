@@ -1,6 +1,6 @@
 import './App.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Route, Routes, json, useRoutes } from 'react-router-dom';
+import { Route, Routes, useRoutes, useLocation } from 'react-router-dom';
 import routes from './Routes';
 import SeniorsideBar from './Components/SideBars/SeniorSideBar';
 import OrdinarySideBars from './Components/SideBars/OrdinarySideBars'
@@ -22,9 +22,10 @@ function App() {
   const subUserRef = useRef(null);
   const { sharedData } = useMyContext();
   const [showModalAccident, setShowModalAccident] = useState(false)
-  const [isAccident, setIsAccident] = useState()
+  const [isAccident, setIsAccident] = useState(2)
   const [meesageRick, setMessageRisk] = useState()
   const { type } = useMyContext()
+  const location = useLocation()
   const hideModal = () => {
     setShowModalAccident(false)
   }
@@ -43,12 +44,15 @@ function App() {
   }, []);
 
 
-  // useEffect(() => {
-  //   setIsAccident(localStorage.getItem("levelrick"))
-  //   setMessageRisk(localStorage.getItem("message"))
-  // }, [])
+  useEffect(() => {
 
-  // console.log(isAccident)
+    if (location.pathname !== '/login') {
+      setIsAccident(localStorage.getItem("levelrick"));
+      setMessageRisk(localStorage.getItem("message"));
+    }
+  }, [location]);
+
+
 
   return (
     <>

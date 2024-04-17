@@ -222,7 +222,7 @@ export default function SeniorsideBar() {
             {
                 showEditModal
                 &&
-                <div className={`showEditModal-container ${setShowEditModal ? "showEditModal-container-active" : ""}`}>
+                <div className={`showEditModal-container ${showEditModal ? "showEditModal-container-active" : ""}`}>
                     <div className="closeform" onClick={() => setShowEditModal(false)}></div>
                     <div className="editModal">
                         <p className="title-prof">
@@ -325,7 +325,7 @@ export default function SeniorsideBar() {
                         </DrawerHeader>
 
                         <List>
-                            {['Home', 'Add New Form', 'All form', "Filled Forms", "Reports", "chat", "Log out"].map((text, index) => (
+                            {['Home', 'Add New Form', 'All Forms', "Filled Forms", "Reports", "Chat", "Log out"].map((text, index) => (
                                 <CSSTransition key={text} timeout={300} classNames="fade">
                                     <ListItem key={text} disablePadding>
                                         <ListItemButton

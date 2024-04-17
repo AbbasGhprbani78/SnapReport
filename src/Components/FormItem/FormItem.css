@@ -5,16 +5,17 @@
     padding: 10px 15px;
     border-radius: 5px;
     margin: 2% 0;
+    position: relative;
 }
 
 .option-item-form:hover {
-    box-shadow: 0px 1px 4px 0px #D9D9D9;
+    box-shadow: var(--boxShadow-1);
     cursor: pointer;
     z-index: 9999;
 }
 
 .borderActive {
-    box-shadow: 0px 1px 4px 0px #D9D9D9;
+    box-shadow: var(--boxShadow-1);
 }
 
 .qusetion-form,
@@ -77,6 +78,27 @@
 
 .file-form {
     display: block !important;
+}
+
+.actions-forms {
+    position: absolute;
+    right: 0;
+    opacity: 0;
+    visibility: hidden;
+    bottom: 2%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 99;
+    transition: all .5s;
+
+}
+
+
+.question-wrapper:hover .actions-forms {
+    opacity: 1;
+    visibility: visible;
+    right: 2%
 }
 
 @media (max-width:576px) {

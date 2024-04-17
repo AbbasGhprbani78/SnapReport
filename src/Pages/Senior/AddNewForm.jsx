@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import '../../Style/AddNewForm.css'
 import { Row, Col } from 'react-bootstrap'
 import InputCreateForm from '../../Components/InputCreateForm/InputCreateForm'
@@ -56,6 +56,7 @@ export default function AddNewForm({ showForm, back, mainForm, isDelete, getAllF
         );
     };
 
+    const topOfPageRef = useRef(null);
     const navigate = useNavigate()
     const [typeInput, setTypeInput] = useState("radio")
     const [numberTypeInput, setNumberTypeInput] = useState([])
@@ -209,6 +210,13 @@ export default function AddNewForm({ showForm, back, mainForm, isDelete, getAllF
         });
     }
 
+    const scrollToTop = () => {
+        topOfPageRef.current.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+        });
+    };
+
     const addToForm = () => {
 
         if (!fromInfom.type || !fromInfom.title || !fromInfom.descriptions || !fields.questions || !typeInput) {
@@ -293,6 +301,10 @@ export default function AddNewForm({ showForm, back, mainForm, isDelete, getAllF
         setNumberTypeInput([])
         setIsCreate(true)
         setShowDeleteIcon(false)
+
+        if (window.innerWidth < 768) {
+            scrollToTop()
+        }
 
     }
 
@@ -409,7 +421,7 @@ export default function AddNewForm({ showForm, back, mainForm, isDelete, getAllF
                             }
                         });
                         setTimeout(() => {
-                            navigate('/allform')
+                            navigate('/allforms')
                         }, 2000)
                     }
 
@@ -572,7 +584,7 @@ export default function AddNewForm({ showForm, back, mainForm, isDelete, getAllF
                 loading ?
                     <Loading />
                     :
-                    <div style={{ width: "100%" }}>
+                    <div style={{ width: "100%" }} ref={topOfPageRef}>
                         <Header />
                         <Row className='addFormContainer d-flex align-items-start w-100'>
                             {

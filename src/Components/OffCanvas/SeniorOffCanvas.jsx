@@ -28,6 +28,7 @@ import axios from 'axios';
 import PermIdentityIcon from '@mui/icons-material/PermIdentity';
 import { IP } from '../../App';
 import { Link } from 'react-router-dom';
+import Modal from 'react-bootstrap/Modal';
 
 const drawerWidth = 280;
 const DrawerHeader = styled('div')(({ theme }) => ({
@@ -47,8 +48,8 @@ export default function SeniorOffCanvas({ show, onHide }) {
     const [userInfo, setUserInfo] = useState("")
     const [imgSrc, setImgSrc] = useState();
     const [defaultImg, setDefaultImg] = useState();
-    const [showEditModal, setShowEditModal] = useState(false)
     const [numberNotif, setNumberNotif] = useState('');
+    const [showm, setShow] = useState(false);
 
 
     //all icons in side bar
@@ -112,8 +113,6 @@ export default function SeniorOffCanvas({ show, onHide }) {
         setSelectedRoute(route);
     };
 
-
-
     const numberChat = async () => {
         const access = localStorage.getItem("access")
         const headers = {
@@ -135,6 +134,19 @@ export default function SeniorOffCanvas({ show, onHide }) {
                 navigate("/login")
             }
         }
+    }
+
+    const closehandler = (event) => {
+        event.preventDefault()
+        handleClose()
+    }
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+
+    const setShowEditModalHandler = () => {
+        onHide()
+        handleShow()
     }
 
     useEffect(() => {
@@ -191,7 +203,7 @@ export default function SeniorOffCanvas({ show, onHide }) {
                 })
 
                 if (response.status === 200) {
-                    setShowEditModal(false)
+                    handleClose()
                     swal({
                         title: "Changes applied successfully",
                         icon: "success",
@@ -211,74 +223,75 @@ export default function SeniorOffCanvas({ show, onHide }) {
         }
     }
 
-
     return (
         <>
-            {
-                showEditModal
-                &&
-                <div className={`showEditModal-container ${setShowEditModal ? "showEditModal-container-active" : ""}`}>
-                    <div className="closeform" onClick={() => setShowEditModal(false)}></div>
-                    <div className="editModal">
-                        <p className="title-prof">
-                            Personal Info
-                        </p>
-                        <form className="editUserInfo">
-                            <div className="img-profile-wrapper">
-                                <label htmlFor="aaa" className='lable-img-p'>
-                                    <img
-                                        src={defaultImg ? defaultImg : (userInfo[0]?.avatar ? `${IP}${userInfo[0]?.avatar}` : avatar)}
-                                        className='img-profile'
-                                    />
-                                </label>
-                                <input
-                                    type="file"
-                                    className='img-info'
-                                    id="aaa"
-                                    onChange={(e) => {
-                                        setImgSrc(e.target.files[0]);
-                                        setDefaultImg(URL.createObjectURL(e.target.files[0]))
-                                    }}
+
+
+            <Modal
+                centered
+                show={showm}
+                onHide={handleClose}
+            >
+                <div className="editModal-off">
+                    <p className="title-prof">
+                        Personal Info
+                    </p>
+                    <form className="editUserInfo">
+                        <div className="img-profile-wrapper">
+                            <label htmlFor="aaa" className='lable-img-p'>
+                                <img
+                                    src={defaultImg ? defaultImg : (userInfo[0]?.avatar ? `${IP}${userInfo[0]?.avatar}` : avatar)}
+                                    className='img-profile'
                                 />
-                            </div>
+                            </label>
+                            <input
+                                type="file"
+                                className='img-info'
+                                id="aaa"
+                                onChange={(e) => {
+                                    setImgSrc(e.target.files[0]);
+                                    setDefaultImg(URL.createObjectURL(e.target.files[0]))
+                                }}
+                            />
+                        </div>
+                        <p className="prof-job-position">
                             <p className="prof-job-position">
-                                <p className="prof-job-position">
-                                    {userInfo && userInfo[0]?.user_type === "S" ? "Senior Officer" : ""}
-                                </p>
+                                {userInfo && userInfo[0]?.user_type === "S" ? "Senior Officer" : ""}
                             </p>
-                            <div className='inputs-prof-wrapper'>
-                                <div className='input-wrapper-prof fname-prof-wrapper'>
-                                    <input
-                                        type="text"
-                                        className='input-prof fname-prof'
-                                        placeholder='First Name'
-                                        value={fname}
-                                        onChange={e => setFname(e.target.value)}
-                                    />
-                                    <PermIdentityIcon style={{ color: "#15616d" }} />
-                                </div>
-                                <div className='input-wrapper-prof lname-prof-wrapper'>
-                                    <input
-                                        type="text"
-                                        className='input-prof lname-prof'
-                                        placeholder='Last Name'
-                                        value={lname}
-                                        onChange={e => setLname(e.target.value)}
-                                    />
-                                    <PermIdentityIcon style={{ color: "#15616d" }} />
-                                </div>
+                        </p>
+                        <div className='inputs-prof-wrapper'>
+                            <div className='input-wrapper-prof fname-prof-wrapper'>
+                                <input
+                                    type="text"
+                                    className='input-prof fname-prof'
+                                    placeholder='First Name'
+                                    value={fname}
+                                    onChange={e => setFname(e.target.value)}
+                                />
+                                <PermIdentityIcon style={{ color: "#15616d" }} />
                             </div>
-                            <div className='btns-actions'>
-                                <button className='btn-prof save-pro' onClick={sendEditProfile}>save</button>
-                                <button className='btn-prof cansle-pro' onClick={() => setShowEditModal(false)}>cancel</button>
+                            <div className='input-wrapper-prof lname-prof-wrapper'>
+                                <input
+                                    type="text"
+                                    className='input-prof lname-prof'
+                                    placeholder='Last Name'
+                                    value={lname}
+                                    onChange={e => setLname(e.target.value)}
+                                />
+                                <PermIdentityIcon style={{ color: "#15616d" }} />
                             </div>
-                        </form>
-                    </div>
+                        </div>
+                        <div className='btns-actions'>
+                            <button className='btn-prof save-pro' onClick={sendEditProfile}>save</button>
+                            <button className='btn-prof cansle-pro' onClick={closehandler}>cancel</button>
+                        </div>
+                    </form>
                 </div>
-            }
+            </Modal>
+
             <Offcanvas
                 className="custom-offcanvas "
-                show={show && !showEditModal}
+                show={show}
                 onHide={onHide}>
                 <Box sx={{ display: 'flex' }}>
                     <CssBaseline />
@@ -308,7 +321,7 @@ export default function SeniorOffCanvas({ show, onHide }) {
                                 <img className='sideBar-img' src={logoColor} alt="logo" />
                             </div>
                             <div className="sideBar-userInfo-wrapper">
-                                <div className="sideBar-imgUser-wrapper" onClick={() => setShowEditModal(true)}>
+                                <div className="sideBar-imgUser-wrapper" onClick={setShowEditModalHandler}>
                                     <img className='sideBar-imgUser' src={(userInfo && userInfo[0]?.avatar ? `${IP}${userInfo[0]?.avatar}` : avatar)} />
                                 </div>
                                 <div className="sideBar-userInfo">
@@ -325,7 +338,7 @@ export default function SeniorOffCanvas({ show, onHide }) {
                         </DrawerHeader>
 
                         <List>
-                            {['Home', 'Add New Form', 'All form', "Filled Forms", "Reports", "chat", "Log out"].map((text, index) => (
+                            {['Home', 'Add New Form', 'All Forms', "Filled Forms", "Reports", "Chat", "Log out"].map((text, index) => (
                                 <CSSTransition key={text} timeout={300} classNames="fade">
                                     <ListItem key={text} disablePadding>
                                         <ListItemButton

@@ -7,11 +7,19 @@
 .header-wrapper {
     padding: 2% 0 0 2%;
     align-items: start;
-
 }
 
 .logoHeader_wrapper {
     margin: 0 auto;
+}
+
+.fixedHeader {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 @media (max-width:576px) {

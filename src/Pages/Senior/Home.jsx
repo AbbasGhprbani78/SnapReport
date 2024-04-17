@@ -185,7 +185,7 @@ export default function Home() {
                                             <div className='form-sections'>
                                                 <div className="form-section">
                                                     <p className='form-section-title'>Permit</p>
-                                                    <Link to={'/filledforms/0'} className='link-form-section'>see more < ChevronRightIcon /></Link>
+                                                    <Link to={'/filledforms/0'} className='link-form-section'>See More < ChevronRightIcon /></Link>
                                                     <div className='grid-form d-flex '>
                                                         {
                                                             permitForm.length ?
@@ -221,7 +221,7 @@ export default function Home() {
                                                 </div>
                                                 <div className="form-section">
                                                     <p className='form-section-title'>Accident</p>
-                                                    <Link to={'/filledforms/1'} className='link-form-section'> see more < ChevronRightIcon /></Link>
+                                                    <Link to={'/filledforms/1'} className='link-form-section'> See More < ChevronRightIcon /></Link>
                                                     <div className='grid-form d-flex '>
                                                         {
                                                             accidentForm.length ?
@@ -255,7 +255,7 @@ export default function Home() {
                                                 </div>
                                                 <div className="form-section">
                                                     <p className='form-section-title'>Violation</p>
-                                                    <Link to={'/filledforms/2'} className='link-form-section'>see more < ChevronRightIcon /></Link>
+                                                    <Link to={'/filledforms/2'} className='link-form-section'>See More < ChevronRightIcon /></Link>
                                                     <div className='grid-form d-flex '>
                                                         {
                                                             violationForm.length ?
@@ -289,7 +289,7 @@ export default function Home() {
                                                 </div>
                                                 <div className="form-section">
                                                     <p className='form-section-title'>Inspections</p>
-                                                    <Link to={'/filledforms/3'} className='link-form-section'>see more < ChevronRightIcon /></Link>
+                                                    <Link to={'/filledforms/3'} className='link-form-section'>See More < ChevronRightIcon /></Link>
                                                     <div className='grid-form d-flex '>
                                                         {
                                                             inspectionsForm.length ?

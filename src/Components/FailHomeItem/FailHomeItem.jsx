@@ -46,7 +46,7 @@ export default function FailHomeItem({
                                 (<>
                                     Reject <span style={{ marginLeft: "7px" }} ><CloseIcon className='condition-request-reject icon-condition' /></span>
                                 </>) :
-                                <>pending <span style={{ marginLeft: "7px" }}><ReportGmailerrorredIcon className='condition-request-pending icon-condition' /></span></>}
+                                <>Pending <span style={{ marginLeft: "7px" }}><ReportGmailerrorredIcon className='condition-request-pending icon-condition' /></span></>}
                         </p>
                     }
                 </div>

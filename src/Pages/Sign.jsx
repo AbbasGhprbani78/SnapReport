@@ -41,7 +41,7 @@ export default function SignIn() {
                     <>
                         <div className='backGround'>
 
-                            <div className="header-signin">
+                            <div className="header-signin-mobile">
                                 <img className='header-SignIn-img' src={logo} alt="logo" />
                             </div>
                             {

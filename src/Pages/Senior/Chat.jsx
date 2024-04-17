@@ -280,7 +280,7 @@ export default function Chat() {
     return (
         <>
             {
-                windowWidth < 576 ?
+                windowWidth < 992 ?
                     <>
                         {showChat ?
                             <>
@@ -411,26 +411,27 @@ export default function Chat() {
                             user={user}
                         />
                         <div className="chat-container">
-                            <div className="chat-body">
-                                <div className="chat-header">
-                                    <div className="member-info">
-                                        <div className="member-img-wrapper">
-                                            <img className='member-img' src={avatar} alt="member" />
-                                        </div>
-                                        {
-                                            audiuanceinfo &&
-                                            <span className="member-name">{audiuanceinfo && audiuanceinfo.first_name} {audiuanceinfo.last_name}</span>
-                                        }
-
+                            <div className="chat-header">
+                                <div className="member-info">
+                                    <div className="member-img-wrapper">
+                                        <img className='member-img' src={avatar} alt="member" />
                                     </div>
-                                    <AccountBoxIcon
-                                        onClick={toggleAudianceActive}
-                                        style={{
-                                            cursor: "pointer",
-                                            fontSize: "2rem"
-                                        }}
-                                    />
+                                    {
+                                        audiuanceinfo &&
+                                        <span className="member-name">{audiuanceinfo && audiuanceinfo.first_name} {audiuanceinfo.last_name}</span>
+                                    }
+
                                 </div>
+                                <AccountBoxIcon
+                                    onClick={toggleAudianceActive}
+                                    style={{
+                                        cursor: "pointer",
+                                        fontSize: "2rem"
+                                    }}
+                                />
+                            </div>
+                            <div className="chat-body">
+
                                 <>
                                     {
                                         allMessage.map((message) => (

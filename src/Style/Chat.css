@@ -8,8 +8,8 @@
 }
 
 .chat-container {
-    width: 100%;
     position: relative;
+    height: 100vh;
 }
 
 .chat-header {
@@ -25,6 +25,22 @@
     z-index: 999;
 }
 
+.chat-actions {
+    width: 100%;
+    display: flex;
+    position: fixed;
+    width: 100%;
+    bottom: 10px;
+    width: 70%;
+}
+
+.chat-body {
+    height: 80%;
+    padding-bottom: 7px;
+    overflow-y: scroll;
+}
+
+/*  */
 .member-info {
     display: flex;
     align-items: center;
@@ -47,19 +63,6 @@
     margin-left: 2%;
 }
 
-.chat-body {
-    min-height: 100vh;
-    padding-bottom: 15px;
-}
-
-.chat-actions {
-    width: 100%;
-    display: flex;
-    position: sticky;
-    bottom: 2%;
-    margin: 0 auto;
-    padding-top: 20px;
-}
 
 .input-wrapper {
     box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
@@ -70,7 +73,7 @@
     align-items: center;
     width: 88%;
     margin-left: 1%;
-    backdrop-filter: blur(1px);
+    background-color: #ffff;
 }
 
 .input-send {
@@ -164,18 +167,53 @@
     backdrop-filter: blur(3px);
 }
 
+@media (min-width:2000px) {
+    .chat-body {
+
+        padding-bottom: 7px;
+        overflow-y: scroll;
+    }
+}
+
 @media (max-width:992px) {
     .input-wrapper {
         width: 100%;
+        margin-left: 0;
     }
 
-    .input-wrapper {
-        margin-right: 1%;
+
+    .chat-header {
+        position: fixed;
+    }
+
+    .chat-body {
+        height: 93%;
+    }
+
+    .chat-actions {
+        margin-top: 0;
+        bottom: 0;
+        position: fixed;
+        width: 100%;
+    }
+
+    .send-file-action2 {
+        margin-right: 5px;
     }
 }
 
 @media (max-width:576px) {
     .input-send {
         width: 90%;
+    }
+
+    .chat-body {
+        height: 90%;
+        padding-bottom: 7px;
+        overflow-y: scroll;
+    }
+
+    .send-file-action2 {
+        margin-right: 0;
     }
 }

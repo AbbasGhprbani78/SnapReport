@@ -58,7 +58,6 @@ export default function ManualSideBar() {
         <ContentPasteGoIcon />,
         <ContentPasteIcon />,
         <GppBadOutlinedIcon />,
-        <ContentPasteSearchOutlinedIcon />,
         <LogoutIcon />,];
     //slelect route
     const [selectedRoute, setSelectedRoute] = React.useState('/');
@@ -212,14 +211,12 @@ export default function ManualSideBar() {
         }
     }
 
-    console.log(userInfo)
-
     return (
         <>
             {
                 showEditModal
                 &&
-                <div className={`showEditModal-container ${setShowEditModal ? "showEditModal-container-active" : ""}`}>
+                <div className={`showEditModal-container ${showEditModal ? "showEditModal-container-active" : ""}`}>
                     <div className="closeform" onClick={() => setShowEditModal(false)}></div>
                     <div className="editModal">
                         <p className="title-prof">
@@ -322,15 +319,15 @@ export default function ManualSideBar() {
                         </DrawerHeader>
 
                         <List>
-                            {['Home', "chat", "Permit form", "Accident form", "Violations form", "Inspections form", "Log out"].map((text, index) => (
+                            {['Home', "Chat", "Permit Forms", "Accident Forms", "Violations Forms", "Log out"].map((text, index) => (
                                 <CSSTransition key={text} timeout={300} classNames="fade">
                                     <ListItem key={text} disablePadding>
                                         <ListItemButton
-                                            onClick={() => handleItemClick(text === 'Home' ? '/manualhome' : text === "chat" ? '/manualchat' : `/${text.toLowerCase().replace(/\s/g, '')}`)}
+                                            onClick={() => handleItemClick(text === 'Home' ? '/manualhome' : text === "Chat" ? '/manualchat' : `/${text.toLowerCase().replace(/\s/g, '')}`)}
                                             sx={{
                                                 mt: text === "Log out" ? 10 : 0,
                                                 '&:hover': { backgroundColor: '#DDF0FA' },
-                                                backgroundColor: currentRoute === (text === 'Home' ? '/manualhome' : text === "chat" ? '/manualchat' : `/${text.toLowerCase().replace(/\s/g, '')}`) ? '#DDF0FA' : 'inherit',
+                                                backgroundColor: currentRoute === (text === 'Home' ? '/manualhome' : text === "Chat" ? '/manualchat' : `/${text.toLowerCase().replace(/\s/g, '')}`) ? '#DDF0FA' : 'inherit',
                                             }}
                                         >
                                             <ListItemIcon style={{ color: "#000" }}>

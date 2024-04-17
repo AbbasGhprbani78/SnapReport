@@ -3,7 +3,7 @@
 .addFormContainer {
     margin: 0 auto;
     padding-top: 1%;
-    height: 90vh;
+    height: 100vh;
 }
 
 /* from style start */
@@ -20,7 +20,7 @@
     height: 95%;
     padding: 20px;
     overflow-y: scroll;
-    overflow-y: hidden;
+    overflow-x: hidden;
 }
 
 

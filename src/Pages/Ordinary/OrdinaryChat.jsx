@@ -34,6 +34,7 @@ export default function OrdinaryChat() {
     const [uploadPercentage, setUploadPercentage] = useState(0);
     const [userInfo, setUserInfo] = useState('')
     const prevLengthRef = useRef(0);
+    const [imgProfile, setImageProfile] = useState(null)
 
     const handleToggleOffCanvas = () => {
         setShowOffCanvas(!showOffCanvas);
@@ -70,6 +71,7 @@ export default function OrdinaryChat() {
             if (response.status === 200) {
                 setAllMessage(response.data)
                 setUserInfo(response.data[0].sender)
+                setImageProfile(response.data[0].sender.avatar)
             }
 
             else {
@@ -198,6 +200,7 @@ export default function OrdinaryChat() {
         return () => clearInterval(interval);
     }, []);
 
+
     useEffect(() => {
 
         if (allMessage.length <= 3) {
@@ -242,7 +245,7 @@ export default function OrdinaryChat() {
                                     <div className="chat-header">
                                         <div className="member-info">
                                             <div className="member-img-wrapper">
-                                                <img className='member-img' src={avatar} alt="member" />
+                                                <img className='member-img' src={imgProfile ? `${IP}${imgProfile}` : avatar} alt="member" />
                                             </div>
 
                                             <span className="member-name">{userInfo && userInfo.first_name} {userInfo && userInfo.last_name}</span>
@@ -374,7 +377,7 @@ export default function OrdinaryChat() {
                                 <div className="chat-header">
                                     <div className="member-info">
                                         <div className="member-img-wrapper">
-                                            <img className='member-img' src={avatar} alt="member" />
+                                            <img className='member-img' src={imgProfile ? `${IP}${imgProfile}` : avatar} alt="member" />
                                         </div>
                                         <span className="member-name">{userInfo && userInfo.first_name} {userInfo && userInfo.last_name}</span>
                                     </div>

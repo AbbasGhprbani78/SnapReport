@@ -33,6 +33,7 @@ export default function ManualChat() {
     const [uploadPercentage, setUploadPercentage] = useState(0);
     const [userInfo, setUserInfo] = useState('')
     const prevLengthRef = useRef(0);
+    const [imgProfile, setImageProfile] = useState(null)
 
     const handleToggleOffCanvas = () => {
         setShowOffCanvas(!showOffCanvas);
@@ -69,12 +70,14 @@ export default function ManualChat() {
             if (response.status === 200) {
                 setAllMessage(response.data)
                 setUserInfo(response.data[0].receiver)
+                setImageProfile(response.data[0].receiver.avatar)
             }
             else {
                 setAllMessage([])
             }
 
         } catch (e) {
+            // console.log(e)
             if (e.response.status === 401) {
                 localStorage.clear()
                 navigate("/login")
@@ -233,7 +236,7 @@ export default function ManualChat() {
                                     <div className="chat-header">
                                         <div className="member-info">
                                             <div className="member-img-wrapper">
-                                                <img className='member-img' src={avatar} alt="member" />
+                                                <img className='member-img' src={imgProfile ? `${IP}${imgProfile}` : avatar} alt="member" />
                                             </div>
 
                                             <span className="member-name">{userInfo && userInfo.first_name} {userInfo && userInfo.last_name}</span>
@@ -366,7 +369,7 @@ export default function ManualChat() {
                                 <div className="chat-header">
                                     <div className="member-info">
                                         <div className="member-img-wrapper">
-                                            <img className='member-img' src={avatar} alt="member" />
+                                            <img className='member-img' src={imgProfile ? `${IP}${imgProfile}` : avatar} alt="member" />
                                         </div>
                                         <span className="member-name">{userInfo && userInfo.first_name} {userInfo && userInfo.last_name}</span>
                                     </div>

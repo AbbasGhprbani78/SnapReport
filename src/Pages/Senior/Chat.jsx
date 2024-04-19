@@ -35,7 +35,7 @@ export default function Chat() {
     const [uploadPercentage, setUploadPercentage] = useState(0);
     const [showfile, setShowFile] = useState(false)
     const prevLengthRef = useRef(0);
-
+    const [imgProfile, setImageProfile] = useState(null)
 
     const getAllUser = async () => {
         const access = localStorage.getItem("access")
@@ -48,7 +48,6 @@ export default function Chat() {
             })
 
             if (response.status === 200) {
-                console.log(response.data)
                 setUser(response.data)
             }
 
@@ -65,10 +64,10 @@ export default function Chat() {
     }, [])
 
     useEffect(() => {
-
         if (user.length > 0) {
             const inintId = user[0].uuid
             selectUser(inintId)
+            setImageProfile(user[0].avatar)
         }
     }, [user])
 
@@ -257,6 +256,7 @@ export default function Chat() {
         localStorage.removeItem('userUuid')
         window.localStorage.setItem("userUuid", employeeId)
         const mainUser = user.find(employee => employee.uuid == employeeId)
+        setImageProfile(mainUser.avatar)
         setAudiuanceInfo(mainUser)
         setActiveUser(employeeId);
         setSelectedUser(employeeId)
@@ -296,7 +296,7 @@ export default function Chat() {
                                         <div className="chat-header">
                                             <div className="member-info">
                                                 <div className="member-img-wrapper">
-                                                    <img className='member-img' src={avatar} alt="member" />
+                                                    <img className='member-img' src={imgProfile ? `${IP}${imgProfile}` : avatar} alt="member" />
                                                 </div>
                                                 {
                                                     audiuanceinfo &&
@@ -435,7 +435,8 @@ export default function Chat() {
                             </>
                         }
 
-                    </> : <div style={{ width: "100%" }}>
+                    </> :
+                    <div style={{ width: "100%" }}>
                         <Header />
                         <Audiance
                             selectUser={selectUser}
@@ -448,7 +449,7 @@ export default function Chat() {
                             <div className="chat-header">
                                 <div className="member-info">
                                     <div className="member-img-wrapper">
-                                        <img className='member-img' src={avatar} alt="member" />
+                                        <img className='member-img' src={imgProfile ? `${IP}${imgProfile}` : avatar} alt="member" />
                                     </div>
                                     {
                                         audiuanceinfo &&

@@ -22,7 +22,7 @@ function App() {
   const subUserRef = useRef(null);
   const { sharedData } = useMyContext();
   const [showModalAccident, setShowModalAccident] = useState(false)
-  const [isAccident, setIsAccident] = useState(2)
+  const [isAccident, setIsAccident] = useState(null)
   const [meesageRick, setMessageRisk] = useState()
   const { type } = useMyContext()
   const location = useLocation()

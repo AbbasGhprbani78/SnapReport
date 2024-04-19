@@ -18,7 +18,7 @@ export default function Header() {
 
     const handleScroll = () => {
         const offset = window.scrollY;
-        if (offset > 70) {
+        if (offset > 100) {
             setIsFixed(true);
         } else {
             setIsFixed(false);

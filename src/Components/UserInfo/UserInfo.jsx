@@ -9,7 +9,7 @@ export default function UserInfo({ selectUser, user }) {
             onClick={selectUser}
         >
             <div className="audiance-img-container">
-                <img src={(user.avatar ? `${IP}${user.avatar}` : avatar)} alt="audiance img" className="audiance-img" />
+                <img src={(user?.avatar ? `${IP}${user?.avatar}` : avatar)} alt="audiance img" className="audiance-img" />
             </div>
             {
                 user &&

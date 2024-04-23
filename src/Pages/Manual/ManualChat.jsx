@@ -228,7 +228,7 @@ export default function ManualChat() {
     return (
         <>
             {
-                windowWidth < 576 ?
+                windowWidth < 992 ?
                     <>
                         <>
                             <div className="chat-container">

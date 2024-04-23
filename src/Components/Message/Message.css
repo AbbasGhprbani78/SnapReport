@@ -26,7 +26,7 @@ audio::-webkit-media-controls-play-button {
 .message-wrapper {
     display: flex;
     align-items: end;
-    max-width: 350px;
+    max-width: 55%;
     font-size: 14px;
 
 }
@@ -62,17 +62,16 @@ audio::-webkit-media-controls-play-button {
 }
 
 .message-text {
-    padding-bottom: 5px;
     font-size: 13px;
     margin-bottom: 0 !important;
     line-height: 1.5rem;
 }
 
 .message-time {
-    font-size: 10px;
+    font-size: .7rem;
     margin-bottom: 0 !important;
     text-align: end;
-
+    font-weight: bold;
 }
 
 .message-time-audio {
@@ -114,6 +113,19 @@ audio::-webkit-media-controls-play-button {
     color: black;
 }
 
+@media (min-width:768px) {
+    .img-send {
+        width: 20vw;
+        height: 35vh;
+    }
+}
+
+@media (min-width:576px) {
+    .chat-near {
+        padding: 0 30px;
+    }
+
+}
 
 @media (max-width:576px) {
     .message-img {
@@ -131,9 +143,7 @@ audio::-webkit-media-controls-play-button {
         line-height: 1.5rem;
     }
 
-    .message-content {
-        max-width: 85%;
-    }
+
 
     .message-time,
     .message-time-audio {

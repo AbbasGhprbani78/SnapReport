@@ -59,7 +59,7 @@ export default function NotificationsHome() {
                                 }
                             </> :
                             <>
-                                <p className='text-center'>there is no Notifications !</p>
+                                <p className='text-center pb-5'>there is no Notifications !</p>
                             </>
 
                     }

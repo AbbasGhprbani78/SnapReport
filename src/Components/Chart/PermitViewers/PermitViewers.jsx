@@ -19,28 +19,44 @@ export default function PermitViewers({ valueViewers }) {
         <>
             <div className='ChartViewers mb-3'>
                 <p className="viewer-title">Status of permit forms</p>
-                <div className='PieChart-wrapper' style={{ width: "100%", height: 300 }}>
-                    <ResponsiveContainer>
-                        <PieChart>
-                            <Pie
-                                dataKey="value"
-                                isAnimationActive={false}
-                                data={
-                                    valueViewers.reject_count === 0 &&
+                <div className='d-flex mt-2'>
+                    <div className="permit-status-color-wrapper">
+                        <div className="permit-status-color d-flex mb-2">
+                            <div className='dot acceptDot'></div>
+                            <span style={{ fontSize: ".8rem" }}>Accpet</span>
+                        </div>
+                        <div className="permit-status-color d-flex mb-2">
+                            <div className='dot rejectDot'></div>
+                            <span style={{ fontSize: ".8rem" }}>Reject</span>
+                        </div>
+                        <div className="permit-status-color d-flex mb-2">
+                            <div className='dot penddingDot'></div>
+                            <span style={{ fontSize: ".8rem" }}>Pendding</span>
+                        </div>
+                    </div>
+                    <div className='PieChart-wrapper' style={{ width: "100%", height: 300 }}>
+                        <ResponsiveContainer>
+                            <PieChart>
+                                <Pie
+                                    dataKey="value"
+                                    isAnimationActive={false}
+                                    data={
                                         valueViewers.reject_count === 0 &&
-                                        valueViewers.reject_count === 0 ?
-                                        data1 :
-                                        data2
-                                }
-                                cx="50%"
-                                cy="50%"
-                                outerRadius={80}
-                                fill="#8884d8"
-                                label
-                            />
-                            <Tooltip />
-                        </PieChart>
-                    </ResponsiveContainer>
+                                            valueViewers.reject_count === 0 &&
+                                            valueViewers.reject_count === 0 ?
+                                            data1 :
+                                            data2
+                                    }
+                                    cx="50%"
+                                    cy="50%"
+                                    outerRadius={80}
+                                    fill="#8884d8"
+                                    label
+                                />
+                                <Tooltip />
+                            </PieChart>
+                        </ResponsiveContainer>
+                    </div>
                 </div>
             </div>
         </>

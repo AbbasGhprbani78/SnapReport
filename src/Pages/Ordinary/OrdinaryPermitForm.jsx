@@ -75,7 +75,7 @@ export default function OrdinaryPermitForm() {
 
                             <div className="permitForm-container">
                                 {
-                                    sortForm.length > 0 ? sortForm.slice().reverse().map((form) => (
+                                    sortForm.length > 0 ? sortForm.map((form) => (
                                         < ConditionFormBox
                                             key={form.uuid}
                                             dec={form.descriptions}

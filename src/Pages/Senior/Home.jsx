@@ -191,7 +191,7 @@ export default function Home() {
                                                         {
                                                             permitForm.length ?
                                                                 <>
-                                                                    {permitForm.slice().reverse().slice(0, 3).map(form => (
+                                                                    {permitForm.slice(0, 3).map(form => (
                                                                         <Col
                                                                             key={form.id}
                                                                             style={{ position: "relative" }}
@@ -227,7 +227,7 @@ export default function Home() {
                                                         {
                                                             accidentForm.length ?
                                                                 <>
-                                                                    {accidentForm.slice().reverse().slice(0, 3).map(form => (
+                                                                    {accidentForm.slice(0, 3).map(form => (
                                                                         <Col
                                                                             key={form.id}
                                                                             style={{ position: "relative" }}
@@ -261,7 +261,7 @@ export default function Home() {
                                                         {
                                                             violationForm.length ?
                                                                 <>
-                                                                    {violationForm.slice().reverse().slice(0, 3).map(form => (
+                                                                    {violationForm.slice(0, 3).map(form => (
                                                                         <Col
                                                                             key={form.id}
                                                                             style={{ position: "relative" }}
@@ -295,7 +295,7 @@ export default function Home() {
                                                         {
                                                             inspectionsForm.length ?
                                                                 <>
-                                                                    {inspectionsForm.slice().reverse().slice(0, 3).map(form => (
+                                                                    {inspectionsForm.slice(0, 3).map(form => (
                                                                         <Col
                                                                             key={form.id}
                                                                             style={{ position: "relative" }}

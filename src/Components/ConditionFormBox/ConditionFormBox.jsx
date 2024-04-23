@@ -3,7 +3,7 @@ import './ConditionFormBox.css'
 import DoneIcon from '@mui/icons-material/Done';
 import CloseIcon from '@mui/icons-material/Close';
 import ReportGmailerrorredIcon from '@mui/icons-material/ReportGmailerrorred';
-
+import dayjs from 'dayjs';
 
 export default function ConditionFormBox({
     styleCalss,
@@ -72,6 +72,7 @@ export default function ConditionFormBox({
                                             form?.fields[0]?.checks[0]?.user?.user_type === "M" ? "Manual Worker" :
                                                 form?.fields[0]?.checks[0]?.user?.user_type === "S" ? "Senior Officer" : ""
                                         }
+                                        <span style={{ marginLeft: "10px", fontSize: ".8rem" }}>{dayjs(form?.fields[0]?.checks[0]?.date).format('YYYY-MM-DD HH:mm')}</span>
                                     </p>
                                     <p className='ConditionFormBox-dec'>{dec}</p>
                                     <p className='viewmore my-2' onClick={() => {
@@ -106,6 +107,7 @@ export default function ConditionFormBox({
                                             form?.fields[0]?.checks[0]?.user?.user_type === "M" ? "Manual Worker" :
                                                 form?.fields[0]?.checks[0]?.user?.user_type === "S" ? "Senior Officer" : ""
                                         }
+                                        <span style={{ marginLeft: "10px", fontSize: ".8rem" }}>{dayjs(form?.fields[0]?.checks[0]?.date).format('YYYY-MM-DD HH:mm')}</span>
                                     </p>
                                     <div>
                                         <p className='ConditionFormBox-dec'>{dec}</p>
@@ -141,6 +143,7 @@ export default function ConditionFormBox({
                                                 form?.fields[0]?.checks[0]?.user?.user_type === "M" ? "Manual Worker" :
                                                     form?.fields[0]?.checks[0]?.user?.user_type === "S" ? "Senior Officer" : ""
                                             }
+                                            <span style={{ marginLeft: "10px", fontSize: ".8rem" }}>{dayjs(form?.fields[0]?.checks[0]?.date).format('YYYY-MM-DD HH:mm')}</span>
                                         </p>
 
                                         <p className='ConditionFormBox-dec'>{dec}</p>
@@ -160,35 +163,37 @@ export default function ConditionFormBox({
                                             </p>
                                         }
                                     </div>
-                                </>) : (
-                                <>
-                                    <div style={{ width: "100%" }}>
-                                        <div style={{ marginBottom: "1.7%" }} className='d-flex align-items-center justify-content-between'>
-                                            <div className='d-flex align-items-center'>
-                                                <div className={`BoxForm ${styleCalss}`}></div>
-                                                <p className='ConditionFormBox-permit'>{title}</p>
-                                            </div>
-                                            <p className='viewmore'
-                                                onClick={() => {
-                                                    openFormHandler()
-                                                    setTitle(form.title)
-                                                    setDescription(form.descriptions)
-                                                    setFields(form.fields)
-                                                    setFormUuid(form.uuid)
-                                                }}>view More
-                                            </p>
-                                        </div>
-                                        <p className='job-cond-fill-form mb-2'>
-                                            {form?.fields[0]?.checks[0]?.user?.user_type === "O" ? "Ordinary Officer" :
-                                                form?.fields[0]?.checks[0]?.user?.user_type === "M" ? "Manual Worker" :
-                                                    form?.fields[0]?.checks[0]?.user?.user_type === "S" ? "Senior Officer" : ""
-                                            }
-                                        </p>
-                                        <div>
-                                            <p className='ConditionFormBox-dec'>{dec}</p>
-                                        </div>
-                                    </div>
                                 </>)
+                                : (
+                                    <>
+                                        <div style={{ width: "100%" }}>
+                                            <div style={{ marginBottom: "1.7%" }} className='d-flex align-items-center justify-content-between'>
+                                                <div className='d-flex align-items-center'>
+                                                    <div className={`BoxForm ${styleCalss}`}></div>
+                                                    <p className='ConditionFormBox-permit'>{title}</p>
+                                                </div>
+                                                <p className='viewmore'
+                                                    onClick={() => {
+                                                        openFormHandler()
+                                                        setTitle(form.title)
+                                                        setDescription(form.descriptions)
+                                                        setFields(form.fields)
+                                                        setFormUuid(form.uuid)
+                                                    }}>view More
+                                                </p>
+                                            </div>
+                                            <p className='job-cond-fill-form mb-2'>
+                                                {form?.fields[0]?.checks[0]?.user?.user_type === "O" ? "Ordinary Officer" :
+                                                    form?.fields[0]?.checks[0]?.user?.user_type === "M" ? "Manual Worker" :
+                                                        form?.fields[0]?.checks[0]?.user?.user_type === "S" ? "Senior Officer" : ""
+                                                }
+                                                <span style={{ marginLeft: "10px", fontSize: ".8rem" }}>{dayjs(form?.fields[0]?.checks[0]?.date).format('YYYY-MM-DD HH:mm')}</span>
+                                            </p>
+                                            <div>
+                                                <p className='ConditionFormBox-dec'>{dec}</p>
+                                            </div>
+                                        </div>
+                                    </>)
                         }
 
                     </div>

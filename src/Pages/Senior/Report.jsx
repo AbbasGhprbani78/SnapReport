@@ -47,6 +47,7 @@ export default function Report() {
     }
 
     const getPermitState = async () => {
+
         const access = localStorage.getItem("access")
         const headers = {
             Authorization: `Bearer ${access}`
@@ -80,7 +81,8 @@ export default function Report() {
             })
 
             if (response.status === 200) {
-                setKindForm(response.data)
+                console.log(response.data)
+                setKindForm(response.data.form_counts)
             }
 
         } catch (e) {
@@ -103,7 +105,6 @@ export default function Report() {
             })
 
             if (response.status === 200) {
-                console.log(response.data)
                 setNotif(response.data)
             }
 
@@ -150,29 +151,30 @@ export default function Report() {
         <>
             <Header />
             <div className="reportContainer">
-                <p className="reportTitle">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptatibus, sint. Error delectus qui laudantium aut alias animi mollitia obcaecati asperiores. Accusamus natus dicta eius distinctio cupiditate quia obcaecati est nostrum.
-                </p>
+                {/* <p className="reportTitle">
+                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptatibus, sint. Error delectus qui laudantium aut alias animi mollitia obcaecati asperiores. Accusamus natus dicta eius distinctio cupiditate quia obcaecati est nostrum.
+                </p> */}
                 <div className="charts-content">
                     {/* <p className="text-chart-top">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p> */}
                     <div className="charts-top">
                         <Col xs={12} lg={7} xl={8} className="chart-left">
-                            <div className='d-flex justify-content-around flex-wrap'>
+                            {/* <div className='d-flex justify-content-around flex-wrap'>
                                 <Col xs={12} md={6} xl={4}>
                                     <ChartProgress
                                         percent={progressData.percentage_age_equipment?.toFixed(2)}
-                                        title={"Age of equipment"}
+                                        title={"Age of equipments"}
                                     />
                                 </Col>
                                 <Col xs={12} md={6} xl={4} className='mt-4 mt-md-0'>
                                     <ChartProgress
                                         percent={progressData.percentage_failure_rate?.toFixed(2)}
-                                        title={"failure rate"}
+                                        title={"failure rates"}
                                     />
                                 </Col>
-                            </div>
+                            </div> */}
 
                             <div className='chart-section-wrappeer'>
-                                <p className='text-chart-top mt-4'>Number of Accident</p>
+                                <p className='text-chart-top'>Number of Accidents</p>
                                 <ChartSection />
                             </div>
                             <div className="chart-bottom">

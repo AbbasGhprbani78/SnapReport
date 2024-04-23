@@ -28,14 +28,13 @@
 .chat-actions {
     width: 100%;
     display: flex;
-    position: fixed;
-    width: 100%;
-    bottom: 10px;
-    width: 70%;
+    position: sticky;
+    bottom: 0;
+    width: 100%
 }
 
 .chat-body {
-    height: 80%;
+    height: 92%;
     padding-bottom: 7px;
     overflow-y: scroll;
 }

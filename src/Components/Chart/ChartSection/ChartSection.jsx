@@ -92,7 +92,7 @@ export default function ChartSection() {
                         <thead>
                             <tr style={{ borderBottom: "1px solid lightgray" }}>
                                 <th className='header-table'>Lable</th>
-                                <th className='header-table'>Value</th>
+                                <th className='header-table'>Number</th>
                                 <th className='header-table'>%</th>
                             </tr>
                         </thead>

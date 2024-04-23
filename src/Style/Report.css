@@ -26,11 +26,12 @@
 
 .chart-left {
     border-right: 1px solid lightgray;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
-.chart-section-wrappeer {
-    margin-top: 60px;
-}
+.chart-section-wrappeer {}
 
 .chart-bottom {
     border-top: 1px solid lightgray;
@@ -86,5 +87,9 @@
         display: flex;
         flex-wrap: wrap;
         margin-top: 30px;
+    }
+
+    .text-chart-top {
+        text-align: center;
     }
 }

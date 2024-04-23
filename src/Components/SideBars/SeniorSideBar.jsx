@@ -325,7 +325,7 @@ export default function SeniorsideBar() {
                         </DrawerHeader>
 
                         <List>
-                            {['Home', 'Add New Form', 'All Forms', "Filled Forms", "Reports", "Chat", "Log out"].map((text, index) => (
+                            {['Home', 'Add New Form', 'Generated Forms', "Filled Forms", "Reports", "Chat", "Log out"].map((text, index) => (
                                 <CSSTransition key={text} timeout={300} classNames="fade">
                                     <ListItem key={text} disablePadding>
                                         <ListItemButton

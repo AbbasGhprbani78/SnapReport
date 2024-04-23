@@ -41,7 +41,7 @@ let routes = [
 
     { path: "/", element: <SeniorRoutes><Home /></SeniorRoutes> },
     { path: "/addnewform", element: <SeniorRoutes><AddNewForm /></SeniorRoutes> },
-    { path: "/allforms", element: <SeniorRoutes><AllForm /></SeniorRoutes> },
+    { path: "/generatedforms", element: <SeniorRoutes><AllForm /></SeniorRoutes> },
     { path: "/filledforms/:todoid", element: <SeniorRoutes><FilledForms /></SeniorRoutes> },
     { path: "/reports", element: <SeniorRoutes><Report /></SeniorRoutes> },
     { path: "/chat", element: <SeniorRoutes><Chat /></SeniorRoutes> },

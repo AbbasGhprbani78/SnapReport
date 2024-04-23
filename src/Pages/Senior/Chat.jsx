@@ -109,7 +109,7 @@ export default function Chat() {
             }
 
         } catch (e) {
-
+            console.log(e)
             if (e.response.status === 401) {
                 localStorage.clear()
                 navigate("/login")
@@ -443,7 +443,6 @@ export default function Chat() {
                             isActive={isAudianceActive}
                             toggleAudianceActive={toggleAudianceActive}
                             user={user}
-
                         />
                         <div className="chat-container">
                             <div className="chat-header">
@@ -506,7 +505,7 @@ export default function Chat() {
                                 </>
                                 <div ref={messageEndRef} />
                             </div>
-                            <div className="chat-actions">
+                            <div className="chat-actions" style={{ bottom: "3px" }}>
                                 <div className="input-wrapper">
                                     <input
                                         onKeyDown={handleKeyDown}

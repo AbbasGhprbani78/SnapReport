@@ -6,6 +6,7 @@
     padding: 20px 15px 10px 15px;
     width: 95%;
     margin: 0 auto;
+    height: calc(100% - 10px);
 
 }
 

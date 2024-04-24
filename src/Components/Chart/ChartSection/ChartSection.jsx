@@ -98,8 +98,8 @@ export default function ChartSection() {
                         </thead>
                         <tbody className='body-table'>
                             {
-                                data2.map(item => (
-                                    <tr className='tr-chart'>
+                                data2.map((item, i) => (
+                                    <tr className='tr-chart' key={i}>
                                         <td className='d-flex align-items-center justify-content-center'>
                                             <div className={`${item.labale === "High" ? "highDot" : "lowDot"}`}></div>
                                             {item.labale}

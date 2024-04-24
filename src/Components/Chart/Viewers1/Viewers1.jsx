@@ -18,29 +18,25 @@ export default function Viewers1({ kindForm }) {
     return (
         <div className='ChartViewers mb-3'>
             <p className="viewer-title">All Filled Forms</p>
-            <div className='d-flex'>
-                <div className="filled-status-color-wrapper mt-2">
-                    <div className="permit-status-color d-flex mb-2">
-                        <div className='dot permitdot'></div>
+            <div className="d-flex mt-2">
+                <div>
+                    <div className="permit-status-color d-flex">
+                        <div className='dot permitdot mb-2'></div>
                         <span style={{ fontSize: ".8rem" }}>Permit</span>
                     </div>
-                    <div className="permit-status-color d-flex mb-2">
-                        <div className='dot accidentdot'></div>
+                    <div className="permit-status-color d-flex ">
+                        <div className='dot accidentdot mb-2'></div>
                         <span style={{ fontSize: ".8rem" }}>Accident</span>
                     </div>
-                </div>
-                <div style={{ marginLeft: "20px" }} className="filled-status-color-wrapper mt-2">
-                    <div className="permit-status-color d-flex mb-2">
-                        <div className='dot violationdot'></div>
+                    <div className="permit-status-color d-flex">
+                        <div className='dot violationdot mb-2'></div>
                         <span style={{ fontSize: ".8rem" }}>Violations</span>
                     </div>
-                    <div className="permit-status-color d-flex mb-2">
-                        <div className='dot inspectionsdot'></div>
+                    <div className="permit-status-color d-flex ">
+                        <div className='dot inspectionsdot mb-2'></div>
                         <span style={{ fontSize: ".8rem" }}>Inpections</span>
                     </div>
                 </div>
-            </div>
-            <div className='d-flex mt-2'>
                 <div className='PieChart-wrapper' style={{ width: "100%", height: 300 }}>
                     <ResponsiveContainer>
                         <PieChart>
@@ -65,7 +61,6 @@ export default function Viewers1({ kindForm }) {
                         </PieChart>
                     </ResponsiveContainer>
                 </div>
-
             </div>
         </div>
     )

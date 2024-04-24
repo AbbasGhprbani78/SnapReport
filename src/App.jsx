@@ -7,12 +7,12 @@ import OrdinarySideBars from './Components/SideBars/OrdinarySideBars'
 import ManualSideBar from './Components/SideBars/ManualSideBar'
 import SignIn from './Pages/Sign';
 import { useMyContext } from './Components/RoleContext';
-import CloseIcon from '@mui/icons-material/Close';
+//import CloseIcon from '@mui/icons-material/Close';
 import { useState, useEffect, useRef } from 'react';
 import { Alert } from 'react-bootstrap';
-import WarningAmberIcon from '@mui/icons-material/WarningAmber';
-import VerifiedUserOutlinedIcon from '@mui/icons-material/VerifiedUserOutlined';
-import GppMaybeOutlinedIcon from '@mui/icons-material/GppMaybeOutlined';
+// import WarningAmberIcon from '@mui/icons-material/WarningAmber';
+// import VerifiedUserOutlinedIcon from '@mui/icons-material/VerifiedUserOutlined';
+// import GppMaybeOutlinedIcon from '@mui/icons-material/GppMaybeOutlined';
 
 export const IP = "https://snapreport.ariisco.com"
 // export const IP = "http://185.79.156.226:9500"
@@ -21,14 +21,11 @@ function App() {
 
   const subUserRef = useRef(null);
   const { sharedData } = useMyContext();
-  const [showModalAccident, setShowModalAccident] = useState(false)
   const [isAccident, setIsAccident] = useState(null)
   const [meesageRick, setMessageRisk] = useState()
   const { type } = useMyContext()
   const location = useLocation()
-  const hideModal = () => {
-    setShowModalAccident(false)
-  }
+
 
   useEffect(() => {
 
@@ -45,7 +42,6 @@ function App() {
 
 
   useEffect(() => {
-
     if (location.pathname !== '/login') {
       setIsAccident(localStorage.getItem("levelrick"));
       setMessageRisk(localStorage.getItem("message"));
@@ -64,26 +60,6 @@ function App() {
           :
           <>
             <div className="d-flex w-100 main-container">
-              <div
-                className={`modal-accident-Wrapper ${showModalAccident ? "modal-accident-Wrapper-active " : ""}`}
-              >
-                <div ref={subUserRef} className="modal-accident">
-                  <div style={{ textAlign: "right", padding: "15px" }}>
-                    <CloseIcon style={{ cursor: "pointer" }} onClick={hideModal} />
-                  </div>
-                  <h3
-                    className={`title-wraning ${isAccident == 0 ?
-                      "safe" : isAccident == 1 ?
-                        "warning" : isAccident == 2 ?
-                          "danger" : ""}`}>
-
-                    {isAccident == 0 ? "No Accident" : isAccident == 1 ? "Warinig" : isAccident == 2 ? "Danger" : ""}
-                  </h3>
-                  <p className='text-warnings text-center'>
-                    {meesageRick && meesageRick}
-                  </p>
-                </div>
-              </div>
               {
                 (sharedData || type) === "S" ?
                   <SeniorsideBar /> :
@@ -93,51 +69,42 @@ function App() {
                       <ManualSideBar /> : null
               }
               <div className='w-100' style={{ overflowX: "hidden" }}>
-                {
+
+                {location.pathname !== '/aireports' &&
+
                   ((sharedData === "S" || type === "S") || (sharedData === "O" || type === "O")) ?
-                    <>
-                      {
-                        isAccident == 2 ?
-                          <Alert className='d-flex align-items-center justify-content-between alert-accident'>
-                            <div className='content-alert '>
-                              <h4 className='danger-title'>Danger</h4>
-                              <p className='alert-text'></p>
+                  <>
+                    {
+                      isAccident == 2 ?
+                        <Alert className='d-flex align-items-center justify-content-between alert-accident'>
+                          <div className='content-alert'>
+                            <h4 className='alert-title-ai'>Danger</h4>
+                            <p className='alert-text'>{meesageRick}</p>
+                            <p>Powered By Snap Report Ai</p>
+                          </div>
+
+                        </Alert> :
+                        isAccident == 1 ?
+                          <Alert className='d-flex align-items-center justify-content-between warningAccident'>
+                            <div className='content-alert'>
+                              <h4 className='alert-title-ai'>Warning</h4>
+                              <p className='alert-text'>zdfdsvfxcvds</p>
+                              <p>Powered By Snap Report Ai</p>
                             </div>
-                            <div className='warning-icon-wrapper'>
-                              < WarningAmberIcon
-                                style={{ cursor: "pointer" }}
-                                onClick={() => setShowModalAccident(true)}
-                              />
-                            </div>
+
                           </Alert> :
-                          isAccident == 1 ?
-                            <div className='warningAccident'>
-                              <div className='Verifiedwrapper'>
-                                <p className='noaccident-text'>Low Rick</p>
-                                <span className='span-warning'>
-                                  <GppMaybeOutlinedIcon
-                                    onClick={() => setShowModalAccident(true)}
-                                    style={{ color: "#ffffff", cursor: "pointer" }}
-                                  />
-                                </span>
+                          isAccident == 0 ?
+                            <Alert className='d-flex align-items-center justify-content-between noAccident'>
+                              <div className='content-alert'>
+                                <h4 className='alert-title-ai'>No Accident</h4>
+                                <p className='alert-text'>dzgdrhfcb fhdrfxbc</p>
+                                <p>Powered By Snap Report Ai</p>
                               </div>
-                            </div> :
-                            isAccident == 0 ?
-                              <div className='noAccident'>
-                                <div className='chevorn'></div>
-                                <div className='Verifiedwrapper'>
-                                  <p className='noaccident-text'>No accident</p>
-                                  <span className='span-Verified'>
-                                    <VerifiedUserOutlinedIcon
-                                      onClick={() => setShowModalAccident(true)}
-                                      style={{ color: "#ffffff", cursor: "pointer" }}
-                                    />
-                                  </span>
-                                </div>
-                              </div>
-                              : ""
-                      }
-                    </> : null
+
+                            </Alert>
+                            : ""
+                    }
+                  </> : null
                 }
                 {router}
               </div>
@@ -152,3 +119,49 @@ function App() {
 
 
 export default App;
+
+///modal
+
+{/* <div
+  className={`modal-accident-Wrapper ${showModalAccident ? "modal-accident-Wrapper-active " : ""}`}
+>
+  <div ref={subUserRef} className="modal-accident">
+    <div style={{ textAlign: "right", padding: "15px" }}>
+      <CloseIcon style={{ cursor: "pointer" }} onClick={hideModal} />
+    </div>
+    <h3
+      className={`title-wraning ${isAccident == 0 ?
+        "safe" : isAccident == 1 ?
+          "warning" : isAccident == 2 ?
+            "danger" : ""}`}>
+
+      {isAccident == 0 ? "No Accident" : isAccident == 1 ? "Warinig" : isAccident == 2 ? "Danger" : ""}
+    </h3>
+    <p className='text-warnings text-center'>
+      {meesageRick && meesageRick}
+    </p>
+  </div>
+</div> */}
+
+
+
+{/* <div className='warning-icon-wrapper'>
+                            < WarningAmberIcon
+                              style={{ cursor: "pointer" }}
+                            />
+                          </div> */}
+
+{/* <span className='span-warning'>
+                                <GppMaybeOutlinedIcon
+                                  style={{ color: "#ffffff", cursor: "pointer" }}
+                                />
+                              </span> */}
+
+
+
+
+{/* <span className='span-Verified'>
+                                  <VerifiedUserOutlinedIcon
+                                    style={{ color: "#ffffff", cursor: "pointer" }}
+                                  />
+                                </span> */}

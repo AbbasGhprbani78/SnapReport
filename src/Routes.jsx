@@ -43,7 +43,7 @@ let routes = [
     { path: "/addnewform", element: <SeniorRoutes><AddNewForm /></SeniorRoutes> },
     { path: "/generatedforms", element: <SeniorRoutes><AllForm /></SeniorRoutes> },
     { path: "/filledforms/:todoid", element: <SeniorRoutes><FilledForms /></SeniorRoutes> },
-    { path: "/reports", element: <SeniorRoutes><Report /></SeniorRoutes> },
+    { path: "/aireports", element: <SeniorRoutes><Report /></SeniorRoutes> },
     { path: "/chat", element: <SeniorRoutes><Chat /></SeniorRoutes> },
 
     { path: "*", element: <PageNotFound /> },
@@ -51,3 +51,5 @@ let routes = [
 ]
 
 export default routes
+
+//form/loc-label-count

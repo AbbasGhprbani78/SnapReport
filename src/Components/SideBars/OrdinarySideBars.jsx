@@ -151,7 +151,6 @@ export default function ManualSideBar() {
             })
 
             if (response.status === 200) {
-                console.log(response.data)
                 setUserInfo(response.data)
                 setFname(response.data[0].first_name)
                 setLname(response.data[0].last_name)

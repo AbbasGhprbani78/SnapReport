@@ -29,7 +29,7 @@ export default function OrdinaryAccidentForm() {
 
             if (response.status === 200) {
                 setAccidentForms(response.data.forms)
-                console.log(response.data)
+
             }
 
         } catch (e) {
@@ -77,7 +77,7 @@ export default function OrdinaryAccidentForm() {
                             />
                             <div className="accidentForm-container">
                                 {
-                                    sortForm.length > 0 ? sortForm.map((form) => (
+                                    sortForm.length > 0 ? sortForm.slice().reverse().map((form) => (
                                         < ConditionFormBox
                                             key={form.uuid}
                                             dec={form.descriptions}

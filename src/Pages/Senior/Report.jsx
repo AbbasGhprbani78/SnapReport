@@ -22,6 +22,7 @@ export default function Report() {
     const [kindForm, setKindForm] = useState("")
     const [notifs, setNotif] = useState("")
     const [openModalAi, setOpenModalAi] = useState(false)
+    const [notFix, setNotFix] = useState(false)
 
 
     const handleChange = (panel) => (event, isExpanded) => {
@@ -153,27 +154,36 @@ export default function Report() {
 
     return (
         <>
-            <>
-                <div className={`modal-ai-container ${openModalAi ? "open-modal-active" : ""}`}>
-                    <div className="close-ai-modal" onClick={() => setOpenModalAi(false)}></div>
-                    <div className="modal-ai">
-                        <div className="modal-ai-header">
-                            <p>SnapReport AI: Advanced Workplace Safety Prediction</p>
-                            <img className='sideBar-img' src={logo} alt="logo" />
-                        </div>
-                        <div className="modal-ai-body">
-                            SnapReport AI revolutionizes workplace safety by harnessing a multifaceted approach to accident prediction. Integrating employee experience, education, and shift patterns alongside environmental hazards and equipment factors such as maintenance schedules and age, the system offers unparalleled predictive capabilities. By comprehensively analyzing these variables, SnapReport AI provides proactive insights into accident-prone areas, enabling preemptive interventions to mitigate risks and ensure a safer work environment for all.
-                        </div>
-                        <div className="modal-ai-footer">
-                            Powered By Snapreport Ai
-                        </div>
+            <div className={`modal-ai-container ${openModalAi ? "open-modal-active" : ""}`}>
+                <div className="close-ai-modal"
+                    onClick={() => {
+                        setOpenModalAi(false)
+                        setNotFix(false)
+                    }}
+                >
+
+                </div>
+                <div className="modal-ai">
+                    <div className="modal-ai-header">
+                        <p className='order-ai'>SnapReport AI: Advanced Workplace Safety Prediction</p>
+                        <img className='sideBar-img' src={logo} alt="logo" />
+                    </div>
+                    <div className="modal-ai-body">
+                        SnapReport AI revolutionizes workplace safety by harnessing a multifaceted approach to accident prediction. Integrating employee experience, education, and shift patterns alongside environmental hazards and equipment factors such as maintenance schedules and age, the system offers unparalleled predictive capabilities. By comprehensively analyzing these variables, SnapReport AI provides proactive insights into accident-prone areas, enabling preemptive interventions to mitigate risks and ensure a safer work environment for all.
+                    </div>
+                    <div className="modal-ai-footer">
+                        Powered By Snapreport Ai
                     </div>
                 </div>
-            </>
-            <Header />
+            </div>
+
+            <Header notFix={notFix} />
             <div className="header-report-ai">
                 <p className="ai-report">Ai Report</p>
-                <div className='ai-circle' onClick={() => setOpenModalAi(true)}>
+                <div className='ai-circle' onClick={() => {
+                    setOpenModalAi(true)
+                    setNotFix(true)
+                }}>
                     <span className='ai-circle-text'>Ai</span>
                 </div>
             </div>
@@ -215,8 +225,9 @@ export default function Report() {
                                         notifs.slice().reverse().map(notif => (
                                             <Accordion.Item eventKey={notif.id} key={notif.id} className='mb-3' onClick={() => notifReadHandler(notif.id)}>
                                                 <Accordion.Header>
-                                                    <div className='d-flex position-relative header-title-notif'>
-                                                        <p className={`${notif.status === "low" ? "lowitem" : "hightitem"} fw-bold d-flex`}><p style={{ color: "#000", marginRight: "5px" }}>Prediction Of An Accident  :  </p> {notif.status}</p>
+                                                    <div className=' position-relative header-title-notif'>
+                                                        <p className={`${notif.status === "low" ? "lowitem" : "hightitem"} fw-bold d-flex`}>
+                                                            <p style={{ color: "#000", marginRight: "5px" }}>Prediction Of An Accident  :  </p> {notif.status}</p>
                                                         <p className='date-notif-item '>{dayjs(notif.created_at).format('YYYY-MM-DD HH:mm')}</p>
                                                     </div>
                                                 </Accordion.Header>

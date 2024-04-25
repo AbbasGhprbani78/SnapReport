@@ -27,7 +27,6 @@ export default function OrdinaryInfractions() {
             })
 
             if (response.status === 200) {
-                console.log(response.data)
                 setInfractions(response.data.forms)
             }
 
@@ -75,7 +74,7 @@ export default function OrdinaryInfractions() {
                             />
                             <div className="accidentForm-container">
                                 {
-                                    sortForm.length > 0 ? sortForm.map((form) => (
+                                    sortForm.length > 0 ? sortForm.slice().reverse().map((form) => (
                                         < ConditionFormBox
                                             key={form.uuid}
                                             dec={form.descriptions}

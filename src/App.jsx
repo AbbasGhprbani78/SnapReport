@@ -76,29 +76,29 @@ function App() {
                   <>
                     {
                       isAccident == 2 ?
-                        <Alert className='d-flex align-items-center justify-content-between alert-accident'>
+                        <Alert className='alert-wrapper alert-accident'>
                           <div className='content-alert'>
                             <h4 className='alert-title-ai'>Danger</h4>
                             <p className='alert-text'>{meesageRick}</p>
-                            <p>Powered By Snap Report Ai</p>
+                            <p className='powerd-text'>Powered By Snap Report Ai</p>
                           </div>
 
                         </Alert> :
                         isAccident == 1 ?
-                          <Alert className='d-flex align-items-center justify-content-between warningAccident'>
+                          <Alert className='alert-wrapper warningAccident'>
                             <div className='content-alert'>
                               <h4 className='alert-title-ai'>Warning</h4>
                               <p className='alert-text'>zdfdsvfxcvds</p>
-                              <p>Powered By Snap Report Ai</p>
+                              <p className='powerd-text'>Powered By Snap Report Ai</p>
                             </div>
 
                           </Alert> :
                           isAccident == 0 ?
-                            <Alert className='d-flex align-items-center justify-content-between noAccident'>
+                            <Alert className='alert-wrapper noAccident'>
                               <div className='content-alert'>
                                 <h4 className='alert-title-ai'>No Accident</h4>
                                 <p className='alert-text'>dzgdrhfcb fhdrfxbc</p>
-                                <p>Powered By Snap Report Ai</p>
+                                <p className='powerd-text'>Powered By Snap Report Ai</p>
                               </div>
 
                             </Alert>

@@ -8,7 +8,7 @@ import ManualOffcanvas from '../OffCanvas/ManualOffcanvas';
 import OrdinaryOffcanvs from '../OffCanvas/OrdinaryOffcanvas';
 import { useMyContext } from '../RoleContext';
 
-export default function Header() {
+export default function Header({ notFix }) {
     const [showOffCanvas, setShowOffCanvas] = useState(false);
     const [isFixed, setIsFixed] = useState(false);
 
@@ -26,9 +26,12 @@ export default function Header() {
     };
 
     useEffect(() => {
-        window.addEventListener('scroll', handleScroll);
-        return () => window.removeEventListener('scroll', handleScroll);
-    }, []);
+        if (!notFix) {
+            window.addEventListener('scroll', handleScroll);
+            return () => window.removeEventListener('scroll', handleScroll);
+        }
+
+    }, [notFix]);
 
     const { sharedData } = useMyContext();
     const { type } = useMyContext()

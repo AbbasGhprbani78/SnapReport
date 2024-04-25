@@ -88,7 +88,6 @@ export default function Home() {
             })
 
             if (response.status === 200) {
-                console.log(response.data)
                 setFailForms(response.data.forms)
             }
 
@@ -191,7 +190,7 @@ export default function Home() {
                                                         {
                                                             permitForm.length ?
                                                                 <>
-                                                                    {permitForm.slice(0, 3).map(form => (
+                                                                    {permitForm.slice().reverse().slice(0, 3).map(form => (
                                                                         <Col
                                                                             key={form.id}
                                                                             style={{ position: "relative" }}
@@ -227,7 +226,7 @@ export default function Home() {
                                                         {
                                                             accidentForm.length ?
                                                                 <>
-                                                                    {accidentForm.slice(0, 3).map(form => (
+                                                                    {accidentForm.slice().reverse().slice(0, 3).map(form => (
                                                                         <Col
                                                                             key={form.id}
                                                                             style={{ position: "relative" }}
@@ -261,7 +260,7 @@ export default function Home() {
                                                         {
                                                             violationForm.length ?
                                                                 <>
-                                                                    {violationForm.slice(0, 3).map(form => (
+                                                                    {violationForm.slice().reverse().slice(0, 3).map(form => (
                                                                         <Col
                                                                             key={form.id}
                                                                             style={{ position: "relative" }}
@@ -295,7 +294,7 @@ export default function Home() {
                                                         {
                                                             inspectionsForm.length ?
                                                                 <>
-                                                                    {inspectionsForm.slice(0, 3).map(form => (
+                                                                    {inspectionsForm.slice().reverse().slice(0, 3).map(form => (
                                                                         <Col
                                                                             key={form.id}
                                                                             style={{ position: "relative" }}

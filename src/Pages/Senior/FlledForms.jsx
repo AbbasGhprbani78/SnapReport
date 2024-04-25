@@ -89,7 +89,6 @@ export default function FilledForms() {
 
             if (response.status === 200) {
                 setAllForms(response.data.forms)
-                console.log(response.data.forms)
             }
 
         } catch (e) {
@@ -151,7 +150,7 @@ export default function FilledForms() {
                                     permitForm.length ?
                                         (
 
-                                            permitForm.map((form, i) => (
+                                            permitForm.slice().reverse().map((form, i) => (
                                                 <ConditionFormBox
                                                     key={i}
                                                     title={"Permit Form"}
@@ -180,7 +179,7 @@ export default function FilledForms() {
 
                                     accidentForm.length ?
                                         (
-                                            accidentForm.filter(form => form.type === "accident").map((form, i) => (
+                                            accidentForm.slice().reverse().map((form, i) => (
                                                 <ConditionFormBox
                                                     key={i}
                                                     title={"Accident Form"}
@@ -204,7 +203,7 @@ export default function FilledForms() {
 
                                     violationForm.length ?
                                         (
-                                            violationForm.filter(form => form.type === "violation").map((form, i) => (
+                                            violationForm.slice().reverse().map((form, i) => (
                                                 <ConditionFormBox
                                                     key={i}
                                                     title={"Violation Form"}
@@ -228,7 +227,7 @@ export default function FilledForms() {
 
                                     inspectionsForm.length ?
                                         (
-                                            inspectionsForm.filter(form => form.type === "inspections").map((form, i) => (
+                                            inspectionsForm.slice().reverse().map((form, i) => (
                                                 <ConditionFormBox
                                                     key={i}
                                                     title={"Inspections Form"}

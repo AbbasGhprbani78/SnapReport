@@ -7,6 +7,7 @@ import { IP } from '../../App'
 export default function BarChartSection() {
 
     const [data, setData] = useState("")
+
     const getDataBarChart = async () => {
         const access = localStorage.getItem("access")
         const headers = {
@@ -18,7 +19,6 @@ export default function BarChartSection() {
             })
 
             if (response.status === 200) {
-                console.log(response.data)
                 const formattedData = Object.entries(response.data).map(([name, number]) => ({ name: name.replace(/_/g, ' '), number }));
                 setData(formattedData);
             }
@@ -60,8 +60,7 @@ const CustomTooltip = ({ active, payload }) => {
     if (active) {
         return (
             <div className="custom-tooltip">
-                <p style={{ color: "#e29d1b" }}>{`${payload[0]?.name}: ${payload[0]?.value}`}</p>
-                <p style={{ color: "#ce0f0f" }}>{`${payload[1]?.name}: ${payload[1]?.value}`}</p>
+                <p style={{ color: "#000" }}>{`${payload[0]?.payload?.name} : ${payload[0]?.payload?.number}`}</p>
             </div>
         );
     }

@@ -6,6 +6,7 @@ import Header from '../../Components/Header/Header'
 import axios from 'axios'
 import { IP } from '../../App'
 import PlaceForm from '../../Components/PlaceForm/PlaceForm'
+import AiHeader from '../../Components/AiHeader/AiHeader'
 
 export default function OrdinaryPermitForm() {
     const [permitForms, setPermitForms] = useState([])
@@ -68,6 +69,7 @@ export default function OrdinaryPermitForm() {
                     <>
                         <div className='permitForm-page '>
                             <Header />
+                            <AiHeader />
                             <TopSection
                                 text="Permit forms"
                             />

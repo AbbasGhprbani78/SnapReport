@@ -19,6 +19,7 @@ import OrdinaryOffcanvas from '../../Components/OffCanvas/OrdinaryOffcanvas';
 import { useMyContext } from '../../Components/RoleContext';
 import { CircularProgressbar } from "react-circular-progressbar";
 import { BsFillFileEarmarkArrowDownFill } from 'react-icons/bs'
+import AiHeader from '../../Components/AiHeader/AiHeader';
 
 export default function OrdinaryChat() {
 
@@ -371,7 +372,7 @@ export default function OrdinaryChat() {
                     </> :
 
                     <div style={{ width: "100%" }}>
-                        <Header />
+                        {/* <AiHeader /> */}
                         <div className="chat-container">
                             <div className="chat-body">
                                 <div className="chat-header">

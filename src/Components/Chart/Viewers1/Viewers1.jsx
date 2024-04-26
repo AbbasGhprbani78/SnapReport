@@ -1,8 +1,9 @@
 import React from 'react'
 import '../PermitViewers/ChartViewers.css'
-import { PieChart, Pie, Legend, Tooltip, ResponsiveContainer } from 'recharts';
+import { PieChart, Pie, Tooltip, ResponsiveContainer } from 'recharts';
 
 export default function Viewers1({ kindForm }) {
+
 
     const data1 = [
         { name: "There is no form", value: 100, fill: '#d3d3d3' },
@@ -37,19 +38,16 @@ export default function Viewers1({ kindForm }) {
                         <span style={{ fontSize: ".8rem" }}>Inpections</span>
                     </div>
                 </div>
-                <div className='PieChart-wrapper' style={{ width: "100%", height: 300 }}>
+                <div className='PieChart-wrapper' style={{ width: "100%", height: 300, marginLeft: "10px" }}>
                     <ResponsiveContainer>
                         <PieChart>
                             <Pie
                                 dataKey="value"
                                 isAnimationActive={false}
                                 data={
-                                    kindForm.permit_count === 0 &&
-                                        kindForm.accident_count === 0 &&
-                                        kindForm.violation_count === 0 &&
-                                        kindForm.inspections_count === 0 ?
-                                        data1 :
-                                        data2
+                                    kindForm ?
+                                        data2 :
+                                        data1
                                 }
                                 cx="50%"
                                 cy="50%"

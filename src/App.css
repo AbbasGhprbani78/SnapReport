@@ -163,7 +163,7 @@
 
 .css-1u3bzj6-MuiFormControl-root-MuiTextField-root,
 .dropDwon-option {
-  width: 200px !important;
+  min-width: 200px !important;
 }
 
 .alert-title-ai {

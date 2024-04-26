@@ -12,6 +12,7 @@ import ConditionFormBox from '../../Components/ConditionFormBox/ConditionFormBox
 import axios from 'axios';
 import { IP } from '../../App';
 import { useParams } from 'react-router-dom';
+import AiHeader from '../../Components/AiHeader/AiHeader';
 
 
 function CustomTabPanel(props) {
@@ -131,6 +132,7 @@ export default function FilledForms() {
 
                     <>
                         <Header />
+                        <AiHeader />
                         <Box sx={{ width: '100%' }}>
                             <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                                 <Tabs

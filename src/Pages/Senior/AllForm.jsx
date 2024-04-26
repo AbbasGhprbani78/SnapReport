@@ -6,7 +6,8 @@ import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import EditCalendarIcon from '@mui/icons-material/EditCalendar';
 import axios from 'axios';
 import { IP } from '../../App';
-import Header from '../../Components/Header/Header';;
+import Header from '../../Components/Header/Header'; import AiHeader from '../../Components/AiHeader/AiHeader';
+;
 
 export default function AllForm() {
 
@@ -71,6 +72,7 @@ export default function AllForm() {
                     /> :
                     <div style={{ width: "100%" }}>
                         <Header />
+                        <AiHeader />
                         <div className={`${allform.length === 0 ? "emptyForm" : ""} allForm-container`} >
 
                             {

@@ -6,6 +6,7 @@ import Header from '../../Components/Header/Header'
 import axios from 'axios'
 import { IP } from '../../App'
 import PlaceForm from '../../Components/PlaceForm/PlaceForm';
+import AiHeader from '../../Components/AiHeader/AiHeader'
 
 export default function OrdinaryInfractions() {
 
@@ -69,6 +70,7 @@ export default function OrdinaryInfractions() {
                     <>
                         <div className='accident-page'>
                             <Header />
+                            <AiHeader />
                             <TopSection
                                 text="Violations Form"
                             />

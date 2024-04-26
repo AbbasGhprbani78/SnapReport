@@ -22,6 +22,7 @@ import { useNavigate } from 'react-router-dom'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import Loading from '../../Components/Loading/Loading'
 import Header from '../../Components/Header/Header'
+import AiHeader from '../../Components/AiHeader/AiHeader'
 
 
 const ITEM_HEIGHT = 48;
@@ -586,6 +587,7 @@ export default function AddNewForm({ showForm, back, mainForm, isDelete, getAllF
                     :
                     <div style={{ width: "100%" }} ref={topOfPageRef}>
                         <Header />
+                        <AiHeader />
                         <Row className='addFormContainer d-flex align-items-start w-100'>
                             {
                                 showForm &&

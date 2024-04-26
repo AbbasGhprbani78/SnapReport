@@ -7,6 +7,7 @@ import BoxtForm from '../../Components/BoxForm/BoxForm';
 import TopSection from '../../Components/TopSection/TopSection';
 import FormWorker from '../../Components/FormWorker/FormWorker';
 import { useMyContext } from '../../Components/RoleContext';
+import AiHeader from '../../Components/AiHeader/AiHeader';
 
 
 export default function OrdinaryHome() {
@@ -80,6 +81,7 @@ export default function OrdinaryHome() {
                     <>
                         <div div className="home-container" >
                             <Header />
+                            <AiHeader />
                             {
                                 PermitForms.length > 0 ?
                                     <>

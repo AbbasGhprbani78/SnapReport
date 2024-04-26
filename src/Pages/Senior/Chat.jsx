@@ -17,6 +17,7 @@ import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import Header from '../../Components/Header/Header';
 import { CircularProgressbar } from "react-circular-progressbar";
 import { BsFillFileEarmarkArrowDownFill } from 'react-icons/bs'
+import AiHeader from '../../Components/AiHeader/AiHeader';
 export default function Chat() {
 
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
@@ -394,6 +395,7 @@ export default function Chat() {
                             <>
                                 <div style={{ width: "100%" }}>
                                     <Header />
+                                    <AiHeader />
                                     <div className="list-users">
                                         <p className='ordinaryAudianc-title'>Ordinary Officer</p>
                                         <div className='ordinaryAudiance-content'>
@@ -437,7 +439,7 @@ export default function Chat() {
 
                     </> :
                     <div style={{ width: "100%" }}>
-                        <Header />
+                        {/* <AiHeader /> */}
                         <Audiance
                             selectUser={selectUser}
                             isActive={isAudianceActive}

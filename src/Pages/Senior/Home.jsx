@@ -13,6 +13,7 @@ import Header from '../../Components/Header/Header'
 import NotificationsHome from '../../Components/NotificationsHome/NotificationsHome'
 import FailHomeItem from '../../Components/FailHomeItem/FailHomeItem';
 import PlaceForm from '../../Components/PlaceForm/PlaceForm';
+import AiHeader from '../../Components/AiHeader/AiHeader'
 
 
 export default function Home() {
@@ -139,6 +140,7 @@ export default function Home() {
                                 /> :
                                 <div className="home-container">
                                     <Header />
+                                    <AiHeader />
                                     <div className='recentForm-conteiner'>
                                         <div className="allFormText">
                                             <Link className='linkAll-form' to={''}>Default Forms</Link>

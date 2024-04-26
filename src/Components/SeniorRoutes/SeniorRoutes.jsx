@@ -11,8 +11,8 @@ export default function SeniorRoute({ children }) {
     const [isLoading, setIsLoading] = useState(true);
     const { type, updateType } = useMyContext()
     const navigate = useNavigate()
-    const validateUser = async () => {
 
+    const validateUser = async () => {
         const refresh = localStorage.getItem('refresh');
         const body = {
             refresh: refresh,
@@ -56,9 +56,9 @@ export default function SeniorRoute({ children }) {
         <div style={{ width: "100%" }}>
             {(seniorTrue || typeUser === "S") ? (
                 children
-            ) : (seniorTrue || typeUser === "M") ?
+            ) : (typeUser === "M") ?
                 navigate("/manualhome") :
-                (seniorTrue || typeUser === "O") ?
+                (typeUser === "O") ?
                     navigate('/ordinaryhome') :
                     (
                         navigate("/login")

@@ -4,16 +4,15 @@ import { PieChart, Pie, Tooltip, ResponsiveContainer } from 'recharts';
 
 export default function Viewers1({ kindForm }) {
 
-
     const data1 = [
         { name: "There is no form", value: 100, fill: '#d3d3d3' },
     ];
 
     const data2 = [
-        { name: 'Permit', value: kindForm.permit_count, fill: '#9747ff' },
-        { name: 'Accident', value: kindForm.accident_count, fill: '#2fcd96' },
-        { name: 'Violations', value: kindForm.violation_count, fill: '#CC3366' },
-        { name: 'Inpections', value: kindForm.inspections_count, fill: '#ffa500' },
+        { name: 'Permit', value: kindForm[1]?.value, fill: '#9747ff' },
+        { name: 'Accident', value: kindForm[3]?.value, fill: '#2fcd96' },
+        { name: 'Violations', value: kindForm[4]?.value, fill: '#CC3366' },
+        { name: 'Inpections', value: kindForm[2]?.value, fill: '#ffa500' },
     ];
 
     return (

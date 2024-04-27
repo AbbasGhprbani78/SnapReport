@@ -86,7 +86,8 @@ export default function Report() {
             })
 
             if (response.status === 200) {
-                setKindForm(response.data.form_counts)
+                const formattedData = Object.entries(response.data).map(([name, value]) => ({ name: name.replace(/_/g, ' '), value }))
+                setKindForm(formattedData)
             }
 
         } catch (e) {
@@ -132,7 +133,6 @@ export default function Report() {
             })
 
             if (response.status === 200) {
-                console.log(response.data)
             }
 
         } catch (e) {

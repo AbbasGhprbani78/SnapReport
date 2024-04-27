@@ -20,7 +20,6 @@ export default function SeniorRoute({ children }) {
 
         try {
             const response = await axios.post(`${IP}/user/token/refresh/`, body);
-
             if (response.status === 200) {
                 window.localStorage.removeItem('access');
                 window.localStorage.removeItem('uuid');

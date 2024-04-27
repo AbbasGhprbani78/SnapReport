@@ -135,6 +135,7 @@ export default function FormSignIn({ handleTabChange }) {
 
 
         } catch (error) {
+            console.log(error)
             if (error.response.status === 401) {
                 toast.error(`${error.response.data.detail}`, {
                     position: "top-right",

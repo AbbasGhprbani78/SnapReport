@@ -4,7 +4,6 @@ import { PieChart, Pie, Tooltip, ResponsiveContainer } from 'recharts';
 
 export default function PermitViewers({ valueViewers }) {
 
-
     const data1 = [
         { name: "There is no permit from", value: 100, fill: '#d3d3d3' },
     ];

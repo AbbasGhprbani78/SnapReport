@@ -86,7 +86,7 @@ export default function SignIn() {
                                 <div className="logo-text-wrapper">
                                     <img className='logo-right' src={logo} alt="logo" />
                                     <p className='text-singIn'>
-                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ullam in numquam, odit quis amet laborum aliquid. Temporibus quae labore tempora ipsum, delectus
+                                        SnapReport redefines workplace safety with its innovative form generator and predictive AI engine. Seamlessly create accident, violation, permit, and inspection reports. Predict accidents based on employee profiles, environmental hazards, and equipment factors for unparalleled safety insights. From senior officers to ordinary workers, SnapReport ensures proactive safety measures and streamlined operations.
                                     </p>
                                 </div>
                             </Col>

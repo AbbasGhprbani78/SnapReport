@@ -193,11 +193,27 @@
     width: 35%;
 }
 
+.input-wrapper-prof-email {
+    display: flex;
+    border-bottom: 1px solid lightgray;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 7px;
+    padding-left: 5px;
+}
+
 .input-prof {
     border: none;
     outline: none;
     width: 90%;
     font-size: .9rem;
+}
+
+.input-prof-email {
+    border: none;
+    outline: none;
+    font-size: .9rem;
+    width: 100%;
 }
 
 .notif-number {
@@ -239,6 +255,12 @@
     color: rgb(194, 192, 192);
 }
 
+@media (min-width:992px) {
+    .title-prof {
+        padding-top: 7px;
+    }
+}
+
 @media (max-width:992px) {
     .sidebarContainer {
         display: none;
@@ -268,5 +290,14 @@
     .btn-prof {
         width: 100%;
         padding: 10px 0;
+    }
+
+    .input-wrapper-prof-email {
+        width: 100%;
+        margin-top: 45px !important;
+    }
+
+    .password-prof {
+        width: 95%;
     }
 }

@@ -50,6 +50,9 @@ export default function ManualOffcanvas({ show, onHide }) {
     const [defaultImg, setDefaultImg] = useState();
     const [numberNotif, setNumberNotif] = useState('')
     const [showm, setShow] = useState(false);
+    const [showPasswordInputs, setShowPasswordInputs] = useState(false)
+    const [password, setPassword] = useState("")
+    const [email, setEmail] = useState("")
 
     //all icons in side bar
     const drawerIcons = [
@@ -166,6 +169,7 @@ export default function ManualOffcanvas({ show, onHide }) {
                 setUserInfo(response.data)
                 setFname(response.data[0].first_name)
                 setLname(response.data[0].last_name)
+                setEmail(response.data[0].email)
             }
 
         } catch (e) {
@@ -187,14 +191,24 @@ export default function ManualOffcanvas({ show, onHide }) {
         if (imgSrc) {
             formData.append("avatar", imgSrc);
         }
+        if (showPasswordInputs) {
+            formData.append("password", password)
+        }
         formData.append("first_name", fname)
         formData.append("last_name", lname)
+        formData.append("email", email)
         const access = localStorage.getItem("access")
         const headers = {
             Authorization: `Bearer ${access}`
         };
 
-        if (fname.trim() && lname.trim()) {
+        if (showPasswordInputs) {
+            if (!fname.trim() || !lname.trim() || !password.trim()) {
+                return false
+            }
+        }
+
+        if (fname.trim() && lname.trim() && email.trim()) {
             try {
                 const response = await axios.put(`${IP}/user/edit-user-profile/`, formData, {
                     headers,
@@ -251,9 +265,7 @@ export default function ManualOffcanvas({ show, onHide }) {
                             />
                         </div>
                         <p className="prof-job-position">
-                            <p className="prof-job-position">
-                                {userInfo && userInfo[0]?.user_type === "S" ? "Senior Officer" : ""}
-                            </p>
+                            {userInfo && userInfo[0]?.user_type === "S" ? "Senior Officer" : ""}
                         </p>
                         <div className='inputs-prof-wrapper'>
                             <div className='input-wrapper-prof fname-prof-wrapper'>
@@ -277,9 +289,42 @@ export default function ManualOffcanvas({ show, onHide }) {
                                 <PermIdentityIcon style={{ color: "#15616d" }} />
                             </div>
                         </div>
+                        <div className="inputs-prof-wrapper">
+                            <div className='input-wrapper-prof-email fname-prof-wrapper mt-4'>
+                                <input
+                                    type="email"
+                                    className='input-prof-email'
+                                    placeholder='Email'
+                                    value={email}
+                                    onChange={e => setEmail(e.target.value)}
+                                />
+                                <PermIdentityIcon style={{ color: "#15616d" }} />
+                            </div>
+                        </div>
+
+                        <div style={{ direction: "ltr", width: "83%" }} className='mt-4 d-flex align-items-center'>
+                            <input
+                                type='checkbox'
+                                onChange={() => setShowPasswordInputs(!showPasswordInputs)}
+                            />
+                            <label style={{ fontSize: ".7rem", marginLeft: "5px" }}>do you want to change password ?</label>
+                        </div>
+                        {
+                            showPasswordInputs &&
+                            <div className='input-wrapper-prof mt-4'>
+                                <input
+                                    type="text"
+                                    className='input-prof lname-prof'
+                                    placeholder='password'
+                                    value={password}
+                                    onChange={e => setPassword(e.target.value)}
+                                />
+                                <PermIdentityIcon style={{ color: "#15616d" }} />
+                            </div>
+                        }
                         <div className='btns-actions'>
                             <button className='btn-prof save-pro' onClick={sendEditProfile}>save</button>
-                            <button className='btn-prof cansle-pro' onClick={closehandler}>cancel</button>
+                            <button className='btn-prof cansle-pro' onClick={() => setShowEditModal(false)}>cancel</button>
                         </div>
                     </form>
                 </div>

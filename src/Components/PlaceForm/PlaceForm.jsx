@@ -8,12 +8,18 @@ import { IP } from '../../App';
 import "react-toastify/dist/ReactToastify.css";
 import { toast } from "react-toastify";
 import { ToastContainer } from "react-toastify";
+import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
+import ChatForm from '../../Pages/ChatForm/ChatForm';
+import ChatForm2 from '../../Pages/ChatForm2/ChatForm2';
 
-
-export default function PlaceForm({ back, title, description, fields, formUuid, getAllFillForms }) {
+export default function PlaceForm({ back, title, description, fields, formUuid, getAllFillForms, notseniro }) {
 
     const [accept, setAccept] = useState(null);
     const [checks, setChecks] = useState(null)
+    const [showChatPage, setShowChatPage] = useState(false)
+    const [showchatForm2, setShowChatForm2] = useState(false)
+
+    // console.log(fields[0]?.checks[0])
 
 
     const sendCondition = async (e, accept) => {
@@ -77,65 +83,101 @@ export default function PlaceForm({ back, title, description, fields, formUuid, 
 
 
     return (
-        <>
-
-            <div style={{ width: "95%", margin: "0 auto" }}>
-                <div className='my-3'>
-                    <div
-                        onClick={back}
-                        style={{ all: "unset", display: "block", color: "#45ABE5", cursor: "pointer" }}
-                    >
-                        <ArrowBackIcon
-                            style={{ fontSize: "1rem", cursor: "pointer" }} />back
-                    </div>
-                </div>
-                <div className='about-user-fill-wrapper my-2 d-flex justify-content-between align-items-center flex-wrap'>
-                    <div>
-                        <span className='about-user-fill-form fname-fill-form'>
-                            {fields[0]?.checks[0]?.user.first_name}
-                        </span>
-                        <span className='about-user-fill-form lname-fill-form'>
-                            {fields[0]?.checks[0]?.user?.last_name}
-                        </span>
-                    </div>
-                    <p className='job-cond-fill-form'>
-                        {fields[0]?.checks[0]?.user?.user_type === "O" ? "Ordinary Officer" :
-                            fields[0]?.checks[0]?.user?.user_type === "M" ? "Manual Worker" :
-                                fields[0]?.checks[0]?.user?.user_type === "S" ? "Senior Officer" : ""
-                        }
-                    </p>
-                </div>
-                <div className='placeForm'>
-                    <h3 className='from-title'>{title}</h3>
-                    <p className='from-description'>{description}</p>
-
+        <>{
+            showchatForm2 ?
+                < ChatForm2
+                    setShowChatForm2={setShowChatForm2}
+                    group={fields[0]?.checks[0]?.group}
+                />
+                : <>
                     {
-                        fields.map((field) => (
-                            <FillItem
-                                key={field.uuid}
-                                field={field}
-                                setChecks={setChecks}
-                            />
-                        ))
+                        showChatPage ?
+                            <ChatForm
+                                setShowChatPage={setShowChatPage}
+                                group={fields[0]?.checks[0]?.group}
+                                uuid={fields[0]?.checks[0]?.user.uuid} /> :
+                            <div style={{ width: "95%", margin: "0 auto" }}>
+                                <div className='my-3'>
+                                    <div
+                                        onClick={back}
+                                        style={{ all: "unset", display: "block", color: "#45ABE5", cursor: "pointer" }}
+                                    >
+                                        <ArrowBackIcon
+                                            style={{ fontSize: "1rem", cursor: "pointer" }} />back
+                                    </div>
+                                </div>
+                                <div className='about-user-fill-wrapper my-2 d-flex justify-content-between align-items-center flex-wrap'>
+                                    <div>
+                                        <span className='about-user-fill-form fname-fill-form'>
+                                            {fields[0]?.checks[0]?.user.first_name}
+                                        </span>
+                                        <span className='about-user-fill-form lname-fill-form'>
+                                            {fields[0]?.checks[0]?.user?.last_name}
+                                        </span>
+                                    </div>
+                                    <p className='job-cond-fill-form'>
+                                        {fields[0]?.checks[0]?.user?.user_type === "O" ? "Ordinary Officer" :
+                                            fields[0]?.checks[0]?.user?.user_type === "M" ? "Manual Worker" :
+                                                fields[0]?.checks[0]?.user?.user_type === "S" ? "Senior Officer" : ""
+                                        }
+                                    </p>
+                                </div>
+                                <div className='placeForm'>
+                                    <h3 className='from-title'>{title}</h3>
+                                    <p className='from-description'>{description}</p>
+
+                                    {
+                                        fields.map((field) => (
+                                            <FillItem
+                                                key={field.uuid}
+                                                field={field}
+                                                setChecks={setChecks}
+                                            />
+                                        ))
+                                    }
+
+                                </div>
+                                {
+                                    formUuid &&
+                                    <div className='d-flex justify-content-between mt-4'>
+                                        {
+                                            fields[0]?.checks[0]?.accept === "2" ?
+                                                <div className="chat-only-form" onClick={() => setShowChatPage(true)}>
+                                                    <ChatBubbleOutlineIcon />
+                                                </div>
+                                                :
+                                                null
+                                        }
+
+                                        <div className=' btn-ar-wrapper mb-3'>
+                                            <button className='btn-ar acceptBtn' onClick={(e) => {
+                                                setAccept("2")
+                                                sendCondition(e, "2")
+
+                                            }}>Accept</button>
+                                            <button className='btn-ar rejecttBtn' onClick={(e) => {
+                                                setAccept("1")
+                                                sendCondition(e, "1")
+                                            }}>Reject</button>
+                                        </div>
+                                    </div>
+                                }
+                                {
+                                    notseniro && fields[0]?.checks[0]?.accept === "2" &&
+                                    <div className='mt-4'>
+                                        <div className="chat-only-form" onClick={() => setShowChatForm2(true)}>
+                                            <ChatBubbleOutlineIcon />
+                                        </div>
+                                    </div>
+
+                                }
+
+                            </div>
                     }
+                </>
+        }
 
-                </div>
-                {
-                    formUuid &&
-                    <div className=' btn-ar-wrapper mb-3'>
-                        <button className='btn-ar acceptBtn' onClick={(e) => {
-                            setAccept("2")
-                            sendCondition(e, "2")
 
-                        }}>Accept</button>
-                        <button className='btn-ar rejecttBtn' onClick={(e) => {
-                            setAccept("1")
-                            sendCondition(e, "1")
-                        }}>Reject</button>
-                    </div>
-                }
-
-            </div>
             <ToastContainer />
         </>
 

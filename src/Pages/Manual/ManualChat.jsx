@@ -55,6 +55,7 @@ export default function ManualChat() {
 
     };
 
+
     const getMessages = async () => {
 
         const access = localStorage.getItem("access")
@@ -63,28 +64,26 @@ export default function ManualChat() {
         };
 
         try {
-            const response = await axios.get(`${IP}/chat/get-chat-senior/`, {
+
+            const response = await axios.post(`${IP}/chat/get-chat-senior/`, {}, {
                 headers,
             })
 
             if (response.status === 200) {
-                setAllMessage(response.data)
-                setUserInfo(response.data[0].receiver)
-                setImageProfile(response.data[0].receiver.avatar)
+                console.log(response)
             }
             else {
                 setAllMessage([])
             }
 
         } catch (e) {
-            // console.log(e)
-            if (e.response.status === 401) {
-                localStorage.clear()
-                navigate("/login")
-            }
+            console.log(e)
+            // if (e.response.status === 401) {
+            //     localStorage.clear()
+            //     navigate("/login")
+            // }
         }
     }
-
     const sendText = async () => {
         const access = localStorage.getItem("access")
         const trimmedText = text.trim();
@@ -184,6 +183,7 @@ export default function ManualChat() {
         }
 
     }
+
 
     useEffect(() => {
         const interval = setInterval(() => {

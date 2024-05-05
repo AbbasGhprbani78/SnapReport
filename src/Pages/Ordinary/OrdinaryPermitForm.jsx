@@ -53,7 +53,8 @@ export default function OrdinaryPermitForm() {
         setShowForm(false)
     }
 
-    const sortForm = [...permitForms]
+    const sortForm = [...permitForms];
+
     return (
         <>
             {
@@ -64,6 +65,7 @@ export default function OrdinaryPermitForm() {
                             title={title}
                             description={description}
                             fields={fields}
+                            notseniro={true}
                         />
                     </>) : (
                     <>

@@ -64,6 +64,7 @@ export default function PermitForm() {
                             title={title}
                             description={description}
                             fields={fields}
+                            notseniro={true}
                         />
                     </>) : (
                     <>

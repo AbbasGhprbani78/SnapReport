@@ -65,7 +65,7 @@ export default function OrdinaryChat() {
         };
 
         try {
-            const response = await axios.get(`${IP}/chat/get-chat-senior/`, {
+            const response = await axios.post(`${IP}/chat/get-chat-senior/`, {}, {
                 headers,
             })
 
@@ -82,10 +82,10 @@ export default function OrdinaryChat() {
 
         } catch (e) {
 
-            if (e.response.status === 401) {
-                localStorage.clear()
-                navigate("/login")
-            }
+            // if (e.response.status === 401) {
+            //     localStorage.clear()
+            //     navigate("/login")
+            // }
         }
     }
 

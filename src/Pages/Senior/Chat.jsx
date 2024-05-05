@@ -83,7 +83,6 @@ export default function Chat() {
 
     const onStop = (recordedData) => {
         sendVoice(recordedData.blob);
-
     };
 
 
@@ -123,7 +122,6 @@ export default function Chat() {
         const access = localStorage.getItem("access")
         const trimmedText = text.trim();
         if (trimmedText) {
-
             const headers = {
                 Authorization: `Bearer ${access}`
             };
@@ -191,7 +189,6 @@ export default function Chat() {
     }
 
     const sendVoice = async (audioBlob) => {
-
         const uuid = localStorage.getItem("userUuid")
         const access = localStorage.getItem('access')
         if (audioBlob) {

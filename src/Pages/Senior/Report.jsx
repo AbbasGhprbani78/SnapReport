@@ -13,7 +13,7 @@ import axios from 'axios'
 import { IP } from '../../App'
 import BarChartSection from '../../Components/BarChartSection/BarChartSection';
 import logo from '../../Images/logo.svg'
-
+import TableLocation from '../../Components/TableLocation/TableLocation';
 export default function Report() {
 
     const [expanded, setExpanded] = React.useState(false);
@@ -143,6 +143,7 @@ export default function Report() {
         }
     }
 
+
     useEffect(() => {
         getProgressData()
         getPermitState()
@@ -208,6 +209,9 @@ export default function Report() {
                         <Col xs={12}>
                             <div className="chart-bottom">
                                 <LineCharts />
+                            </div>
+                            <div className='table-section'>
+                                <TableLocation />
                             </div>
                         </Col>
                     </div>
@@ -278,3 +282,9 @@ export default function Report() {
                             </div> */}
 
 {/* <Viewers2 /> */ }
+
+
+
+
+// new api
+// //form/location-count

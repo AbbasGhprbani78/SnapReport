@@ -1,0 +1,83 @@
+@import url('../../Style/Main.css');
+
+:root {
+    --dot: #000;
+}
+
+/* HTML: <div class="loader"></div> */
+.loader2 {
+    width: 10px;
+    height: 10px;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    animation: l5 1s infinite linear alternate;
+    margin: 0 30px
+}
+
+
+
+@keyframes l5 {
+    0% {
+        box-shadow: 20px 0 var(--dot), -20px 0 #0002;
+        background: var(--dot)
+    }
+
+    33% {
+        box-shadow: 20px 0 var(--dot), -20px 0 #0002;
+        background: #0002
+    }
+
+    66% {
+        box-shadow: 20px 0 #0002, -20px 0 var(--dot);
+        background: #0002
+    }
+
+    100% {
+        box-shadow: 20px 0 #0002, -20px 0 var(--dot);
+        background: var(--dot)
+    }
+}
+
+
+.row-low {
+    background-color: #ffeade;
+}
+
+.row-noaccident {
+    background-color: #daf6ec
+}
+
+.row-hight {
+    background-color: #fad8d8;
+}
+
+
+.lable0 {
+    color: #2fcd96 !important;
+    --dot: #2fcd96;
+}
+
+.lable1 {
+    color: #ff8845 !important;
+    --dot: #ff8845;
+}
+
+.lable2 {
+    color: #e22828 !important;
+    --dot: #e22828;
+}
+
+.head-table-r,
+.fi-col {
+    font-weight: bold !important;
+}
+
+.two-col-c {
+    color: #6d6d6d !important;
+}
+
+.one-col {
+    align-items: center !important;
+}
+
+/* HTML: <div class="loader"></div> */

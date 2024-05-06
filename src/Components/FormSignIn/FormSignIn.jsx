@@ -27,17 +27,17 @@ export default function FormSignIn({ handleTabChange }) {
     }
 
     const getLable = async () => {
-
         const access = localStorage.getItem("access")
         const headers = {
             Authorization: `Bearer${access}`
         }
         try {
-            const response = await axios.post(`${IP}/form/send-data-to-api/`, {
+            const response = await axios.post(`${IP}/form/single-send-data-to-api/`, {
                 headers
             })
 
             if (response.status === 200) {
+                console.log(response.data)
                 localStorage.setItem('levelrick', response.data.label);
                 localStorage.setItem("message", response.data.message);
             }
@@ -48,6 +48,32 @@ export default function FormSignIn({ handleTabChange }) {
             }
         }
     }
+
+    const randomData = async () => {
+
+        const access = localStorage.getItem("access")
+        const headers = {
+            Authorization: `Bearer${access}`
+        }
+        try {
+            const response = await axios.post(`${IP}/form/random-data/`, {
+                headers
+            })
+
+            if (response.status === 201) {
+                console.log(response.data)
+                getLable()
+            }
+        } catch (error) {
+
+            if (error.response.status === 401) {
+                localStorage.clear()
+                navigate("/login")
+            }
+        }
+    }
+
+
 
     // check vlaue of input
     const validate = () => {
@@ -82,28 +108,6 @@ export default function FormSignIn({ handleTabChange }) {
         return result;
     };
 
-    const randomData = async () => {
-
-        const access = localStorage.getItem("access")
-        const headers = {
-            Authorization: `Bearer${access}`
-        }
-        try {
-            const response = await axios.post(`${IP}/form/random-data/`, {
-                headers
-            })
-
-            if (response.status === 201) {
-                getLable()
-            }
-        } catch (error) {
-
-            if (error.response.status === 401) {
-                localStorage.clear()
-                navigate("/login")
-            }
-        }
-    }
 
     // send value of form to server
     async function submit(e) {

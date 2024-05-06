@@ -18,6 +18,7 @@ function App() {
   return (
     <>
       {
+
         window.location.pathname === "/login" ?
           <Routes>
             <Route path="/login" element={<SignIn />} />
@@ -40,7 +41,6 @@ function App() {
           </>
       }
     </>
-
   )
 }
 

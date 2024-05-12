@@ -70,7 +70,7 @@ export default function ManualChat() {
             })
 
             if (response.status === 200) {
-                console.log(response)
+                setAllMessage(response.data)
             }
             else {
                 setAllMessage([])
@@ -78,10 +78,10 @@ export default function ManualChat() {
 
         } catch (e) {
             console.log(e)
-            // if (e.response.status === 401) {
-            //     localStorage.clear()
-            //     navigate("/login")
-            // }
+            if (e.response.status === 401) {
+                localStorage.clear()
+                navigate("/login")
+            }
         }
     }
     const sendText = async () => {

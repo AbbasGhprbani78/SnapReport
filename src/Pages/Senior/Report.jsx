@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import Accordion from 'react-bootstrap/Accordion';
 import '../../Style/Report.css'
-//import ChartProgress from '../../Components/Chart/ChartProgress/ChartProgress'
 import ChartSection from '../../Components/Chart/ChartSection/ChartSection'
 import LineCharts from '../../Components/Chart/LineCharts/LineCharts'
 import PermitViewers from '../../Components/Chart/PermitViewers/PermitViewers'
@@ -145,6 +144,7 @@ export default function Report() {
 
 
     useEffect(() => {
+        randomData()
         getProgressData()
         getPermitState()
         getKindForm()
@@ -152,6 +152,49 @@ export default function Report() {
     }, [])
 
 
+    const randomData = async () => {
+
+        const access = localStorage.getItem("access")
+        const headers = {
+            Authorization: `Bearer${access}`
+        }
+        try {
+            const response = await axios.post(`${IP}/form/random-data/`, {
+                headers
+            })
+
+            if (response.status === 201) {
+                getAllloc()
+            }
+        } catch (error) {
+
+            if (error.response.status === 401) {
+                localStorage.clear()
+                navigate("/login")
+            }
+        }
+    }
+
+
+    const getAllloc = async () => {
+        const access = localStorage.getItem("access")
+        const headers = {
+            Authorization: `Bearer${access}`
+        }
+        try {
+            const response = await axios.post(`${IP}/form/send-data-to-api/`, {
+                headers
+            })
+
+            if (response.status === 200) {
+            }
+        } catch (error) {
+            if (error.response.status === 401) {
+                localStorage.clear()
+                navigate("/login")
+            }
+        }
+    }
 
     return (
         <>
@@ -253,38 +296,3 @@ export default function Report() {
 }
 
 
-
-{/* <Col xs={12} md={6} xl={4}>
-                                    <ChartProgress percent={50} />
-                                </Col> */}
-
-
-{/* <p className="text-chart-top">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p> */ }
-
-{/* <p className="reportTitle">
-                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptatibus, sint. Error delectus qui laudantium aut alias animi mollitia obcaecati asperiores. Accusamus natus dicta eius distinctio cupiditate quia obcaecati est nostrum.
-                </p> */}
-
-
-{/* <div className='d-flex justify-content-around flex-wrap'>
-                                <Col xs={12} md={6} xl={4}>
-                                    <ChartProgress
-                                        percent={progressData.percentage_age_equipment?.toFixed(2)}
-                                        title={"Age of equipments"}
-                                    />
-                                </Col>
-                                <Col xs={12} md={6} xl={4} className='mt-4 mt-md-0'>
-                                    <ChartProgress
-                                        percent={progressData.percentage_failure_rate?.toFixed(2)}
-                                        title={"failure rates"}
-                                    />
-                                </Col>
-                            </div> */}
-
-{/* <Viewers2 /> */ }
-
-
-
-
-// new api
-// //form/location-count

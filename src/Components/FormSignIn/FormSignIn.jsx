@@ -26,6 +26,7 @@ export default function FormSignIn({ handleTabChange }) {
         setIsPerivate((e) => !e);
     }
 
+
     const getLable = async () => {
         const access = localStorage.getItem("access")
         const headers = {
@@ -37,7 +38,6 @@ export default function FormSignIn({ handleTabChange }) {
             })
 
             if (response.status === 200) {
-                console.log(response.data)
                 localStorage.setItem('levelrick', response.data.label);
                 localStorage.setItem("message", response.data.message);
             }
@@ -48,31 +48,6 @@ export default function FormSignIn({ handleTabChange }) {
             }
         }
     }
-
-    const randomData = async () => {
-
-        const access = localStorage.getItem("access")
-        const headers = {
-            Authorization: `Bearer${access}`
-        }
-        try {
-            const response = await axios.post(`${IP}/form/random-data/`, {
-                headers
-            })
-
-            if (response.status === 201) {
-                console.log(response.data)
-                getLable()
-            }
-        } catch (error) {
-
-            if (error.response.status === 401) {
-                localStorage.clear()
-                navigate("/login")
-            }
-        }
-    }
-
 
 
     // check vlaue of input
@@ -127,10 +102,10 @@ export default function FormSignIn({ handleTabChange }) {
                 window.localStorage.setItem("refresh", response.data.refresh);
                 updateSharedData(response.data.user_type)
                 if (response.data.user_type === "S") {
-                    randomData()
+                    getLable()
                     navigate("/")
                 } if (response.data.user_type === "O") {
-                    randomData()
+                    getLable()
                     navigate("/ordinaryhome")
                 } if (response.data.user_type === "M") {
                     navigate("/manualhome")

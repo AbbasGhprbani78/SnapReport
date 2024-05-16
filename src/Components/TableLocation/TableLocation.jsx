@@ -11,16 +11,13 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
-function createData(name, calories, fat, carbs, protein) {
-    return { name, calories, fat, carbs, protein };
-}
 
 
 
 export default function TableLocation() {
 
-
     const [locations, setLocation] = useState()
+    const [filterLoc, setFilterLoc] = useState([])
 
     useEffect(() => {
         const getlocationCount = async () => {
@@ -60,7 +57,7 @@ export default function TableLocation() {
                         label: labels[index]
                     }));
                     setLocation(updatedLocations);
-                    console.log(updatedLocations);
+                    setFilterLoc(updatedLocations)
                 }
 
             } catch (e) {
@@ -75,20 +72,56 @@ export default function TableLocation() {
         getlocationCount()
     }, [])
 
+
+    const changeStatus = (status) => {
+        if (status === "all") {
+            setFilterLoc(locations)
+        } else {
+            const filterStatusLocation = [...locations].filter(loc => loc.label == status)
+            setFilterLoc(filterStatusLocation)
+        }
+    }
+
+    const changeLoctions = (status) => {
+        if (status === "all") {
+            setFilterLoc(locations)
+        } else {
+            const filterStatusLocation = [...locations].filter(loc => loc.location == status)
+            setFilterLoc(filterStatusLocation)
+        }
+    }
+
+
     return (
         <>
             <p className='mb-3 fw-bold'>Locations Status Monitoring </p>
-            <TableContainer component={Paper}>
-                <Table sx={{ minWidth: 650 }} aria-label="simple table">
+            <TableContainer component={Paper} style={{ maxHeight: 500 }} >
+                <Table sx={{ minWidth: 750 }} stickyHeader aria-label="sticky table" >
                     <TableHead >
                         <TableRow >
-                            <TableCell className='head-table-r' align="center">Status</TableCell>
-                            <TableCell className='head-table-r' align="center">Location</TableCell>
+                            <TableCell className='head-table-r' align="center">
+                                <select className='dropdown-table' onChange={e => changeStatus(e.target.value)}>
+                                    <option value={"all"}>Status</option>
+                                    <option value={0}>No Accident</option>
+                                    <option value={1}>Low</option>
+                                    <option value={2}>High</option>
+                                </select>
+                            </TableCell>
+                            <TableCell className='head-table-r' align="center">
+                                <select className='dropdown-table' onChange={e => changeLoctions(e.target.value)}>
+                                    <option value={"all"}>Locations</option>
+                                    {
+                                        locations?.map(loc => (
+                                            <option value={loc.location}>{loc.location}</option>
+                                        ))
+                                    }
+                                </select>
+                            </TableCell>
                             <TableCell className='head-table-r' align="center">Description</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {locations?.map((loc) => (
+                        {filterLoc?.map((loc) => (
                             <TableRow
                                 key={loc.id}
                                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
@@ -112,13 +145,9 @@ export default function TableLocation() {
                         ))}
                     </TableBody>
                 </Table>
-            </TableContainer>
+            </TableContainer >
         </>
     )
 }
 
-const data = [
-    { id: 35180, date: '2024-04-23', label: 0 },
-    { id: 35180, date: '2024-04-23', label: 1 },
-    { id: 35180, date: '2024-04-23', label: 2 },
-]
+

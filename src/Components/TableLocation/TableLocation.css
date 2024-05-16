@@ -4,7 +4,13 @@
     --dot: #000;
 }
 
-/* HTML: <div class="loader"></div> */
+.dropdown-table {
+    padding: 7px;
+    outline: none;
+    font-weight: bold;
+    border-radius: 5px;
+}
+
 .loader2 {
     width: 10px;
     height: 10px;
@@ -13,6 +19,7 @@
     animation: l5 1s infinite linear alternate;
     margin: 0 30px
 }
+
 
 
 

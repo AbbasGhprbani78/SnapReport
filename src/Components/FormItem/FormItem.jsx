@@ -94,7 +94,6 @@ export default function FormItem({ content, selectElement, ishover }) {
                                             </div>
 
                                             : content.options && content.options.map((option, i) => (
-
                                                 <div className='option-wrapper' key={i}>
                                                     <input
                                                         disabled={true}

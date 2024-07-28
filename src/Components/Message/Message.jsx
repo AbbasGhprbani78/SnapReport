@@ -7,6 +7,7 @@ import dayjs from 'dayjs';
 
 
 export default function Message(props) {
+
         const dateObject = dayjs(props.created_at).format('YYYY-MM-DD HH:mm');;
         const [windowWidth, setWindowWidth] = useState(window.innerWidth);
         useEffect(() => {

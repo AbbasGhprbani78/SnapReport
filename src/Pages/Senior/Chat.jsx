@@ -156,6 +156,7 @@ export default function Chat() {
     const sendFile = async (e, employeeId) => {
         setShowFile(true)
         const access = localStorage.getItem("access")
+
         const formData = new FormData()
         formData.append('file', e.target.files[0])
         formData.append("receiver", employeeId)
@@ -175,7 +176,6 @@ export default function Chat() {
             })
 
             if (response.status === 200) {
-
                 setShowFile(false)
             }
 

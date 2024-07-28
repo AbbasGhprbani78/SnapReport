@@ -94,7 +94,6 @@ export default function FillItem({ field, setChecks }) {
                                                 field && field.fields_type === "checkbox" &&
 
                                                 field.choices.map((option, i) => (
-
                                                     <div className='option-wrapper' key={i}>
                                                         <input
                                                             checked={option.choice === field.checks[0]?.value}

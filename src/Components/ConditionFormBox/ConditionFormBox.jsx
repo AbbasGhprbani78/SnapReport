@@ -206,9 +206,3 @@ export default function ConditionFormBox({
 }
 
 
-{/* <span className='about-user-fill-form fname-fill-form'>
-                                                    {form?.fields[0]?.checks[0]?.user.first_name}
-                                                </span>
-                                                <span className='about-user-fill-form lname-fill-form'>
-                                                    {form?.fields[0]?.checks[0]?.user?.last_name}
-                                                </span> */}

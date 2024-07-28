@@ -5,7 +5,6 @@ export default function Radio({ uuid, field_options, value, onChange }
 
 ) {
 
-
     return (
         <div className="option-wrapper">
             {

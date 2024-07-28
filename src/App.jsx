@@ -9,12 +9,13 @@ import SignIn from './Pages/Sign';
 import { useMyContext } from './Components/RoleContext';
 
 export const IP = "https://snapreport.ariisco.com"
-// export const IP = "http://185.79.156.226:9500"
+
 function App() {
   let router = useRoutes(routes);
 
   const { sharedData } = useMyContext();
   const { type } = useMyContext()
+
   return (
     <>
       {

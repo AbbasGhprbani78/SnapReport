@@ -15,7 +15,6 @@ import PermitForm from "./Pages/Manual/PermitForm";
 import AccidentForm from "./Pages/Manual/AccidentForm";
 import Report from "./Pages/Senior/Report";
 import Infractions from './Pages/Manual/Infractions';
-import Inspections from './Pages/Manual/Inspections';
 import OrdinaryAccidentForm from './Pages/Ordinary/OrdinaryAccidentForm';
 import OrdinaryInfractions from './Pages/Ordinary/OrdinaryInfractions';
 import OrdinaryInpections from "./Pages/Ordinary/OrdinaryInpections";
@@ -39,11 +38,11 @@ let routes = [
     { path: "/ordinarypermitform", element: <OrdinaryRoutes><OrdinaryPermitForm /></OrdinaryRoutes> },
 
 
-    { path: "/", element: <SeniorRoutes><Home /></SeniorRoutes> },
+    { path: "/reports", element: <SeniorRoutes><Home /></SeniorRoutes> },
     { path: "/addnewform", element: <SeniorRoutes><AddNewForm /></SeniorRoutes> },
     { path: "/generatedforms", element: <SeniorRoutes><AllForm /></SeniorRoutes> },
     { path: "/filledforms/:todoid", element: <SeniorRoutes><FilledForms /></SeniorRoutes> },
-    { path: "/aireports", element: <SeniorRoutes><Report /></SeniorRoutes> },
+    { path: "/", element: <SeniorRoutes><Report /></SeniorRoutes> },
     { path: "/chat", element: <SeniorRoutes><Chat /></SeniorRoutes> },
 
     { path: "*", element: <PageNotFound /> },

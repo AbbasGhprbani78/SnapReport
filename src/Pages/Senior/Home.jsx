@@ -13,7 +13,9 @@ import Header from '../../Components/Header/Header'
 import NotificationsHome from '../../Components/NotificationsHome/NotificationsHome'
 import FailHomeItem from '../../Components/FailHomeItem/FailHomeItem';
 import PlaceForm from '../../Components/PlaceForm/PlaceForm';
-import AiHeader from '../../Components/AiHeader/AiHeader'
+import logo from '../../Images/logo.svg'
+import PermitViewers from '../../Components/Chart/PermitViewers/PermitViewers';
+import Viewers1 from '../../Components/Chart/Viewers1/Viewers1';
 
 
 export default function Home() {
@@ -30,6 +32,10 @@ export default function Home() {
     const [description, setDescription] = useState('')
     const [showFailForm, setShowFailForm] = useState(false)
     const [isDefault, setIsDefault] = useState("")
+    const [openModalAi, setOpenModalAi] = useState(false)
+    const [notFix, setNotFix] = useState(false)
+    const [permitState, setPermitState] = useState("");
+    const [kindForm, setKindForm] = useState("")
 
     const openFormFailHandler = () => {
         setShowFailForm(true)
@@ -69,6 +75,7 @@ export default function Home() {
             setIsDelete(false)
         }
     }
+
     const backHandler = () => {
         setShowForm(false)
     }
@@ -101,8 +108,59 @@ export default function Home() {
         }
     }
 
+    const getPermitState = async () => {
+
+        const access = localStorage.getItem("access")
+        const headers = {
+            Authorization: `Bearer ${access}`
+        };
+        try {
+            const response = await axios.get(`${IP}/form/permit-form-state/`, {
+                headers,
+            })
+
+            if (response.status === 200) {
+                setPermitState(response.data)
+            }
+
+        } catch (e) {
+
+            if (e.response.status === 401) {
+                localStorage.clear()
+                navigate("/login")
+            }
+        }
+    }
+
+    const getKindForm = async () => {
+        const access = localStorage.getItem("access")
+        const headers = {
+            Authorization: `Bearer ${access}`
+        };
+        try {
+            const response = await axios.get(`${IP}/form/form-state/`, {
+                headers,
+            })
+
+            if (response.status === 200) {
+                const formattedData = Object.entries(response.data).map(([name, value]) => ({ name: name.replace(/_/g, ' '), value }))
+                setKindForm(formattedData)
+            }
+
+        } catch (e) {
+            if (e.response.status === 401) {
+                localStorage.clear()
+                navigate("/login")
+            }
+        }
+    }
+
+
     useEffect(() => {
+
         getAllFillForms()
+        getPermitState()
+        getKindForm()
     }, [])
 
 
@@ -139,8 +197,38 @@ export default function Home() {
                                     isDefault={isDefault}
                                 /> :
                                 <div className="home-container">
-                                    <Header />
-                                    <AiHeader />
+                                    <Header notFix={notFix} />
+                                    <div className={`modal-ai-container ${openModalAi ? "open-modal-active" : ""}`}>
+                                        <div className="close-ai-modal"
+                                            onClick={() => {
+                                                setOpenModalAi(false)
+                                                setNotFix(false)
+                                            }}
+                                        >
+
+                                        </div>
+                                        <div className="modal-ai">
+                                            <div className="modal-ai-header">
+                                                <p className='order-ai'>SnapReport AI: Advanced Workplace Safety Prediction</p>
+                                                <img className='sideBar-img' src={logo} alt="logo" />
+                                            </div>
+                                            <div className="modal-ai-body">
+                                                SnapReport AI revolutionizes workplace safety by harnessing a multifaceted approach to accident prediction. Integrating employee experience, education, and shift patterns alongside environmental hazards and equipment factors such as maintenance schedules and age, the system offers unparalleled predictive capabilities. By comprehensively analyzing these variables, SnapReport AI provides proactive insights into accident-prone areas, enabling preemptive interventions to mitigate risks and ensure a safer work environment for all.
+                                            </div>
+                                            <div className="modal-ai-footer">
+                                                Powered By Snapreport Ai
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="header-report-ai">
+                                        <p className="ai-report">Ai Report</p>
+                                        <div className='ai-circle' onClick={() => {
+                                            setOpenModalAi(true)
+                                            setNotFix(true)
+                                        }}>
+                                            <span className='ai-circle-text'>Ai</span>
+                                        </div>
+                                    </div>
                                     <div className='recentForm-conteiner'>
                                         <div className="allFormText">
                                             <Link className='linkAll-form' to={''}>Default Forms</Link>
@@ -183,7 +271,7 @@ export default function Home() {
                                         </div>
                                     </div>
                                     <div className="bottomHome">
-                                        <Col xs={12} md={7} lg={8}>
+                                        <Col xs={12} xl={8}>
                                             <div className='form-sections'>
                                                 <div className="form-section">
                                                     <p className='form-section-title'>Permit</p>
@@ -325,8 +413,12 @@ export default function Home() {
                                                 </div>
                                             </div>
                                         </Col>
-                                        <Col xs={12} md={5} lg={4} className='mb-4 mb-md-0'>
+                                        <Col xs={12} xl={4} className='mb-4 mb-md-0'>
                                             <NotificationsHome />
+                                            <div className='mt-4'>
+                                                <PermitViewers valueViewers={permitState} />
+                                                <Viewers1 kindForm={kindForm} />
+                                            </div>
                                         </Col>
                                     </div>
                                 </div>

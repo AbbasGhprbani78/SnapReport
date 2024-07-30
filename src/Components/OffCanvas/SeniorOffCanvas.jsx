@@ -383,7 +383,7 @@ export default function SeniorOffCanvas({ show, onHide }) {
                         </DrawerHeader>
 
                         <List>
-                            {['Home', 'Add New Form', 'Generated Forms', "Filled Forms", "Ai Reports", "Chat", "Log out"].map((text, index) => (
+                            {['Home', 'Add New Form', 'Generated Forms', "Filled Forms", "Reports", "Chat", "Log out"].map((text, index) => (
                                 <CSSTransition key={text} timeout={300} classNames="fade">
                                     <ListItem key={text} disablePadding>
                                         <ListItemButton

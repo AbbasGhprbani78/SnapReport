@@ -255,6 +255,22 @@
     color: rgb(194, 192, 192);
 }
 
+.search-input-wrappper {
+    border: 1px solid #c6c6c6;
+    border-radius: 5px;
+    margin-top: 1.4rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px 10px;
+}
+
+.input-search {
+    border: none;
+    outline: none;
+    width: 100%;
+}
+
 @media (min-width:992px) {
     .title-prof {
         padding-top: 7px;

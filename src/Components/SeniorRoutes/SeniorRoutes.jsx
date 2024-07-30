@@ -25,6 +25,7 @@ export default function SeniorRoute({ children }) {
                 window.localStorage.removeItem('uuid');
                 window.localStorage.setItem('access', response.data.access);
                 window.localStorage.setItem('uuid', response.data.uuid);
+
                 updateType(response.data.user_type)
                 setTypeUser(response.data.user_type);
                 setIsLoading(false)

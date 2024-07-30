@@ -37,11 +37,13 @@ export default function NotificationsHome() {
         getAllNotifications()
     }, [])
 
+    
     return (
         <>
-            <div className='NotificationsHome-container'>
+            <div className={`NotificationsHome-container ${notifs && !notifs.length ? "nonotif" : ""}`}>
                 <p className='notif-home-title'>Notifications</p>
-                <div className="notif-home-wrapper">
+                <div className={`notif-home-wrapper`}>
+                    
                     {
                         notifs &&
                             notifs.length > 0 ?

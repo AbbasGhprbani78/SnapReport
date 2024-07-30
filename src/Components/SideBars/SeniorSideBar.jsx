@@ -29,6 +29,7 @@ import PermIdentityIcon from '@mui/icons-material/PermIdentity';
 import '../../Style/Main.css'
 import swal from 'sweetalert';
 import { Link } from 'react-router-dom';
+import SearchIcon from '@mui/icons-material/Search';
 
 
 const drawerWidth = 280;
@@ -57,6 +58,7 @@ export default function SeniorsideBar() {
     const [showPasswordInputs, setShowPasswordInputs] = useState(false)
     const [password, setPassword] = useState("")
     const [email, setEmail] = useState("")
+    const [search, setSearch] = useState("")
 
     //all icons in side bar
     const drawerIcons = [
@@ -71,7 +73,6 @@ export default function SeniorsideBar() {
     //slelect route
     const [selectedRoute, setSelectedRoute] = React.useState('/');
     const navigate = useNavigate();
-
 
     const logOutHandler = async () => {
 
@@ -230,6 +231,32 @@ export default function SeniorsideBar() {
         }
     }
 
+
+
+    const searchProduct = async () => {
+        try {
+            const response = await axios.get(`${IP}/form/search/`, {
+                params: {
+                    id: search
+                }
+            });
+            if (response.status === 200) {
+
+                console.log(response.data)
+            }
+        } catch (error) {
+            console.log(error.message);
+        }
+    }
+
+    useEffect(() => {
+        searchProduct()
+        if (search === "") {
+            setSearch(null)
+        }
+    }, [search])
+
+
     return (
         <>
 
@@ -369,10 +396,19 @@ export default function SeniorsideBar() {
                                     <Link style={{ all: "unset", cursor: "pointer" }} to={'/chat'}> <MailOutlineIcon /></Link>
                                 </div>
                             </div>
+                            <div className='search-input-wrappper'>
+                                <input
+                                    type="text"
+                                    placeholder='search'
+                                    className='input-search'
+                                    value={search}
+                                    onChange={(e) => setSearch(e.target.value)} />
+                                <SearchIcon style={{ color: '#979797' }} />
+                            </div>
                         </DrawerHeader>
 
                         <List>
-                            {['Home', 'Add New Form', 'Generated Forms', "Filled Forms", "Ai Reports", "Chat", "Log out"].map((text, index) => (
+                            {['Home', 'Add New Form', 'Generated Forms', "Filled Forms", "Reports", "Chat", "Log out"].map((text, index) => (
                                 <CSSTransition key={text} timeout={300} classNames="fade">
                                     <ListItem key={text} disablePadding>
                                         <ListItemButton

@@ -44,7 +44,7 @@ export default function Chat() {
             Authorization: `Bearer ${access}`
         };
         try {
-            const response = await axios.get(`${IP}/user/user-chat`, {
+            const response = await axios.get(`${IP}/user/user-chat/`, {
                 headers,
             })
 

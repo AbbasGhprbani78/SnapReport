@@ -23,7 +23,7 @@ export default function AllForm() {
             Authorization: `Bearer ${access}`
         };
         try {
-            const response = await axios.get(`${IP}/form/get-user-form`, {
+            const response = await axios.get(`${IP}/form/get-user-form/`, {
                 headers,
             });
             if (response.status === 200) {

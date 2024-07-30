@@ -39,11 +39,10 @@ export default function FormSignUp({ handleTabChange }) {
         }));
     };
 
-    //change type of user in drop down
-    // const changeTypeUser = (value) => {
-    //     (value)
-    //     signInUpInfo.user_type = value
-    // }
+    const changeTypeUser = (value) => {
+        (value)
+        signInUpInfo.user_type = value
+    }
 
 
     async function submit(e) {
@@ -181,10 +180,10 @@ export default function FormSignUp({ handleTabChange }) {
                         />
                     </div>
 
-                    {/* <DropDown name="user_type"
+                    <DropDown name="user_type"
                         defaultDrop={"User"}
                         changeValue={changeTypeUser}
-                    /> */}
+                    />
                     <div className='input-signup-wrapper d-flex align-items-end'>
                         <input
                             name='password'

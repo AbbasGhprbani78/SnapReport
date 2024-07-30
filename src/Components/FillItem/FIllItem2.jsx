@@ -1,21 +1,15 @@
 import React from 'react'
 import TextField from '@mui/material/TextField';
 import { BsFillFileEarmarkArrowDownFill } from 'react-icons/bs'
-import { IP } from '../../App'
-export default function FillItem({ field, setChecks }) {
 
-    if (field?.checks) {
-        setChecks(field?.checks[0] && field?.checks[0]?.group)
-    }
-
-
+export default function FIllItem2({ field }) {
     return (
         <div>
             <div className={`question-wrapper`}>
                 <p className='qusetion-form'>{field?.questions}</p>
-
+                
                 {
-                    field.fields_type === "dropdown" ?
+                    field?.fields_type === "dropdown" ?
                         <div
                             className="option-wrapper"
                             style={{ fontSize: "13px", height: "45px", lineHeight: "37px" }}
@@ -24,8 +18,8 @@ export default function FillItem({ field, setChecks }) {
                                 className=' dropDwon-option'
 
                             >
-                                {field?.choices && field?.choices.map((option, i) => (
-                                    <option selected={field?.checks[0]?.value === option?.choice} key={i}>{option?.choice}</option>
+                                {field?.options && field?.options.map((option, i) => (
+                                    <option  key={i}>{option?.choice}</option>
                                 ))}
                             </select>
                         </div>
@@ -36,15 +30,14 @@ export default function FillItem({ field, setChecks }) {
                                 <TextField
                                     placeholder='Short Answer'
                                     type="text"
-                                    value={field?.checks[0]?.value}
                                     disabled
                                 />
                             </div>
-                            : field.fields_type === "file" ?
+                            : field?.fields_type === "file" ?
                                 field &&
                                 <div className="option-wrapper">
                                     <div style={{ marginLeft: "10px" }}>
-                                        <a href={`${IP}${field?.checks[0]?.file}`} className='place' target='blank' download>
+                                        <a  className='place' target='blank' download>
                                             <BsFillFileEarmarkArrowDownFill className='fileIcon file-left' />
                                         </a>
                                     </div>
@@ -56,7 +49,7 @@ export default function FillItem({ field, setChecks }) {
                                         <textarea className='textarea-option'
                                             style={{ outline: "none", padding: "10px" }}
                                             placeholder='Write Your Text ...'
-                                            value={field?.checks[0]?.value}
+
                                             disabled
                                         />
                                     </div>
@@ -67,7 +60,7 @@ export default function FillItem({ field, setChecks }) {
                                             <TextField
                                                 id="date"
                                                 type="date"
-                                                value={field.checks[0]?.value}
+                                                
                                             />
                                         </div>
                                         :
@@ -77,18 +70,17 @@ export default function FillItem({ field, setChecks }) {
                                                 <TextField
                                                     placeholder='Short Answer'
                                                     type="time"
-                                                    value={field?.checks[0]?.value}
+                                                    
                                                 />
                                             </div>
 
                                             : field && field?.fields_type === "radio" ?
 
-                                                field?.choices.map((option, i) => (
+                                                field?.options.map((option, i) => (
 
                                                     <div className='option-wrapper' key={i}>
                                                         <input
                                                             type="radio"
-                                                            checked={option?.choice === field?.checks[0].value}
                                                         />
                                                         <label className='lable-option multiyop'>{option?.choice}</label>
                                                     </div>
@@ -96,10 +88,9 @@ export default function FillItem({ field, setChecks }) {
 
                                                 field && field?.fields_type === "checkbox" &&
 
-                                                field?.choices.map((option, i) => (
+                                                field?.options.map((option, i) => (
                                                     <div className='option-wrapper' key={i}>
                                                         <input
-                                                            checked={option?.choice === field?.checks[0]?.value}
                                                             type="checkbox" />
                                                         <label className='lable-option multiyop'>{option?.choice}</label>
                                                     </div>
@@ -110,7 +101,3 @@ export default function FillItem({ field, setChecks }) {
         </div>
     )
 }
-
-
-
-

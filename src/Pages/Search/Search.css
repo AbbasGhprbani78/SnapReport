@@ -1,0 +1,33 @@
+@import url('../../Style/Main.css');
+
+.searchpagecontainer {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 95%;
+    margin: 0 auto;
+}
+
+.item-recent1 {
+    min-height: 150px;
+    max-height: 150px;
+    margin-top: 1.5rem;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    border-radius: var(--border-radius-2);
+    position: relative;
+    overflow-y: scroll;
+    width: 95%;
+    cursor: pointer;
+    transition: all .4s ease-in-out;
+    border: 1px solid white;
+}
+
+.item-recent1:hover {
+    border: 1px solid var(--color-9);
+}
+
+.col-container1 {
+    overflow-y: scroll;
+    height: 100%;
+    position: relative;
+}

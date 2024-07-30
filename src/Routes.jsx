@@ -20,6 +20,7 @@ import OrdinaryInfractions from './Pages/Ordinary/OrdinaryInfractions';
 import OrdinaryInpections from "./Pages/Ordinary/OrdinaryInpections";
 import OrdinaryPermitForm from "./Pages/Ordinary/OrdinaryPermitForm";
 
+
 let routes = [
 
     { path: "/manualhome", element: <ManualRoutes><ManualHome /></ManualRoutes> },
@@ -44,7 +45,6 @@ let routes = [
     { path: "/filledforms/:todoid", element: <SeniorRoutes><FilledForms /></SeniorRoutes> },
     { path: "/", element: <SeniorRoutes><Report /></SeniorRoutes> },
     { path: "/chat", element: <SeniorRoutes><Chat /></SeniorRoutes> },
-
     { path: "*", element: <PageNotFound /> },
 
 ]

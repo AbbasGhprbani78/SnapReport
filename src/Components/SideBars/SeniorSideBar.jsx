@@ -30,7 +30,8 @@ import '../../Style/Main.css'
 import swal from 'sweetalert';
 import { Link } from 'react-router-dom';
 import SearchIcon from '@mui/icons-material/Search';
-
+import { SearchContext } from '../Context/SearchContext';
+import { useContext } from 'react';
 
 const drawerWidth = 280;
 
@@ -58,7 +59,8 @@ export default function SeniorsideBar() {
     const [showPasswordInputs, setShowPasswordInputs] = useState(false)
     const [password, setPassword] = useState("")
     const [email, setEmail] = useState("")
-    const [search, setSearch] = useState("")
+    const [search, setSearch] = useState([])
+    const { setSearchResult } = useContext(SearchContext)
 
     //all icons in side bar
     const drawerIcons = [
@@ -232,7 +234,6 @@ export default function SeniorsideBar() {
     }
 
 
-
     const searchProduct = async () => {
         try {
             const response = await axios.get(`${IP}/form/search/`, {
@@ -241,11 +242,15 @@ export default function SeniorsideBar() {
                 }
             });
             if (response.status === 200) {
-
-                console.log(response.data)
+                setSearchResult(response.data.forms)
             }
         } catch (error) {
             console.log(error.message);
+            setSearchResult("")
+        }
+
+        if (!search) {
+            window.location.reload()
         }
     }
 

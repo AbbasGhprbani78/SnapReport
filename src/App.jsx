@@ -7,6 +7,9 @@ import OrdinarySideBars from './Components/SideBars/OrdinarySideBars'
 import ManualSideBar from './Components/SideBars/ManualSideBar'
 import SignIn from './Pages/Sign';
 import { useMyContext } from './Components/RoleContext';
+import { useContext } from 'react';
+import { SearchContext } from './Components/Context/SearchContext';
+import Search from './Pages/Search/Search';
 
 export const IP = "https://snapreport.ariisco.com"
 
@@ -15,6 +18,9 @@ function App() {
 
   const { sharedData } = useMyContext();
   const { type } = useMyContext()
+  const { searchResult } = useContext(SearchContext)
+
+  console.log(searchResult)
 
   return (
     <>
@@ -36,7 +42,15 @@ function App() {
                       <ManualSideBar /> : null
               }
               <div className='w-100' style={{ overflowX: "hidden" }}>
-                {router}
+                {
+                  searchResult && searchResult.length > 0 ?
+                    <Search />
+                    :
+                    <>
+                      {router}
+                    </>
+                }
+
               </div>
             </div>
           </>

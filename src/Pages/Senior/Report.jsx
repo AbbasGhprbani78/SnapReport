@@ -146,8 +146,6 @@ export default function Report() {
 
     return (
         <>
-
-
             <Header notFix={notFix} />
             <AiHeader />
             <div className="reportContainer">

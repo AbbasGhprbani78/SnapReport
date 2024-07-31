@@ -26,9 +26,12 @@ import ChecklistIcon from '@mui/icons-material/Checklist';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import PermIdentityIcon from '@mui/icons-material/PermIdentity';
+import SearchIcon from '@mui/icons-material/Search'
 import { IP } from '../../App';
 import { Link } from 'react-router-dom';
 import Modal from 'react-bootstrap/Modal';
+import { SearchContext } from '../Context/SearchContext'; 
+import { useContext } from 'react';
 
 const drawerWidth = 280;
 const DrawerHeader = styled('div')(({ theme }) => ({
@@ -53,6 +56,7 @@ export default function SeniorOffCanvas({ show, onHide }) {
     const [showPasswordInputs, setShowPasswordInputs] = useState(false)
     const [password, setPassword] = useState("")
     const [email, setEmail] = useState("")
+    const { setSearchResult, search, setSearch } = useContext(SearchContext)
 
 
     //all icons in side bar
@@ -237,6 +241,32 @@ export default function SeniorOffCanvas({ show, onHide }) {
         }
     }
 
+
+    const searchProduct = async () => {
+        try {
+            const response = await axios.get(`${IP}/form/search/`, {
+                params: {
+                    group: search
+                }
+            });
+            if (response.status === 200) {
+                setSearchResult(response.data.forms)
+            }
+        } catch (error) {
+            console.log(error.message);
+            setSearchResult("")
+        }
+
+    }
+
+
+    useEffect(() => {
+        searchProduct()
+        if (search === "") {
+            setSearch(null)
+        }
+    }, [search])
+
     return (
         <>
 
@@ -379,6 +409,15 @@ export default function SeniorOffCanvas({ show, onHide }) {
                                     <span className="notif-number">{numberNotif ? numberNotif : 0}</span>
                                     <Link style={{ all: "unset", cursor: "pointer" }} to={'/chat'}> <MailOutlineIcon /></Link>
                                 </div>
+                            </div>
+                            <div className='search-input-wrappper'>
+                                <input
+                                    type="text"
+                                    placeholder='search'
+                                    className='input-search'
+                                    value={search}
+                                    onChange={(e) => setSearch(e.target.value)} />
+                                <SearchIcon style={{ color: '#979797' }} />
                             </div>
                         </DrawerHeader>
 

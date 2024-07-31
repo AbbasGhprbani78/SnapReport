@@ -10,6 +10,7 @@ import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import dayjs from 'dayjs';
 import SentimentVeryDissatisfiedIcon from '@mui/icons-material/SentimentVeryDissatisfied';
+import Header from '../../Components/Header/Header';
 export default function Search() {
 
     const { searchResult } = useContext(SearchContext);
@@ -31,6 +32,7 @@ export default function Search() {
 
     return (
         <>
+            <Header />
             {
                 showForm ?
                     <>
@@ -100,7 +102,7 @@ export default function Search() {
                                     }
                                 </div>
                                 :
-                                <div className='w-100 d-flex justify-content-center align-content-center' style={{ height: "100vh", position: "relative" }}>
+                                <div className='w-100 d-flex text-center justify-content-center align-content-center' style={{ height: "100vh", position: "relative" }}>
                                     <p className='notitemsearch'>
                                         The requested form was not found
                                         <SentimentVeryDissatisfiedIcon style={{ fontSize: "2rem", marginLeft: "10px" }} />

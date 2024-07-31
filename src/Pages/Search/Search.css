@@ -31,3 +31,29 @@
     height: 100%;
     position: relative;
 }
+
+.searchpage {
+    width: 95%;
+    margin: 20px auto;
+}
+
+.search-item-wrappper {
+    padding: 20px;
+    border: 1px solid var(--color-9);
+
+    border-radius: var(--border-radius-1);
+}
+
+.search-item-content {
+    height: 75vh;
+    overflow-y: scroll;
+}
+
+.notitemsearch {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: calc(1.4rem + .1vw);
+    color: #9a9a9a;
+}

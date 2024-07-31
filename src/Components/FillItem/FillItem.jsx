@@ -4,9 +4,8 @@ import { BsFillFileEarmarkArrowDownFill } from 'react-icons/bs'
 import { IP } from '../../App'
 export default function FillItem({ field, setChecks }) {
 
-    if (field?.checks) {
         setChecks(field?.checks[0] && field?.checks[0]?.group)
-    }
+    
 
 
     return (

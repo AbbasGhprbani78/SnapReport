@@ -18,9 +18,7 @@ function App() {
 
   const { sharedData } = useMyContext();
   const { type } = useMyContext()
-  const { searchResult } = useContext(SearchContext)
-
-  console.log(searchResult)
+  const { searchResult, search } = useContext(SearchContext)
 
   return (
     <>
@@ -43,7 +41,7 @@ function App() {
               }
               <div className='w-100' style={{ overflowX: "hidden" }}>
                 {
-                  searchResult && searchResult.length > 0 ?
+                  search ?
                     <Search />
                     :
                     <>

@@ -59,8 +59,7 @@ export default function SeniorsideBar() {
     const [showPasswordInputs, setShowPasswordInputs] = useState(false)
     const [password, setPassword] = useState("")
     const [email, setEmail] = useState("")
-    const [search, setSearch] = useState([])
-    const { setSearchResult } = useContext(SearchContext)
+    const { setSearchResult, search, setSearch } = useContext(SearchContext)
 
     //all icons in side bar
     const drawerIcons = [
@@ -238,7 +237,7 @@ export default function SeniorsideBar() {
         try {
             const response = await axios.get(`${IP}/form/search/`, {
                 params: {
-                    id: search
+                    group: search
                 }
             });
             if (response.status === 200) {
@@ -249,10 +248,8 @@ export default function SeniorsideBar() {
             setSearchResult("")
         }
 
-        if (!search) {
-            window.location.reload()
-        }
     }
+
 
     useEffect(() => {
         searchProduct()

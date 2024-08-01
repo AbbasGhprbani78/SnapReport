@@ -89,6 +89,7 @@ export default function FilledForms() {
             })
 
             if (response.status === 200) {
+                console.log(response.data.forms)
                 setAllForms(response.data.forms)
             }
 
@@ -114,6 +115,8 @@ export default function FilledForms() {
     const accidentForm = [...allforms].filter(form => form.type === "accident")
     const violationForm = [...allforms].filter(form => form.type === "violation")
     const inspectionsForm = [...allforms].filter(form => form.type === "inspections")
+
+    
 
     return (
         <>

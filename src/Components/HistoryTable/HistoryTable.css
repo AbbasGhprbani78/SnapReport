@@ -1,0 +1,19 @@
+@import url('../../Style/Main.css');
+
+.btn-filled,
+.btn-sent {
+    border: none;
+    outline: none;
+    border-radius: 5px;
+    padding: 7px 0;
+    color: #fff;
+    width: 80px;
+}
+
+.btn-filled {
+    background-color: #2fcd96;
+}
+
+.btn-sent {
+    background-color: #c7c7c7;
+}

@@ -17,7 +17,7 @@ export default function NotificationsHome() {
             Authorization: `Bearer ${access}`
         };
         try {
-            const response = await axios.get(`${IP}/chat/get-all-notif`, {
+            const response = await axios.get(`${IP}/chat/get-all-notif/`, {
                 headers,
             });
             if (response.status === 200) {
@@ -37,13 +37,13 @@ export default function NotificationsHome() {
         getAllNotifications()
     }, [])
 
-    
+
     return (
         <>
             <div className={`NotificationsHome-container ${notifs && !notifs.length ? "nonotif" : ""}`}>
                 <p className='notif-home-title'>Notifications</p>
                 <div className={`notif-home-wrapper`}>
-                    
+
                     {
                         notifs &&
                             notifs.length > 0 ?

@@ -10,68 +10,45 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import CloseIcon from '@mui/icons-material/Close';
 
 
-
-
-export default function TableLocation() {
+export default function TableLocation({ setShowHistory }) {
 
     const [locations, setLocation] = useState()
     const [filterLoc, setFilterLoc] = useState([])
+    const [users, setUsers] = useState([])
+    const [showModal, setShowModal] = useState(false)
+    const [manualWorker, setManualWorker] = useState("-1")
+    const [randomId, setRandomId] = useState("")
+    const [loading, setLoading] = useState(false)
+    const [error, setError] = useState(false)
 
-    useEffect(() => {
-        const getlocationCount = async () => {
-            const access = localStorage.getItem("access")
-            const headers = {
-                Authorization: `Bearer ${access}`
-            };
-            try {
-                const response = await axios.get(`${IP}/form/last-loc-status/`, {
-                    headers,
-                })
 
-                if (response.status === 200) {
-                    const data = response.data;
-                    const dataLength = data.length;
-                    const labels = [];
 
-                    // Generate labels with desired distribution
-                    for (let i = 0; i < dataLength; i++) {
-                        if (i < Math.floor(dataLength * 0.7)) {
-                            labels.push(0); // 70% of labels as 0
-                        } else if (i < Math.floor(dataLength * 0.9)) {
-                            labels.push(2); // 20% of labels as 2
-                        } else {
-                            labels.push(1); // 10% of labels as 1
-                        }
-                    }
+    const getUser = async () => {
+        const access = localStorage.getItem("access")
+        const headers = {
+            Authorization: `Bearer ${access}`
+        };
+        try {
+            const response = await axios.get(`${IP}/user/get-manual-worker/`, {
+                headers,
+            })
 
-                    // Shuffle the labels array
-                    for (let i = labels.length - 1; i > 0; i--) {
-                        const j = Math.floor(Math.random() * (i + 1));
-                        [labels[i], labels[j]] = [labels[j], labels[i]];
-                    }
+            if (response.status === 200) {
 
-                    const updatedLocations = data.map((location, index) => ({
-                        ...location,
-                        label: labels[index]
-                    }));
-                    setLocation(updatedLocations);
-                    setFilterLoc(updatedLocations)
-                }
+                setUsers(response.data)
+            }
 
-            } catch (e) {
-                console.log(e)
-                if (e.response.status === 401) {
-
-                    localStorage.clear()
-                    navigate("/login")
-                }
+        } catch (e) {
+            console.log(e)
+            if (e.response.status === 401) {
+                localStorage.clear()
+                navigate("/login")
             }
         }
-        getlocationCount()
-    }, [])
-
+    }
 
     const changeStatus = (status) => {
         if (status === "all") {
@@ -92,9 +69,114 @@ export default function TableLocation() {
     }
 
 
+    const openModalTable = (id) => {
+        setShowModal(true)
+        getUser()
+        setRandomId(id)
+    }
+
+
+    const sendDataHandler = async () => {
+
+        if (manualWorker === "-1") {
+            setError(true)
+            return false
+        }
+        const access = localStorage.getItem("access")
+        const headers = {
+            Authorization: `Bearer ${access}`
+        };
+
+        const body = {
+            random_data_id: randomId,
+            id: manualWorker
+        }
+        try {
+            setLoading(true)
+            const response = await axios.post(`${IP}/form/change-random-data-status/`, body, {
+                headers,
+            })
+
+            if (response.status === 200) {
+                setLoading(false)
+                setError(false)
+                setManualWorker("")
+                console.log(response.data)
+            }
+
+        } catch (e) {
+            console.log(e)
+            if (e.response.status === 401) {
+                localStorage.clear()
+                navigate("/login")
+            }
+        }
+    }
+
+
+    useEffect(() => {
+        const getlocationCount = async () => {
+            const access = localStorage.getItem("access")
+            const headers = {
+                Authorization: `Bearer ${access}`
+            };
+            try {
+                const response = await axios.get(`${IP}/form/last-loc-status/`, {
+                    headers,
+                })
+
+                if (response.status === 200) {
+                    console.log(response.data)
+                    setLocation(response.data);
+                    setFilterLoc(response.data)
+                }
+
+            } catch (e) {
+                console.log(e)
+                if (e.response.status === 401) {
+
+                    localStorage.clear()
+                    navigate("/login")
+                }
+            }
+        }
+        getlocationCount()
+    }, [])
+
+
+
     return (
         <>
-            <p className='mb-3 fw-bold'>Locations Status Monitoring </p>
+            <div className={`modal-tabel-container ${showModal ? "modal-tabel-active" : ""}`}>
+                <div className="close-modal-table" onClick={() => setShowModal(false)}></div>
+                <div className="modal-table">
+                    <div className='sendto d-flex justify-content-between align-items-center'>
+                        <p className='sendto-text'> Send To</p>
+                        <CloseIcon onClick={() => setShowModal(false)} style={{ cursor: "pointer" }} />
+                    </div>
+                    <div className='modal-table-contant'>
+                        <div className='wrap-drop-modal mb-2'>
+                            <select className='drop-modal' onChange={e => setManualWorker(e.target.value)}>
+                                <option selected value="-1" disabled style={{ color: "#c7c7c7" }}>select user</option>
+                                {
+                                    users.length > 0 && users.map(user => (
+                                        <option value={user.id}>{user.first_name} {user.last_name}</option>
+                                    ))
+                                }
+                            </select>
+                        </div>
+                        {error && <span className='text-center' style={{ color: "#CC3366" }}>please select user !</span>}
+                        <div>
+                            <button className='btn-sendto' onClick={sendDataHandler} disabled={loading}>send</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div className='d-flex justify-content-between align-items-start mb-3'>
+                <p className='fw-bold'>Locations Status Monitoring </p>
+                <button className='btn-history-table' onClick={() => setShowHistory(true)}>History</button>
+            </div>
             <TableContainer component={Paper} style={{ maxHeight: 500 }} >
                 <Table sx={{ minWidth: 750 }} stickyHeader aria-label="sticky table" >
                     <TableHead >
@@ -112,12 +194,13 @@ export default function TableLocation() {
                                     <option value={"all"}>Locations</option>
                                     {
                                         locations?.map(loc => (
-                                            <option value={loc.location}>{loc.location}</option>
+                                            <option key={loc.id} value={loc.location}>{loc.location}</option>
                                         ))
                                     }
                                 </select>
                             </TableCell>
                             <TableCell className='head-table-r' align="center">Description</TableCell>
+                            <TableCell className='head-table-r' align="center">Actions</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -125,22 +208,27 @@ export default function TableLocation() {
                             <TableRow
                                 key={loc.id}
                                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                                className={`${loc.label === 0 ? "row-noaccident" : loc.label === 1 ? "row-low" : loc.label === 2 ? "row-hight" : ""}`}
+                                className={`${loc.label === 1 ? "row-low" : loc.label === 2 ? "row-hight" : "row-noaccident"}`}
                             >
-                                <TableCell align="center d-flex  one-col" style={{ marginLeft: "10px" }} className={`fi-col ${loc.label === 0 ? "lable0" : loc.label === 1 ? "lable1" : loc.label === 2 ? "lable2" : ""}`}>
-                                    <div class="loader2"></div>
-                                    {loc.label === 0 ? "No Accident" : loc.label === 1 ? "Low" : loc.label === 2 ? "High" : ""}
+                                <TableCell align="center d-flex  one-col" style={{ marginLeft: "10px" }} className={`fi-col ${loc.label === 1 ? "lable1" : loc.label === 2 ? "lable2" : "lable0"}`}>
+                                    <div className="loader2"></div>
+                                    {loc.label === 1 ? "Low" : loc.label === 2 ? "High" : "No Accident"}
 
                                 </TableCell>
                                 <TableCell className='two-col-c' align="center">{loc.location}</TableCell>
                                 <TableCell className='two-col-c' align="center">
-                                    {loc.label === 0 ? `In ${loc.location} there is no accident` :
+                                    {
                                         loc.label === 2 ? `In ${loc.location} there is a high risk of an accident` :
                                             loc.label === 1 ? `In ${loc.location}there is a low risk of an accident ` :
-                                                null
+                                                `In ${loc.location} there is no accident`
                                     }
                                 </TableCell>
-
+                                < TableCell >
+                                    {
+                                        loc.status == 0 &&
+                                        <button className='btn-ac-table' onClick={() => openModalTable(loc.id)}>Send</button>
+                                    }
+                                </TableCell>
                             </TableRow>
                         ))}
                     </TableBody>
@@ -149,5 +237,31 @@ export default function TableLocation() {
         </>
     )
 }
+
+
+// const dataLength = data.length;
+// const labels = [];
+
+// // Generate labels with desired distribution
+// for (let i = 0; i < dataLength; i++) {
+//     if (i < Math.floor(dataLength * 0.7)) {
+//         labels.push(0); // 70% of labels as 0
+//     } else if (i < Math.floor(dataLength * 0.9)) {
+//         labels.push(2); // 20% of labels as 2
+//     } else {
+//         labels.push(1); // 10% of labels as 1
+//     }
+// }
+
+// // Shuffle the labels array
+// for (let i = labels.length - 1; i > 0; i--) {
+//     const j = Math.floor(Math.random() * (i + 1));
+//     [labels[i], labels[j]] = [labels[j], labels[i]];
+// }
+
+// const updatedLocations = data.map((location, index) => ({
+//     ...location,
+//     label: labels[index]
+// }));
 
 

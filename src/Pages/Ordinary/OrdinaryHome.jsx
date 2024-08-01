@@ -17,6 +17,7 @@ export default function OrdinaryHome() {
     const [mianDes, setMainDes] = useState('')
     const [uuid, setUuuid] = useState('')
     const [mainFields, setMainFields] = useState([])
+    const [isOpenDefaultIns, setSOpenDefaultIns] = useState(false)
     const { type } = useMyContext();
 
     const getFormData = async () => {
@@ -45,9 +46,29 @@ export default function OrdinaryHome() {
         }
     }
 
-    useEffect(() => {
-        getFormData()
-    }, [])
+    const getAllNotifications = async () => {
+
+        const access = localStorage.getItem("access")
+        const headers = {
+            Authorization: `Bearer ${access}`
+        };
+        try {
+            const response = await axios.get(`${IP}/chat/get-all-notif/`, {
+                headers,
+            });
+            if (response.status === 200) {
+                // console.log(response.data)
+            }
+
+        } catch (e) {
+            (e)
+            if (e.response.status === 401) {
+                localStorage.clear()
+                navigate("/login")
+            }
+        }
+    }
+
 
     const openFormHandler = () => {
         setShowForm(true)
@@ -55,12 +76,33 @@ export default function OrdinaryHome() {
 
     const backHandler = () => {
         setShowForm(false)
+        setSOpenDefaultIns(false)
+        console.log(isOpenDefaultIns)
     }
 
     const PermitForms = formData.filter(form => form.type === "permit")
     const accidentForms = formData.filter(form => form.type === "accident")
     const infractions = formData.filter(form => form.type === "violation")
     const inspections = formData.filter(form => form.type === "inspections")
+
+
+    const openDefaultInspectionsForm = () => {
+        const mainForm = inspections.filter(form => form.default == true)
+        setMainTitle(mainForm[0].title)
+        setMainDes(mainForm[0].descriptions)
+        setUuuid(mainForm[0].uuid)
+        setMainFields(mainForm[0].fields)
+        setSOpenDefaultIns(true)
+        setShowForm(true)
+    }
+
+
+    useEffect(() => {
+        getFormData()
+        getAllNotifications()
+    }, [])
+
+
 
     return (
 
@@ -76,12 +118,14 @@ export default function OrdinaryHome() {
                             uuid={uuid}
                             mainFields={mainFields}
                             getFormData={getFormData}
+                            isOpenDefaultIns={isOpenDefaultIns}
                         />
                     </>) : (
                     <>
                         <div div className="home-container" >
                             <Header />
                             <AiHeader />
+                            <button onClick={openDefaultInspectionsForm}>openForm</button>
                             {
                                 PermitForms.length > 0 ?
                                     <>

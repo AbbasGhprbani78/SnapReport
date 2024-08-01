@@ -147,7 +147,7 @@ export default function FormSignIn({ handleTabChange }) {
                         <input
                             className='input-signin input-username'
                             type="text"
-                            autoComplete="false"
+                            autoComplete="off"
                             placeholder='UserName'
                             value={userName}
                             onChange={(e) => setUserName(e.target.value)}
@@ -158,7 +158,7 @@ export default function FormSignIn({ handleTabChange }) {
                         <input
                             className='input-signin input-password'
                             type={isPrivate ? "password" : "text"}
-                            autoComplete="false"
+                            autoComplete="off"
                             placeholder='Password'
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}

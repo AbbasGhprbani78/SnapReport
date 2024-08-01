@@ -15,7 +15,8 @@ export default function FormWorker({
     mianDes,
     mainFields,
     uuid,
-    getFormData
+    getFormData,
+    isOpenDefaultIns
 }) {
 
     const user = localStorage.getItem("uuid")
@@ -255,19 +256,32 @@ export default function FormWorker({
                     }
                 </div>
                 <div className='button-fill-form-wrapper'>
-                    <button
-                        type='button'
-                        className='view-btn'
-                        onClick={sendFormHandlerContinue}
-                    >
-                        Send And Continue
-                    </button>
-                    <button
-                        type='button'
-                        onClick={sendFormHandler}
-                        className='view-btn send-worker'>
-                        Send
-                    </button>
+                    {
+                        isOpenDefaultIns ?
+                            <button
+                                type='button'
+                                onClick={sendFormHandler}
+                                className='view-btn send-worker'>
+                                Send
+                            </button> :
+                            <>
+                                <button
+                                    type='button'
+                                    className='view-btn'
+                                    onClick={sendFormHandlerContinue}
+                                >
+                                    Send And Continue
+                                </button>
+                                <button
+                                    type='button'
+                                    onClick={sendFormHandler}
+                                    className='view-btn send-worker'>
+                                    Send
+                                </button>
+                            </>
+                    }
+
+
                 </div>
             </div>
             <ToastContainer />

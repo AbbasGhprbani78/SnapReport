@@ -48,7 +48,7 @@ export default function Home() {
             Authorization: `Bearer ${access}`
         };
         try {
-            const response = await axios.get(`${IP}/form/get-default-form`, {
+            const response = await axios.get(`${IP}/form/get-default-form/`, {
                 headers,
             });
             if (response.status === 200) {

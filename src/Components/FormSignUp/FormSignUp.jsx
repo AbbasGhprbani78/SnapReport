@@ -140,7 +140,7 @@ export default function FormSignUp({ handleTabChange }) {
                             name='first_name'
                             className='input-signin input-name'
                             type="text"
-                            autoComplete="false"
+                            autoComplete="off"
                             placeholder='First Name'
                             value={signInUpInfo.first_name}
                             onChange={handleChange}
@@ -151,7 +151,7 @@ export default function FormSignUp({ handleTabChange }) {
                             name='last_name'
                             className='input-signin input-lastNAme'
                             type="text"
-                            autoComplete="false"
+                            autoComplete="off"
                             placeholder='Last Name'
                             value={signInUpInfo.last_name}
                             onChange={handleChange}
@@ -162,7 +162,7 @@ export default function FormSignUp({ handleTabChange }) {
                             name='username'
                             className='input-signin input-userName'
                             type="text"
-                            autoComplete="false"
+                            autoComplete="off"
                             placeholder='user Name'
                             value={signInUpInfo.username}
                             onChange={handleChange}
@@ -173,7 +173,7 @@ export default function FormSignUp({ handleTabChange }) {
                         <input
                             name='email'
                             className='input-signin input-email'
-                            autoComplete="false"
+                            autoComplete="off"
                             placeholder='Email'
                             value={signInUpInfo.email}
                             onChange={handleChange}
@@ -189,7 +189,7 @@ export default function FormSignUp({ handleTabChange }) {
                             name='password'
                             className='input-signin input-password'
                             type={isPrivate ? "password" : "text"}
-                            autoComplete="false"
+                            autoComplete="off"
                             placeholder='Password'
                             value={signInUpInfo.password}
                             onChange={handleChange}
@@ -215,7 +215,7 @@ export default function FormSignUp({ handleTabChange }) {
                             name='confirm_password'
                             className='input-signin input-password'
                             type={isPrivate ? "password" : "text"}
-                            autoComplete="false"
+                            autoComplete="off"
                             placeholder='ConfirmPassword'
                             value={signInUpInfo.confirm_password}
                             onChange={handleChange}

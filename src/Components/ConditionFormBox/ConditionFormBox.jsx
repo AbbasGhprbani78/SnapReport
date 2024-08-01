@@ -19,7 +19,9 @@ export default function ConditionFormBox({
     paddingStyle
 }) {
 
-    const acceptForm = form.fields[0].checks[0].accept
+    const acceptForm = form?.fields[0]?.checks[0]?.accept
+
+    console.log(form?.fields[0]?.checks[0]?.group)
 
 
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
@@ -74,6 +76,7 @@ export default function ConditionFormBox({
                                         }
                                         <span style={{ marginLeft: "10px", fontSize: ".8rem" }}>{dayjs(form?.fields[0]?.checks[0]?.date).format('YYYY-MM-DD HH:mm')}</span>
                                     </p>
+                                    <div className='mb-2'>FormNumber : {form?.fields[0]?.checks[0]?.group}</div>
                                     <p className='ConditionFormBox-dec'>{dec}</p>
                                     <p className='viewmore my-2' onClick={() => {
                                         openFormHandler()
@@ -109,6 +112,7 @@ export default function ConditionFormBox({
                                         }
                                         <span style={{ marginLeft: "10px", fontSize: ".8rem" }}>{dayjs(form?.fields[0]?.checks[0]?.date).format('YYYY-MM-DD HH:mm')}</span>
                                     </p>
+                                    <div className='mb-2'>FormNumber : {form?.fields[0]?.checks[0]?.group}</div>
                                     <div>
                                         <p className='ConditionFormBox-dec'>{dec}</p>
                                     </div>
@@ -145,6 +149,7 @@ export default function ConditionFormBox({
                                             }
                                             <span style={{ marginLeft: "10px", fontSize: ".8rem" }}>{dayjs(form?.fields[0]?.checks[0]?.date).format('YYYY-MM-DD HH:mm')}</span>
                                         </p>
+                                        <div className='mb-2'>FormNumber : {form?.fields[0]?.checks[0]?.group}</div>
 
                                         <p className='ConditionFormBox-dec'>{dec}</p>
                                     </div>
@@ -189,6 +194,7 @@ export default function ConditionFormBox({
                                                 }
                                                 <span style={{ marginLeft: "10px", fontSize: ".8rem" }}>{dayjs(form?.fields[0]?.checks[0]?.date).format('YYYY-MM-DD HH:mm')}</span>
                                             </p>
+                                            <div className='mb-2'>FormNumber : {form?.fields[0]?.checks[0]?.group}</div>
                                             <div>
                                                 <p className='ConditionFormBox-dec'>{dec}</p>
                                             </div>

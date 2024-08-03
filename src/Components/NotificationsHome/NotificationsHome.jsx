@@ -5,7 +5,7 @@ import axios from 'axios'
 import { IP } from '../../App'
 import { useNavigate } from 'react-router-dom';
 
-export default function NotificationsHome({ styleHeight, filledform, openDefaultInspectionsForm, setRandomId }) {
+export default function NotificationsHome({ styleHeight, filledform, openDefaultInspectionsForm, setRandomId, setNotifId }) {
 
     const [notifs, setNotifs] = useState(null)
     const navigate = useNavigate()
@@ -22,7 +22,6 @@ export default function NotificationsHome({ styleHeight, filledform, openDefault
             });
             if (response.status === 200) {
                 setNotifs(response.data)
-                console.log(response.data)
             }
 
         } catch (e) {
@@ -59,7 +58,10 @@ export default function NotificationsHome({ styleHeight, filledform, openDefault
                                             message={notif.message}
                                             filledform={filledform}
                                             openDefaultInspectionsForm={openDefaultInspectionsForm}
+                                            random_id={notif.random_data}
                                             setRandomId={setRandomId}
+                                            setNotifId={setNotifId}
+                                            check={notif.checked}
                                         />
                                     ))
                                 }

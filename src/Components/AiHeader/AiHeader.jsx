@@ -33,7 +33,7 @@ export default function AiHeader() {
                                 <Alert className='alert-wrapper warningAccident'>
                                     <div className='content-alert'>
                                         <h4 className='alert-title-ai'>Warning</h4>
-                                        <p className='alert-text'>zdfdsvfxcvds</p>
+                                        <p className='alert-text'>{meesageRick}</p>
                                         <p className='powerd-text'>Powered By Snap Report Ai</p>
                                     </div>
 
@@ -42,7 +42,7 @@ export default function AiHeader() {
                                     <Alert className='alert-wrapper noAccident'>
                                         <div className='content-alert'>
                                             <h4 className='alert-title-ai'>No Accident</h4>
-                                            <p className='alert-text'>dzgdrhfcb fhdrfxbc</p>
+                                            <p className='alert-text'>{meesageRick}</p>
                                             <p className='powerd-text'>Powered By Snap Report Ai</p>
                                         </div>
 

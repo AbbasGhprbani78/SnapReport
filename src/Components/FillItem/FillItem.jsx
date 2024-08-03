@@ -87,7 +87,7 @@ export default function FillItem({ field, setChecks }) {
                                                     <div className='option-wrapper' key={i}>
                                                         <input
                                                             type="radio"
-                                                            checked={option?.choice === field?.checks[0].value}
+                                                            checked={option?.choice === field?.checks[0]?.value}
                                                         />
                                                         <label className='lable-option multiyop'>{option?.choice}</label>
                                                     </div>

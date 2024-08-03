@@ -18,7 +18,7 @@ export default function FailHomeItem({
     openFormFailHandler
 }) {
 
-    const acceptForm = form.fields[0].checks[0].accept
+    const acceptForm = form.fields[0]?.checks[0]?.accept
     return (
         <>
             <div className="FailHomeItem">

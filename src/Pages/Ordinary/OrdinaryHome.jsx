@@ -20,8 +20,11 @@ export default function OrdinaryHome() {
     const [uuid, setUuuid] = useState('')
     const [mainFields, setMainFields] = useState([])
     const [isOpenDefaultIns, setSOpenDefaultIns] = useState(false)
-    const[randomId,setRandomId]=useState("")
+    const [randomId, setRandomId] = useState("")
+    const [notifId, setNotifId] = useState("")
     const { type } = useMyContext();
+
+
 
     const getFormData = async () => {
         const access = localStorage.getItem("access")
@@ -123,6 +126,7 @@ export default function OrdinaryHome() {
                             getFormData={getFormData}
                             isOpenDefaultIns={isOpenDefaultIns}
                             randomId={randomId}
+                            notifId={notifId}
                         />
                     </>) : (
                     <>
@@ -278,11 +282,12 @@ export default function OrdinaryHome() {
                                 </Col>
                                 <Col xs={12} xl={4}>
                                     <div>
-                                            <NotificationsHome 
-                                            filledform={"filledform"} 
+                                        <NotificationsHome
+                                            filledform={"filledform"}
                                             openDefaultInspectionsForm={openDefaultInspectionsForm}
-                                                setRandomId={setRandomId}
-                                             />
+                                            setRandomId={setRandomId}
+                                            setNotifId={setNotifId}
+                                        />
                                     </div>
                                 </Col>
                             </div>

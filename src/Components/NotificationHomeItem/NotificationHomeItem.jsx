@@ -14,10 +14,14 @@ export default function NotificationHomeItem({
     message,
     filledform,
     openDefaultInspectionsForm,
-    setRandomId
+    random_id,
+    setRandomId,
+    setNotifId,
+    check
 }) {
 
     const [read, setRead] = useState(isRead)
+
     const showNotifDetail = async () => {
         const access = localStorage.getItem("access");
         const headers = {
@@ -30,12 +34,30 @@ export default function NotificationHomeItem({
             });
 
             if (response.status === 200) {
-                swal({
-                    title: `${message}`,
-                    button: filledform ? filledform : "OK"
-                })
-                if (filledform) {
-                    openDefaultInspectionsForm()
+                if (check) {
+                    swal({
+                        title: "ok",
+                        button: "ok"
+                    })
+                }
+                if (random_id && !check) {
+                    swal({
+                        title: `${message}`,
+                        button: filledform ? filledform : "OK"
+                    }).then(value => {
+                        if (value) {
+                            openDefaultInspectionsForm()
+                            setRandomId(random_id)
+                            setNotifId(id)
+                        }
+                    })
+
+                } else {
+
+                    swal({
+                        title: `${message}`,
+                        button: "OK"
+                    })
                 }
                 setRead(1);
             } else if (response.status === 401) {
@@ -74,3 +96,5 @@ export default function NotificationHomeItem({
         </>
     )
 }
+
+// get-all-data-random

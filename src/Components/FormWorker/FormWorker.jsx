@@ -17,7 +17,8 @@ export default function FormWorker({
     uuid,
     getFormData,
     isOpenDefaultIns,
-    randomId
+    randomId,
+    notifId
 }) {
 
     const user = localStorage.getItem("uuid")
@@ -114,8 +115,15 @@ export default function FormWorker({
             fields: updatedFields
         }
         if (randomId) {
-            body.data_random_id = randomId;
+            body.random_data_id = randomId;
         }
+
+        if (notifId) {
+            body.notif_id = notifId
+        }
+
+        console.log(body)
+
 
         try {
             const response = await axios.post(`${IP}/form/check-full-form/`, body, {
@@ -295,4 +303,6 @@ export default function FormWorker({
         </>
     )
 }
+
+
 

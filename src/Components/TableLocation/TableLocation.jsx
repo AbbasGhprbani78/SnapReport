@@ -21,8 +21,8 @@ export default function TableLocation({ setShowHistory }) {
     const [showModal, setShowModal] = useState(false)
     const [manualWorker, setManualWorker] = useState("-1")
     const [randomId, setRandomId] = useState("")
-    const [loading, setLoading] = useState(false)
     const [error, setError] = useState(false)
+    const [name, setName] = useState("")
 
 
 
@@ -39,6 +39,7 @@ export default function TableLocation({ setShowHistory }) {
             if (response.status === 200) {
 
                 setUsers(response.data)
+                console.log(response.data)
             }
 
         } catch (e) {
@@ -67,6 +68,18 @@ export default function TableLocation({ setShowHistory }) {
             setFilterLoc(filterStatusLocation)
         }
     }
+    const handleChangeSelcet = (e) => {
+        setManualWorker(e.target.value)
+        const userUuid = e.target.value
+        const selectUser = users.find(user => user.uuid === userUuid)
+        if (selectUser) {
+            setName(selectUser.first_name)
+        }
+        console.log(userUuid)
+        console.log(manualWorker)
+        console.log(selectUser)
+        console.log(name)
+    }
 
 
     const openModalTable = (id) => {
@@ -88,20 +101,24 @@ export default function TableLocation({ setShowHistory }) {
         };
 
         const body = {
-            random_data_id: randomId,
-            id: manualWorker
+            data_id: randomId,
+            user_id: manualWorker
         }
         try {
-            setLoading(true)
             const response = await axios.post(`${IP}/form/change-random-data-status/`, body, {
                 headers,
             })
 
             if (response.status === 200) {
-                setLoading(false)
                 setError(false)
                 setManualWorker("")
-                console.log(response.data)
+                setShowModal(false)
+
+                swal({
+                    title: `request send to ${name}`,
+                    icon: "success",
+                    buttons: "yes"
+                })
             }
 
         } catch (e) {
@@ -110,6 +127,7 @@ export default function TableLocation({ setShowHistory }) {
                 localStorage.clear()
                 navigate("/login")
             }
+            setError(false)
         }
     }
 
@@ -126,7 +144,6 @@ export default function TableLocation({ setShowHistory }) {
                 })
 
                 if (response.status === 200) {
-                    console.log(response.data)
                     setLocation(response.data);
                     setFilterLoc(response.data)
                 }
@@ -156,18 +173,18 @@ export default function TableLocation({ setShowHistory }) {
                     </div>
                     <div className='modal-table-contant'>
                         <div className='wrap-drop-modal mb-2'>
-                            <select className='drop-modal' onChange={e => setManualWorker(e.target.value)}>
+                            <select className='drop-modal' onChange={handleChangeSelcet}>
                                 <option selected value="-1" disabled style={{ color: "#c7c7c7" }}>select user</option>
                                 {
                                     users.length > 0 && users.map(user => (
-                                        <option value={user.id}>{user.first_name} {user.last_name}</option>
+                                        <option option value={user.uuid} > {user.first_name} {user.last_name}</option>
                                     ))
                                 }
                             </select>
                         </div>
                         {error && <span className='text-center' style={{ color: "#CC3366" }}>please select user !</span>}
                         <div>
-                            <button className='btn-sendto' onClick={sendDataHandler} disabled={loading}>send</button>
+                            <button className='btn-sendto' onClick={sendDataHandler} >send</button>
                         </div>
                     </div>
                 </div>

@@ -15,7 +15,7 @@ export const IP = "https://snapreport.ariisco.com"
 
 function App() {
   let router = useRoutes(routes);
-
+  
   const { sharedData } = useMyContext();
   const { type } = useMyContext()
   const { searchResult, search } = useContext(SearchContext)

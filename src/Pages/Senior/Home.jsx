@@ -414,7 +414,7 @@ export default function Home() {
                                             </div>
                                         </Col>
                                         <Col xs={12} xl={4} className='mb-4 mb-md-0'>
-                                            <NotificationsHome />
+                                            <NotificationsHome  styleHeight={"styleHeight"}/>
                                             <div className='mt-4'>
                                                 <PermitViewers valueViewers={permitState} />
                                                 <Viewers1 kindForm={kindForm} />

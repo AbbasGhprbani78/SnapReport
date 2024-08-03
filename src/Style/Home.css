@@ -151,6 +151,8 @@
     margin: 20px auto;
 }
 
+
+
 /* @media (min-width:1095px) {
     .grid-form-recentItem {
         width: 890px;
@@ -164,10 +166,20 @@
 } */
 
 
+@media (min-width:992px) {
+    .styleHeight {
+        height: 50vh;
+        overflow-y: scroll;
+    }
+}
 
 @media (max-width:992px) {
     .grid-form-recentItem {
         width: 95%;
+    }
+
+    .wrap-ordinaryhome {
+        flex-direction: column-reverse;
     }
 }
 

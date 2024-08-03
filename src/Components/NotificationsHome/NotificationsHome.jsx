@@ -5,7 +5,7 @@ import axios from 'axios'
 import { IP } from '../../App'
 import { useNavigate } from 'react-router-dom';
 
-export default function NotificationsHome() {
+export default function NotificationsHome({ styleHeight, filledform, openDefaultInspectionsForm, setRandomId }) {
 
     const [notifs, setNotifs] = useState(null)
     const navigate = useNavigate()
@@ -22,6 +22,7 @@ export default function NotificationsHome() {
             });
             if (response.status === 200) {
                 setNotifs(response.data)
+                console.log(response.data)
             }
 
         } catch (e) {
@@ -40,7 +41,7 @@ export default function NotificationsHome() {
 
     return (
         <>
-            <div className={`NotificationsHome-container ${notifs && !notifs.length ? "nonotif" : ""}`}>
+            <div className={`NotificationsHome-container ${styleHeight} ${notifs && !notifs.length ? "nonotif" : ""}`}>
                 <p className='notif-home-title'>Notifications</p>
                 <div className={`notif-home-wrapper`}>
 
@@ -56,6 +57,9 @@ export default function NotificationsHome() {
                                             isRead={notif.is_read}
                                             date={notif.created_at}
                                             message={notif.message}
+                                            filledform={filledform}
+                                            openDefaultInspectionsForm={openDefaultInspectionsForm}
+                                            setRandomId={setRandomId}
                                         />
                                     ))
                                 }

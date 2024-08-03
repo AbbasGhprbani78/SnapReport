@@ -19,7 +19,6 @@ import OrdinaryOffcanvas from '../../Components/OffCanvas/OrdinaryOffcanvas';
 import { useMyContext } from '../../Components/RoleContext';
 import { CircularProgressbar } from "react-circular-progressbar";
 import { BsFillFileEarmarkArrowDownFill } from 'react-icons/bs'
-import AiHeader from '../../Components/AiHeader/AiHeader';
 
 export default function OrdinaryChat() {
 
@@ -82,10 +81,10 @@ export default function OrdinaryChat() {
 
         } catch (e) {
 
-            // if (e.response.status === 401) {
-            //     localStorage.clear()
-            //     navigate("/login")
-            // }
+            if (e.response.status === 401) {
+                localStorage.clear()
+                navigate("/login")
+            }
         }
     }
 

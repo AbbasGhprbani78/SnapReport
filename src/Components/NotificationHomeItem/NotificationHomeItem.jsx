@@ -11,42 +11,42 @@ export default function NotificationHomeItem({
     id,
     isRead,
     date,
-    message
+    message,
+    filledform,
+    openDefaultInspectionsForm,
+    setRandomId
 }) {
 
     const [read, setRead] = useState(isRead)
-    const navigate = useNavigate()
-
     const showNotifDetail = async () => {
-        const access = localStorage.getItem("access")
+        const access = localStorage.getItem("access");
         const headers = {
             Authorization: `Bearer ${access}`
         };
 
-        const response = await axios.get(`${IP}/chat/get-notif/${id}`, {
-            headers,
-        })
         try {
+            const response = await axios.get(`${IP}/chat/get-notif/${id}`, {
+                headers,
+            });
+
             if (response.status === 200) {
                 swal({
                     title: `${message}`,
-                    button: "OK"
+                    button: filledform ? filledform : "OK"
                 })
-            } if (response.status === 200) {
-                setRead(1)
-
+                if (filledform) {
+                    openDefaultInspectionsForm()
+                }
+                setRead(1);
             } else if (response.status === 401) {
                 localStorage.clear();
-                window.Location.href = "/login";
-
+                window.location.href = "/login";
             }
 
         } catch (error) {
-
-            ("Error:", error);
+            console.error("Error:", error);
         }
-    }
-
+    };
     const dateObject = dayjs(date).format('YYYY/MM/DD HH:mm');
 
     return (

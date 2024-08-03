@@ -83,12 +83,14 @@ export default function LineCharts() {
     };
 
     useEffect(() => {
-        allLineChart()
-    }, [])
-
-    useEffect(() => {
         getlineChart();
     }, [valueBarChart]);
+
+    useEffect(() => {
+        allLineChart()
+    }, [valueBarChart])
+
+
 
     const handleChangechart = (event) => {
         setValueBarChart(event.target.value);

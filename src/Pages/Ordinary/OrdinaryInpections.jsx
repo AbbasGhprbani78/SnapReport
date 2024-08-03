@@ -6,7 +6,7 @@ import Header from '../../Components/Header/Header'
 import axios from 'axios'
 import { IP } from '../../App'
 import PlaceForm from '../../Components/PlaceForm/PlaceForm'
-import AiHeader from '../../Components/AiHeader/AiHeader'
+
 export default function OrdinaryInpections() {
     const [inspections, setInspections] = useState([])
     const [showForm, setShowForm] = useState(false)
@@ -70,7 +70,6 @@ export default function OrdinaryInpections() {
                     <>
                         <div className='accident-page'>
                             <Header />
-                            <AiHeader />
                             <TopSection
                                 text="Inspections Form"
                             />

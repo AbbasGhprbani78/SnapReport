@@ -7,7 +7,9 @@ import BoxtForm from '../../Components/BoxForm/BoxForm';
 import TopSection from '../../Components/TopSection/TopSection';
 import FormWorker from '../../Components/FormWorker/FormWorker';
 import { useMyContext } from '../../Components/RoleContext';
-import AiHeader from '../../Components/AiHeader/AiHeader';
+import { Col } from 'react-bootstrap';
+import NotificationsHome from '../../Components/NotificationsHome/NotificationsHome';
+
 
 
 export default function OrdinaryHome() {
@@ -18,6 +20,7 @@ export default function OrdinaryHome() {
     const [uuid, setUuuid] = useState('')
     const [mainFields, setMainFields] = useState([])
     const [isOpenDefaultIns, setSOpenDefaultIns] = useState(false)
+    const[randomId,setRandomId]=useState("")
     const { type } = useMyContext();
 
     const getFormData = async () => {
@@ -119,157 +122,171 @@ export default function OrdinaryHome() {
                             mainFields={mainFields}
                             getFormData={getFormData}
                             isOpenDefaultIns={isOpenDefaultIns}
+                            randomId={randomId}
                         />
                     </>) : (
                     <>
                         <div div className="home-container" >
                             <Header />
-                            <AiHeader />
-                            <button onClick={openDefaultInspectionsForm}>openForm</button>
-                            {
-                                PermitForms.length > 0 ?
-                                    <>
-                                        <TopSection
-                                            text="Permit forms"
-                                        />
-                                        <div className='topHome-worker'>
-                                            {
-                                                PermitForms.slice().reverse().map((form) => (
-                                                    <BoxtForm
-                                                        key={form.uuid}
-                                                        styleCalss={"bluedot"}
-                                                        title="Permit Form"
-                                                        openForm={openFormHandler}
-                                                        des={form.descriptions}
-                                                        setMainTitle={setMainTitle}
-                                                        setMainDes={setMainDes}
-                                                        setuuid={setUuuid}
-                                                        setMainFields={setMainFields}
-                                                        titleForm={form.title}
-                                                        uuid={form.uuid}
-                                                        fields={form.fields}
-                                                    />
-                                                ))
-                                            }
+                            {/* <button onClick={openDefaultInspectionsForm}>openForm</button> */}
+                            <div className='d-flex flex-wrap wrap-ordinaryhome'>
+                                <Col xs={12} xl={8}>
+                                    {
+                                        PermitForms.length > 0 ?
+                                            <>
+                                                <TopSection
+                                                    text="Permit forms"
+                                                />
+                                                <div className='topHome-worker'>
+                                                    {
+                                                        PermitForms.slice().reverse().map((form) => (
+                                                            <BoxtForm
+                                                                key={form.uuid}
+                                                                styleCalss={"bluedot"}
+                                                                title="Permit Form"
+                                                                openForm={openFormHandler}
+                                                                des={form.descriptions}
+                                                                setMainTitle={setMainTitle}
+                                                                setMainDes={setMainDes}
+                                                                setuuid={setUuuid}
+                                                                setMainFields={setMainFields}
+                                                                titleForm={form.title}
+                                                                uuid={form.uuid}
+                                                                fields={form.fields}
+                                                            />
+                                                        ))
+                                                    }
 
-                                        </div>
-                                    </> :
-                                    <>
-                                        <TopSection
-                                            text="Permit forms"
-                                        />
-                                        <div className='noform formhome-worker'>There is no form</div>
-                                    </>
+                                                </div>
+                                            </> :
+                                            <>
+                                                <TopSection
+                                                    text="Permit forms"
+                                                />
+                                                <div className='noform formhome-worker'>There is no form</div>
+                                            </>
 
-                            }
+                                    }
 
-                            {
-                                accidentForms.length > 0 ?
-                                    <>
-                                        <TopSection
-                                            text="Accident forms"
-                                        />
-                                        <div className='bottomHome-worker'>
-                                            {
-                                                accidentForms.slice().reverse().map((form) => (
-                                                    <BoxtForm
-                                                        key={form.uuid}
-                                                        styleCalss={"greendot"}
-                                                        title="Accident Form"
-                                                        openForm={openFormHandler}
-                                                        des={form.descriptions}
-                                                        setMainTitle={setMainTitle}
-                                                        setMainDes={setMainDes}
-                                                        setuuid={setUuuid}
-                                                        setMainFields={setMainFields}
-                                                        titleForm={form.title}
-                                                        uuid={form.uuid}
-                                                        fields={form.fields}
-                                                    />
-                                                ))
-                                            }
+                                    {
+                                        accidentForms.length > 0 ?
+                                            <>
+                                                <TopSection
+                                                    text="Accident forms"
+                                                />
+                                                <div className='bottomHome-worker'>
+                                                    {
+                                                        accidentForms.slice().reverse().map((form) => (
+                                                            <BoxtForm
+                                                                key={form.uuid}
+                                                                styleCalss={"greendot"}
+                                                                title="Accident Form"
+                                                                openForm={openFormHandler}
+                                                                des={form.descriptions}
+                                                                setMainTitle={setMainTitle}
+                                                                setMainDes={setMainDes}
+                                                                setuuid={setUuuid}
+                                                                setMainFields={setMainFields}
+                                                                titleForm={form.title}
+                                                                uuid={form.uuid}
+                                                                fields={form.fields}
+                                                            />
+                                                        ))
+                                                    }
 
-                                        </div>
-                                    </> :
-                                    <>
-                                        <TopSection
-                                            text="Accident forms"
-                                        />
-                                        <div className='noform formhome-worker'>There is no form</div>
-                                    </>
-                            }
+                                                </div>
+                                            </> :
+                                            <>
+                                                <TopSection
+                                                    text="Accident forms"
+                                                />
+                                                <div className='noform formhome-worker'>There is no form</div>
+                                            </>
+                                    }
 
-                            {
-                                infractions.length > 0 ?
-                                    <>
-                                        <TopSection
-                                            text="violation Forms"
-                                        />
-                                        <div className='bottomHome-worker'>
-                                            {
-                                                infractions.slice().reverse().map((form) => (
-                                                    <BoxtForm
-                                                        key={form.uuid}
-                                                        styleCalss={"redDot"}
-                                                        title="Violation forms"
-                                                        openForm={openFormHandler}
-                                                        des={form.descriptions}
-                                                        setMainTitle={setMainTitle}
-                                                        setMainDes={setMainDes}
-                                                        setuuid={setUuuid}
-                                                        setMainFields={setMainFields}
-                                                        titleForm={form.title}
-                                                        uuid={form.uuid}
-                                                        fields={form.fields}
-                                                    />
-                                                ))
-                                            }
+                                    {
+                                        infractions.length > 0 ?
+                                            <>
+                                                <TopSection
+                                                    text="violation Forms"
+                                                />
+                                                <div className='bottomHome-worker'>
+                                                    {
+                                                        infractions.slice().reverse().map((form) => (
+                                                            <BoxtForm
+                                                                key={form.uuid}
+                                                                styleCalss={"redDot"}
+                                                                title="Violation forms"
+                                                                openForm={openFormHandler}
+                                                                des={form.descriptions}
+                                                                setMainTitle={setMainTitle}
+                                                                setMainDes={setMainDes}
+                                                                setuuid={setUuuid}
+                                                                setMainFields={setMainFields}
+                                                                titleForm={form.title}
+                                                                uuid={form.uuid}
+                                                                fields={form.fields}
+                                                            />
+                                                        ))
+                                                    }
 
-                                        </div>
-                                    </> :
-                                    <>
-                                        <TopSection
-                                            text="violation Forms"
-                                        />
-                                        <div className='noform formhome-worker'>There is no form</div>
-                                    </>
-                            }
+                                                </div>
+                                            </> :
+                                            <>
+                                                <TopSection
+                                                    text="violation Forms"
+                                                />
+                                                <div className='noform formhome-worker'>There is no form</div>
+                                            </>
+                                    }
 
-                            {
-                                inspections.length > 0 ?
-                                    <>
-                                        <TopSection
-                                            text="Inspections forms"
-                                        />
-                                        <div className='bottomHome-worker'>
-                                            {
-                                                inspections.slice().reverse().map((form) => (
-                                                    <BoxtForm
-                                                        key={form.uuid}
-                                                        styleCalss={"orangeDot"}
-                                                        title="Inspections Form"
-                                                        openForm={openFormHandler}
-                                                        des={form.descriptions}
-                                                        setMainTitle={setMainTitle}
-                                                        setMainDes={setMainDes}
-                                                        setuuid={setUuuid}
-                                                        setMainFields={setMainFields}
-                                                        titleForm={form.title}
-                                                        uuid={form.uuid}
-                                                        fields={form.fields}
-                                                    />))
-                                            }
+                                    {
+                                        inspections.length > 0 ?
+                                            <>
+                                                <TopSection
+                                                    text="Inspections forms"
+                                                />
+                                                <div className='bottomHome-worker'>
+                                                    {
+                                                        inspections.slice().reverse().map((form) => (
+                                                            <BoxtForm
+                                                                key={form.uuid}
+                                                                styleCalss={"orangeDot"}
+                                                                title="Inspections Form"
+                                                                openForm={openFormHandler}
+                                                                des={form.descriptions}
+                                                                setMainTitle={setMainTitle}
+                                                                setMainDes={setMainDes}
+                                                                setuuid={setUuuid}
+                                                                setMainFields={setMainFields}
+                                                                titleForm={form.title}
+                                                                uuid={form.uuid}
+                                                                fields={form.fields}
+                                                            />))
+                                                    }
 
-                                        </div>
-                                    </> :
-                                    <>
-                                        <TopSection
-                                            text="Inspections forms"
-                                        />
-                                        <div className='noform formhome-worker'>There is no form</div>
-                                    </>
+                                                </div>
+                                            </> :
+                                            <>
+                                                <TopSection
+                                                    text="Inspections forms"
+                                                />
+                                                <div className='noform formhome-worker'>There is no form</div>
+                                            </>
 
-                            }
+                                    }
+                                </Col>
+                                <Col xs={12} xl={4}>
+                                    <div>
+                                            <NotificationsHome 
+                                            filledform={"filledform"} 
+                                            openDefaultInspectionsForm={openDefaultInspectionsForm}
+                                                setRandomId={setRandomId}
+                                             />
+                                    </div>
+                                </Col>
+                            </div>
+
 
                         </div>
                     </>)

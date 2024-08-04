@@ -71,6 +71,8 @@ export default function ManualChat() {
 
             if (response.status === 200) {
                 setAllMessage(response.data)
+                setUserInfo(response.data[0].receiver)
+                setImageProfile(response.data[0].receiver.avatar)
             }
             else {
                 setAllMessage([])
@@ -84,6 +86,7 @@ export default function ManualChat() {
             }
         }
     }
+
     const sendText = async () => {
         const access = localStorage.getItem("access")
         const trimmedText = text.trim();

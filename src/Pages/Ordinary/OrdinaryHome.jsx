@@ -63,7 +63,7 @@ export default function OrdinaryHome() {
                 headers,
             });
             if (response.status === 200) {
-                // console.log(response.data)
+               
             }
 
         } catch (e) {
@@ -83,7 +83,6 @@ export default function OrdinaryHome() {
     const backHandler = () => {
         setShowForm(false)
         setSOpenDefaultIns(false)
-        console.log(isOpenDefaultIns)
     }
 
     const PermitForms = formData.filter(form => form.type === "permit")

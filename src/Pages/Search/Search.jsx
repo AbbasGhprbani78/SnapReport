@@ -28,7 +28,7 @@ export default function Search() {
         setShowForm(true)
 
     }
-    console.log(searchResult)
+   
 
     return (
         <>

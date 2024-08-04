@@ -19,7 +19,7 @@ export default function PlaceForm({ back, title, description, fields, formUuid, 
     const [showChatPage, setShowChatPage] = useState(false)
     const [showchatForm2, setShowChatForm2] = useState(false)
 
-    // console.log(fields[0]?.checks[0])
+   
 
 
     const sendCondition = async (e, accept) => {

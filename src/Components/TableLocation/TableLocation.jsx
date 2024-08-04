@@ -39,7 +39,7 @@ export default function TableLocation({ setShowHistory }) {
             if (response.status === 200) {
 
                 setUsers(response.data)
-                console.log(response.data)
+              
             }
 
         } catch (e) {
@@ -50,6 +50,7 @@ export default function TableLocation({ setShowHistory }) {
             }
         }
     }
+
 
     const changeStatus = (status) => {
         if (status === "all") {
@@ -68,6 +69,7 @@ export default function TableLocation({ setShowHistory }) {
             setFilterLoc(filterStatusLocation)
         }
     }
+
     const handleChangeSelcet = (e) => {
         setManualWorker(e.target.value)
         const userUuid = e.target.value
@@ -75,11 +77,8 @@ export default function TableLocation({ setShowHistory }) {
         if (selectUser) {
             setName(selectUser.first_name)
         }
-        console.log(userUuid)
-        console.log(manualWorker)
-        console.log(selectUser)
-        console.log(name)
     }
+
 
 
     const openModalTable = (id) => {

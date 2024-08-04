@@ -4,8 +4,6 @@ import CloseIcon from '@mui/icons-material/Close';
 import UserInfo from '../UserInfo/UserInfo';
 export default function Audiance({ isActive, toggleAudianceActive, selectUser, user, setuserProf }) {
 
-    // console.log(user)
-
 
     const ordinaryAudiance = [...user].filter(item => item.user_type === "O")
     const manualAudiance = [...user].filter(item => item.user_type === "M")

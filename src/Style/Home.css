@@ -166,6 +166,20 @@
     }
 }
 
+@media (max-width:1200px) {
+    .notif-ordinary-wrapper {
+        height: 30vh;
+        overflow-y: scroll;
+        margin-bottom: 10px;
+    }
+}
+
+@media (max-width:1024px) {
+    .wrap-ordinaryhome {
+        flex-direction: column-reverse;
+    }
+}
+
 @media (min-width:992px) {
     .styleHeight {
         height: 50vh;
@@ -182,9 +196,7 @@
         width: 95%;
     }
 
-    .wrap-ordinaryhome {
-        flex-direction: column-reverse;
-    }
+
 }
 
 @media (max-width:576px) {
@@ -192,5 +204,7 @@
         margin-top: 3%;
     }
 
-
+    .notif-ordinary-wrapper {
+        height: 50vh;
+    }
 }

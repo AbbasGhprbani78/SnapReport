@@ -122,7 +122,7 @@ export default function FormWorker({
             body.notif_id = notifId
         }
 
-        console.log(body)
+     
 
 
         try {

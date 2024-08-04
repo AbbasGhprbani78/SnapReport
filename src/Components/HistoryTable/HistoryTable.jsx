@@ -22,7 +22,7 @@ export default function HistoryTable({ setShowHistory }) {
     const [acceptForm, setAcceptForm] = useState("")
     const [checks, setChecks] = useState('')
 
-    // console.log(data)
+   
 
 
     const getHistoryLocation = async () => {
@@ -38,6 +38,7 @@ export default function HistoryTable({ setShowHistory }) {
             if (response.status === 200) {
                 setLocation(response.data)
                 setFilterLoc(response.data)
+             
             }
 
         } catch (e) {
@@ -190,7 +191,7 @@ export default function HistoryTable({ setShowHistory }) {
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
-                                    {filterLoc?.map((loc) => (
+                                    {filterLoc?.slice().reverse().map((loc) => (
                                         <TableRow
                                             key={loc.id}
                                             sx={{ '&:last-child td, &:last-child th': { border: 0 } }}

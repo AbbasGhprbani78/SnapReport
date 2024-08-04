@@ -70,12 +70,11 @@ export default function OrdinaryChat() {
 
             if (response.status === 200) {
                 setAllMessage(response.data)
-                setUserInfo(response.data[0].sender)
-                setImageProfile(response.data[0].sender.avatar)
+                setUserInfo(response.data[0].receiver)
+                setImageProfile(response.data[0].receiver.avatar)
             }
 
             else {
-
                 setAllMessage([])
             }
 
@@ -106,7 +105,6 @@ export default function OrdinaryChat() {
                 })
 
                 if (response.status === 200) {
-                    console.log(response.data)
                     setText('')
                 }
 

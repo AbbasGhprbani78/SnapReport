@@ -100,7 +100,7 @@ export default function ChatForm2({ setShowChatForm2, group, uuid }) {
 
             if (response.status === 200) {
                 setShowFile(false)
-                console.log(response.data)
+             
             }
 
         } catch (e) {
@@ -129,7 +129,7 @@ export default function ChatForm2({ setShowChatForm2, group, uuid }) {
                 })
 
                 if (response.status === 200) {
-                    console.log(response)
+                   
                 }
 
             } catch (e) {

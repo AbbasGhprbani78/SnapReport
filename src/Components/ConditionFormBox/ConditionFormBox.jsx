@@ -21,7 +21,7 @@ export default function ConditionFormBox({
 
     const acceptForm = form?.fields[0]?.checks[0]?.accept
 
-    console.log(form?.fields[0]?.checks[0]?.group)
+
 
 
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);

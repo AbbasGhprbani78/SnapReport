@@ -89,7 +89,6 @@ export default function FilledForms() {
             })
 
             if (response.status === 200) {
-                console.log(response.data.forms)
                 setAllForms(response.data.forms)
             }
 

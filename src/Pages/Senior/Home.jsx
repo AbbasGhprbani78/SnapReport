@@ -167,7 +167,7 @@ export default function Home() {
             })
 
             if (response.status === 200) {
-                console.log(response.data)
+
                 localStorage.setItem('levelrick', response.data.label);
                 localStorage.setItem("message", response.data.message);
             }

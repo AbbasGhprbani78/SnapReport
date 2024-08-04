@@ -344,7 +344,7 @@ export default function Report() {
 
 //             if (response.status === 200) {
 
-//                 localStorage.setItem('levelrick', response.data.label);
+//               
 //                 localStorage.setItem("message", response.data.message);
 //             }
 //         } catch (error) {

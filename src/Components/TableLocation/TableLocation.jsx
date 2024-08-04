@@ -11,7 +11,8 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import CloseIcon from '@mui/icons-material/Close';
-
+import { useContext } from 'react';
+import { SearchContext } from '../Context/SearchContext';
 
 export default function TableLocation({ setShowHistory, getLable }) {
 
@@ -23,6 +24,7 @@ export default function TableLocation({ setShowHistory, getLable }) {
     const [randomId, setRandomId] = useState("")
     const [error, setError] = useState(false)
     const [name, setName] = useState("")
+    const { setIsAccident, setLocationMe } = useContext(SearchContext)
 
 
     const getUser = async () => {
@@ -129,7 +131,7 @@ export default function TableLocation({ setShowHistory, getLable }) {
 
 
     useEffect(() => {
-        
+
         if (getLable) {
             const getlocationCount = async () => {
                 const access = localStorage.getItem("access");
@@ -140,9 +142,14 @@ export default function TableLocation({ setShowHistory, getLable }) {
                     const response = await axios.get(`${IP}/form/last-loc-status/`, { headers });
 
                     if (response.status === 200) {
-                        console.log(response.data);
                         setLocation(response.data);
                         setFilterLoc(response.data);
+
+                        let selectedLocation = response?.data?.reverse().find(loc => loc.label === 2) ||
+                            locations.reverse().find(loc => loc.label === 1) ||
+                            locations.reverse().find(loc => loc.label === 0);
+                        setIsAccident(selectedLocation.label)
+                        setLocationMe(selectedLocation.location)
                     }
 
                 } catch (e) {

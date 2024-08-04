@@ -153,23 +153,27 @@
 
 
 
-/* @media (min-width:1095px) {
-    .grid-form-recentItem {
-        width: 890px;
+
+
+@media (min-width:1200px) {
+    .notif-ordinary-wrapper {
+        margin-top: 41.53px;
+        height: 100%;
+    }
+
+    .heightnotif {
+        height: 100%;
     }
 }
-
-@media (min-width: 992px) and (max-width: 1095px) {
-    .grid-form-recentItem {
-        width: 700px;
-    }
-} */
-
 
 @media (min-width:992px) {
     .styleHeight {
         height: 50vh;
         overflow-y: scroll;
+    }
+
+    .form-sections {
+        width: 100%;
     }
 }
 

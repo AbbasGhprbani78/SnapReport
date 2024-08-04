@@ -5,7 +5,14 @@ import axios from 'axios'
 import { IP } from '../../App'
 import { useNavigate } from 'react-router-dom';
 
-export default function NotificationsHome({ styleHeight, filledform, openDefaultInspectionsForm, setRandomId, setNotifId }) {
+export default function NotificationsHome({
+    styleHeight,
+    filledform,
+    openDefaultInspectionsForm,
+    setRandomId,
+    setNotifId,
+    heightnotif
+}) {
 
     const [notifs, setNotifs] = useState(null)
     const navigate = useNavigate()
@@ -40,7 +47,7 @@ export default function NotificationsHome({ styleHeight, filledform, openDefault
 
     return (
         <>
-            <div className={`NotificationsHome-container ${styleHeight} ${notifs && !notifs.length ? "nonotif" : ""}`}>
+            <div className={`NotificationsHome-container ${styleHeight} ${heightnotif} ${notifs && !notifs.length ? "nonotif" : ""}`}>
                 <p className='notif-home-title'>Notifications</p>
                 <div className={`notif-home-wrapper`}>
 

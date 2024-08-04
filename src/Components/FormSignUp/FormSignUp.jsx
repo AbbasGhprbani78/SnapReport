@@ -6,13 +6,12 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import './FormSingUp.css'
 import { IP } from '../../App';
-import { useNavigate } from "react-router-dom";
 import DropDown from '../DropDown/DropDown';
 import axios from 'axios';
 
 
 export default function FormSignUp({ handleTabChange }) {
-    const navigate = useNavigate();
+
     const [isPrivate, setIsPerivate] = useState(true)
     const [signInUpInfo, setSignUpInfo] = useState({
         first_name: "",
@@ -180,10 +179,10 @@ export default function FormSignUp({ handleTabChange }) {
                         />
                     </div>
 
-                    <DropDown name="user_type"
+                    {/* <DropDown name="user_type"
                         defaultDrop={"User"}
                         changeValue={changeTypeUser}
-                    />
+                    /> */}
                     <div className='input-signup-wrapper d-flex align-items-end'>
                         <input
                             name='password'

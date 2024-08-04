@@ -27,6 +27,7 @@ export default function Report() {
     const handleChange = (panel) => (event, isExpanded) => {
         setExpanded(isExpanded ? panel : false);
     };
+    
 
     const getProgressData = async () => {
         const access = localStorage.getItem("access")

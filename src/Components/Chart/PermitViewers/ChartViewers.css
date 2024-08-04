@@ -20,6 +20,23 @@
 }
 
 
+@media (max-width:1385px) {
+    .chart-flex-1 {
+        flex-direction: column;
+    }
+
+    .PieChart-wrapper {
+        height: 250px;
+    }
+}
+
+@media (max-width:1199px) {
+    .chart-flex-1 {
+        flex-direction: row;
+    }
+}
+
+
 @media (max-width:992px) {
     .ChartViewers {
         width: 100%;

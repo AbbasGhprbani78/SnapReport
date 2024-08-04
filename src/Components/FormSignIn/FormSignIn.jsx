@@ -28,29 +28,6 @@ export default function FormSignIn({ handleTabChange }) {
     }
 
 
-    const getLable = async () => {
-        const access = localStorage.getItem("access")
-        const headers = {
-            Authorization: `Bearer${access}`
-        }
-        try {
-            const response = await axios.post(`${IP}/form/single-send-data-to-api/`, {
-                headers
-            })
-
-            if (response.status === 200) {
-                localStorage.setItem('levelrick', response.data.label);
-                localStorage.setItem("message", response.data.message);
-            }
-        } catch (error) {
-            if (error.response.status === 401) {
-                localStorage.clear()
-                navigate("/login")
-            }
-        }
-    }
-
-
     // check vlaue of input
     const validate = () => {
         let result = true;
@@ -102,11 +79,9 @@ export default function FormSignIn({ handleTabChange }) {
                 window.localStorage.setItem('uuid', response.data.uuid);
                 window.localStorage.setItem("refresh", response.data.refresh);
                 updateSharedData(response.data.user_type)
-                if (response.data.user_type === "S") {
-                    getLable()
+                if (response.data.user_type === "S") {   
                     navigate("/")
                 } if (response.data.user_type === "O") {
-                    getLable()
                     navigate("/ordinaryhome")
                 } if (response.data.user_type === "M") {
                     navigate("/manualhome")

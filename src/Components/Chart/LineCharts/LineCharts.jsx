@@ -7,12 +7,14 @@ import Box from '@mui/material/Box';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import Loading from '../../Loading/Loading';
 
 export default function LineCharts() {
     const [lineData, setLineData] = useState("");
     const [valueBarChart, setValueBarChart] = useState("All");
 
     const allLineChart = async () => {
+
         const access = localStorage.getItem("access");
         const headers = {
             Authorization: `Bearer ${access}`
@@ -90,7 +92,7 @@ export default function LineCharts() {
         allLineChart()
     }, [valueBarChart])
 
-
+    console.log(lineData)
 
     const handleChangechart = (event) => {
         setValueBarChart(event.target.value);

@@ -155,9 +155,33 @@ export default function Home() {
         }
     }
 
+    
+    const getLable = async () => {
+        const access = localStorage.getItem("access")
+        const headers = {
+            Authorization: `Bearer${access}`
+        }
+        try {
+            const response = await axios.post(`${IP}/form/single-send-data-to-api/`, {
+                headers
+            })
+
+            if (response.status === 200) {
+                console.log(response.data)
+                localStorage.setItem('levelrick', response.data.label);
+                localStorage.setItem("message", response.data.message);
+            }
+        } catch (error) {
+            if (error.response.status === 401) {
+                localStorage.clear()
+                navigate("/login")
+            }
+        }
+    }
+
 
     useEffect(() => {
-
+        getLable()
         getAllFillForms()
         getPermitState()
         getKindForm()
@@ -414,10 +438,14 @@ export default function Home() {
                                             </div>
                                         </Col>
                                         <Col xs={12} xl={4} className='mb-4 mb-md-0'>
-                                            <NotificationsHome  styleHeight={"styleHeight"}/>
-                                            <div className='mt-4'>
-                                                <PermitViewers valueViewers={permitState} />
-                                                <Viewers1 kindForm={kindForm} />
+                                            <NotificationsHome styleHeight={"styleHeight"} />
+                                            <div className='mt-4 d-flex flex-wrap'>
+                                                <Col xs={12} md={6} lg={12}>
+                                                    <PermitViewers valueViewers={permitState} />
+                                                </Col>
+                                                <Col xs={12} md={6} lg={12}>
+                                                    <Viewers1 kindForm={kindForm} />
+                                                </Col>
                                             </div>
                                         </Col>
                                     </div>

@@ -18,7 +18,7 @@ export default function Viewers1({ kindForm }) {
     return (
         <div className='ChartViewers mb-3'>
             <p className="viewer-title">All Filled Forms</p>
-            <div className="d-flex mt-2">
+            <div className="d-flex mt-2 chart-flex-1">
                 <div>
                     <div className="permit-status-color d-flex">
                         <div className='dot permitdot mb-2'></div>
@@ -37,7 +37,7 @@ export default function Viewers1({ kindForm }) {
                         <span style={{ fontSize: ".8rem" }}>Inpections</span>
                     </div>
                 </div>
-                <div className='PieChart-wrapper' style={{ width: "100%", height: 300, marginLeft: "10px" }}>
+                <div className='PieChart-wrapper' >
                     <ResponsiveContainer>
                         <PieChart>
                             <Pie

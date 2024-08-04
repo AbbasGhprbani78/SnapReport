@@ -18,7 +18,7 @@ export default function PermitViewers({ valueViewers }) {
         <>
             <div className='ChartViewers mb-3'>
                 <p className="viewer-title">Status of permit forms</p>
-                <div className='d-flex mt-2'>
+                <div className='d-flex mt-2 chart-flex-1'>
                     <div className="permit-status-color-wrapper">
                         <div className="permit-status-color d-flex mb-2">
                             <div className='dot acceptDot'></div>
@@ -33,7 +33,7 @@ export default function PermitViewers({ valueViewers }) {
                             <span style={{ fontSize: ".8rem" }}>Pendding</span>
                         </div>
                     </div>
-                    <div className='PieChart-wrapper' style={{ width: "100%", height: 300 }}>
+                    <div className='PieChart-wrapper'>
                         <ResponsiveContainer>
                             <PieChart>
                                 <Pie

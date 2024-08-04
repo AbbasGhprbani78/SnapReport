@@ -132,7 +132,7 @@ export default function OrdinaryHome() {
                     <>
                         <div div className="home-container" >
                             <Header />
-                            {/* <button onClick={openDefaultInspectionsForm}>openForm</button> */}
+
                             <div className='d-flex flex-wrap wrap-ordinaryhome'>
                                 <Col xs={12} xl={8}>
                                     {
@@ -281,12 +281,13 @@ export default function OrdinaryHome() {
                                     }
                                 </Col>
                                 <Col xs={12} xl={4}>
-                                    <div>
+                                    <div className='notif-ordinary-wrapper'>
                                         <NotificationsHome
                                             filledform={"filledform"}
                                             openDefaultInspectionsForm={openDefaultInspectionsForm}
                                             setRandomId={setRandomId}
                                             setNotifId={setNotifId}
+                                            heightnotif={"heightnotif"}
                                         />
                                     </div>
                                 </Col>

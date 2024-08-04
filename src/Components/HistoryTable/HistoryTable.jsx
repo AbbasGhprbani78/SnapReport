@@ -10,11 +10,10 @@ import Paper from '@mui/material/Paper';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { IP } from '../../App'
-import data from '../../Data/Data';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import FillItem from '../FillItem/FillItem';
-export default function HistoryTable({ setShowHistory }) {
 
+export default function HistoryTable({ setShowHistory }) {
 
     const [locations, setLocation] = useState()
     const [filterLoc, setFilterLoc] = useState()

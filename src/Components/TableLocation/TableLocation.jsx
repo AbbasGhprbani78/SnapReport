@@ -13,6 +13,7 @@ import Paper from '@mui/material/Paper';
 import CloseIcon from '@mui/icons-material/Close';
 import { useContext } from 'react';
 import { SearchContext } from '../Context/SearchContext';
+import { Spinner } from 'react-bootstrap';
 
 export default function TableLocation({ setShowHistory, getLable }) {
 
@@ -225,33 +226,41 @@ export default function TableLocation({ setShowHistory, getLable }) {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {filterLoc?.map((loc) => (
-                            <TableRow
-                                key={loc.id}
-                                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                                className={`${loc.label === 1 ? "row-low" : loc.label === 2 ? "row-hight" : "row-noaccident"}`}
-                            >
-                                <TableCell align="center d-flex  one-col" style={{ marginLeft: "10px" }} className={`fi-col ${loc.label === 1 ? "lable1" : loc.label === 2 ? "lable2" : "lable0"}`}>
-                                    <div className="loader2"></div>
-                                    {loc.label === 1 ? "Low" : loc.label === 2 ? "High" : "No Accident"}
+                        {
+                            filterLoc.length > 0 ?
+                                <>
+                                    {filterLoc?.map((loc) => (
+                                        <TableRow
+                                            key={loc.id}
+                                            sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                                            className={`${loc.label === 1 ? "row-low" : loc.label === 2 ? "row-hight" : "row-noaccident"}`}
+                                        >
+                                            <TableCell align="center d-flex  one-col" style={{ marginLeft: "10px" }} className={`fi-col ${loc.label === 1 ? "lable1" : loc.label === 2 ? "lable2" : "lable0"}`}>
+                                                <div className="loader2"></div>
+                                                {loc.label === 1 ? "Low" : loc.label === 2 ? "High" : "No Accident"}
 
-                                </TableCell>
-                                <TableCell className='two-col-c' align="center">{loc.location}</TableCell>
-                                <TableCell className='two-col-c' align="center">
-                                    {
-                                        loc.label === 2 ? `In ${loc.location} there is a high risk of an accident` :
-                                            loc.label === 1 ? `In ${loc.location}there is a low risk of an accident ` :
-                                                `In ${loc.location} there is no accident`
-                                    }
-                                </TableCell>
-                                < TableCell >
-                                    {
-                                        loc.status == 0 &&
-                                        <button className='btn-ac-table' onClick={() => openModalTable(loc.id)}>Send</button>
-                                    }
-                                </TableCell>
-                            </TableRow>
-                        ))}
+                                            </TableCell>
+                                            <TableCell className='two-col-c' align="center">{loc.location}</TableCell>
+                                            <TableCell className='two-col-c' align="center">
+                                                {
+                                                    loc.label === 2 ? `In ${loc.location} there is a high risk of an accident` :
+                                                        loc.label === 1 ? `In ${loc.location}there is a low risk of an accident ` :
+                                                            `In ${loc.location} there is no accident`
+                                                }
+                                            </TableCell>
+                                            < TableCell >
+                                                {
+                                                    loc.status == 0 &&
+                                                    <button className='btn-ac-table' onClick={() => openModalTable(loc.id)}>Send</button>
+                                                }
+                                            </TableCell>
+                                        </TableRow>
+                                    ))}
+                                </> :
+                                <>
+                                    <p className='text-center py-3' style={{ color: "#89CCE5" }}>Loading ...</p>
+                                </>
+                        }
                     </TableBody>
                 </Table>
             </TableContainer >

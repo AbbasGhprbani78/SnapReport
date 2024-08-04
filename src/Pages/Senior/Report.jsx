@@ -3,10 +3,8 @@ import Accordion from 'react-bootstrap/Accordion';
 import '../../Style/Report.css'
 import ChartSection from '../../Components/Chart/ChartSection/ChartSection'
 import LineCharts from '../../Components/Chart/LineCharts/LineCharts'
-import PermitViewers from '../../Components/Chart/PermitViewers/PermitViewers'
 import Header from '../../Components/Header/Header'
 import { Col } from 'react-bootstrap'
-import Viewers1 from '../../Components/Chart/Viewers1/Viewers1';
 import dayjs from 'dayjs';
 import axios from 'axios'
 import { IP } from '../../App'
@@ -21,13 +19,93 @@ export default function Report() {
     const [notifs, setNotif] = useState("")
     const [notFix, setNotFix] = useState(false)
     const [showHistory, setShowHistory] = useState(false)
+    const [lineData, setLineData] = useState("");
+    const [valueBarChart, setValueBarChart] = useState("All");
+    const [getLable, setGetLable] = useState(false)
+
+    const allLineChart = async () => {
+
+        const access = localStorage.getItem("access");
+        const headers = {
+            Authorization: `Bearer ${access}`
+        };
+        try {
+            const response = await axios.get(`${IP}/form/label-count/`, {
+                headers,
+            });
+
+            if (response.status === 200) {
+                const processedData = response.data.map(item => {
+                    const [year, month, day] = item.month.split('-');
+
+                    return {
+                        ...item,
+                        date: `${month}-${day}`,
+                        year: year,
+                        month: month,
+                        day: day,
+                        low: item.label_1_count,
+                        high: item.label_2_count
+                    };
+                });
+
+                setLineData(processedData);
+            }
+        } catch (e) {
+            if (e.response.status === 401) {
+                localStorage.clear();
+                navigate("/login");
+            }
+        }
+    };
+
+    const getlineChart = async () => {
+        const access = localStorage.getItem("access");
+        const headers = {
+            Authorization: `Bearer ${access}`
+        };
+        try {
+            const response = await axios.get(`${IP}/form/loc-label-count/${valueBarChart}`, {
+                headers,
+            });
+
+            if (response.status === 200) {
+                const processedData = response.data.map(item => {
+                    const [year, month, day] = item.month.split('-');
+
+                    return {
+                        ...item,
+                        date: `${month}-${day}`,
+                        year: year,
+                        month: month,
+                        day: day,
+                        low: item.label_1_count,
+                        high: item.label_2_count
+                    };
+                });
+
+                setLineData(processedData);
+            }
+        } catch (e) {
+            if (e.response.status === 401) {
+                localStorage.clear();
+                navigate("/login");
+            }
+        }
+    };
+
+
+
+    const handleChangechart = (event) => {
+        setValueBarChart(event.target.value);
+    };
 
 
 
     const handleChange = (panel) => (event, isExpanded) => {
         setExpanded(isExpanded ? panel : false);
     };
-    
+
 
     const getProgressData = async () => {
         const access = localStorage.getItem("access")
@@ -97,6 +175,27 @@ export default function Report() {
     }
 
 
+    const getAllloc = async () => {
+        const access = localStorage.getItem("access")
+        const headers = {
+            Authorization: `Bearer${access}`
+        }
+        try {
+            const response = await axios.post(`${IP}/form/send-data-to-api/`, {
+                headers
+            })
+
+            if (response.status === 200) {
+                setGetLable(true)
+            }
+        } catch (error) {
+            if (error.response.status === 401) {
+                localStorage.clear()
+                navigate("/login")
+            }
+        }
+    }
+
 
     const randomData = async () => {
 
@@ -122,31 +221,20 @@ export default function Report() {
     }
 
 
-    const getAllloc = async () => {
-        const access = localStorage.getItem("access")
-        const headers = {
-            Authorization: `Bearer${access}`
-        }
-        try {
-            const response = await axios.post(`${IP}/form/send-data-to-api/`, {
-                headers
-            })
+    useEffect(() => {
+        getlineChart();
+    }, [valueBarChart]);
 
-            if (response.status === 200) {
-            }
-        } catch (error) {
-            if (error.response.status === 401) {
-                localStorage.clear()
-                navigate("/login")
-            }
-        }
-    }
+    useEffect(() => {
+        allLineChart()
+    }, [valueBarChart])
 
 
     useEffect(() => {
         randomData()
         getProgressData()
         getNotif()
+        allLineChart()
     }, [])
 
 
@@ -177,10 +265,18 @@ export default function Report() {
                                 <div className="chartbottom">
                                     <Col xs={12}>
                                         <div className="chart-bottom">
-                                            <LineCharts />
+                                            <LineCharts
+                                                lineData={lineData}
+                                                valueBarChart={valueBarChart}
+                                                handleChangechart={handleChangechart}
+                                                allLineChart={allLineChart}
+                                            />
                                         </div>
                                         <div className='table-section'>
-                                            <TableLocation setShowHistory={setShowHistory} />
+                                            <TableLocation
+                                                setShowHistory={setShowHistory}
+                                                getLable={getLable}
+                                            />
                                         </div>
                                     </Col>
                                 </div>
@@ -233,4 +329,28 @@ export default function Report() {
 //  <Col xs={12} lg={5} xl={4} className="chart-right">
 //     <PermitViewers valueViewers={permitState} />
 //     <Viewers1 kindForm={kindForm} />
-// </Col> 
+// </Col>
+
+
+//   const getLable = async () => {
+//         const access = localStorage.getItem("access")
+//         const headers = {
+//             Authorization: `Bearer${access}`
+//         }
+//         try {
+//             const response = await axios.post(`${IP}/form/single-send-data-to-api/`, {
+//                 headers
+//             })
+
+//             if (response.status === 200) {
+
+//                 localStorage.setItem('levelrick', response.data.label);
+//                 localStorage.setItem("message", response.data.message);
+//             }
+//         } catch (error) {
+//             if (error.response.status === 401) {
+//                 localStorage.clear()
+//                 navigate("/login")
+//             }
+//         }
+//     }

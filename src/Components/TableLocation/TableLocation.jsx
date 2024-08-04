@@ -13,7 +13,7 @@ import Paper from '@mui/material/Paper';
 import CloseIcon from '@mui/icons-material/Close';
 
 
-export default function TableLocation({ setShowHistory }) {
+export default function TableLocation({ setShowHistory, getLable }) {
 
     const [locations, setLocation] = useState()
     const [filterLoc, setFilterLoc] = useState([])
@@ -23,7 +23,6 @@ export default function TableLocation({ setShowHistory }) {
     const [randomId, setRandomId] = useState("")
     const [error, setError] = useState(false)
     const [name, setName] = useState("")
-
 
 
     const getUser = async () => {
@@ -37,9 +36,7 @@ export default function TableLocation({ setShowHistory }) {
             })
 
             if (response.status === 200) {
-
                 setUsers(response.data)
-              
             }
 
         } catch (e) {
@@ -132,32 +129,33 @@ export default function TableLocation({ setShowHistory }) {
 
 
     useEffect(() => {
-        const getlocationCount = async () => {
-            const access = localStorage.getItem("access")
-            const headers = {
-                Authorization: `Bearer ${access}`
+        
+        if (getLable) {
+            const getlocationCount = async () => {
+                const access = localStorage.getItem("access");
+                const headers = {
+                    Authorization: `Bearer ${access}`
+                };
+                try {
+                    const response = await axios.get(`${IP}/form/last-loc-status/`, { headers });
+
+                    if (response.status === 200) {
+                        console.log(response.data);
+                        setLocation(response.data);
+                        setFilterLoc(response.data);
+                    }
+
+                } catch (e) {
+                    console.log(e);
+                    if (e.response.status === 401) {
+                        localStorage.clear();
+                        navigate("/login");
+                    }
+                }
             };
-            try {
-                const response = await axios.get(`${IP}/form/last-loc-status/`, {
-                    headers,
-                })
-
-                if (response.status === 200) {
-                    setLocation(response.data);
-                    setFilterLoc(response.data)
-                }
-
-            } catch (e) {
-                console.log(e)
-                if (e.response.status === 401) {
-
-                    localStorage.clear()
-                    navigate("/login")
-                }
-            }
+            getlocationCount();
         }
-        getlocationCount()
-    }, [])
+    }, [getLable]);
 
 
 

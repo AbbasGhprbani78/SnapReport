@@ -1,102 +1,22 @@
-import React, { useState, useEffect } from 'react';
+import React  from 'react';
 import './LineCharts.css';
 import { LineChart, Line, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer } from 'recharts';
-import axios from 'axios';
-import { IP } from '../../../App';
 import Box from '@mui/material/Box';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-import Loading from '../../Loading/Loading';
 
-export default function LineCharts() {
-    const [lineData, setLineData] = useState("");
-    const [valueBarChart, setValueBarChart] = useState("All");
 
-    const allLineChart = async () => {
+export default function LineCharts({
+    lineData,
+    valueBarChart,
+    handleChangechart,
+    allLineChart
+}) {
 
-        const access = localStorage.getItem("access");
-        const headers = {
-            Authorization: `Bearer ${access}`
-        };
-        try {
-            const response = await axios.get(`${IP}/form/label-count/`, {
-                headers,
-            });
 
-            if (response.status === 200) {
-                const processedData = response.data.map(item => {
-                    const [year, month, day] = item.month.split('-');
 
-                    return {
-                        ...item,
-                        date: `${month}-${day}`,
-                        year: year,
-                        month: month,
-                        day: day,
-                        low: item.label_1_count,
-                        high: item.label_2_count
-                    };
-                });
 
-                setLineData(processedData);
-            }
-        } catch (e) {
-            if (e.response.status === 401) {
-                localStorage.clear();
-                navigate("/login");
-            }
-        }
-    };
-
-    const getlineChart = async () => {
-        const access = localStorage.getItem("access");
-        const headers = {
-            Authorization: `Bearer ${access}`
-        };
-        try {
-            const response = await axios.get(`${IP}/form/loc-label-count/${valueBarChart}`, {
-                headers,
-            });
-
-            if (response.status === 200) {
-                const processedData = response.data.map(item => {
-                    const [year, month, day] = item.month.split('-');
-
-                    return {
-                        ...item,
-                        date: `${month}-${day}`,
-                        year: year,
-                        month: month,
-                        day: day,
-                        low: item.label_1_count,
-                        high: item.label_2_count
-                    };
-                });
-
-                setLineData(processedData);
-            }
-        } catch (e) {
-            if (e.response.status === 401) {
-                localStorage.clear();
-                navigate("/login");
-            }
-        }
-    };
-
-    useEffect(() => {
-        getlineChart();
-    }, [valueBarChart]);
-
-    useEffect(() => {
-        allLineChart()
-    }, [valueBarChart])
-
-    console.log(lineData)
-
-    const handleChangechart = (event) => {
-        setValueBarChart(event.target.value);
-    };
     return (
         <>
             <div className='d-flex justify-content-end mt-3'>

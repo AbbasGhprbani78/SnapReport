@@ -155,33 +155,11 @@ export default function Home() {
         }
     }
 
-    
-    const getLable = async () => {
-        const access = localStorage.getItem("access")
-        const headers = {
-            Authorization: `Bearer${access}`
-        }
-        try {
-            const response = await axios.post(`${IP}/form/single-send-data-to-api/`, {
-                headers
-            })
 
-            if (response.status === 200) {
-
-                localStorage.setItem('levelrick', response.data.label);
-                localStorage.setItem("message", response.data.message);
-            }
-        } catch (error) {
-            if (error.response.status === 401) {
-                localStorage.clear()
-                navigate("/login")
-            }
-        }
-    }
+  
 
 
     useEffect(() => {
-        getLable()
         getAllFillForms()
         getPermitState()
         getKindForm()

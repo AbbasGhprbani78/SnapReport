@@ -250,7 +250,7 @@ export default function TableLocation({ setShowHistory, getLable }) {
                                             </TableCell>
                                             < TableCell >
                                                 {
-                                                    loc.status == 0 &&
+                                                    (loc.label == 1 || loc.label == 2) &&
                                                     <button className='btn-ac-table' onClick={() => openModalTable(loc.id)}>Send</button>
                                                 }
                                             </TableCell>

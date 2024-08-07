@@ -188,6 +188,7 @@ export default function Chat() {
         }
     }
 
+
     const sendVoice = async (audioBlob) => {
         const uuid = localStorage.getItem("userUuid")
         const access = localStorage.getItem('access')
@@ -265,6 +266,7 @@ export default function Chat() {
         }
     }
 
+    
     useEffect(() => {
 
         const handleWindowResize = () => {

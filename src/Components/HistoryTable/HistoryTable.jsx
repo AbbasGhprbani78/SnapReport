@@ -95,7 +95,7 @@ export default function HistoryTable({ setShowHistory }) {
 
 
     const selectMainForm = (group) => {
-        const mainForm = allForm?.find(form => form?.fields[0]?.checks[0].group == group)
+        const mainForm = allForm?.find(form => form?.fields[0]?.checks[0]?.group == group)
         setAcceptForm(mainForm)
     }
 

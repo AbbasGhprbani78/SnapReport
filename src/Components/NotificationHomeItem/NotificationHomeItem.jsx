@@ -43,7 +43,7 @@ export default function NotificationHomeItem({
                 if (random_id && !check) {
                     swal({
                         title: `${message}`,
-                        button: filledform ? "filled form" : "OK"
+                        button: filledform ? "fill form" : "OK"
                     }).then(value => {
                         if (value) {
                             openDefaultInspectionsForm()

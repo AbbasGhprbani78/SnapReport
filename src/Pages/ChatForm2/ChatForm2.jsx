@@ -100,7 +100,7 @@ export default function ChatForm2({ setShowChatForm2, group, uuid }) {
 
             if (response.status === 200) {
                 setShowFile(false)
-             
+
             }
 
         } catch (e) {
@@ -129,7 +129,7 @@ export default function ChatForm2({ setShowChatForm2, group, uuid }) {
                 })
 
                 if (response.status === 200) {
-                   
+
                 }
 
             } catch (e) {
@@ -173,8 +173,9 @@ export default function ChatForm2({ setShowChatForm2, group, uuid }) {
 
             if (response.status === 200) {
                 setAllMessage(response.data)
-                setAudiuanceInfo(response.data[0].sender)
-                setImageProfile(response.data[0].sender.avatar)
+                setAudiuanceInfo(response.data[0].receiver)
+                console.log(response.data[0].receiver)
+                setImageProfile(response.data[0].receiver.avatar)
             }
             else {
                 setAllMessage([])

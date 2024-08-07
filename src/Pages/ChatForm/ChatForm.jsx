@@ -40,6 +40,8 @@ export default function ChatForm({ setShowChatPage, group, uuid }) {
         sendVoice(recordedData.blob);
     };
 
+
+
     const sendText = async () => {
         const access = localStorage.getItem("access")
         const trimmedText = text.trim();
@@ -62,7 +64,6 @@ export default function ChatForm({ setShowChatPage, group, uuid }) {
                 })
 
                 if (response.status === 200) {
-                    console.log("send")
                     setText('')
                 }
 
@@ -77,6 +78,7 @@ export default function ChatForm({ setShowChatPage, group, uuid }) {
 
         }
     }
+
 
     const sendFile = async (e) => {
         setShowFile(true)
@@ -114,6 +116,7 @@ export default function ChatForm({ setShowChatPage, group, uuid }) {
         }
     }
 
+    
     const sendVoice = async (audioBlob) => {
         const access = localStorage.getItem('access')
         if (audioBlob) {
@@ -146,6 +149,7 @@ export default function ChatForm({ setShowChatPage, group, uuid }) {
 
     }
 
+    
     useEffect(() => {
 
         if (allMessage.length <= 3) {

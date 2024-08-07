@@ -95,7 +95,8 @@ export default function PlaceForm({ back, title, description, fields, formUuid, 
                             <ChatForm
                                 setShowChatPage={setShowChatPage}
                                 group={fields[0]?.checks[0]?.group}
-                                uuid={fields[0]?.checks[0]?.user.uuid} /> :
+                                uuid={fields[0]?.checks[0]?.user.uuid} />
+                                 :
                             <div style={{ width: "95%", margin: "0 auto" }}>
                                 <div className='my-3'>
                                     <div

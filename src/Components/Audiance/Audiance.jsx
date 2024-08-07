@@ -1,12 +1,27 @@
-import React from 'react'
-import './Audiance.css'
+import React from 'react';
+import './Audiance.css';
 import CloseIcon from '@mui/icons-material/Close';
 import UserInfo from '../UserInfo/UserInfo';
-export default function Audiance({ isActive, toggleAudianceActive, selectUser, user, setuserProf }) {
+import Accordion from 'react-bootstrap/Accordion';
+import avatar from '../../Images/avatar.png'
+import { IP } from '../../App';
 
+export default function Audiance({ isActive, toggleAudianceActive, selectUser, users, setuserProf }) {
 
-    const ordinaryAudiance = [...user].filter(item => item.user_type === "O")
-    const manualAudiance = [...user].filter(item => item.user_type === "M")
+    const filterUnique = (array) => {
+        const uniqueKeys = new Set();
+        const uniqueItems = [];
+
+        for (const item of array) {
+            const key = `${item.group}-${item.date}`;
+            if (!uniqueKeys.has(key)) {
+                uniqueKeys.add(key);
+                uniqueItems.push(item);
+            }
+        }
+
+        return uniqueItems;
+    }
 
     return (
         <>
@@ -16,48 +31,39 @@ export default function Audiance({ isActive, toggleAudianceActive, selectUser, u
                         onClick={toggleAudianceActive}
                         style={{ cursor: "pointer" }} />
                 </div>
-                
-
-                <div className="ordinaryAudianceWrapper">
-                    <p className='ordinaryAudianc-title'>Ordinary Officer</p>
-                    <div className="ordinaryAudiance-content">
-                        {ordinaryAudiance.length ?
-                            ordinaryAudiance.map(user => (
-                                <UserInfo
-                                    key={user.uuid}
-                                    user={user}
-                                    selectUser={() => selectUser(user.uuid)}
-                                    setuserProf={setuserProf}
-                                />
-                            )) :
-                            <>
-                                <p className='nothing-user'>
-                                    there is no user !
-                                </p>
-                            </>
-                        }
-
-                    </div>
-                </div>
-                <div className="manualAudianceWrapper">
-                    <p className='manualAudianc-title'>Manual Worker</p>
-                    <div className="manualAudiance-content">
-                        {manualAudiance.length ?
-                            manualAudiance.map(user => (
-                                <UserInfo
-                                    key={user.uuid}
-                                    user={user}
-                                    selectUser={() => selectUser(user.uuid)}
-                                />
-                            ))
-                            :
-                            <p className='nothing-user'>
-                                there is no user !
-                            </p>
-                        }
-                    </div>
+                <div className='audiance-content mt-3'>
+                    {
+                        users.map(userItem => (
+                            <Accordion defaultActiveKey={null} key={userItem.first_name}>
+                                <Accordion.Item eventKey="0">
+                                    <Accordion.Header>
+                                        <div className='audiance-header'>
+                                            <div className='img-profile-item'>
+                                                <img src={userItem.image ? `${IP}${userItem.image}` : avatar} alt="profile" />
+                                            </div>
+                                            <p className='audiance-name'>{userItem?.first_name} {userItem?.last_name}</p>
+                                        </div>
+                                    </Accordion.Header>
+                                    <Accordion.Body>
+                                        {
+                                            filterUnique(userItem?.form).map(item => (
+                                                <UserInfo
+                                                    key={item.group}
+                                                    user={item}
+                                                    selectUser={() => selectUser(userItem, item.group)}
+                                                    setuserProf={setuserProf}
+                                                />
+                                            ))
+                                        }
+                                    </Accordion.Body>
+                                </Accordion.Item>
+                            </Accordion>
+                        ))
+                    }
                 </div>
             </div>
         </>
-    )
+    );
 }
+
+

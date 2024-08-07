@@ -18,10 +18,12 @@ import Header from '../../Components/Header/Header';
 import { CircularProgressbar } from "react-circular-progressbar";
 import { BsFillFileEarmarkArrowDownFill } from 'react-icons/bs'
 import AiHeader from '../../Components/AiHeader/AiHeader';
+import Accordion from 'react-bootstrap/Accordion';
+
 export default function Chat() {
 
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-    const [user, setUser] = useState([])
+    const [users, setUsers] = useState([])
     const [text, setText] = useState("")
     const [allMessage, setAllMessage] = useState([])
     const messageEndRef = useRef(null);
@@ -29,7 +31,6 @@ export default function Chat() {
     const micRef = useRef(null);
     const [selectedUser, setSelectedUser] = useState();
     const [audiuanceinfo, setAudiuanceInfo] = useState()
-    const [activeEmployee, setActiveUser] = useState(null);
     const [isAudianceActive, setIsAudianceActive] = useState(false);
     const [showChat, setShowChat] = useState(false)
     const navigate = useNavigate()
@@ -37,40 +38,7 @@ export default function Chat() {
     const [showfile, setShowFile] = useState(false)
     const prevLengthRef = useRef(0);
     const [imgProfile, setImageProfile] = useState(null)
-
-    const getAllUser = async () => {
-        const access = localStorage.getItem("access")
-        const headers = {
-            Authorization: `Bearer ${access}`
-        };
-        try {
-            const response = await axios.get(`${IP}/user/user-chat/`, {
-                headers,
-            })
-
-            if (response.status === 200) {
-                setUser(response.data)
-            }
-
-        } catch (e) {
-            if (e.response.status === 401) {
-                localStorage.clear()
-                navigate("/login")
-            }
-        }
-    }
-
-    useEffect(() => {
-        getAllUser()
-    }, [])
-
-    useEffect(() => {
-        if (user.length > 0) {
-            const inintId = user[0].uuid
-            selectUser(inintId)
-            setImageProfile(user[0].avatar)
-        }
-    }, [user])
+    const [mainGroup, setMainGroup] = useState("")
 
 
     const startRecording = () => {
@@ -86,6 +54,29 @@ export default function Chat() {
     };
 
 
+    const getAllUser = async () => {
+        const access = localStorage.getItem("access")
+        const headers = {
+            Authorization: `Bearer ${access}`
+        };
+        try {
+            const response = await axios.get(`${IP}/user/user-chat/`, {
+                headers,
+            })
+
+            if (response.status === 200) {
+                setUsers(response.data)
+            }
+
+        } catch (e) {
+            if (e.response.status === 401) {
+                localStorage.clear()
+                navigate("/login")
+            }
+        }
+    }
+
+
     const getMessages = async (selectedUser) => {
         const access = localStorage.getItem("access")
         const headers = {
@@ -93,8 +84,11 @@ export default function Chat() {
         };
 
         const body = {
-            receiver: selectedUser,
+            permit_form: true,
+            full_form: mainGroup,
+            receiver: selectedUser.uuid
         }
+
 
         try {
             const response = await axios.post(`${IP}/chat/get-chat/`, body, {
@@ -103,6 +97,7 @@ export default function Chat() {
 
             if (response.status === 200) {
                 setAllMessage(response.data)
+                console.log(response.data)
             }
             else {
                 setAllMessage([])
@@ -118,8 +113,10 @@ export default function Chat() {
     }
 
 
-    const sendText = async (employeeId) => {
+    const sendText = async () => {
         const access = localStorage.getItem("access")
+        const uuid = localStorage.getItem("uuiduserChat")
+        const group = localStorage.getItem("group")
         const trimmedText = text.trim();
         if (trimmedText) {
             const headers = {
@@ -128,7 +125,9 @@ export default function Chat() {
 
             const body = {
                 message: trimmedText,
-                receiver: employeeId
+                permit_form: true,
+                full_form: group,
+                receiver: uuid
             }
 
             try {
@@ -153,13 +152,17 @@ export default function Chat() {
     }
 
 
-    const sendFile = async (e, employeeId) => {
+    const sendFile = async (e) => {
         setShowFile(true)
         const access = localStorage.getItem("access")
+        const uuid = localStorage.getItem("uuiduserChat")
+        const group = localStorage.getItem("group")
 
         const formData = new FormData()
         formData.append('file', e.target.files[0])
-        formData.append("receiver", employeeId)
+        formData.append("receiver", uuid)
+        formData.append("permit_form", true)
+        formData.append(" full_form", group)
 
         const headers = {
             Authorization: `Bearer ${access}`
@@ -190,12 +193,15 @@ export default function Chat() {
 
 
     const sendVoice = async (audioBlob) => {
-        const uuid = localStorage.getItem("userUuid")
+        const uuid = localStorage.getItem("uuiduserChat")
+        const group = localStorage.getItem("group")
         const access = localStorage.getItem('access')
         if (audioBlob) {
             const formvoiceData = new FormData();
             formvoiceData.append('voice', audioBlob);
-            formvoiceData.append("receiver", uuid)
+            formvoiceData.append("receiver", uuid);
+            formvoiceData.append("permit_form", true)
+            formvoiceData.append(" full_form", group)
             const headers = {
                 Authorization: `Bearer ${access}`
             };
@@ -219,26 +225,6 @@ export default function Chat() {
 
     }
 
-    useEffect(() => {
-        const interval = setInterval(() => {
-            getMessages(selectedUser)
-
-        }, 1000);
-        return () => clearInterval(interval);
-    }, [selectedUser]);
-
-
-    useEffect(() => {
-
-        if (allMessage.length <= 3) {
-            return
-        }
-        if (allMessage.length > prevLengthRef.current) {
-            messageEndRef.current?.scrollIntoView();
-            prevLengthRef.current = allMessage.length;
-        }
-    }, [allMessage]);
-
 
     const handleKeyDown = (event) => {
         if (event.key === "Enter" && !event.shiftkey) {
@@ -251,22 +237,47 @@ export default function Chat() {
         setIsAudianceActive(prevState => !prevState);
     };
 
-    const selectUser = (employeeId) => {
-        localStorage.removeItem('userUuid')
-        window.localStorage.setItem("userUuid", employeeId)
-        const mainUser = user.find(employee => employee.uuid == employeeId)
-        setImageProfile(mainUser.avatar)
-        setAudiuanceInfo(mainUser)
-        setActiveUser(employeeId);
-        setSelectedUser(employeeId)
-        if (activeEmployee) {
-            setShowChat(true)
-            toggleAudianceActive()
-            prevLengthRef.current = 0
+
+    const selectUser = (user, group) => {
+        setImageProfile(user?.image)
+        setAudiuanceInfo(user)
+        setSelectedUser(user)
+        setShowChat(true)
+        localStorage.setItem("uuiduserChat", user.uuid)
+        setIsAudianceActive(false)
+        prevLengthRef.current = 0
+        if (group) {
+            localStorage.setItem("group", group)
+            setMainGroup(group)
+        } else {
+            localStorage.setItem("group", user?.form[0]?.group)
+            setMainGroup(user?.form[0]?.group)
         }
+
     }
 
-    
+    useEffect(() => {
+        getAllUser()
+    }, [])
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            getMessages(selectedUser)
+
+        }, 1000);
+        return () => clearInterval(interval);
+    }, [mainGroup]);
+
+
+    useEffect(() => {
+        if (users.length > 0) {
+            const defaultUser = users[0]
+            selectUser(defaultUser)
+            setSelectedUser(defaultUser)
+        }
+    }, [users])
+
+
     useEffect(() => {
 
         const handleWindowResize = () => {
@@ -280,8 +291,18 @@ export default function Chat() {
         };
     }, []);
 
-    const ordinaryAudiance = [...user].filter(item => item.user_type === "O")
-    const manualAudiance = [...user].filter(item => item.user_type === "M")
+
+    useEffect(() => {
+
+        if (allMessage.length <= 3) {
+            return
+        }
+        if (allMessage.length > prevLengthRef.current) {
+            messageEndRef.current?.scrollIntoView();
+            prevLengthRef.current = allMessage.length;
+        }
+    }, [allMessage]);
+
 
 
     return (
@@ -307,6 +328,7 @@ export default function Chat() {
                                         </div>
                                         <>
                                             {
+                                                allMessage.length > 0 &&
                                                 allMessage.map((message) => (
                                                     <Message key={message.id}  {...message} />
                                                 ))
@@ -396,40 +418,83 @@ export default function Chat() {
                                     <Header />
                                     <AiHeader />
                                     <div className="list-users">
-                                        <p className='ordinaryAudianc-title'>Ordinary Officer</p>
-                                        <div className='ordinaryAudiance-content'>
+                                        <div className='audiance-content mt-3'>
+                                            <Accordion defaultActiveKey={null}>
+                                                <Accordion.Item eventKey="0">
+                                                    <Accordion.Header>
+                                                        <div className='audiance-header'>
+                                                            <div className='img-profile-item'>
+                                                                <img src="../../../src/Images/avatar.png" alt="profile" />
+                                                            </div>
+                                                            <p className='audiance-name'>Abbas Ghorbani</p>
+                                                        </div>
+                                                    </Accordion.Header>
+                                                    <Accordion.Body>
+                                                        <UserInfo
+                                                            key={user.uuid}
+                                                            user={user}
+                                                            selectForm={() => selectUser(user.uuid)}
+                                                        />
 
-                                            {ordinaryAudiance.length > 0 ?
-                                                ordinaryAudiance.map((user) => (
-                                                    <UserInfo
-                                                        key={user.uuid}
-                                                        user={user}
-                                                        selectUser={() => selectUser(user.uuid)}
-                                                    />
-                                                ))
-                                                :
-                                                <p className='nothing-user'>
-                                                    there is no user !
-                                                </p>
-                                            }
-                                        </div>
-                                        <p className='manualAudianc-title'>Manual Worker</p>
-                                        <div className='manualAudiance-content'>
-                                            {
-                                                manualAudiance.length > 0 ?
-                                                    manualAudiance.map((user) => (
                                                         <UserInfo
                                                             key={user.uuid}
                                                             user={user}
                                                             selectUser={() => selectUser(user.uuid)}
-
                                                         />
-                                                    ))
-                                                    :
-                                                    <p className='nothing-user'>
-                                                        there is no user !
-                                                    </p>
-                                            }
+
+                                                        <UserInfo
+                                                            key={user.uuid}
+                                                            user={user}
+                                                            selectUser={() => selectUser(user.uuid)}
+                                                        />
+
+                                                        <UserInfo
+                                                            key={user.uuid}
+                                                            user={user}
+                                                            selectUser={() => selectUser(user.uuid)}
+                                                        />
+                                                    </Accordion.Body>
+                                                </Accordion.Item>
+                                            </Accordion>
+                                            <Accordion defaultActiveKey={null}>
+                                                <Accordion.Item eventKey="0">
+                                                    <Accordion.Header>
+                                                        <div className='audiance-header'>
+                                                            <div className='img-profile-item'>
+                                                                <img src="../../../src/Images/avatar.png" alt="profile" />
+                                                            </div>
+                                                            <p className='audiance-name'>Abbas Ghorbani</p>
+                                                        </div>
+                                                    </Accordion.Header>
+                                                    <Accordion.Body>
+
+                                                        <UserInfo
+                                                            key={user.uuid}
+                                                            user={user}
+                                                            selectUser={() => selectUser(user.uuid)}
+                                                        />
+
+                                                        <UserInfo
+                                                            key={user.uuid}
+                                                            user={user}
+                                                            selectUser={() => selectUser(user.uuid)}
+                                                        />
+
+                                                        <UserInfo
+                                                            key={user.uuid}
+                                                            user={user}
+                                                            selectUser={() => selectUser(user.uuid)}
+                                                        />
+
+                                                        <UserInfo
+                                                            key={user.uuid}
+                                                            user={user}
+                                                            selectUser={() => selectUser(user.uuid)}
+                                                        />
+                                                    </Accordion.Body>
+                                                </Accordion.Item>
+                                            </Accordion>
+
                                         </div>
                                     </div>
                                 </div>
@@ -443,7 +508,7 @@ export default function Chat() {
                             selectUser={selectUser}
                             isActive={isAudianceActive}
                             toggleAudianceActive={toggleAudianceActive}
-                            user={user}
+                            users={users}
                         />
                         <div className="chat-container">
                             <div className="chat-header">
@@ -466,10 +531,9 @@ export default function Chat() {
                                 />
                             </div>
                             <div className="chat-body">
-
                                 <>
                                     {
-                                        allMessage.map((message) => (
+                                        allMessage.length > 0 && allMessage.map((message) => (
                                             <Message key={message.id}  {...message} />
                                         ))
 
@@ -557,5 +621,9 @@ export default function Chat() {
 
         </>
     )
+
 }
 
+
+
+//user/senior-cha

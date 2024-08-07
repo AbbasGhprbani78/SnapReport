@@ -87,6 +87,7 @@ export default function ManualChat() {
         }
     }
 
+
     const sendText = async () => {
         const access = localStorage.getItem("access")
         const trimmedText = text.trim();

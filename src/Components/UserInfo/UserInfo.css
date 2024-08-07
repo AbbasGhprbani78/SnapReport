@@ -2,9 +2,8 @@
 
 .audiance-item {
     transition: all .4s;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
-
-.audiance-item:hover {
-    background-color: #c9cdd4;
-}

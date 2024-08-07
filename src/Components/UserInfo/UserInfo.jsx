@@ -8,14 +8,17 @@ export default function UserInfo({ selectUser, user }) {
             className="audiance-item"
             onClick={selectUser}
         >
-            <div className="audiance-img-container">
+            <p>Form Number : {user?.group}</p>
+            <p>{user?.date}</p>
+        </div>
+    )
+}
+
+
+{/* <div className="audiance-img-container">
                 <img src={(user?.avatar ? `${IP}${user?.avatar}` : avatar)} alt="audiance img" className="audiance-img" />
             </div>
             {
                 user &&
                 <span className="audiance-text">{user.first_name} {user.last_name}</span>
-            }
-
-        </div>
-    )
-}
+            } */}

@@ -16,6 +16,7 @@ export default function Audiance({ isActive, toggleAudianceActive, selectUser, u
                         onClick={toggleAudianceActive}
                         style={{ cursor: "pointer" }} />
                 </div>
+                
 
                 <div className="ordinaryAudianceWrapper">
                     <p className='ordinaryAudianc-title'>Ordinary Officer</p>

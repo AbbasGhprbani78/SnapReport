@@ -1,0 +1,42 @@
+@import url('../../Style/Main.css');
+
+.historyform-container {
+    width: 25%;
+    position: fixed;
+    bottom: 0;
+    top: 0;
+    right: -100%;
+    min-height: 100vh;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+    overflow-y: scroll;
+    transition: all .5s;
+    z-index: 9999;
+    background-color: #ffff;
+}
+
+.activeAudiance {
+    right: 0;
+    transition: all .5s;
+}
+
+.history-container-header {
+    padding: 10px;
+}
+
+.history-content {
+    max-height: calc(100% - 70px);
+    overflow-y: scroll;
+}
+
+.history-item {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    padding: 15px;
+    font-size: .9rem;
+    transition: all .3s ease-in;
+}
+
+.history-item:hover {
+    background-color: #f3f4f9;
+}

@@ -11,14 +11,12 @@ import { useNavigate } from 'react-router-dom';
 import MicOffIcon from '@mui/icons-material/MicOff';
 import KeyboardVoiceIcon from '@mui/icons-material/KeyboardVoice';
 import Header from '../../Components/Header/Header';
-import { IconButton } from '@mui/material';
-import MenuIcon from '@mui/icons-material/Menu';
-import SeniorOffCanvas from '../../Components/OffCanvas/SeniorOffCanvas';
-import ManualOffcanvas from '../../Components/OffCanvas/ManualOffcanvas';
-import OrdinaryOffcanvas from '../../Components/OffCanvas/OrdinaryOffcanvas';
-import { useMyContext } from '../../Components/RoleContext';
 import { CircularProgressbar } from "react-circular-progressbar";
 import { BsFillFileEarmarkArrowDownFill } from 'react-icons/bs'
+import AccountBoxIcon from '@mui/icons-material/AccountBox';
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import HistoryForm from '../../Components/HistoryForm/HistoryForm';
+
 export default function ManualChat() {
 
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
@@ -28,19 +26,29 @@ export default function ManualChat() {
     const [isRecording, setIsRecording] = useState(false);
     const micRef = useRef(null);
     const navigate = useNavigate()
-    const [showOffCanvas, setShowOffCanvas] = useState(false);
     const [showfile, setShowFile] = useState(false)
     const [uploadPercentage, setUploadPercentage] = useState(0);
-    const [userInfo, setUserInfo] = useState('')
     const prevLengthRef = useRef(0);
-    const [imgProfile, setImageProfile] = useState(null)
+    const [isAudianceActive, setIsAudianceActive] = useState(false);
+    const [allFormInfo, setAllFormInfo] = useState([])
+    const [AllForms, setAllforms] = useState([])
+    const [group, setGroup] = useState("")
+    const [showChat, setShowChat] = useState(false)
 
-    const handleToggleOffCanvas = () => {
-        setShowOffCanvas(!showOffCanvas);
-    };
-    const { sharedData } = useMyContext();
-    const { type } = useMyContext()
+    const filterUnique = (array) => {
+        const uniqueKeys = new Set();
+        const uniqueItems = [];
 
+        for (const item of array) {
+            const key = `${item.group}-${item.date}`;
+            if (!uniqueKeys.has(key)) {
+                uniqueKeys.add(key);
+                uniqueItems.push(item);
+            }
+        }
+
+        return uniqueItems;
+    }
 
     const startRecording = () => {
         setIsRecording(true);
@@ -56,7 +64,7 @@ export default function ManualChat() {
     };
 
 
-    const getMessages = async () => {
+    const getAllForms = async () => {
 
         const access = localStorage.getItem("access")
         const headers = {
@@ -65,21 +73,58 @@ export default function ManualChat() {
 
         try {
 
-            const response = await axios.post(`${IP}/chat/get-chat-senior/`, {}, {
+            const response = await axios.get(`${IP}/user/senior-chat/`, {
+                headers,
+
+            })
+
+            if (response.status === 200) {
+                setAllFormInfo(response.data)
+                setGroup(response.data[0]?.form[0]?.group)
+                const forms = filterUnique(response.data[0]?.form)
+                if (forms) {
+                    setAllforms(forms)
+                }
+
+            }
+
+        } catch (e) {
+            console.log(e)
+            if (e.response.status === 401) {
+                localStorage.clear()
+                navigate("/login")
+            }
+        }
+
+    }
+
+    const getMessages = async () => {
+
+        const access = localStorage.getItem("access")
+        const headers = {
+            Authorization: `Bearer ${access}`
+        };
+
+        const body = {
+            permit_form: true,
+            full_form: group,
+        }
+
+        try {
+            const response = await axios.post(`${IP}/chat/get-chat-senior/`, body, {
                 headers,
             })
 
             if (response.status === 200) {
                 setAllMessage(response.data)
-                setUserInfo(response.data[0].receiver)
-                setImageProfile(response.data[0].receiver.avatar)
             }
+
             else {
                 setAllMessage([])
             }
 
         } catch (e) {
-            console.log(e)
+
             if (e.response.status === 401) {
                 localStorage.clear()
                 navigate("/login")
@@ -99,6 +144,8 @@ export default function ManualChat() {
 
             const body = {
                 message: trimmedText,
+                permit_form: true,
+                full_form: group,
             }
             try {
                 const response = await axios.post(`${IP}/chat/send-message-senior/`, body, {
@@ -127,6 +174,9 @@ export default function ManualChat() {
         const access = localStorage.getItem("access")
         const formData = new FormData()
         formData.append('file', e.target.files[0])
+        formData.append("permit_form", true)
+        formData.append(" full_form", group)
+
         const headers = {
             Authorization: `Bearer ${access}`
         };
@@ -163,6 +213,8 @@ export default function ManualChat() {
 
             const formvoiceData = new FormData();
             formvoiceData.append('voice', audioBlob);
+            formvoiceData.append("permit_form", true)
+            formvoiceData.append(" full_form", group)
 
             const headers = {
                 Authorization: `Bearer ${access}`
@@ -190,11 +242,18 @@ export default function ManualChat() {
 
 
     useEffect(() => {
-        const interval = setInterval(() => {
-            getMessages()
-        }, 1000);
-        return () => clearInterval(interval);
-    }, []);
+        getAllForms()
+    }, [])
+
+
+    // useEffect(() => {
+    //     const interval = setInterval(() => {
+    //         getMessages()
+    //     }, 1000);
+    //     return () => clearInterval(interval);
+    // }, []);
+
+
 
     useEffect(() => {
 
@@ -207,13 +266,6 @@ export default function ManualChat() {
         }
     }, [allMessage]);
 
-
-    const handleKeyDown = (event) => {
-        if (event.key === "Enter" && !event.shiftkey) {
-            event.preventDefault()
-            sendText()
-        }
-    }
 
     useEffect(() => {
 
@@ -229,159 +281,181 @@ export default function ManualChat() {
     }, []);
 
 
+
+    const handleKeyDown = (event) => {
+        if (event.key === "Enter" && !event.shiftkey) {
+            event.preventDefault()
+            sendText()
+        }
+    }
+
+    const toggleAudianceActive = () => {
+        setIsAudianceActive(prevState => !prevState);
+    };
+
     return (
         <>
             {
                 windowWidth < 992 ?
+
                     <>
-                        <>
-                            <div className="chat-container">
-                                <div className="chat-body">
-                                    <div className="chat-header">
-                                        <div className="member-info">
-                                            <div className="member-img-wrapper">
-                                                <img className='member-img' src={imgProfile ? `${IP}${imgProfile}` : avatar} alt="member" />
+                        {
+                            showChat ?
+                                <div className="chat-container">
+                                    <div className="chat-body">
+                                        <div className="chat-header">
+                                            <div className="member-info">
+                                                <div className="member-img-wrapper">
+                                                    <img className='member-img' src={allFormInfo ? `${IP}${allFormInfo[0]?.image}` : avatar} alt="member" />
+                                                </div>
+                                                <span className="member-name">{allFormInfo && allFormInfo[0]?.first_name} {allFormInfo && allFormInfo[0]?.last_name}</span>
                                             </div>
-
-                                            <span className="member-name">{userInfo && userInfo.first_name} {userInfo && userInfo.last_name}</span>
+                                            <div>
+                                                <div className="header-wrapper d-flex">
+                                                    <ArrowForwardIcon onClick={() => setShowChat(false)} />
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div>
+                                        <>
                                             {
-                                                (sharedData || type) === "S" ?
-                                                    <SeniorOffCanvas
-                                                        show={showOffCanvas}
-                                                        onHide={() => setShowOffCanvas(false)}
-                                                    />
-                                                    :
-                                                    (sharedData || type) === "M" ?
-                                                        <ManualOffcanvas
-                                                            show={showOffCanvas}
-                                                            onHide={() => setShowOffCanvas(false)}
-                                                        />
-                                                        :
-                                                        (sharedData || type) === "O" ?
-                                                            <OrdinaryOffcanvas
-                                                                show={showOffCanvas}
-                                                                onHide={() => setShowOffCanvas(false)}
-                                                            /> :
-                                                            null
+                                                allMessage.map((message) => (
+                                                    <Message key={message.id}  {...message} />
+                                                ))
+
                                             }
-
-                                            <div className="header-wrapper d-flex">
-                                                <IconButton
-                                                    style={{ color: "#45ABE5", marginLeft: "5px" }}
-                                                    aria-label="open drawer"
-                                                    edge="start"
-                                                    onClick={handleToggleOffCanvas}
-                                                >
-                                                    <MenuIcon />
-                                                </IconButton>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <>
-                                        {
-                                            allMessage.map((message) => (
-                                                <Message key={message.id}  {...message} />
-                                            ))
-
-                                        }
-                                        {showfile &&
-                                            <div className='d-flex align-items-end mt-4 col-sm-12' style={{ direction: "rtl" }}>
-                                                <div className='file-content' style={{ position: "relative" }}>
-                                                    <a className='place' href="#" target='blank' download>
-                                                        <BsFillFileEarmarkArrowDownFill className='fileIcon file-right' />
-                                                    </a>
-                                                    <div className='progress-upload'>
-                                                        <div style={{ width: "55px", height: "55px" }}>
-                                                            <CircularProgressbar
-                                                                minValue={0}
-                                                                maxValue={100}
-                                                                value={uploadPercentage}
-                                                                strokeWidth={5}
-                                                                background={false}
-                                                                styles={{
-                                                                    path: {
-                                                                        stroke: `#45ABE5`,
-                                                                    },
-                                                                    trail: {
-                                                                        stroke: "#ffffff",
-                                                                    },
-                                                                }}
-                                                            />
+                                            {showfile &&
+                                                <div className='d-flex align-items-end mt-4 col-sm-12' style={{ direction: "rtl" }}>
+                                                    <div className='file-content' style={{ position: "relative" }}>
+                                                        <a className='place' href="#" target='blank' download>
+                                                            <BsFillFileEarmarkArrowDownFill className='fileIcon file-right' />
+                                                        </a>
+                                                        <div className='progress-upload'>
+                                                            <div style={{ width: "55px", height: "55px" }}>
+                                                                <CircularProgressbar
+                                                                    minValue={0}
+                                                                    maxValue={100}
+                                                                    value={uploadPercentage}
+                                                                    strokeWidth={5}
+                                                                    background={false}
+                                                                    styles={{
+                                                                        path: {
+                                                                            stroke: `#45ABE5`,
+                                                                        },
+                                                                        trail: {
+                                                                            stroke: "#ffffff",
+                                                                        },
+                                                                    }}
+                                                                />
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
+
+                                            }
+                                        </>
+                                        <div ref={messageEndRef} />
+                                    </div>
+                                    <div className="chat-actions">
+                                        <div className="input-wrapper">
+                                            <input
+                                                onKeyDown={handleKeyDown}
+                                                value={text}
+                                                onChange={e => setText(e.target.value)}
+                                                type="text"
+                                                className='input-send'
+                                                placeholder='Text Message...' />
+                                            <SendSharpIcon
+                                                className='send-icon2'
+                                                onClick={() => sendText()} />
+                                            <div className={text ? "plus-actions2 hiddenActions" : "plus-actions2"}>
+                                                <span className='voice-wrapper2'>
+                                                    <ReactMic className='Voice-wave'
+                                                        record={isRecording}
+                                                        onStop={onStop}
+                                                        ref={micRef}
+                                                    />
+                                                    {
+                                                        isRecording ? (
+
+                                                            <MicOffIcon onClick={stopRecording} />
+                                                        ) : (
+                                                            <KeyboardVoiceIcon onClick={startRecording} />
+                                                        )
+                                                    }
+                                                </span>
+                                                <span className='send-file-action2'>
+                                                    <input
+                                                        onChange={(e) => sendFile(e)}
+                                                        type="file"
+                                                        id='file'
+                                                    />
+                                                    <label
+                                                        style={{ cursor: "pointer", width: "100%", height: "100%" }}
+                                                        htmlFor="file">
+                                                        <AttachmentSharpIcon />
+                                                    </label>
+                                                </span>
                                             </div>
-
-                                        }
-                                    </>
-                                    <div ref={messageEndRef} />
-                                </div>
-                                <div className="chat-actions">
-                                    <div className="input-wrapper">
-                                        <input
-                                            onKeyDown={handleKeyDown}
-                                            value={text}
-                                            onChange={e => setText(e.target.value)}
-                                            type="text"
-                                            className='input-send'
-                                            placeholder='Text Message...' />
-                                        <SendSharpIcon
-                                            className='send-icon2'
-                                            onClick={() => sendText()} />
-                                        <div className={text ? "plus-actions2 hiddenActions" : "plus-actions2"}>
-                                            <span className='voice-wrapper2'>
-                                                <ReactMic className='Voice-wave'
-                                                    record={isRecording}
-                                                    onStop={onStop}
-                                                    ref={micRef}
-                                                />
-                                                {
-                                                    isRecording ? (
-
-                                                        <MicOffIcon onClick={stopRecording} />
-                                                    ) : (
-                                                        <KeyboardVoiceIcon onClick={startRecording} />
-                                                    )
-                                                }
-                                            </span>
-                                            <span className='send-file-action2'>
-                                                <input
-                                                    onChange={(e) => sendFile(e)}
-                                                    type="file"
-                                                    id='file'
-                                                />
-                                                <label
-                                                    style={{ cursor: "pointer", width: "100%", height: "100%" }}
-                                                    htmlFor="file">
-                                                    <AttachmentSharpIcon />
-                                                </label>
-                                            </span>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                        </>
+                                </div> :
+                                <>
+                                    <Header />
+                                    <p style={{ color: "#6EC1E4", padding: "12px" }}>History Chats</p>
+                                    <div className='history-content mt-3'>
+                                        {
+                                            AllForms.length > 0 && AllForms.map(form => (
+                                                <div
+                                                    key={form.group}
+                                                    className="history-item d-flex justify-content-between"
+                                                    onClick={() => {
+                                                        setGroup(form.group)
+                                                        setShowChat(true)
+                                                    }}
+                                                >
+                                                    <p>Form Number : {form.group}</p>
+                                                    <p>{form.date}</p>
+                                                </div>
+                                            ))
+                                        }
+                                    </div>
+                                </>
+                        }
 
-                    </> :
+
+                    </>
+
+                    :
 
                     <div style={{ width: "100%" }}>
-                        <Header />
+                        <HistoryForm
+                            toggleAudianceActive={toggleAudianceActive}
+                            isActive={isAudianceActive}
+                            AllForms={AllForms}
+                            setGroup={setGroup}
+                        />
                         <div className="chat-container">
                             <div className="chat-body">
                                 <div className="chat-header">
                                     <div className="member-info">
                                         <div className="member-img-wrapper">
-                                            <img className='member-img' src={imgProfile ? `${IP}${imgProfile}` : avatar} alt="member" />
+                                            <img className='member-img' src={allFormInfo ? `${IP}${allFormInfo[0]?.image}` : avatar} alt="member" />
                                         </div>
-                                        <span className="member-name">{userInfo && userInfo.first_name} {userInfo && userInfo.last_name}</span>
+                                        <span className="member-name">{allFormInfo && allFormInfo[0]?.first_name} {allFormInfo && allFormInfo[0]?.last_name}</span>
                                     </div>
+                                    <AccountBoxIcon
+                                        onClick={toggleAudianceActive}
+                                        style={{
+                                            cursor: "pointer",
+                                            fontSize: "2rem"
+                                        }}
+                                    />
                                 </div>
 
                                 <>
                                     {
-                                        allMessage.map((message) => (
+                                        allMessage.length > 0 &&
+                                        allMessage?.map((message) => (
                                             <Message key={message.id}  {...message} />
                                         ))
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Audiance.css';
 import CloseIcon from '@mui/icons-material/Close';
 import UserInfo from '../UserInfo/UserInfo';
@@ -6,8 +6,13 @@ import Accordion from 'react-bootstrap/Accordion';
 import avatar from '../../Images/avatar.png'
 import { IP } from '../../App';
 
-export default function Audiance({ isActive, toggleAudianceActive, selectUser, users, setuserProf }) {
+export default function Audiance({ isActive, toggleAudianceActive, selectUser, users }) {
 
+    const [activeKey, setActiveKey] = useState(null);
+
+    const handleToggle = (key) => {
+        setActiveKey(activeKey === key ? null : key);
+    };
     const filterUnique = (array) => {
         const uniqueKeys = new Set();
         const uniqueItems = [];
@@ -33,9 +38,10 @@ export default function Audiance({ isActive, toggleAudianceActive, selectUser, u
                 </div>
                 <div className='audiance-content mt-3'>
                     {
-                        users.map(userItem => (
-                            <Accordion defaultActiveKey={null} key={userItem.first_name}>
-                                <Accordion.Item eventKey="0">
+                        users?.length > 0 &&
+                        users.map((userItem, index) => (
+                            <Accordion activeKey={activeKey} onSelect={() => handleToggle(index)} key={index}>
+                                <Accordion.Item eventKey={index}>
                                     <Accordion.Header>
                                         <div className='audiance-header'>
                                             <div className='img-profile-item'>
@@ -51,7 +57,6 @@ export default function Audiance({ isActive, toggleAudianceActive, selectUser, u
                                                     key={item.group}
                                                     user={item}
                                                     selectUser={() => selectUser(userItem, item.group)}
-                                                    setuserProf={setuserProf}
                                                 />
                                             ))
                                         }

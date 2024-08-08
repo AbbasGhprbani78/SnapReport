@@ -39,6 +39,7 @@ export default function Chat() {
     const prevLengthRef = useRef(0);
     const [imgProfile, setImageProfile] = useState(null)
     const [mainGroup, setMainGroup] = useState("")
+    const [activeKey, setActiveKey] = useState(null);
 
 
     const startRecording = () => {
@@ -242,7 +243,6 @@ export default function Chat() {
         setImageProfile(user?.image)
         setAudiuanceInfo(user)
         setSelectedUser(user)
-        setShowChat(true)
         localStorage.setItem("uuiduserChat", user.uuid)
         setIsAudianceActive(false)
         prevLengthRef.current = 0
@@ -253,8 +253,8 @@ export default function Chat() {
             localStorage.setItem("group", user?.form[0]?.group)
             setMainGroup(user?.form[0]?.group)
         }
-
     }
+
 
     useEffect(() => {
         getAllUser()
@@ -304,6 +304,26 @@ export default function Chat() {
     }, [allMessage]);
 
 
+
+    const filterUnique = (array) => {
+        const uniqueKeys = new Set();
+        const uniqueItems = [];
+
+        for (const item of array) {
+            const key = `${item.group}-${item.date}`;
+            if (!uniqueKeys.has(key)) {
+                uniqueKeys.add(key);
+                uniqueItems.push(item);
+            }
+        }
+
+        return uniqueItems;
+    }
+
+
+    const handleToggle = (key) => {
+        setActiveKey(activeKey === key ? null : key);
+    };
 
     return (
         <>
@@ -419,82 +439,37 @@ export default function Chat() {
                                     <AiHeader />
                                     <div className="list-users">
                                         <div className='audiance-content mt-3'>
-                                            <Accordion defaultActiveKey={null}>
-                                                <Accordion.Item eventKey="0">
-                                                    <Accordion.Header>
-                                                        <div className='audiance-header'>
-                                                            <div className='img-profile-item'>
-                                                                <img src="../../../src/Images/avatar.png" alt="profile" />
-                                                            </div>
-                                                            <p className='audiance-name'>Abbas Ghorbani</p>
-                                                        </div>
-                                                    </Accordion.Header>
-                                                    <Accordion.Body>
-                                                        <UserInfo
-                                                            key={user.uuid}
-                                                            user={user}
-                                                            selectForm={() => selectUser(user.uuid)}
-                                                        />
-
-                                                        <UserInfo
-                                                            key={user.uuid}
-                                                            user={user}
-                                                            selectUser={() => selectUser(user.uuid)}
-                                                        />
-
-                                                        <UserInfo
-                                                            key={user.uuid}
-                                                            user={user}
-                                                            selectUser={() => selectUser(user.uuid)}
-                                                        />
-
-                                                        <UserInfo
-                                                            key={user.uuid}
-                                                            user={user}
-                                                            selectUser={() => selectUser(user.uuid)}
-                                                        />
-                                                    </Accordion.Body>
-                                                </Accordion.Item>
-                                            </Accordion>
-                                            <Accordion defaultActiveKey={null}>
-                                                <Accordion.Item eventKey="0">
-                                                    <Accordion.Header>
-                                                        <div className='audiance-header'>
-                                                            <div className='img-profile-item'>
-                                                                <img src="../../../src/Images/avatar.png" alt="profile" />
-                                                            </div>
-                                                            <p className='audiance-name'>Abbas Ghorbani</p>
-                                                        </div>
-                                                    </Accordion.Header>
-                                                    <Accordion.Body>
-
-                                                        <UserInfo
-                                                            key={user.uuid}
-                                                            user={user}
-                                                            selectUser={() => selectUser(user.uuid)}
-                                                        />
-
-                                                        <UserInfo
-                                                            key={user.uuid}
-                                                            user={user}
-                                                            selectUser={() => selectUser(user.uuid)}
-                                                        />
-
-                                                        <UserInfo
-                                                            key={user.uuid}
-                                                            user={user}
-                                                            selectUser={() => selectUser(user.uuid)}
-                                                        />
-
-                                                        <UserInfo
-                                                            key={user.uuid}
-                                                            user={user}
-                                                            selectUser={() => selectUser(user.uuid)}
-                                                        />
-                                                    </Accordion.Body>
-                                                </Accordion.Item>
-                                            </Accordion>
-
+                                            {
+                                                users.length > 0 &&
+                                                users.map((user, index) => (
+                                                    <Accordion activeKey={activeKey} onSelect={() => handleToggle(index)} key={index}>
+                                                        <Accordion.Item eventKey={index}>
+                                                            <Accordion.Header>
+                                                                <div className='audiance-header'>
+                                                                    <div className='img-profile-item'>
+                                                                        <img src={user?.image ? `${IP}${user?.image}` : avatar} alt="profile" />
+                                                                    </div>
+                                                                    <p className='audiance-name'>{user?.first_name} {user?.last_name}</p>
+                                                                </div>
+                                                            </Accordion.Header>
+                                                            <Accordion.Body>
+                                                                {
+                                                                    filterUnique(user?.form).map(item => (
+                                                                        <UserInfo
+                                                                            key={item.group}
+                                                                            user={item}
+                                                                            selectUser={() => {
+                                                                                selectUser(user, item.group);
+                                                                                setShowChat(true);
+                                                                            }}
+                                                                        />
+                                                                    ))
+                                                                }
+                                                            </Accordion.Body>
+                                                        </Accordion.Item>
+                                                    </Accordion>
+                                                ))
+                                            }
                                         </div>
                                     </div>
                                 </div>
@@ -503,7 +478,6 @@ export default function Chat() {
 
                     </> :
                     <div style={{ width: "100%" }}>
-                        {/* <AiHeader /> */}
                         <Audiance
                             selectUser={selectUser}
                             isActive={isAudianceActive}
@@ -538,7 +512,8 @@ export default function Chat() {
                                         ))
 
                                     }
-                                    {showfile &&
+                                    {
+                                        showfile &&
                                         <div className='d-flex align-items-end mt-4 col-sm-12' style={{ direction: "rtl" }}>
                                             <div className='file-content' style={{ position: "relative" }}>
                                                 <a className='place' href="#" target='blank' download>
@@ -626,4 +601,4 @@ export default function Chat() {
 
 
 
-//user/senior-cha
+//user/senior-chat

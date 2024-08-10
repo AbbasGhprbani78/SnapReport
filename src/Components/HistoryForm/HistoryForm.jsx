@@ -16,7 +16,10 @@ export default function HistoryForm({ isActive, toggleAudianceActive, AllForms, 
                         <div
                             key={form.group}
                             className="history-item d-flex justify-content-between"
-                            onClick={() => setGroup(form.group)}
+                            onClick={() => {
+                                setGroup(form.group)
+                                toggleAudianceActive()
+                            }}
                         >
                             <p>Form Number : {form.group}</p>
                             <p>{form.date}</p>

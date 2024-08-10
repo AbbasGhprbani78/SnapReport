@@ -246,17 +246,16 @@ export default function ManualChat() {
     }, [])
 
 
-    // useEffect(() => {
-    //     const interval = setInterval(() => {
-    //         getMessages()
-    //     }, 1000);
-    //     return () => clearInterval(interval);
-    // }, []);
+    useEffect(() => {
+        const interval = setInterval(() => {
+            getMessages()
+        }, 1000);
+        return () => clearInterval(interval);
+    }, [group]);
 
 
 
     useEffect(() => {
-
         if (allMessage.length <= 3) {
             return
         }
@@ -279,7 +278,6 @@ export default function ManualChat() {
             window.removeEventListener('resize', handleWindowResize);
         };
     }, []);
-
 
 
     const handleKeyDown = (event) => {

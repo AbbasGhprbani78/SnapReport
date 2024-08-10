@@ -247,18 +247,17 @@ export default function OrdinaryChat() {
 
 
 
-
     useEffect(() => {
         getAllForms()
     }, [])
 
 
-    // useEffect(() => {
-    //     const interval = setInterval(() => {
-    //         getMessages()
-    //     }, 1000);
-    //     return () => clearInterval(interval);
-    // }, [group]);
+    useEffect(() => {
+        const interval = setInterval(() => {
+            getMessages()
+        }, 1000);
+        return () => clearInterval(interval);
+    }, [group]);
 
 
     useEffect(() => {

@@ -13,13 +13,12 @@ export default function SignIn() {
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
 
-    // for display signin form or signUp form as tab
+
     const changeTab = (tabnumber) => {
         setLoginTab(tabnumber);
     }
 
 
-    // to change the page structure for tablet and mobile screen size
     useEffect(() => {
         const handleWindowResize = () => {
             setWindowWidth(window.innerWidth);
@@ -101,3 +100,5 @@ export default function SignIn() {
         </>
     )
 }
+
+

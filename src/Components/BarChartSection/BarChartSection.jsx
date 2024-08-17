@@ -44,7 +44,7 @@ export default function BarChartSection() {
                         data={data}
                     >
                         <CartesianGrid strokeDasharray="3 3" />
-                        <YAxis label={{ value: 'Number Of Accidents', angle: -90, position: 'insideLeft' }} />
+                        <YAxis label={{ value: 'Number Of Accidents', angle: -90, position: 'insideRight' }} />
                         <Tooltip content={<CustomTooltip />} />
                         <Bar dataKey="number" fill="#4285f4" />
                     </BarChart>

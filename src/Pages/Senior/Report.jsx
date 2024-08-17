@@ -94,12 +94,9 @@ export default function Report() {
         }
     };
 
-
-
     const handleChangechart = (event) => {
         setValueBarChart(event.target.value);
     };
-
 
 
     const handleChange = (panel) => (event, isExpanded) => {
@@ -300,7 +297,7 @@ export default function Report() {
                                                                     <p className='date-notif-item '>{dayjs(notif.created_at).format('YYYY-MM-DD HH:mm')}</p>
                                                                 </div>
                                                             </Accordion.Header>
-                                                            <Accordion.Body>
+                                                            <Accordion.Body style={{ padding: '10px' }}>
                                                                 {notif.message}
                                                             </Accordion.Body>
                                                         </Accordion.Item>
@@ -325,32 +322,3 @@ export default function Report() {
 
 
 
-
-//  <Col xs={12} lg={5} xl={4} className="chart-right">
-//     <PermitViewers valueViewers={permitState} />
-//     <Viewers1 kindForm={kindForm} />
-// </Col>
-
-
-//   const getLable = async () => {
-//         const access = localStorage.getItem("access")
-//         const headers = {
-//             Authorization: `Bearer${access}`
-//         }
-//         try {
-//             const response = await axios.post(`${IP}/form/single-send-data-to-api/`, {
-//                 headers
-//             })
-
-//             if (response.status === 200) {
-
-//               
-//                 localStorage.setItem("message", response.data.message);
-//             }
-//         } catch (error) {
-//             if (error.response.status === 401) {
-//                 localStorage.clear()
-//                 navigate("/login")
-//             }
-//         }
-//     }

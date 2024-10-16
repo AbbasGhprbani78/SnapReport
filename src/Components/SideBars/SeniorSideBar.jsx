@@ -513,13 +513,12 @@ export default function SeniorsideBar() {
                                     <ListItemButton
                                         onClick={() => handleItemClick('/logout')}
                                         sx={{
-                                            mt: 10,
                                             '&:hover': { backgroundColor: '#DDF0FA' },
                                             backgroundColor: currentRoute === '/logout' ? '#DDF0FA' : 'inherit',
                                         }}
                                     >
                                         <ListItemIcon style={{ color: "#000" }}>
-                                            {drawerIcons[5]}
+                                            {drawerIcons[6]}
                                         </ListItemIcon>
                                         <ListItemText primary="Log out" />
                                     </ListItemButton>

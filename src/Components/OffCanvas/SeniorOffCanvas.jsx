@@ -30,7 +30,7 @@ import SearchIcon from '@mui/icons-material/Search'
 import { IP } from '../../App';
 import { Link } from 'react-router-dom';
 import Modal from 'react-bootstrap/Modal';
-import { SearchContext } from '../Context/SearchContext'; 
+import { SearchContext } from '../Context/SearchContext';
 import { useContext } from 'react';
 import { Collapse } from '@mui/material';
 
@@ -524,13 +524,12 @@ export default function SeniorOffCanvas({ show, onHide }) {
                                     <ListItemButton
                                         onClick={() => handleItemClick('/logout')}
                                         sx={{
-                                            mt: 10,
                                             '&:hover': { backgroundColor: '#DDF0FA' },
                                             backgroundColor: currentRoute === '/logout' ? '#DDF0FA' : 'inherit',
                                         }}
                                     >
                                         <ListItemIcon style={{ color: "#000" }}>
-                                            {drawerIcons[5]}
+                                            {drawerIcons[6]}
                                         </ListItemIcon>
                                         <ListItemText primary="Log out" />
                                     </ListItemButton>

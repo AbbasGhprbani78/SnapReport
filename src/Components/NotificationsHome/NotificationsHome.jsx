@@ -11,7 +11,8 @@ export default function NotificationsHome({
     openDefaultInspectionsForm,
     setRandomId,
     setNotifId,
-    heightnotif
+    heightnotif,
+    setGroup
 }) {
 
     const [notifs, setNotifs] = useState(null)
@@ -44,6 +45,7 @@ export default function NotificationsHome({
         getAllNotifications()
     }, [])
 
+    console.log(notifs)
 
     return (
         <>
@@ -69,6 +71,8 @@ export default function NotificationsHome({
                                             setRandomId={setRandomId}
                                             setNotifId={setNotifId}
                                             check={notif.checked}
+                                            group={notif.group}
+                                            setGroup={setGroup}
                                         />
                                     ))
                                 }

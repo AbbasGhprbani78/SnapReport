@@ -16,13 +16,11 @@ import FillItem from '../FillItem/FillItem';
 export default function HistoryTable({ setShowHistory }) {
 
     const [locations, setLocation] = useState()
-    const [filterLoc, setFilterLoc] = useState()
+    const [filterLoc, setFilterLoc] = useState([])
     const [allForm, setAllForm] = useState([])
     const [showForm, setShowForm] = useState(false)
     const [acceptForm, setAcceptForm] = useState("")
     const [checks, setChecks] = useState('')
-
-   
 
 
     const getHistoryLocation = async () => {
@@ -38,7 +36,7 @@ export default function HistoryTable({ setShowHistory }) {
             if (response.status === 200) {
                 setLocation(response.data)
                 setFilterLoc(response.data)
-             
+
             }
 
         } catch (e) {
@@ -110,7 +108,6 @@ export default function HistoryTable({ setShowHistory }) {
         })
     }
 
-
     useEffect(() => {
         getHistoryLocation()
         getAllFillForms()
@@ -153,7 +150,7 @@ export default function HistoryTable({ setShowHistory }) {
                             </div>
                         </div>
                     </> :
-                    <div div style={{ padding: "0 25px" }}>
+                    <div style={{ padding: "0 25px" }}>
                         <div className='my-3'>
                             <div
                                 onClick={() => setShowHistory(false)}
@@ -187,11 +184,13 @@ export default function HistoryTable({ setShowHistory }) {
                                         </TableCell>
                                         <TableCell className='head-table-r' align="center">Date</TableCell>
                                         <TableCell className='head-table-r' align="center">Description</TableCell>
+                                        <TableCell className='head-table-r' align="center">Manual Officer</TableCell>
+                                        <TableCell className='head-table-r' align="center">form Number</TableCell>
                                         <TableCell className='head-table-r' align="center">Actions</TableCell>
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
-                                    {filterLoc?.slice().reverse().map((loc) => (
+                                    {filterLoc.length > 0 ? filterLoc.slice().reverse().map((loc) => (
                                         <TableRow
                                             key={loc.id}
                                             sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
@@ -211,6 +210,12 @@ export default function HistoryTable({ setShowHistory }) {
                                                             `In ${loc.location} there is no accident`
                                                 }
                                             </TableCell>
+                                            <TableCell className='two-col-c' align="center">
+                                                {loc?.user?.first_name} {loc?.user?.last_name}
+                                            </TableCell>
+                                            <TableCell className='two-col-c' align="center">
+                                                {loc?.group}
+                                            </TableCell>
                                             < TableCell >
                                                 {
                                                     loc.status == 1 &&
@@ -227,7 +232,11 @@ export default function HistoryTable({ setShowHistory }) {
                                                 }
                                             </TableCell>
                                         </TableRow>
-                                    ))}
+                                    )) :
+                                        <>
+                                            <p className='text-center py-3' style={{ color: "#89CCE5" }}>Loading ...</p>
+                                        </>
+                                    }
                                 </TableBody>
                             </Table>
                         </TableContainer >

@@ -23,6 +23,7 @@ export default function OrdinaryHome() {
     const [randomId, setRandomId] = useState("")
     const [notifId, setNotifId] = useState("")
     const { type } = useMyContext();
+    const [group, setGroup] = useState("")
 
 
 
@@ -63,7 +64,7 @@ export default function OrdinaryHome() {
                 headers,
             });
             if (response.status === 200) {
-               
+                console.log(response.data)
             }
 
         } catch (e) {
@@ -99,6 +100,7 @@ export default function OrdinaryHome() {
         setMainFields(mainForm[0].fields)
         setSOpenDefaultIns(true)
         setShowForm(true)
+
     }
 
 
@@ -126,10 +128,11 @@ export default function OrdinaryHome() {
                             isOpenDefaultIns={isOpenDefaultIns}
                             randomId={randomId}
                             notifId={notifId}
+                            group={group}
                         />
                     </>) : (
                     <>
-                        <div div className="home-container" >
+                        <div className="home-container" >
                             <Header />
 
                             <div className='d-flex flex-wrap wrap-ordinaryhome'>
@@ -287,6 +290,7 @@ export default function OrdinaryHome() {
                                             setRandomId={setRandomId}
                                             setNotifId={setNotifId}
                                             heightnotif={"heightnotif"}
+                                            setGroup={setGroup}
                                         />
                                     </div>
                                 </Col>

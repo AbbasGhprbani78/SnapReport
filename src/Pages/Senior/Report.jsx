@@ -14,14 +14,12 @@ import AiHeader from '../../Components/AiHeader/AiHeader';
 import HistoryTable from '../../Components/HistoryTable/HistoryTable'
 export default function Report() {
 
-    const [expanded, setExpanded] = React.useState(false);
-    const [progressData, setProgressData] = useState("");
     const [notifs, setNotif] = useState("")
     const [notFix, setNotFix] = useState(false)
     const [showHistory, setShowHistory] = useState(false)
     const [lineData, setLineData] = useState("");
     const [valueBarChart, setValueBarChart] = useState("All");
-    const [getLable, setGetLable] = useState(false)
+
 
     const allLineChart = async () => {
 
@@ -99,32 +97,29 @@ export default function Report() {
     };
 
 
-    const handleChange = (panel) => (event, isExpanded) => {
-        setExpanded(isExpanded ? panel : false);
-    };
 
 
-    const getProgressData = async () => {
-        const access = localStorage.getItem("access")
-        const headers = {
-            Authorization: `Bearer ${access}`
-        };
-        try {
-            const response = await axios.get(`${IP}/form/equipment-stats/`, {
-                headers,
-            })
+    // const getProgressData = async () => {
+    //     const access = localStorage.getItem("access")
+    //     const headers = {
+    //         Authorization: `Bearer ${access}`
+    //     };
+    //     try {
+    //         const response = await axios.get(`${IP}/form/equipment-stats/`, {
+    //             headers,
+    //         })
 
-            if (response.status === 200) {
-                setProgressData(response.data)
-            }
+    //         if (response.status === 200) {
+    //             setProgressData(response.data)
+    //             console.log(response.data)
+    //         }
 
-        } catch (e) {
-            if (e.response.status === 401) {
-                localStorage.clear()
-                navigate("/login")
-            }
-        }
-    }
+    //     } catch (e) {
+    //         if (e.response.status === 401) {
+    //             localStorage.clear()
+    //         }
+    //     }
+    // }
 
 
     const getNotif = async () => {
@@ -144,7 +139,6 @@ export default function Report() {
         } catch (e) {
             if (e.response.status === 401) {
                 localStorage.clear()
-                navigate("/login")
             }
         }
     }
@@ -160,59 +154,9 @@ export default function Report() {
                 headers,
             })
 
-            if (response.status === 200) {
-            }
-
         } catch (e) {
             if (e.response.status === 401) {
                 localStorage.clear()
-                navigate("/login")
-            }
-        }
-    }
-
-
-    const getAllloc = async () => {
-        const access = localStorage.getItem("access")
-        const headers = {
-            Authorization: `Bearer${access}`
-        }
-        try {
-            const response = await axios.post(`${IP}/form/send-data-to-api/`, {
-                headers
-            })
-
-            if (response.status === 200) {
-                setGetLable(true)
-            }
-        } catch (error) {
-            if (error.response.status === 401) {
-                localStorage.clear()
-                navigate("/login")
-            }
-        }
-    }
-
-
-    const randomData = async () => {
-
-        const access = localStorage.getItem("access")
-        const headers = {
-            Authorization: `Bearer${access}`
-        }
-        try {
-            const response = await axios.post(`${IP}/form/random-data/`, {
-                headers
-            })
-
-            if (response.status === 201) {
-                getAllloc()
-            }
-        } catch (error) {
-
-            if (error.response.status === 401) {
-                localStorage.clear()
-                navigate("/login")
             }
         }
     }
@@ -222,14 +166,13 @@ export default function Report() {
         getlineChart();
     }, [valueBarChart]);
 
+
     useEffect(() => {
         allLineChart()
     }, [valueBarChart])
 
 
     useEffect(() => {
-        randomData()
-        getProgressData()
         getNotif()
         allLineChart()
     }, [])
@@ -272,7 +215,6 @@ export default function Report() {
                                         <div className='table-section'>
                                             <TableLocation
                                                 setShowHistory={setShowHistory}
-                                                getLable={getLable}
                                             />
                                         </div>
                                     </Col>

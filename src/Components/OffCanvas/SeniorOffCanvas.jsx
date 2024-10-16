@@ -32,6 +32,8 @@ import { Link } from 'react-router-dom';
 import Modal from 'react-bootstrap/Modal';
 import { SearchContext } from '../Context/SearchContext'; 
 import { useContext } from 'react';
+import { Collapse } from '@mui/material';
+
 
 const drawerWidth = 280;
 const DrawerHeader = styled('div')(({ theme }) => ({
@@ -56,6 +58,7 @@ export default function SeniorOffCanvas({ show, onHide }) {
     const [showPasswordInputs, setShowPasswordInputs] = useState(false)
     const [password, setPassword] = useState("")
     const [email, setEmail] = useState("")
+    const [submenuOpen, setSubmenuOpen] = useState(false);
     const { setSearchResult, search, setSearch } = useContext(SearchContext)
 
 
@@ -422,26 +425,117 @@ export default function SeniorOffCanvas({ show, onHide }) {
                         </DrawerHeader>
 
                         <List>
-                            {['Home', 'Add New Form', 'Generated Forms', "Filled Forms", "Reports", "Chat", "Log out"].map((text, index) => (
-                                <CSSTransition key={text} timeout={300} classNames="fade">
-                                    <ListItem key={text} disablePadding>
-                                        <ListItemButton
-                                            onClick={() => handleItemClick(text === 'Home' ? '/' : text === "Filled Forms" ? "/filledforms/0" : `/${text.toLowerCase().replace(/\s/g, '')}`)}
-                                            sx={{
-                                                mt: text === "Log out" ? 10 : 0,
-                                                '&:hover': { backgroundColor: '#DDF0FA' },
-                                                backgroundColor: currentRoute === (text === 'Home' ? '/' : `/${text.toLowerCase().replace(/\s/g, '')}`) ? '#DDF0FA' : 'inherit',
+                            {/* Home Item */}
+                            <CSSTransition key="Home" timeout={300} classNames="fade">
+                                <ListItem disablePadding>
+                                    <ListItemButton
+                                        onClick={() => handleItemClick('/')}
+                                        sx={{
+                                            '&:hover': { backgroundColor: '#DDF0FA' },
+                                            backgroundColor: currentRoute === '/' ? '#DDF0FA' : 'inherit',
+                                        }}
+                                    >
+                                        <ListItemIcon style={{ color: "#000" }}>
+                                            {drawerIcons[0]}
+                                        </ListItemIcon>
+                                        <ListItemText primary="Home" />
+                                    </ListItemButton>
+                                </ListItem>
+                            </CSSTransition>
+                            <CSSTransition key="Forms" timeout={300} classNames="fade">
+                                <ListItem disablePadding>
+                                    <ListItemButton
+                                        onClick={() => {
+                                            setSubmenuOpen(!submenuOpen)
+                                            handleItemClick('/forms')
+                                        }
+                                        }
+                                        sx={{
+                                            '&:hover': { backgroundColor: '#DDF0FA' },
+                                            backgroundColor: currentRoute === '/forms' ? '#DDF0FA' : 'inherit',
+                                        }}
+                                    >
+                                        <ListItemIcon style={{ color: "#000" }}>
+                                            {drawerIcons[2]}
+                                        </ListItemIcon>
+                                        <ListItemText primary="Forms" />
+                                    </ListItemButton>
+                                </ListItem>
+                            </CSSTransition>
 
+                            {/* Submenu: Add New Form and Filled Forms */}
+                            <Collapse in={submenuOpen} timeout="auto" unmountOnExit>
+                                <CSSTransition key="Add New Form" timeout={300} classNames="fade">
+                                    <ListItem disablePadding sx={{ pl: 4 }}>
+                                        <ListItemButton
+                                            onClick={() => handleItemClick('/addnewform')}
+                                            sx={{
+                                                '&:hover': { backgroundColor: '#DDF0FA' },
+                                                backgroundColor: currentRoute === '/addnewform' ? '#DDF0FA' : 'inherit',
                                             }}
                                         >
                                             <ListItemIcon style={{ color: "#000" }}>
-                                                {drawerIcons[index]}
+                                                {drawerIcons[1]}
                                             </ListItemIcon>
-                                            <ListItemText primary={text} />
+                                            <ListItemText primary="Add New Form" />
                                         </ListItemButton>
                                     </ListItem>
                                 </CSSTransition>
-                            ))}
+
+                                <CSSTransition key="Filled Forms" timeout={300} classNames="fade">
+                                    <ListItem disablePadding sx={{ pl: 4 }}>
+                                        <ListItemButton
+                                            onClick={() => handleItemClick('filledforms/0')}
+                                            sx={{
+                                                '&:hover': { backgroundColor: '#DDF0FA' },
+                                                backgroundColor: currentRoute === '/filledforms/0' ? '#DDF0FA' : 'inherit',
+                                            }}
+                                        >
+                                            <ListItemIcon style={{ color: "#000" }}>
+                                                {drawerIcons[3]}
+                                            </ListItemIcon>
+                                            <ListItemText primary="Filled Forms" />
+                                        </ListItemButton>
+                                    </ListItem>
+                                </CSSTransition>
+                            </Collapse>
+
+                            {/* Chat Item */}
+                            <CSSTransition key="Chat" timeout={300} classNames="fade">
+                                <ListItem disablePadding>
+                                    <ListItemButton
+                                        onClick={() => handleItemClick('/chat')}
+                                        sx={{
+                                            '&:hover': { backgroundColor: '#DDF0FA' },
+                                            backgroundColor: currentRoute === '/chat' ? '#DDF0FA' : 'inherit',
+                                        }}
+                                    >
+                                        <ListItemIcon style={{ color: "#000" }}>
+                                            {drawerIcons[4]}
+                                        </ListItemIcon>
+                                        <ListItemText primary="Chat" />
+                                    </ListItemButton>
+                                </ListItem>
+                            </CSSTransition>
+
+                            {/* Log out Item */}
+                            <CSSTransition key="Log out" timeout={300} classNames="fade">
+                                <ListItem disablePadding>
+                                    <ListItemButton
+                                        onClick={() => handleItemClick('/logout')}
+                                        sx={{
+                                            mt: 10,
+                                            '&:hover': { backgroundColor: '#DDF0FA' },
+                                            backgroundColor: currentRoute === '/logout' ? '#DDF0FA' : 'inherit',
+                                        }}
+                                    >
+                                        <ListItemIcon style={{ color: "#000" }}>
+                                            {drawerIcons[5]}
+                                        </ListItemIcon>
+                                        <ListItemText primary="Log out" />
+                                    </ListItemButton>
+                                </ListItem>
+                            </CSSTransition>
                         </List>
 
                     </Drawer>

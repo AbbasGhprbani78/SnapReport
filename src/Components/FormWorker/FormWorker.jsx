@@ -18,7 +18,8 @@ export default function FormWorker({
     getFormData,
     isOpenDefaultIns,
     randomId,
-    notifId
+    notifId,
+    group
 }) {
 
     const user = localStorage.getItem("uuid")
@@ -109,7 +110,6 @@ export default function FormWorker({
             Authorization: `Bearer ${access}`
         };
 
-
         const body = {
             form_uuid: uuid,
             fields: updatedFields
@@ -121,8 +121,9 @@ export default function FormWorker({
         if (notifId) {
             body.notif_id = notifId
         }
-
-     
+        if (group) {
+            body.group = group
+        }
 
 
         try {

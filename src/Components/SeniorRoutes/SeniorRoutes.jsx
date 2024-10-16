@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import  { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { isSenior } from './SeniorUtils'
 import { useMyContext } from '../RoleContext';
@@ -7,9 +7,10 @@ import axios from 'axios';
 import Loading from '../Loading/Loading';
 
 export default function SeniorRoute({ children }) {
+
     const [typeUser, setTypeUser] = useState();
     const [isLoading, setIsLoading] = useState(true);
-    const { type, updateType } = useMyContext()
+    const { updateType } = useMyContext()
     const navigate = useNavigate()
 
     const validateUser = async () => {

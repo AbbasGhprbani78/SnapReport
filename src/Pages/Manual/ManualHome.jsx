@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import '../../Style/Home.css'
 import Header from '../../Components/Header/Header'
 import { IP } from '../../App';
@@ -79,7 +79,7 @@ export default function ManualHome() {
                         />
                     </>) : (
                     <>
-                        <div div className="home-container" >
+                        <div  className="home-container" >
                             <Header />
                             {
                                 PermitForms.length > 0 ?
@@ -198,40 +198,3 @@ export default function ManualHome() {
     )
 }
 
-
-
-// {
-//     inspections.length > 0 ?
-//         <>
-//             <TopSection
-//                 text="Inspections forms"
-//             />
-//             <div className='bottomHome-worker'>
-//                 {
-//                     inspections.slice().reverse().map((form) => (
-//                         <BoxtForm
-//                             key={form.uuid}
-//                             styleCalss={"oliveForm"}
-//                             title="Inspections Form"
-//                             openForm={openFormHandler}
-//                             des={form.descriptions}
-//                             setMainTitle={setMainTitle}
-//                             setMainDes={setMainDes}
-//                             setuuid={setUuuid}
-//                             setMainFields={setMainFields}
-//                             titleForm={form.title}
-//                             uuid={form.uuid}
-//                             fields={form.fields}
-//                         />))
-//                 }
-
-//             </div>
-//         </> :
-//         <>
-//             <TopSection
-//                 text="Inspections forms"
-//             />
-//             <div className='noform formhome-worker'>There is no form</div>
-//         </>
-
-// }

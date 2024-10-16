@@ -74,7 +74,7 @@ export default function ConditionFormBox({
                                             form?.fields[0]?.checks[0]?.user?.user_type === "M" ? "Manual Worker" :
                                                 form?.fields[0]?.checks[0]?.user?.user_type === "S" ? "Senior Officer" : ""
                                         }
-                                        <span style={{ marginLeft: "10px", fontSize: ".8rem" }}>{dayjs(form?.fields[0]?.checks[0]?.date).format('YYYY-MM-DD HH:mm')}</span>
+                                        <span style={{ marginLeft: "10px", fontSize: ".9rem" }}>{dayjs(form?.fields[0]?.checks[0]?.date).format('YYYY-MM-DD HH:mm')}</span>
                                     </p>
                                     <div className='mb-2'>FormNumber : {form?.fields[0]?.checks[0]?.group}</div>
                                     <p className='ConditionFormBox-dec'>{dec}</p>
@@ -110,7 +110,7 @@ export default function ConditionFormBox({
                                             form?.fields[0]?.checks[0]?.user?.user_type === "M" ? "Manual Worker" :
                                                 form?.fields[0]?.checks[0]?.user?.user_type === "S" ? "Senior Officer" : ""
                                         }
-                                        <span style={{ marginLeft: "10px", fontSize: ".8rem" }}>{dayjs(form?.fields[0]?.checks[0]?.date).format('YYYY-MM-DD HH:mm')}</span>
+                                        <span style={{ marginLeft: "10px", fontSize: ".9rem" }}>{dayjs(form?.fields[0]?.checks[0]?.date).format('YYYY-MM-DD HH:mm')}</span>
                                     </p>
                                     <div className='mb-2'>FormNumber : {form?.fields[0]?.checks[0]?.group}</div>
                                     <div>
@@ -147,7 +147,7 @@ export default function ConditionFormBox({
                                                 form?.fields[0]?.checks[0]?.user?.user_type === "M" ? "Manual Worker" :
                                                     form?.fields[0]?.checks[0]?.user?.user_type === "S" ? "Senior Officer" : ""
                                             }
-                                            <span style={{ marginLeft: "10px", fontSize: ".8rem" }}>{dayjs(form?.fields[0]?.checks[0]?.date).format('YYYY-MM-DD HH:mm')}</span>
+                                            <span style={{ marginLeft: "10px", fontSize: ".9rem" }}>{dayjs(form?.fields[0]?.checks[0]?.date).format('YYYY-MM-DD HH:mm')}</span>
                                         </p>
                                         <div className='mb-2'>FormNumber : {form?.fields[0]?.checks[0]?.group}</div>
 
@@ -192,7 +192,7 @@ export default function ConditionFormBox({
                                                     form?.fields[0]?.checks[0]?.user?.user_type === "M" ? "Manual Worker" :
                                                         form?.fields[0]?.checks[0]?.user?.user_type === "S" ? "Senior Officer" : ""
                                                 }
-                                                <span style={{ marginLeft: "10px", fontSize: ".8rem" }}>{dayjs(form?.fields[0]?.checks[0]?.date).format('YYYY-MM-DD HH:mm')}</span>
+                                                <span style={{ marginLeft: "10px", fontSize: ".9rem" }}>{dayjs(form?.fields[0]?.checks[0]?.date).format('YYYY-MM-DD HH:mm')}</span>
                                             </p>
                                             <div className='mb-2'>FormNumber : {form?.fields[0]?.checks[0]?.group}</div>
                                             <div>

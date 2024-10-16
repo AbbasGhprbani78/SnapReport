@@ -1,7 +1,7 @@
 import Home from "./Pages/Senior/Home";
 import PageNotFound from "./Pages/PageNotFound";
 import AddNewForm from "./Pages/Senior/AddNewForm";
-import AllForm from "./Pages/Senior/AllForm";
+// import AllForm from "./Pages/Senior/AllForm";
 import FilledForms from './Pages/Senior/FlledForms'
 import Chat from './Pages/Senior/Chat'
 import SeniorRoutes from "./Components/SeniorRoutes/SeniorRoutes";
@@ -39,9 +39,8 @@ let routes = [
     { path: "/ordinarypermitform", element: <OrdinaryRoutes><OrdinaryPermitForm /></OrdinaryRoutes> },
 
 
-    { path: "/reports", element: <SeniorRoutes><Home /></SeniorRoutes> },
+    { path: "/forms", element: <SeniorRoutes><Home /></SeniorRoutes> },
     { path: "/addnewform", element: <SeniorRoutes><AddNewForm /></SeniorRoutes> },
-    { path: "/generatedforms", element: <SeniorRoutes><AllForm /></SeniorRoutes> },
     { path: "/filledforms/:todoid", element: <SeniorRoutes><FilledForms /></SeniorRoutes> },
     { path: "/", element: <SeniorRoutes><Report /></SeniorRoutes> },
     { path: "/chat", element: <SeniorRoutes><Chat /></SeniorRoutes> },

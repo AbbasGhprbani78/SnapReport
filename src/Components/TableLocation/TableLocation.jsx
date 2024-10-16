@@ -1,5 +1,4 @@
-import React, { useEffect } from 'react'
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { IP } from '../../App'
 import './TableLocation.css'
@@ -13,11 +12,12 @@ import Paper from '@mui/material/Paper';
 import CloseIcon from '@mui/icons-material/Close';
 import { useContext } from 'react';
 import { SearchContext } from '../Context/SearchContext';
-import { Spinner } from 'react-bootstrap';
 
-export default function TableLocation({ setShowHistory, getLable }) {
 
-    const [locations, setLocation] = useState()
+export default function TableLocation({ setShowHistory }) {
+    
+    const { allLocations } = useContext(SearchContext)
+    const [locations, setLocation] = useState([])
     const [filterLoc, setFilterLoc] = useState([])
     const [users, setUsers] = useState([])
     const [showModal, setShowModal] = useState(false)
@@ -25,8 +25,6 @@ export default function TableLocation({ setShowHistory, getLable }) {
     const [randomId, setRandomId] = useState("")
     const [error, setError] = useState(false)
     const [name, setName] = useState("")
-    const { setIsAccident, setLocationMe } = useContext(SearchContext)
-
 
     const getUser = async () => {
         const access = localStorage.getItem("access")
@@ -50,7 +48,6 @@ export default function TableLocation({ setShowHistory, getLable }) {
             }
         }
     }
-
 
     const changeStatus = (status) => {
         if (status === "all") {
@@ -78,7 +75,6 @@ export default function TableLocation({ setShowHistory, getLable }) {
             setName(selectUser.first_name)
         }
     }
-
 
 
     const openModalTable = (id) => {
@@ -114,7 +110,7 @@ export default function TableLocation({ setShowHistory, getLable }) {
                 setShowModal(false)
 
                 swal({
-                    title: `request send to ${name}`,
+                    title: `request sent to ${name}`,
                     icon: "success",
                     buttons: "yes"
                 })
@@ -124,7 +120,6 @@ export default function TableLocation({ setShowHistory, getLable }) {
             console.log(e)
             if (e.response.status === 401) {
                 localStorage.clear()
-                navigate("/login")
             }
             setError(false)
         }
@@ -132,40 +127,9 @@ export default function TableLocation({ setShowHistory, getLable }) {
 
 
     useEffect(() => {
-
-        if (getLable) {
-            const getlocationCount = async () => {
-                const access = localStorage.getItem("access");
-                const headers = {
-                    Authorization: `Bearer ${access}`
-                };
-                try {
-                    const response = await axios.get(`${IP}/form/last-loc-status/`, { headers });
-
-                    if (response.status === 200) {
-                        setLocation(response.data);
-                        setFilterLoc(response.data);
-
-                        let selectedLocation = response?.data?.reverse().find(loc => loc.label === 2) ||
-                            locations.reverse().find(loc => loc.label === 1) ||
-                            locations.reverse().find(loc => loc.label === 0);
-                        setIsAccident(selectedLocation.label)
-                        setLocationMe(selectedLocation.location)
-                    }
-
-                } catch (e) {
-                    console.log(e);
-                    if (e.response.status === 401) {
-                        localStorage.clear();
-                        navigate("/login");
-                    }
-                }
-            };
-            getlocationCount();
-        }
-    }, [getLable]);
-
-
+        setLocation(allLocations)
+        setFilterLoc(allLocations)
+    }, [allLocations])
 
     return (
         <>
@@ -178,11 +142,11 @@ export default function TableLocation({ setShowHistory, getLable }) {
                     </div>
                     <div className='modal-table-contant'>
                         <div className='wrap-drop-modal mb-2'>
-                            <select className='drop-modal' onChange={handleChangeSelcet}>
-                                <option selected value="-1" disabled style={{ color: "#c7c7c7" }}>select user</option>
+                            <select className='drop-modal' value={manualWorker} onChange={handleChangeSelcet}>
+                                <option value="-1" disabled style={{ color: "#c7c7c7" }}>select user</option>
                                 {
                                     users.length > 0 && users.map(user => (
-                                        <option option value={user.uuid} > {user.first_name} {user.last_name}</option>
+                                        <option key={user.uuid} value={user.uuid} > {user.first_name} {user.last_name}</option>
                                     ))
                                 }
                             </select>
@@ -227,7 +191,7 @@ export default function TableLocation({ setShowHistory, getLable }) {
                     </TableHead>
                     <TableBody>
                         {
-                            filterLoc.length > 0 ?
+                            filterLoc?.length > 0 ?
                                 <>
                                     {filterLoc?.map((loc) => (
                                         <TableRow
@@ -235,11 +199,15 @@ export default function TableLocation({ setShowHistory, getLable }) {
                                             sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                                             className={`${loc.label === 1 ? "row-low" : loc.label === 2 ? "row-hight" : "row-noaccident"}`}
                                         >
-                                            <TableCell align="center d-flex  one-col" style={{ marginLeft: "10px" }} className={`fi-col ${loc.label === 1 ? "lable1" : loc.label === 2 ? "lable2" : "lable0"}`}>
+                                            <TableCell
+                                                align="center"  
+                                                style={{ marginLeft: "10px" }}
+                                                className={`d-flex one-col fi-col ${loc.label === 1 ? "lable1" : loc.label === 2 ? "lable2" : "lable0"}`}
+                                            >
                                                 <div className="loader2"></div>
                                                 {loc.label === 1 ? "Low" : loc.label === 2 ? "High" : "No Accident"}
-
                                             </TableCell>
+
                                             <TableCell className='two-col-c' align="center">{loc.location}</TableCell>
                                             <TableCell className='two-col-c' align="center">
                                                 {
@@ -268,30 +236,5 @@ export default function TableLocation({ setShowHistory, getLable }) {
     )
 }
 
-
-// const dataLength = data.length;
-// const labels = [];
-
-// // Generate labels with desired distribution
-// for (let i = 0; i < dataLength; i++) {
-//     if (i < Math.floor(dataLength * 0.7)) {
-//         labels.push(0); // 70% of labels as 0
-//     } else if (i < Math.floor(dataLength * 0.9)) {
-//         labels.push(2); // 20% of labels as 2
-//     } else {
-//         labels.push(1); // 10% of labels as 1
-//     }
-// }
-
-// // Shuffle the labels array
-// for (let i = labels.length - 1; i > 0; i--) {
-//     const j = Math.floor(Math.random() * (i + 1));
-//     [labels[i], labels[j]] = [labels[j], labels[i]];
-// }
-
-// const updatedLocations = data.map((location, index) => ({
-//     ...location,
-//     label: labels[index]
-// }));
 
 

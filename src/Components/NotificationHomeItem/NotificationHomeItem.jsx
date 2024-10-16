@@ -17,7 +17,9 @@ export default function NotificationHomeItem({
     random_id,
     setRandomId,
     setNotifId,
-    check
+    check,
+    group,
+    setGroup
 }) {
 
     const [read, setRead] = useState(isRead)
@@ -49,6 +51,7 @@ export default function NotificationHomeItem({
                             openDefaultInspectionsForm()
                             setRandomId(random_id)
                             setNotifId(id)
+                            setGroup(group)
                         }
                     })
 

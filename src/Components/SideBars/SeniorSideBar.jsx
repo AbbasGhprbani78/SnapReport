@@ -149,7 +149,6 @@ export default function SeniorsideBar() {
     }
 
 
-
     const showInfoHnadler = async () => {
         const access = localStorage.getItem("access")
         const headers = {
@@ -185,6 +184,7 @@ export default function SeniorsideBar() {
         if (showPasswordInputs) {
             formData.append("password", password)
         }
+        
         formData.append("first_name", fname)
         formData.append("last_name", lname)
         formData.append("email", email)
@@ -431,6 +431,7 @@ export default function SeniorsideBar() {
                                     </ListItemButton>
                                 </ListItem>
                             </CSSTransition>
+                            
                             <CSSTransition key="Forms" timeout={300} classNames="fade">
                                 <ListItem disablePadding>
                                     <ListItemButton
@@ -513,6 +514,7 @@ export default function SeniorsideBar() {
                                     <ListItemButton
                                         onClick={() => handleItemClick('/logout')}
                                         sx={{
+                                            marginTop: "300px",
                                             '&:hover': { backgroundColor: '#DDF0FA' },
                                             backgroundColor: currentRoute === '/logout' ? '#DDF0FA' : 'inherit',
                                         }}

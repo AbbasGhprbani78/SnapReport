@@ -185,7 +185,7 @@ export default function HistoryTable({ setShowHistory }) {
                                         <TableCell className='head-table-r' align="center">Date</TableCell>
                                         <TableCell className='head-table-r' align="center">Description</TableCell>
                                         <TableCell className='head-table-r' align="center">Manual Officer</TableCell>
-                                        <TableCell className='head-table-r' align="center">form Number</TableCell>
+                                        <TableCell className='head-table-r' align="center">Form Number</TableCell>
                                         <TableCell className='head-table-r' align="center">Actions</TableCell>
                                     </TableRow>
                                 </TableHead>
@@ -197,7 +197,7 @@ export default function HistoryTable({ setShowHistory }) {
                                             className={`${loc.label === 1 ? "row-low" : loc.label === 2 ? "row-hight" : "row-noaccident"}`}
                                         >
                                             <TableCell align="center d-flex  one-col" style={{ marginLeft: "10px" }} className={`fi-col ${loc.label === 1 ? "lable1" : loc.label === 2 ? "lable2" : "lable0"}`}>
-                                                <div className="loader2"></div>
+                                               
                                                 {loc.label === 1 ? "Low" : loc.label === 2 ? "High" : "No Accident"}
 
                                             </TableCell>

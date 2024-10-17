@@ -29,6 +29,8 @@ import { IP } from '../../App';
 import PermIdentityIcon from '@mui/icons-material/PermIdentity';
 import { Link } from 'react-router-dom';
 import Modal from 'react-bootstrap/Modal';
+import { Collapse } from '@mui/material';
+
 
 const drawerWidth = 280;
 const DrawerHeader = styled('div')(({ theme }) => ({
@@ -52,7 +54,7 @@ export default function ManualOffcanvas({ show, onHide }) {
     const [showPasswordInputs, setShowPasswordInputs] = useState(false)
     const [password, setPassword] = useState("")
     const [email, setEmail] = useState("")
-
+    const [submenuOpen, setSubmenuOpen] = useState(false);
 
     //all icons in side bar
     const drawerIcons = [
@@ -378,35 +380,119 @@ export default function ManualOffcanvas({ show, onHide }) {
                                 </div>
                             </div>
                         </DrawerHeader>
-
                         <List>
-                            {['Home', "Chat", "Permit Forms", "Accident Forms", "Violations Forms", "Inspections Forms", "Log out"].map((text, index) => (
-                                <CSSTransition key={text} timeout={300} classNames="fade">
-                                    <ListItem key={text} disablePadding>
+                            {/* Home Item */}
+                            <CSSTransition in={true} timeout={300} classNames="fade">
+                                <ListItem disablePadding>
+                                    <ListItemButton onClick={() => handleItemClick('/ordinaryhome')}>
+                                        <ListItemIcon style={{ color: "#000" }}>
+                                            {drawerIcons[0]} {/* Adjust index for Home icon */}
+                                        </ListItemIcon>
+                                        <ListItemText primary="Home" />
+                                    </ListItemButton>
+                                </ListItem>
+                            </CSSTransition>
+
+                            {/* Chat Item */}
+                            <CSSTransition in={true} timeout={300} classNames="fade">
+                                <ListItem disablePadding>
+                                    <ListItemButton onClick={() => handleItemClick('/ordinarychat')}>
+                                        <ListItemIcon style={{ color: "#000" }}>
+                                            {drawerIcons[1]} {/* Adjust index for Chat icon */}
+                                        </ListItemIcon>
+                                        <ListItemText primary="Chat" />
+                                    </ListItemButton>
+                                </ListItem>
+                            </CSSTransition>
+
+                            <CSSTransition key="Forms" timeout={300} classNames="fade">
+                                <ListItem disablePadding>
+                                    <ListItemButton
+                                        onClick={() => {
+                                            setSubmenuOpen(!submenuOpen)
+                                        }
+                                        }
+                                        sx={{
+                                            '&:hover': { backgroundColor: '#DDF0FA' },
+                                        }}
+                                    >
+                                        <ListItemIcon style={{ color: "#000" }}>
+                                            {drawerIcons[3]}
+                                        </ListItemIcon>
+                                        <ListItemText primary="Forms" />
+                                    </ListItemButton>
+                                </ListItem>
+                            </CSSTransition>
+
+
+                            <Collapse in={submenuOpen} timeout="auto" unmountOnExit>
+                                <CSSTransition key="Permit Forms" timeout={300} classNames="fade">
+                                    <ListItem disablePadding sx={{ pl: 4 }}>
                                         <ListItemButton
-                                            onClick={() => handleItemClick(text === 'Home' ? '/ordinaryhome' : text === "Chat" ? '/ordinarychat' :
-                                                text === 'Permit Forms' ? '/ordinarypermitform' : text === "Accident Forms" ? '/ordinaryaccidentform' :
-                                                    text === 'Violations Forms' ? '/ordinaryviolationsform' : text === "Inspections Forms" ? '/ordinaryinpections' :
-                                                        `/${text.toLowerCase().replace(/\s/g, '')}`
-                                            )}
+                                            onClick={() => handleItemClick('/ordinarypermitform')}
                                             sx={{
-                                                mt: text === "Log out" ? 10 : 0,
                                                 '&:hover': { backgroundColor: '#DDF0FA' },
-                                                backgroundColor: currentRoute === (text === 'Home' ? '/ordinaryhome' : text === "Chat" ? '/ordinarychat' :
-                                                    text === 'Permit Forms' ? '/ordinarypermitform' : text === "Accident Forms" ? '/ordinaryaccidentform' :
-                                                        text === 'Violations Forms' ? '/ordinaryviolationsform' : text === "Inspections Forms" ? '/ordinaryinpections' :
-                                                            `/${text.toLowerCase().replace(/\s/g, '')}`
-                                                ) ? '#DDF0FA' : 'inherit',
+                                                backgroundColor: currentRoute === '/ordinarypermitform' ? '#DDF0FA' : 'inherit',
                                             }}
                                         >
-                                            <ListItemIcon style={{ color: "#000" }}>
-                                                {drawerIcons[index]}
-                                            </ListItemIcon>
-                                            <ListItemText primary={text} />
+                                            <ListItemText primary="Permit Forms" />
                                         </ListItemButton>
                                     </ListItem>
                                 </CSSTransition>
-                            ))}
+
+                                <CSSTransition key="Accident Form" timeout={300} classNames="fade">
+                                    <ListItem disablePadding sx={{ pl: 4 }}>
+                                        <ListItemButton
+                                            onClick={() => handleItemClick('/ordinaryaccidentform')}
+                                            sx={{
+                                                '&:hover': { backgroundColor: '#DDF0FA' },
+                                                backgroundColor: currentRoute === '/ordinaryaccidentform' ? '#DDF0FA' : 'inherit',
+                                            }}
+                                        >
+                                            <ListItemText primary="Accident Form" />
+                                        </ListItemButton>
+                                    </ListItem>
+                                </CSSTransition>
+
+                                <CSSTransition key="Violation Forms" timeout={300} classNames="fade">
+                                    <ListItem disablePadding sx={{ pl: 4 }}>
+                                        <ListItemButton
+                                            onClick={() => handleItemClick('/ordinaryviolationsform')}
+                                            sx={{
+                                                '&:hover': { backgroundColor: '#DDF0FA' },
+                                                backgroundColor: currentRoute === '/ordinaryviolationsform' ? '#DDF0FA' : 'inherit',
+                                            }}
+                                        >
+                                            <ListItemText primary="Violation Forms" />
+                                        </ListItemButton>
+                                    </ListItem>
+                                </CSSTransition>
+
+                                <CSSTransition key="Inspections Form" timeout={300} classNames="fade">
+                                    <ListItem disablePadding sx={{ pl: 4 }}>
+                                        <ListItemButton
+                                            onClick={() => handleItemClick('/ordinaryinpections')}
+                                            sx={{
+                                                '&:hover': { backgroundColor: '#DDF0FA' },
+                                                backgroundColor: currentRoute === '/ordinaryinpections' ? '#DDF0FA' : 'inherit',
+                                            }}
+                                        >
+                                            <ListItemText primary="Inspections Form" />
+                                        </ListItemButton>
+                                    </ListItem>
+                                </CSSTransition>
+                            </Collapse>
+                            {/* Log Out Item */}
+                            <CSSTransition in={true} timeout={300} classNames="fade">
+                                <ListItem disablePadding sx={{ marginTop: "100px" }}>
+                                    <ListItemButton onClick={() => handleItemClick('/logout')}>
+                                        <ListItemIcon style={{ color: "#000" }}>
+                                            {drawerIcons[6]}
+                                        </ListItemIcon>
+                                        <ListItemText primary="Log out" />
+                                    </ListItemButton>
+                                </ListItem>
+                            </CSSTransition>
                         </List>
 
                     </Drawer>

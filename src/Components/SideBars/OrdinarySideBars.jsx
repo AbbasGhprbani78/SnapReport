@@ -2,12 +2,12 @@ import * as React from 'react';
 import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
-import CssBaseline from '@mui/material/CssBaseline';;
+import CssBaseline from '@mui/material/CssBaseline';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';;
+import ListItemText from '@mui/material/ListItemText';
 import CottageIcon from '@mui/icons-material/Cottage';
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import './SideBar.css'
@@ -28,6 +28,8 @@ import axios from 'axios';
 import { IP } from '../../App'
 import '../../Style/Main.css'
 import { Link } from 'react-router-dom';
+import { Collapse } from '@mui/material';
+
 
 const drawerWidth = 280;
 
@@ -52,7 +54,9 @@ export default function ManualSideBar() {
     const [showPasswordInputs, setShowPasswordInputs] = useState(false)
     const [password, setPassword] = useState("")
     const [email, setEmail] = useState("")
+    const [submenuOpen, setSubmenuOpen] = useState(false);
     const currentRoute = location.pathname;
+    const [numberNotif, setNumberNotif] = useState('')
 
     //all icons in side bar
     const drawerIcons = [
@@ -89,7 +93,7 @@ export default function ManualSideBar() {
                 navigate('/login')
             }
         } catch (e) {
-
+            console.log(e)
         }
     }
 
@@ -113,7 +117,7 @@ export default function ManualSideBar() {
     };
 
 
-    const [numberNotif, setNumberNotif] = useState('')
+
 
     const numberChat = async () => {
         const access = localStorage.getItem("access")
@@ -222,6 +226,9 @@ export default function ManualSideBar() {
             }
         }
     }
+
+
+
 
     return (
         <>
@@ -339,7 +346,7 @@ export default function ManualSideBar() {
                                 display: "flex",
                                 flexDirection: "column",
                                 paddingBottom: "10%",
-                                borderBottom: "1px solid  lightgrey",
+                                borderBottom: "1px solid lightgrey",
                             }}
                             className='DrawerHeader'
                         >
@@ -351,8 +358,8 @@ export default function ManualSideBar() {
                                     <img className='sideBar-imgUser' src={(userInfo && userInfo[0]?.avatar ? `${IP}${userInfo[0]?.avatar}` : avatar)} />
                                 </div>
                                 <div className="sideBar-userInfo">
-                                    <span className='sideBar-user-text' >
-                                        {userInfo && userInfo[0]?.first_name}  {userInfo && userInfo[0]?.last_name}
+                                    <span className='sideBar-user-text'>
+                                        {userInfo && userInfo[0]?.first_name} {userInfo && userInfo[0]?.last_name}
                                     </span>
                                     <span className='sideBar-user-job'>{userInfo && userInfo[0]?.user_type === "O" ? "Ordinary Officer" : ""}</span>
                                 </div>
@@ -363,33 +370,120 @@ export default function ManualSideBar() {
                             </div>
                         </DrawerHeader>
                         <List>
-                            {['Home', "Chat", "Permit Forms", "Accident Forms", "Violations Forms", "Inspections Forms", "Log out"].map((text, index) => (
-                                <CSSTransition key={text} timeout={300} classNames="fade">
-                                    <ListItem key={text} disablePadding>
+                            {/* Home Item */}
+                            <CSSTransition in={true} timeout={300} classNames="fade">
+                                <ListItem disablePadding>
+                                    <ListItemButton onClick={() => handleItemClick('/ordinaryhome')}>
+                                        <ListItemIcon style={{ color: "#000" }}>
+                                            {drawerIcons[0]} {/* Adjust index for Home icon */}
+                                        </ListItemIcon>
+                                        <ListItemText primary="Home" />
+                                    </ListItemButton>
+                                </ListItem>
+                            </CSSTransition>
+
+                            {/* Chat Item */}
+                            <CSSTransition in={true} timeout={300} classNames="fade">
+                                <ListItem disablePadding>
+                                    <ListItemButton onClick={() => handleItemClick('/ordinarychat')}>
+                                        <ListItemIcon style={{ color: "#000" }}>
+                                            {drawerIcons[1]} {/* Adjust index for Chat icon */}
+                                        </ListItemIcon>
+                                        <ListItemText primary="Chat" />
+                                    </ListItemButton>
+                                </ListItem>
+                            </CSSTransition>
+
+                            <CSSTransition key="Forms" timeout={300} classNames="fade">
+                                <ListItem disablePadding>
+                                    <ListItemButton
+                                        onClick={() => {
+                                            setSubmenuOpen(!submenuOpen)
+                                        }
+                                        }
+                                        sx={{
+                                            '&:hover': { backgroundColor: '#DDF0FA' },
+                                        }}
+                                    >
+                                        <ListItemIcon style={{ color: "#000" }}>
+                                            {drawerIcons[3]}
+                                        </ListItemIcon>
+                                        <ListItemText primary="Forms" />
+                                    </ListItemButton>
+                                </ListItem>
+                            </CSSTransition>
+
+
+                            <Collapse in={submenuOpen} timeout="auto" unmountOnExit>
+                                <CSSTransition key="Permit Forms" timeout={300} classNames="fade">
+                                    <ListItem disablePadding sx={{ pl: 4 }}>
                                         <ListItemButton
-                                            onClick={() => handleItemClick(text === 'Home' ? '/ordinaryhome' : text === "Chat" ? '/ordinarychat' :
-                                                text === 'Permit Forms' ? '/ordinarypermitform' : text === "Accident Forms" ? '/ordinaryaccidentform' :
-                                                    text === 'Violations Forms' ? '/ordinaryviolationsform' : text === "Inspections Forms" ? '/ordinaryinpections' :
-                                                        `/${text.toLowerCase().replace(/\s/g, '')}`
-                                            )}
+                                            onClick={() => handleItemClick('/ordinarypermitform')}
                                             sx={{
-                                                mt: text === "Log out" ? 10 : 0,
                                                 '&:hover': { backgroundColor: '#DDF0FA' },
-                                                backgroundColor: currentRoute === (text === 'Home' ? '/ordinaryhome' : text === "Chat" ? '/ordinarychat' :
-                                                    text === 'Permit Forms' ? '/ordinarypermitform' : text === "Accident Forms" ? '/ordinaryaccidentform' :
-                                                        text === 'Violations Forms' ? '/ordinaryviolationsform' : text === "Inspections Forms" ? '/ordinaryinpections' :
-                                                            `/${text.toLowerCase().replace(/\s/g, '')}`
-                                                ) ? '#DDF0FA' : 'inherit',
+                                                backgroundColor: currentRoute === '/ordinarypermitform' ? '#DDF0FA' : 'inherit',
                                             }}
                                         >
-                                            <ListItemIcon style={{ color: "#000" }}>
-                                                {drawerIcons[index]}
-                                            </ListItemIcon>
-                                            <ListItemText primary={text} />
+                                            <ListItemText primary="Permit Forms" />
                                         </ListItemButton>
                                     </ListItem>
                                 </CSSTransition>
-                            ))}
+
+                                <CSSTransition key="Accident Form" timeout={300} classNames="fade">
+                                    <ListItem disablePadding sx={{ pl: 4 }}>
+                                        <ListItemButton
+                                            onClick={() => handleItemClick('/ordinaryaccidentform')}
+                                            sx={{
+                                                '&:hover': { backgroundColor: '#DDF0FA' },
+                                                backgroundColor: currentRoute === '/ordinaryaccidentform' ? '#DDF0FA' : 'inherit',
+                                            }}
+                                        >
+                                            <ListItemText primary="Accident Form" />
+                                        </ListItemButton>
+                                    </ListItem>
+                                </CSSTransition>
+
+                                <CSSTransition key="Violation Forms" timeout={300} classNames="fade">
+                                    <ListItem disablePadding sx={{ pl: 4 }}>
+                                        <ListItemButton
+                                            onClick={() => handleItemClick('/ordinaryviolationsform')}
+                                            sx={{
+                                                '&:hover': { backgroundColor: '#DDF0FA' },
+                                                backgroundColor: currentRoute === '/ordinaryviolationsform' ? '#DDF0FA' : 'inherit',
+                                            }}
+                                        >
+                                            <ListItemText primary="Violation Forms" />
+                                        </ListItemButton>
+                                    </ListItem>
+                                </CSSTransition>
+
+                                <CSSTransition key="Inspections Form" timeout={300} classNames="fade">
+                                    <ListItem disablePadding sx={{ pl: 4 }}>
+                                        <ListItemButton
+                                            onClick={() => handleItemClick('/ordinaryinpections')}
+                                            sx={{
+                                                '&:hover': { backgroundColor: '#DDF0FA' },
+                                                backgroundColor: currentRoute === '/ordinaryinpections' ? '#DDF0FA' : 'inherit',
+                                            }}
+                                        >
+                                            <ListItemText primary="Inspections Form" />
+                                        </ListItemButton>
+                                    </ListItem>
+                                </CSSTransition>
+                            </Collapse>
+                            {/* Log Out Item */}
+                            <CSSTransition in={true} timeout={300} classNames="fade">
+                                <ListItem disablePadding sx={{
+                                    marginTop: "250px",
+                                }}>
+                                    <ListItemButton onClick={() => handleItemClick('/logout')}>
+                                        <ListItemIcon style={{ color: "#000" }}>
+                                            {drawerIcons[6]}
+                                        </ListItemIcon>
+                                        <ListItemText primary="Log out" />
+                                    </ListItemButton>
+                                </ListItem>
+                            </CSSTransition>
                         </List>
                     </Drawer>
                 </Box>

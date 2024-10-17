@@ -524,6 +524,7 @@ export default function SeniorOffCanvas({ show, onHide }) {
                                     <ListItemButton
                                         onClick={() => handleItemClick('/logout')}
                                         sx={{
+                                            marginTop: "280px",
                                             '&:hover': { backgroundColor: '#DDF0FA' },
                                             backgroundColor: currentRoute === '/logout' ? '#DDF0FA' : 'inherit',
                                         }}

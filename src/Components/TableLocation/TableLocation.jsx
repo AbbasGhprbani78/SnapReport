@@ -15,7 +15,7 @@ import { SearchContext } from '../Context/SearchContext';
 
 
 export default function TableLocation({ setShowHistory }) {
-    
+
     const { allLocations } = useContext(SearchContext)
     const [locations, setLocation] = useState([])
     const [filterLoc, setFilterLoc] = useState([])
@@ -200,7 +200,7 @@ export default function TableLocation({ setShowHistory }) {
                                             className={`${loc.label === 1 ? "row-low" : loc.label === 2 ? "row-hight" : "row-noaccident"}`}
                                         >
                                             <TableCell
-                                                align="center"  
+                                                align="center"
                                                 style={{ marginLeft: "10px" }}
                                                 className={`d-flex one-col fi-col ${loc.label === 1 ? "lable1" : loc.label === 2 ? "lable2" : "lable0"}`}
                                             >
@@ -216,7 +216,7 @@ export default function TableLocation({ setShowHistory }) {
                                                             `In ${loc.location} there is no accident`
                                                 }
                                             </TableCell>
-                                            < TableCell >
+                                            < TableCell sx={{ textAlign: "center" }}>
                                                 {
                                                     (loc.label == 1 || loc.label == 2) &&
                                                     <button className='btn-ac-table' onClick={() => openModalTable(loc.id)}>Send</button>

@@ -14,9 +14,6 @@ export default function LineCharts({
     allLineChart
 }) {
 
-
-
-
     return (
         <>
             <div className='d-flex justify-content-end mt-3'>

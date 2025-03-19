@@ -514,7 +514,6 @@ export default function SeniorsideBar() {
                                     <ListItemButton
                                         onClick={() => handleItemClick('/logout')}
                                         sx={{
-                                            marginTop: "300px",
                                             '&:hover': { backgroundColor: '#DDF0FA' },
                                             backgroundColor: currentRoute === '/logout' ? '#DDF0FA' : 'inherit',
                                         }}

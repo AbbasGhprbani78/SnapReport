@@ -422,7 +422,7 @@ export default function AddNewForm({ showForm, back, mainForm, isDelete, getAllF
                             }
                         });
                         setTimeout(() => {
-                            navigate('/generatedforms')
+                            navigate("/addnewform");
                         }, 2000)
                     }
 
@@ -480,7 +480,6 @@ export default function AddNewForm({ showForm, back, mainForm, isDelete, getAllF
             });
         }
     };
-
 
     const deleteMainBox = (i) => {
         const NewNumberTypeInput = numberTypeInput.filter((input, index) => {

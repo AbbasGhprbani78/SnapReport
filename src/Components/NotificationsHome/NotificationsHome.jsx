@@ -49,7 +49,9 @@ export default function NotificationsHome({
 
     return (
         <>
-            <div className={`NotificationsHome-container ${styleHeight} ${heightnotif} ${notifs && !notifs.length ? "nonotif" : ""}`}>
+            <div className={`NotificationsHome-container notification-senior
+                 ${styleHeight} ${heightnotif}
+                  ${notifs && !notifs.length ? "nonotif" : ""}`}>
                 <p className='notif-home-title'>Notifications</p>
                 <div className={`notif-home-wrapper`}>
 

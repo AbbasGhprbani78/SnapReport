@@ -20,16 +20,16 @@ export default function FormSignUp({ handleTabChange }) {
         username: "",
         password: "",
         confirm_password: "",
-        user_type: "M"
+        user_type: ""
     }
     )
 
-    // for change of situation of eye
+    console.log(signInUpInfo)
+
     const handleToggle = () => {
         setIsPerivate((e) => !e);
     }
 
-    // change values of signInUpInfo state
     const handleChange = (e) => {
         const { name, value } = e.target;
         setSignUpInfo((prevInfo) => ({
@@ -179,10 +179,10 @@ export default function FormSignUp({ handleTabChange }) {
                         />
                     </div>
 
-                    {/* <DropDown name="user_type"
+                    <DropDown name="user_type"
                         defaultDrop={"User"}
                         changeValue={changeTypeUser}
-                    /> */}
+                    />
                     <div className='input-signup-wrapper d-flex align-items-end'>
                         <input
                             name='password'

@@ -474,7 +474,6 @@ export default function ManualSideBar() {
                             {/* Log Out Item */}
                             <CSSTransition in={true} timeout={300} classNames="fade">
                                 <ListItem disablePadding sx={{
-                                    marginTop: "250px",
                                 }}>
                                     <ListItemButton onClick={() => handleItemClick('/logout')}>
                                         <ListItemIcon style={{ color: "#000" }}>

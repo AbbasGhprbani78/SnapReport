@@ -96,7 +96,7 @@ export default function FilledForms() {
 
             if (e.response.status === 401) {
                 localStorage.clear()
-                navigate("/login")
+                Navigate("/login")
             }
         }
     }
